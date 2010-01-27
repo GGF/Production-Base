@@ -1,0 +1,84 @@
+<?
+$GLOBALS["debugAPI"] = false;
+include "lib/sql.php";
+
+//^\(.+\) \(.+\) \(.+\)\t\([0-9][0-9]\)\.\([0-9][0-9]\)\.\([0-9][0-9][0-9][0-9]\)\t\(.+\)\t\(.+\)\t\(.+\)$
+//mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('\1 \2 \3','\1','\2','\3','\6-\5-\4','\7','\8','\9')");
+
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Абрамова Ольга Геннадьевна','Абрамова','Ольга','Геннадьевна','1959-08-23','0000000300','Контролер ОТК 4раз.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Балуков Андрей Николаевич','Балуков','Андрей','Николаевич','1949-03-03','0000000349','наладчик технологического оборудования 6р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Белавина Юлия Михайловна','Белавина','Юлия','Михайловна','1964-04-16','0000000376','Оператор ПЭВМ','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Бойко Надежда Александровна','Бойко','Надежда','Александровна','1957-10-04','0000000099','Контролер ОТК 6раз.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Большакова Анна Вячеславовна','Большакова','Анна','Вячеславовна','1973-06-24','0000000330','Оператор станков с ЧПУ 4р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Боровикова Татьяна Дмитриевна','Боровикова','Татьяна','Дмитриевна','1962-06-05','0000000263','сортировщик изделий  4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Бычков Василий Федорович','Бычков','Василий','Федорович','1932-04-24','0000000134','электромонтер 6р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Васильев Станислав Борисович','Васильев','Станислав','Борисович','1982-06-12','0000000364','Оператор станков с Программным управлением 4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Веселова  Людмила Ивановна','Веселова ','Людмила','Ивановна','1949-01-21','0000000391','Испытатель деталей и приборов 3р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Владимирова Неонэла Владимировна','Владимирова','Неонэла','Владимировна','1969-11-09','0000000366','сортировщик изделий  2р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Власова Ирина Федоровна','Власова','Ирина','Федоровна','1962-05-12','0000000233','распределитель работ 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Власова Тамара Владимировна','Власова','Тамара','Владимировна','1958-08-01','0000000333','Испытатель деталей и приборов 3р.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Глазкова Нина Борисовна','Глазкова','Нина','Борисовна','1950-04-11','0000000243','маркировщик детал. и приб. 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Горчакова Галина Николаевна','Горчакова','Галина','Николаевна','1960-10-05','0000000241','Монтажник радиоаппаратуры и приборов 4р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Грималовская Галина Александровна','Грималовская','Галина','Александровна','1951-10-30','0000000332','Контролер ОТК 4раз.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Егорычева Тамара Викторовна','Егорычева','Тамара','Викторовна','1955-12-08','0000000354','лаборант','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Жинкин Андрей Игоревич','Жинкин','Андрей','Игоревич','1955-10-30','0000000098','иженер-программист','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ивановская Наталья Николаевна','Ивановская','Наталья','Николаевна','1971-01-09','0000000397','Уборщик произв.помещений','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Игнатенко Анатолий Григорьевич','Игнатенко','Анатолий','Григорьевич','1938-12-23','0000000350','фрезеровщик 4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Игнатьев Сергей Николаевич','Игнатьев','Сергей','Николаевич','1931-10-10','0000000251','Подсобный Рабочий','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ильина Ольга Сергеевна','Ильина','Ольга','Сергеевна','1975-02-10','0000000369','секретарь руководителя','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Китуничев Дмитрий Сергеевич','Китуничев','Дмитрий','Сергеевич','1970-04-07','0000000296','Заместитель Генерального Директора по общим вопросам','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Клещеева Татьяна Васильевна','Клещеева','Татьяна','Васильевна','1949-10-30','0000000100','техник-механик','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ковязо Галина Дмитриевна','Ковязо','Галина','Дмитриевна','1950-08-17','0000000236','Лаборант эл.мех.испытаний и измерений','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Кормщикова Светлана Хенриковна','Кормщикова','Светлана','Хенриковна','1958-11-02','0000000344','Оператор ПЭВМ','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Куренков Леонид Евгеньевич','Куренков','Леонид','Евгеньевич','1960-11-09','0000000168','наладчик технологического оборудования 6р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Курочкина Марина Александровна','Курочкина','Марина','Александровна','1959-01-16','0000000272','Изготовитель трафаретов шкал и плат 3р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Левитская Надежда Петровна','Левитская','Надежда','Петровна','1947-05-07','0000000137','инженер-технолог-аналитик','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Легоньков Владимир Адольфович','Легоньков','Владимир','Адольфович','1957-06-29','0000000407','слесарь механосборочных работ 4р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Макарова Татьяна Леонидовна','Макарова','Татьяна','Леонидовна','1976-04-13','0000000322','Заместитель начальника производства','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Малышев Андрей Андреевич','Малышев','Андрей','Андреевич','1984-08-13','0000000355','Оператор станков с прогр.управлением 2р.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Марченко Владимир Викторович','Марченко','Владимир','Викторович','1956-03-16','0000000303','Менеджер по персоналу','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Мещанинов Владимир Федорович','Мещанинов','Владимир','Федорович','1950-05-09','0000000007','Технический директор','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Михайлов Владимир Николаевич','Михайлов','Владимир','Николаевич','1948-08-24','0000000135','Начальник производства','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Назаренко Александр Иванович','Назаренко','Александр','Иванович','1941-10-11','0000000384','инженер по охране труда','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Николайчук Иван Иванович','Николайчук','Иван','Иванович','1946-10-07','0000000002','Генеральный директор','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Орлова Нина Николаевна','Орлова','Нина','Николаевна','1939-03-18','0000000101','Уборщик произв.помещений','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Петрова Юлия Сергеевна','Петрова','Юлия','Сергеевна','1985-11-27','0000000386','контролер ОТК 3раз.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Полушкин Владимир Юрьевич','Полушкин','Владимир','Юрьевич','1965-12-20','0000000171','фотограф 5раз.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Попов Борис Ипполитович','Попов','Борис','Ипполитович','1936-07-14','0000000405','инженер','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Попов Сергей Олегович','Попов','Сергей','Олегович','1967-07-07','0000000374','слесарь механосборочных работ 5р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Попова Римма Владимировна','Попова','Римма','Владимировна','1964-06-14','0000000057','Главный бухгалтер','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Потапова Лидия Владимировна','Потапова','Лидия','Владимировна','1956-04-24','0000000242','измеритель электрофизических параметров 2р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Прокофьева Светлана Владимировна','Прокофьева','Светлана','Владимировна','1961-05-23','0000000406','комплектовщик изделий 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Рабович  Татьяна Анатольевна','Рабович ','Татьяна','Анатольевна','1944-02-21','0000000315','Изготовитель трафаретов шкал и плат 2р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Разина Евгения Павловна','Разина','Евгения','Павловна','1945-09-06','0000000091','Изготовитель трафаретов шкал и плат 4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ратникова Лидия Михайловна','Ратникова','Лидия','Михайловна','1950-02-22','0000000345','Контролер ОТК 4раз.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ржанова Марина Викторовна','Ржанова','Марина','Викторовна','1961-03-14','0000000304','Делопроизводитель','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Романова Валентина Анатольевна','Романова','Валентина','Анатольевна','1955-03-28','0000000252','Кладовщик','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Рудис Татьяна Васильевна','Рудис','Татьяна','Васильевна','1947-12-07','0000000306','Экспедитор','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Рытова Ольга Алексеевна','Рытова','Ольга','Алексеевна','1951-05-10','0000000368','Инженер-конструктор 1 кат.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Салангина Ирина Геннадьевна','Салангина','Ирина','Геннадьевна','1962-09-11','0000000387','Изготовитель трафаретов шкал и плат 2р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Семашкина Нэла Викторовна','Семашкина','Нэла','Викторовна','1960-01-27','0000000347','охранник','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Сисина Людмила Алексеевна','Сисина','Людмила','Алексеевна','1960-05-22','0000000398','Изготовитель трафаретов шкал и плат 4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Слободенюк Марина Анатольевна','Слободенюк','Марина','Анатольевна','1955-01-07','0000000343','Старший бухгалтер','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Смирнов Виктор Анатольевич','Смирнов','Виктор','Анатольевич','1964-06-21','0000000008','Ведущий конструктор','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Соковнин Сергей Анатольевич','Соковнин','Сергей','Анатольевич','1957-05-03','0000000253','Фрезеровщик 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Соколова Валентина Михайловна','Соколова','Валентина','Михайловна','1947-07-01','0000000012','Заместитель Генерального Директора по качеству','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Соловьева Галина Васильевна','Соловьева','Галина','Васильевна','1944-09-24','0000000055','Электромонтер телефонной связи 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Табакова Татьяна Николаевна','Табакова','Татьяна','Николаевна','1952-01-07','0000000244','измеритель электрофизических параметров 2р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Тимофеев Владимир Вениаминович','Тимофеев','Владимир','Вениаминович','1950-09-28','0000000044','Слесарь-наладчик 6р.','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Трубенкова Любовь Васильевна','Трубенкова','Любовь','Васильевна','1953-08-14','0000000309','сортировщик изделий  4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Трудолюбова Раиса Анатольевна','Трудолюбова','Раиса','Анатольевна','1961-03-03','0000000248','Ретушер 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Угдыжекова Илона Викторовна','Угдыжекова','Илона','Викторовна','1966-05-17','0000000136','Заведующий аналитической лабораторией','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Федоров Игорь Юрьевич','Федоров','Игорь','Юрьевич','1974-08-14','0000000231','Инженер-конструктор','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Фисенко Тамара Васильевна','Фисенко','Тамара','Васильевна','1953-03-16','0000000390','Изготовитель трафаретов шкал и плат 4р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Фоменко Виктор Павлович','Фоменко','Виктор','Павлович','1949-08-12','0000000267','помощник ГД  по режиму','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Ходина Елена Александровна','Ходина','Елена','Александровна','1961-10-17','0000000403','комплектовщик изделий 2р.','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Чернова Людмила Павловна','Чернова','Людмила','Павловна','1958-09-28','0000000352','Делопроизводитель','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Чистякова Ирина Николаевна','Чистякова','Ирина','Николаевна','1951-02-17','0000000323','инженер-технолог','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Шамарина Валентина Васильевна','Шамарина','Валентина','Васильевна','1960-01-17','0000000388','сортировщик изделий  2р','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Шевченко Алла Марковна','Шевченко','Алла','Марковна','1964-01-24','0000000372','Изготовитель трафаретов шкал и плат 3р','stat')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Щепанюк Сергей Андреевич','Щепанюк','Сергей','Андреевич','1940-06-08','0000000385','техник-конструктор','sovm1')");
+mysql_query("INSERT INTO workers (fio,f,i,o,dr,tabn,dolz,stat) VALUES ('Юрочкина Людмила Хаметовна','Юрочкина','Людмила','Хаметовна','1954-09-06','0000000297','испытатель деталей и приборов 2р.','sovm1')");
+
+
+?>
