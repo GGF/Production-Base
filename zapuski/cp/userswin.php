@@ -2,7 +2,7 @@
 if(!headers_sent() && !isset($print)) {
 	header('Content-type: text/html; charset=windows-1251');
 }
-include_once("../../lib/sql.php");
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
 //authorize();
 
 $sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(MAX(ts))) AS lt FROM session JOIN users ON session.u_id=users.id GROUP BY u_id";

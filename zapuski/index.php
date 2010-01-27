@@ -1,12 +1,10 @@
 <?
-include_once "/home/common/p/admin/web/baza/WWW/lib/sql.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
 authorize();
-include "../style/header.php";
 // тут перва€ часть заголовка дальше нужно напистаь название раздела
-?>
-«апуски
-<?
-include "../style/header1.php";
+echo "«апуски";
+
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
 // тут ссылк ана главное
 // дальше собственно текст страницы
 if (!isset($nz) & !isset($tz) & !isset($mp) & !isset($zd) & !isset($pt)) $main=true;
@@ -38,5 +36,5 @@ if (isset($nz)) {
 } else {
 	include "zap.php";
 }
-include "../style/footer.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
 ?>

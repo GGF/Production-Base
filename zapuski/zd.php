@@ -3,7 +3,7 @@
 if(!headers_sent()) {
 	header('Content-type: text/html; charset=windows-1251');
 }
-include_once("../lib/sql.php");
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
 
 if (isset($add) || isset($edit)) {
 	if (!isset($accept) ) {

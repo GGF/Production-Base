@@ -11,7 +11,7 @@
 // Возвращает id 
 
 $GLOBALS["debugAPI"] = true;
-include "lib/sql.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 // Определим идентификатор пользователя
 $sql="SELECT id FROM users WHERE nik='$user'";

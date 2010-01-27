@@ -1,6 +1,6 @@
 <?
 $GLOBALS["debugAPI"] = true;
-include "lib/sql.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 $sql="SELECT id FROM customers WHERE customer='$customer'";
 debug($sql);

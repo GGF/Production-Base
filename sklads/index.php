@@ -1,13 +1,9 @@
 <?
-//$dbname = 'zaomppsklads';
-include_once "/home/common/p/admin/web/baza/WWW/lib/sql.php";
-authorize();
-include "../style/header.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
 // тут первая часть заголовка дальше нужно напистаь название раздела
-?>
-Склады
-<?
-include "../style/header1.php";
+authorize();
+echo "Склады";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
 // тут ссылк ана главное
 // дальше собственно текст страницы
 
@@ -30,5 +26,5 @@ include "../style/header1.php";
 </td></tr></table>
 </div>
 <?
-include "../style/footer.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
 ?>

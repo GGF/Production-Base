@@ -1,14 +1,12 @@
 <?
-include "header.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
 // тут первая часть заголовка дальше нужно напистаь название раздела
-?>
-
-<?
-include "header1.php";
-// тут ссылк ана главное
+echo "Подраздел";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
+//authorize();
 // дальше собственно текст страницы
 ?>
 
 <?
-include "footer.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
 ?>

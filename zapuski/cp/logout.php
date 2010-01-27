@@ -2,7 +2,7 @@
 if(!headers_sent() && !isset($print)) {
 	header('Content-type: text/html; charset=windows-1251');
 }
-include_once("../../lib/sql.php");
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
 
 if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
 $sql="DELETE FROM session WHERE session='".$sessionid."'";

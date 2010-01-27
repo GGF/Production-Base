@@ -3,17 +3,15 @@ if(!headers_sent()) {
 	header('Content-type: text/html; charset=windows-1251');
 }
 
-include_once("../../lib/sql.php");
-
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как при notop не вызываетс€ заголовк html
 authorize(); // вызов авторизации
 
 if (!isset($notop)) {
-include "../../style/header.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
 // тут перва€ часть заголовка дальше нужно напистаь название раздела
-?>
-”правление
-<?
-include "../../style/header1.php";
+echo "”правление";
+
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
 // тут ссылка на главное
 // дальше собственно текст страницы
 ?>
@@ -64,6 +62,6 @@ echo "</div>";//место дл€ редактировани€ всего
 echo "<script>newinterface=true;</script>";
 
 if (!isset($notop)) {
-	include "../../style/footer.php";
+	include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
 }
 ?>

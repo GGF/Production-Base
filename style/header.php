@@ -1,5 +1,6 @@
 <?
-include_once "/home/common/p/admin/web/baza/WWW/lib/sql.php";
+$GLOBALS["rootpath"]=realpath($GLOBALS["DOCUMENT_ROOT"]);
+include_once $rootpath."/lib/sql.php";
 $GLOBALS["debugAPI"] = 0;
 ?>
 <!--   Copyright 2000 Igor Fedoroff   |  g_g_f@mail.ru  -->

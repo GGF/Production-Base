@@ -10,7 +10,7 @@ $GLOBALS["debugAPI"] = false;
 
 if ($action=='add') 
 	{
-	include_once "/home/common/p/admin/web/baza/WWW/lib/sql.php";
+	include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 	// найдем номер заказчика
 	$files = addslashes($file_link);
 	debug ($file_link);

@@ -1,9 +1,7 @@
 <?
-include "./style/header.php";
-?>
-Главное меню
-<?
-include "./style/header1.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
+echo "Главное меню";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
 ?>
 <div class="menu">
 <table width="100%"><tr><td align="center">
@@ -18,5 +16,5 @@ include "./style/header1.php";
 </td></tr></table>
 </div>
 <?
-include "./style/footer.php";
+include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
 ?>
