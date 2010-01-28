@@ -272,7 +272,7 @@ function mylog1($sql) {
 }
 
 // функции для хидера и футера
-function showheader($subttile='') {
+function showheader($subtitle='') {
 	global $dbname;
 	echo '
 <!--   Copyright 2000 Igor Fedoroff   |  g_g_f@mail.ru  -->
@@ -328,6 +328,8 @@ function showheader($subttile='') {
 echo "<div class=sun id=sun><img onclick=showuserswin() title='Admin здесь' src=/picture/sun.gif></div>";
 echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
 
+//дни рождения
+{
 $mes = "<div class='soob'>";
 if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
 $sqlquery = "SELECT *, (YEAR(NOW())-YEAR(dr)) as let FROM workers WHERE DAYOFYEAR(dr)>= DAYOFYEAR(CURRENT_DATE()) AND DAYOFYEAR(dr)<= (DAYOFYEAR(CURRENT_DATE())+4) ORDER BY DAYOFYEAR(dr)";
@@ -339,6 +341,7 @@ while ($rs=mysql_fetch_array($res)) {
 if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
 $mes .= "</div>";
 if (isset($dr)) print $mes;
+}
 
 // цитаты баша
 echo file_get_contents("http://computers/getbashlocal.php?$bash");
