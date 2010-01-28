@@ -1,7 +1,9 @@
 <?
 // управление заделом
 
-include "head.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+authorize(); // вызов авторизации
+
 
 if (isset($edit) || isset($add)) {
 	if (!isset($accept) ) 

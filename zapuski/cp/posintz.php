@@ -1,22 +1,22 @@
 <?
 // создание и редактирование “ех заданий
-include "head.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+authorize(); // вызов авторизации
+
 
 if (isset($edit) || isset($add) ) {
-	//include "pitedit.php";
 } elseif (isset($editblock)) {
-	include "pitedblock.php";
 } elseif (isset($editplate)) {
-	include "pitedplate.php";
 } elseif (isset($findplate)) {
-	include "pitfpl.php";
-} elseif (isset($delete)) {
+} elseif (isset($delete)) 
+{
 	// удаление
 	$sql = "DELETE FROM posintz WHERE id='$delete'";
 	mylog('posintz',$delete);
 	mysql_query($sql);
 	// удаление св€зей
-} else {
+} else 
+{
 	// список
 	if (isset($id)) $tzid=$id;
 	

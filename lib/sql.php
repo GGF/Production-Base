@@ -310,8 +310,8 @@ function showheader($subtitle='') {
 		$("#editdiv").draggable();
 		';
 		if (isadminhere()) {
-			echo "$(\'#sun\').show();";
-			echo "$(\'div:visible\').fadeTo(0,0.95);";
+			echo "$('#sun').show();";
+			echo "$('div:visible').fadeTo(0,0.95);";
 		}
 		echo "});
 
@@ -357,6 +357,52 @@ function mysql_query1($sql) {
 	mylog1($sql);
 	return mysql_query($sql);
 }
+
+// импортировать дополнительные модули
+function importmodules()
+{
+	$dir = dirname(__FILE__)."/modules/";
+	$ls = opendir($dir);
+	if ($ls) {
+		while(false !== ($file=readdir($ls)))
+		{
+			$file = trim($file);
+			if($file == basename(__FILE__) ||  $file == "sql.php") continue; // самого себя и главный файл библиотеки не брать, хотя библиотека в другом каталоге
+			$a = explode(".",$file); // $a[0] = имяфайла без расширения
+			if(!empty($a[0])) // потом добавить словие по которому не импортировать, пока все
+			{
+				include_once($dir."/".$file);
+			}
+		}
+	}
+	
+}
+
+function logout() {
+	global $dbname;
+	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
+	$sql="DELETE FROM session WHERE session='".$sessionid."'";
+	mysql_query($sql);
+	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
+	setcookie("sessionid","",time() - 3600,'/');
+	//echo $sql;
+	//header('Location: http://'.$_SERVER['HTTP_HOST'].'');
+	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
+}
+
+// запускается - не функция
+if(!headers_sent()  && !isset($print)) {
+	header('Content-type: text/html; charset=windows-1251');
+}
+
+foreach ($_GET as $key => $val) {
+	if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
+}
+foreach ($_POST as $key => $val) {
+	if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
+}
+
+importmodules();
 
 if (!isset($dbname)) $dbname='zaompp';
 if (!mySQLconnect()) {
