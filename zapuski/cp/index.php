@@ -7,13 +7,7 @@ include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как при 
 authorize(); // вызов авторизации
 
 if (!isset($notop)) {
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
-// тут первая часть заголовка дальше нужно напистаь название раздела
-echo "Управление";
-
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
-// тут ссылка на главное
-// дальше собственно текст страницы
+showheader("Управление");
 ?>
 <div class="menu">
 <table width="100%"><tr><td align="center">
@@ -62,6 +56,6 @@ echo "</div>";//место для редактирования всего
 echo "<script>newinterface=true;</script>";
 
 if (!isset($notop)) {
-	include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
+	showfooter();
 }
 ?>

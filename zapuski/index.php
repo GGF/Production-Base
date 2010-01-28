@@ -1,12 +1,9 @@
 <?
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 // тут перва€ часть заголовка дальше нужно напистаь название раздела
-echo "«апуски";
+showheader("«апуски");
 
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
-// тут ссылк ана главное
-// дальше собственно текст страницы
 if (!isset($nz) & !isset($tz) & !isset($mp) & !isset($zd) & !isset($pt)) $main=true;
 ?>
 <div class="menu">
@@ -36,5 +33,6 @@ if (isset($nz)) {
 } else {
 	include "zap.php";
 }
-include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
+
+showfooter();
 ?>

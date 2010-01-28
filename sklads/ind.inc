@@ -1,12 +1,10 @@
 <?
 $dbname = 'zaomppsklads';
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
-// тут первая часть заголовка дальше нужно напистаь название раздела
-echo "Склад - $skladname";
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
-// тут ссылк ана главное
-// дальше собственно текст страницы
+
+showheader("Склад - $skladname");
+
 if (!isset($o1) & !isset($o2) & !isset($o3) & !isset($arc) & !isset($year)) $main = true;
 ?>
 <div class="menu">
@@ -42,5 +40,5 @@ if (isset($o1)) {
 } else {
 	include "ost.php";
 }
-include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
+showfooter();
 ?>

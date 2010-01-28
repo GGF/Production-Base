@@ -1,9 +1,7 @@
 <?
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
-// тут первая часть заголовка дальше нужно напистаь название раздела
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
-echo "Склады";
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
+showheader( "Склады");
 // тут ссылк ана главное
 // дальше собственно текст страницы
 
@@ -26,5 +24,5 @@ include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
 </td></tr></table>
 </div>
 <?
-include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
+showfooter();
 ?>
