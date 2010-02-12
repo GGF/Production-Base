@@ -1,7 +1,8 @@
 <?
 // создание и редактирование Тех заданий
 
-include "head.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+authorize(); // вызов авторизации
 
 if (isset($add) ) {
 	if (isset($typetz)) 

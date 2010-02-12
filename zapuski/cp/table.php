@@ -1,21 +1,13 @@
 <?
-	if(!headers_sent()) {
-		header('Content-type: text/html; charset=windows-1251');
-	}
-
-	include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
+	include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; 
 	
 	// определим права доступа
-	$edit = false;
-	$del = false;
-	$sqll="SELECT *,rights.id AS rid,rights.right AS enable FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=rights.u_id AND rtypes.id=rights.type_id AND rrtypes.id=rights.rtype_id) WHERE nik='$user' AND type='$type'";
-	//echo $sqll;
-	if ($res=mysql_query($sqll)) {
-		while($rs=mysql_fetch_array($res)) {
-			if($rs["rtype"]=='del' && $rs["enable"]=='1') $del = true;
-			if($rs["rtype"]=='edit' && $rs["enable"]=='1') $edit = true;
-		}
-	}
+
+	
+	$r=getright($user);
+	$del = $r[$type]['del'];
+	$edit = $r[$type]['edit'];
+	
 	$i = 0;
 	$tid = uniqid($type);
 	$res = mysql_query($sql);
