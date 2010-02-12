@@ -56,5 +56,11 @@ if (!($rs=mysql_fetch_array($res))){
 // а тепрерь созадидим фал копирования сверловок
 $sql="SELECT kdir FROM customers WHERE id='$customer_id'";
 debug("rem ".$sql);
-
+$res = mysql_query($sql);
+if($rs=mysql_fetch_array($res)) {
+	echo "mkdir k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
+	echo "copy /Y .\\$drillname.mk2 k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
+	echo "copy /Y .\\$drillname.mk4 k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
+	echo "copy /Y .\\$drillname.frz k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
+}
 ?>
