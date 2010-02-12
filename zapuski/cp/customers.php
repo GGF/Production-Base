@@ -20,6 +20,7 @@ if (isset($edit) || isset($add) ) {
 		echo "<input type=hidden name=accept value='yes'>";
 		echo "Краткое название (имя каталога):<input type=text name=customer size=20 value='".$rs["customer"]."'><br>";
 		echo "Полное название (для теззаданий): <input type=text name=fullname size=50 value='".$rs["fullname"]."'><br>";
+		echo "Каталог на диске К (для сверловок): <input type=text name=kdir size=50 value='".$rs["kdir"]."'><br>";
 		echo "<input type=button value='Сохранить' onclick=\"editrecord('customers',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'>";
 	} else {
 		// сохрнение
@@ -31,12 +32,12 @@ if (isset($edit) || isset($add) ) {
 		}
 		if ($edit) {
 			// редактирование
-			$sql = "UPDATE customers SET customer='$customer', fullname='$fullname' WHERE id='$edit'";
+			$sql = "UPDATE customers SET customer='$customer', fullname='$fullname', kdir='$kdir' WHERE id='$edit'";
 			mylog('customers',$edit,'UPDATE');
 			mylog($sql);
 		} else {
 			// добавление
-			$sql = "INSERT INTO customers (customer,fullname) VALUES ('$customer','$fullname')";
+			$sql = "INSERT INTO customers (customer,fullname,kdir) VALUES ('$customer','$fullname','$kdir')";
 			mylog($sql);
 		}
 		if (!mysql_query($sql)) {
@@ -101,6 +102,7 @@ else
 	$cols[id]="ID";
 	$cols[customer]="Заказчик";
 	$cols[fullname]="Полное название";
+	$cols[kdir]="Сверловки";
 	$del=true;
 	$edit=true;
 	$openfunc = "opencustr";

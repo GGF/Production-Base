@@ -310,8 +310,8 @@ function showheader($subtitle='') {
 		$("#editdiv").draggable();
 		';
 		if (isadminhere()) {
-			echo "$(\'#sun\').show();";
-			echo "$(\'div:visible\').fadeTo(0,0.95);";
+			echo "$('#sun').show();";
+			echo "$('div:visible').fadeTo(0,0.95);";
 		}
 		echo "});
 

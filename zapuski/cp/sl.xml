@@ -32,7 +32,7 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="m36404512">
+  <Style ss:ID="m74645216">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -42,7 +42,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404532">
+  <Style ss:ID="m74645236">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -52,7 +52,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404552">
+  <Style ss:ID="m74645256">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -62,7 +62,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404288">
+  <Style ss:ID="m74644992">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -72,7 +72,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404308">
+  <Style ss:ID="m74645012">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -82,7 +82,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404328">
+  <Style ss:ID="m74645032">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -92,7 +92,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404348">
+  <Style ss:ID="m74645052">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -102,7 +102,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404368">
+  <Style ss:ID="m74645072">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -112,7 +112,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404388">
+  <Style ss:ID="m74645092">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -122,7 +122,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404064">
+  <Style ss:ID="m74644768">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -132,7 +132,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404084">
+  <Style ss:ID="m74644788">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -142,7 +142,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404104">
+  <Style ss:ID="m74644808">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -152,7 +152,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404124">
+  <Style ss:ID="m74644828">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -162,7 +162,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404144">
+  <Style ss:ID="m74644848">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -172,7 +172,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36404164">
+  <Style ss:ID="m74644868">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -182,7 +182,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403840">
+  <Style ss:ID="m74644544">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -192,7 +192,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403860">
+  <Style ss:ID="m74644564">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -202,7 +202,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403880">
+  <Style ss:ID="m74644584">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -212,7 +212,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403900">
+  <Style ss:ID="m74644604">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -222,7 +222,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403920">
+  <Style ss:ID="m74644624">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -232,7 +232,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403940">
+  <Style ss:ID="m74644644">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -242,7 +242,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403676">
+  <Style ss:ID="m74644380">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="2"/>
@@ -252,7 +252,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403696">
+  <Style ss:ID="m74644400">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -262,7 +262,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403716">
+  <Style ss:ID="m74644420">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -272,7 +272,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403392">
+  <Style ss:ID="m74644096">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -282,7 +282,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403432">
+  <Style ss:ID="m74644136">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -291,7 +291,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="14"/>
   </Style>
-  <Style ss:ID="m36403492">
+  <Style ss:ID="m74644196">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -300,7 +300,7 @@
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
   </Style>
-  <Style ss:ID="m36403168">
+  <Style ss:ID="m74643872">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -308,7 +308,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="24" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36403188">
+  <Style ss:ID="m74643892">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -319,7 +319,7 @@
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
    <NumberFormat/>
   </Style>
-  <Style ss:ID="m36403208">
+  <Style ss:ID="m74643912">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -329,7 +329,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403228">
+  <Style ss:ID="m74643932">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -339,7 +339,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36403248">
+  <Style ss:ID="m74643952">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -350,7 +350,7 @@
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
    <NumberFormat ss:Format="dd/mm/yy;@"/>
   </Style>
-  <Style ss:ID="m36403268">
+  <Style ss:ID="m74643972">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -360,7 +360,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403288">
+  <Style ss:ID="m74643992">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -370,7 +370,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402944">
+  <Style ss:ID="m74643648">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -380,7 +380,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402964">
+  <Style ss:ID="m74643668">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -390,7 +390,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402984">
+  <Style ss:ID="m74643688">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -400,7 +400,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403004">
+  <Style ss:ID="m74643708">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -412,7 +412,7 @@
    <NumberFormat/>
    <Protection x:HideFormula="1"/>
   </Style>
-  <Style ss:ID="m36403024">
+  <Style ss:ID="m74643728">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -422,7 +422,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403044">
+  <Style ss:ID="m74643748">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -432,7 +432,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36403064">
+  <Style ss:ID="m74643768">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -442,7 +442,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36403084">
+  <Style ss:ID="m74643788">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -452,7 +452,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402720">
+  <Style ss:ID="m74643424">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -462,7 +462,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402740">
+  <Style ss:ID="m74643444">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -472,7 +472,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402760">
+  <Style ss:ID="m74643464">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -482,7 +482,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="11"/>
   </Style>
-  <Style ss:ID="m36402780">
+  <Style ss:ID="m74643484">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -492,7 +492,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402800">
+  <Style ss:ID="m74643504">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -502,7 +502,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402820">
+  <Style ss:ID="m74643524">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -512,7 +512,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402860">
+  <Style ss:ID="m74643564">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -522,7 +522,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="11" ss:Bold="1"/>
   </Style>
-  <Style ss:ID="m36402272">
+  <Style ss:ID="m74641408">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -532,7 +532,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402292">
+  <Style ss:ID="m74641428">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -542,7 +542,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402312">
+  <Style ss:ID="m74641448">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -552,7 +552,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402332">
+  <Style ss:ID="m74641468">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -562,7 +562,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402048">
+  <Style ss:ID="m30879008">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -572,7 +572,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402068">
+  <Style ss:ID="m30879028">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -582,7 +582,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402088">
+  <Style ss:ID="m30879048">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -592,7 +592,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402108">
+  <Style ss:ID="m30879068">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -602,7 +602,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402128">
+  <Style ss:ID="m30879088">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -612,7 +612,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36402148">
+  <Style ss:ID="m30879108">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -622,7 +622,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401824">
+  <Style ss:ID="m19690144">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -632,7 +632,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401844">
+  <Style ss:ID="m19690164">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -642,7 +642,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401864">
+  <Style ss:ID="m19690184">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -652,7 +652,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401884">
+  <Style ss:ID="m19690204">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -662,7 +662,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401904">
+  <Style ss:ID="m19690224">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -672,7 +672,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401924">
+  <Style ss:ID="m19690244">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -682,7 +682,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401600">
+  <Style ss:ID="m74641856">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -692,7 +692,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401620">
+  <Style ss:ID="m74641876">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -702,7 +702,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401640">
+  <Style ss:ID="m74641896">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -712,7 +712,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401660">
+  <Style ss:ID="m74641916">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -722,7 +722,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401680">
+  <Style ss:ID="m74641936">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -732,7 +732,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401700">
+  <Style ss:ID="m74641956">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -742,7 +742,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401376">
+  <Style ss:ID="m74642080">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -752,7 +752,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401396">
+  <Style ss:ID="m74642100">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -762,7 +762,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401416">
+  <Style ss:ID="m74642120">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -772,7 +772,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401436">
+  <Style ss:ID="m74642140">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -782,7 +782,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401456">
+  <Style ss:ID="m74642160">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -792,7 +792,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401476">
+  <Style ss:ID="m74642180">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -802,7 +802,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401152">
+  <Style ss:ID="m74642304">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -812,7 +812,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401172">
+  <Style ss:ID="m74642324">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -822,7 +822,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401192">
+  <Style ss:ID="m74642344">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -832,7 +832,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401212">
+  <Style ss:ID="m74642364">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -842,7 +842,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401232">
+  <Style ss:ID="m74642384">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -852,7 +852,7 @@
    </Borders>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12"/>
   </Style>
-  <Style ss:ID="m36401252">
+  <Style ss:ID="m74642404">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -973,6 +973,10 @@
   <Style ss:ID="s93">
    <Alignment ss:Horizontal="Right" ss:Vertical="Bottom"/>
    <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="14"/>
+  </Style>
+  <Style ss:ID="s95">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+   <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
   </Style>
   <Style ss:ID="s96">
    <Alignment ss:Vertical="Bottom"/>
@@ -1135,10 +1139,6 @@
     <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
   </Style>
-  <Style ss:ID="s205">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
-   <Font ss:FontName="Arial Cyr" x:CharSet="204" ss:Size="12" ss:Bold="1"/>
-  </Style>
  </Styles>
  <Worksheet ss:Name="СЛ">
   <Names>
@@ -1159,7 +1159,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="17.0625">
     <Cell ss:StyleID="s62"><Data ss:Type="Number">1</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401152"><Data ss:Type="Number">2</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642304"><Data ss:Type="Number">2</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s69"><Data ss:Type="Number">3</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
@@ -1181,7 +1181,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="String">091</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401172"><Data ss:Type="String">Гидроабразивная обработка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642324"><Data ss:Type="String">Гидроабразивная обработка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1195,7 +1195,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="String">095</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401192"><Data ss:Type="String">Ретуширование</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642344"><Data ss:Type="String">Ретуширование</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1209,7 +1209,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="String">100</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401212"><Data ss:Type="String">Травление</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642364"><Data ss:Type="String">Травление</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1223,7 +1223,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">101</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401232"><Data ss:Type="String">Расчистка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642384"><Data ss:Type="String">Расчистка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1237,7 +1237,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="String">101a</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401252"><Data ss:Type="String">Маркировка краской № платы</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642404"><Data ss:Type="String">Маркировка краской № платы</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1251,7 +1251,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">102</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401376"><Data ss:Type="String">Рабочий контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642080"><Data ss:Type="String">Рабочий контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1265,7 +1265,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">103</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401396"><Data ss:Type="String">Технический контроль ОТК</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642100"><Data ss:Type="String">Технический контроль ОТК</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1279,7 +1279,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">104</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401416"><Data ss:Type="String">Технический контроль ПЗ</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642120"><Data ss:Type="String">Технический контроль ПЗ</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1293,7 +1293,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">105</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401436"><Data ss:Type="String">Зачистка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642140"><Data ss:Type="String">Зачистка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1307,7 +1307,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">106</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401456"><Data ss:Type="String">Подготовка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642160"><Data ss:Type="String">Подготовка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1321,7 +1321,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">107</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401476"><Data ss:Type="String">Нанесение ЗПМ</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74642180"><Data ss:Type="String">Нанесение ЗПМ</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1335,7 +1335,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">108</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401600"><Data ss:Type="String">Экспонирование ЗПМ</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641856"><Data ss:Type="String">Экспонирование ЗПМ</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1349,7 +1349,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">109</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401620"><Data ss:Type="String">Проявление ЗПМ</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641876"><Data ss:Type="String">Проявление ЗПМ</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1363,7 +1363,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="Number">110</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401640"><Data ss:Type="String">Дезоксидирование</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641896"><Data ss:Type="String">Дезоксидирование</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1377,7 +1377,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="12.9375">
     <Cell ss:StyleID="s70"><Data ss:Type="String">115</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401660"><Data ss:Type="String">Нанесение ГорПОС - 61</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641916"><Data ss:Type="String">Нанесение ГорПОС - 61</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1391,7 +1391,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">120</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401680"><Data ss:Type="String">Пайка флюсовая</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641936"><Data ss:Type="String">Пайка флюсовая</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1405,7 +1405,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">125</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401700"><Data ss:Type="String">Расчистка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641956"><Data ss:Type="String">Расчистка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1419,7 +1419,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">130</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401824"><Data ss:Type="String">Сверлильная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690144"><Data ss:Type="String">Сверлильная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1433,7 +1433,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">140</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401844"><Data ss:Type="String">Фрезерная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690164"><Data ss:Type="String">Фрезерная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1447,7 +1447,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">145</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401864"><Data ss:Type="String">Отрезная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690184"><Data ss:Type="String">Отрезная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1461,7 +1461,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">150 a</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401884"><Data ss:Type="String">Маркировка краской.</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690204"><Data ss:Type="String">Маркировка краской.</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1475,7 +1475,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">150</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401904"><Data ss:Type="String">Слесарная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690224"><Data ss:Type="String">Слесарная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1489,7 +1489,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">151</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36401924"><Data ss:Type="String">Рабочий контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m19690244"><Data ss:Type="String">Рабочий контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1503,7 +1503,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">155</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402048"><Data ss:Type="String">Технический контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879008"><Data ss:Type="String">Технический контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1517,7 +1517,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">160</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402068"><Data ss:Type="String">Промывка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879028"><Data ss:Type="String">Промывка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1531,7 +1531,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">165</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402088"><Data ss:Type="String">Сушка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879048"><Data ss:Type="String">Сушка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1545,7 +1545,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">170</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402108"><Data ss:Type="String">Промывка финишная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879068"><Data ss:Type="String">Промывка финишная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1559,7 +1559,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">171</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402128"><Data ss:Type="String">Контроль сопротивления изоляции</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879088"><Data ss:Type="String">Контроль сопротивления изоляции</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1573,7 +1573,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">175</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402148"><Data ss:Type="String">Технический контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m30879108"><Data ss:Type="String">Технический контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1587,7 +1587,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">180</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402272"><Data ss:Type="String">Консервация плат</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641408"><Data ss:Type="String">Консервация плат</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1601,7 +1601,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">185</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402292"><Data ss:Type="String">Технический контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641428"><Data ss:Type="String">Технический контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1615,7 +1615,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">190</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402312"><Data ss:Type="String">Упаковывание</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641448"><Data ss:Type="String">Упаковывание</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1629,7 +1629,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s70"><Data ss:Type="String">195</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402332"><Data ss:Type="String">Сдаточная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74641468"><Data ss:Type="String">Сдаточная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1667,7 +1667,7 @@
     <Cell ss:StyleID="s91"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:MergeAcross="2" ss:StyleID="s93"><Data ss:Type="String">Сопроводительный лист         №</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:Index="10" ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s205"><Data
+    <Cell ss:Index="10" ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="s95"><Data
       ss:Type="String">_custom_</Data><NamedCell ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="17.0625">
@@ -1677,71 +1677,71 @@
       ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402720"><Data ss:Type="String">Файлы</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643424"><Data ss:Type="String">Файлы</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s71"><Data ss:Type="String">Чертёж №</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402740"><Data ss:Type="String">_blockname_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643444"><Data ss:Type="String">_blockname_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36402760"><Data ss:Type="String">Кол-во плат в партии</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74643464"><Data ss:Type="String">Кол-во плат в партии</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402780"><Data ss:Type="String">_ppart_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643484"><Data ss:Type="String">_ppart_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s117"><ss:Data ss:Type="String"
       xmlns="http://www.w3.org/TR/REC-html40">S мет. в дм<Sup>2</Sup></ss:Data><NamedCell
       ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402800"><Data ss:Type="String">_drlname_.mkr</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643504"><Data ss:Type="String">_drlname_.mkr</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s71"><Data ss:Type="String">Выдано заготовок </Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402820"><Data ss:Type="String">_zag_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643524"><Data ss:Type="String">_zag_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:MergeAcross="2" ss:StyleID="s112"><Data ss:Type="String">Партия №</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402860"><Data ss:Type="String">_part_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643564"><Data ss:Type="String">_part_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s102"><Data ss:Type="String">C=_scomp_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402944"><Data ss:Type="String">_drlname_.frz</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643648"><Data ss:Type="String">_drlname_.frz</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s71"><Data ss:Type="String">Маркировка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36402964"><Data ss:Type="String">_mark_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643668"><Data ss:Type="String">_mark_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36402984"><Data ss:Type="String">Материал</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74643688"><Data ss:Type="String">Материал</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403004"><Data ss:Type="String">_mater_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643708"><Data ss:Type="String">_mater_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s102"><Data ss:Type="String">S=_ssold_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403024"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643728"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s71"><Data ss:Type="String">Ручная маркировка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403044"><Data ss:Type="String">_rmark_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643748"><Data ss:Type="String">_rmark_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36403064"><Data ss:Type="String">Маска</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74643768"><Data ss:Type="String">Маска</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403084"><Data ss:Type="String">_mask_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643788"><Data ss:Type="String">_mask_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="String">Материал в ПСИ</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
-    <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m36403168"><Data
+    <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m74643872"><Data
       ss:Type="String">_type_</Data><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s71"><Data ss:Type="String">Размер заготовки</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403188"><Data ss:Type="String">_sizex_x_sizey_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643892"><Data ss:Type="String">_sizex_x_sizey_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36403208"><Data ss:Type="String">Покрытие</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74643912"><Data ss:Type="String">Покрытие</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403228"><Data ss:Type="String">_pokr_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643932"><Data ss:Type="String">_pokr_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s143"><Data ss:Type="String">_psimat_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
@@ -1749,11 +1749,11 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:Index="3" ss:StyleID="s71"><Data ss:Type="String">Дата запуска</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403248"><Data ss:Type="String">_datez_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643952"><Data ss:Type="String">_datez_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36403268"><Data ss:Type="String">Приемка</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74643972"><Data ss:Type="String">Приемка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403288"><Data ss:Type="String">_priem_</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74643992"><Data ss:Type="String">_priem_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s143"><Data ss:Type="String">_aurum_</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
@@ -1764,7 +1764,7 @@
     <Cell ss:StyleID="s150"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s150"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s150"><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36403392"><Data ss:Type="String">Срок изготовления</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74644096"><Data ss:Type="String">Срок изготовления</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s151"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s152"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1787,13 +1787,13 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:MergeDown="1" ss:StyleID="s156"><Data ss:Type="String">№ опер. по&#10;КТД 01232.00040 </Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m36403432"><Data
+    <Cell ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m74644136"><Data
       ss:Type="String">Наименование операции</Data><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:MergeDown="1" ss:StyleID="s169"><Data ss:Type="String">Дата и время&#10;проведение&#10;операции</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:MergeDown="1" ss:StyleID="s169"><Data ss:Type="String">Подпись&#10;испонителя</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="2" ss:StyleID="m36403492"><Data ss:Type="String">Предъяввлено ОТК</Data><NamedCell
+    <Cell ss:MergeAcross="2" ss:StyleID="m74644196"><Data ss:Type="String">Предъяввлено ОТК</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:MergeDown="1" ss:StyleID="s169"><Data ss:Type="String">Подпись&#10;мастера</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
@@ -1813,7 +1813,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s189"><Data ss:Type="Number">1</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403676"><Data ss:Type="Number">2</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644380"><Data ss:Type="Number">2</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s189"><Data ss:Type="Number">3</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
@@ -1834,7 +1834,7 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s194"><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403696"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644400"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s201"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s201"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s201"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1847,7 +1847,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s194"><Data ss:Type="String">010</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403716"><Data ss:Type="String">Разрезка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644420"><Data ss:Type="String">Разрезка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1861,7 +1861,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">015</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403840"><Data ss:Type="String">Термообработка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644544"><Data ss:Type="String">Термообработка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1875,7 +1875,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">020</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403860"><Data ss:Type="String">Технический контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644564"><Data ss:Type="String">Технический контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1889,7 +1889,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">016</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403880"><Data ss:Type="String">Сверление базовых отверстий</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644584"><Data ss:Type="String">Сверление базовых отверстий</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1903,7 +1903,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">030</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403900"><Data ss:Type="String">Сверлильная</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644604"><Data ss:Type="String">Сверлильная</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1917,7 +1917,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">025</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403920"><Data ss:Type="String">Маркирование ударом</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644624"><Data ss:Type="String">Маркирование ударом</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1931,7 +1931,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">035</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36403940"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644644"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1945,7 +1945,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">040</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404064"><Data ss:Type="String">Гидроабразивная обработка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644768"><Data ss:Type="String">Гидроабразивная обработка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1959,7 +1959,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">045</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404084"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644788"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1973,7 +1973,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">050</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404104"><Data ss:Type="String">Химическая затяжка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644808"><Data ss:Type="String">Химическая затяжка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -1987,7 +1987,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">051</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404124"><Data ss:Type="String">Зачистка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644828"><Data ss:Type="String">Зачистка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2001,7 +2001,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">052</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404144"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644848"><Data ss:Type="String">Подготовка поверхности</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2015,7 +2015,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">055</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404164"><Data ss:Type="String">Нанесение плёночного фоторезиста</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644868"><Data ss:Type="String">Нанесение плёночного фоторезиста</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2029,7 +2029,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">060</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404288"><Data ss:Type="String">Экспонирование</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74644992"><Data ss:Type="String">Экспонирование</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2043,7 +2043,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">065</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404308"><Data ss:Type="String">Проявление</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645012"><Data ss:Type="String">Проявление</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2057,7 +2057,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">075</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404328"><Data ss:Type="String">Ретуширование</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645032"><Data ss:Type="String">Ретуширование</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2071,7 +2071,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">080</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404348"><Data ss:Type="String">Гальваническая обр.</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645052"><Data ss:Type="String">Гальваническая обр.</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2085,7 +2085,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">085</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404368"><Data ss:Type="String">Технический контроль</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645072"><Data ss:Type="String">Технический контроль</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2099,7 +2099,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">086</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404388"><Data ss:Type="String">Обрезка</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645092"><Data ss:Type="String">Обрезка</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2113,7 +2113,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><Data ss:Type="String">090</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404512"><Data ss:Type="String">Снятие плёночного фоторезиста</Data><NamedCell
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645216"><Data ss:Type="String">Снятие плёночного фоторезиста</Data><NamedCell
       ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2126,7 +2126,7 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404532"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645236"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2138,7 +2138,7 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="15">
     <Cell ss:StyleID="s78"><NamedCell ss:Name="Print_Area"/></Cell>
-    <Cell ss:MergeAcross="1" ss:StyleID="m36404552"><NamedCell ss:Name="Print_Area"/></Cell>
+    <Cell ss:MergeAcross="1" ss:StyleID="m74645256"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
     <Cell ss:StyleID="s77"><NamedCell ss:Name="Print_Area"/></Cell>
@@ -2157,11 +2157,12 @@
     <PageMargins x:Bottom="0.19685039370078741" x:Left="0.19685039370078741"
      x:Right="0.19685039370078741" x:Top="0.19685039370078741"/>
    </PageSetup>
+   <FitToPage/>
    <Print>
-    <FitHeight>2</FitHeight>
+    <FitHeight>0</FitHeight>
     <ValidPrinterInfo/>
     <PaperSizeIndex>9</PaperSizeIndex>
-    <Scale>98</Scale>
+    <Scale>97</Scale>
     <HorizontalResolution>600</HorizontalResolution>
     <VerticalResolution>600</VerticalResolution>
     <NumberofCopies>0</NumberofCopies>
