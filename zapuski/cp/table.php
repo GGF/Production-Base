@@ -19,7 +19,7 @@
 	}
 	echo "<tr>";
 	while (list($key, $val) = each($cols)) {
-		echo "<th><a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."?notop&".$type."&".(isset($all)?"all&":(isset($find)?"find=".urlencode($find)."&":""))."order=".($order==$key?$key."%20DESC":$key).(isset($idstr)?$idstr:"")."','$tid')\">$val".($order==$key?"&darr;":(($order==$key.' DESC')?"&uarr;":""))."</a>";
+		echo "<th><a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."?".$type."&".(isset($all)?"all&":"").(isset($find)?"find=".urlencode($find)."&":"")."order=".($order==$key?$key."%20DESC":$key).(isset($idstr)?$idstr:"")."','$tid')\">$val".($order==$key?"&darr;":(($order==$key.' DESC')?"&uarr;":""))."</a>";
 	}
 	if (isset($print)) {
 		echo "<th>&nbsp;";
