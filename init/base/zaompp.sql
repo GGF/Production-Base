@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Янв 27 2010 г., 10:42
+-- Время создания: Мар 01 2010 г., 11:44
 -- Версия сервера: 4.0.15
 -- Версия PHP: 4.3.3
 
@@ -23,9 +23,6 @@
 --
 -- Структура таблицы `blockpos`
 --
--- Создание: Окт 15 2009 г., 14:41
--- Последнее обновление: Янв 27 2010 г., 10:22
---
 
 CREATE TABLE IF NOT EXISTS `blockpos` (
   `id` bigint(10) NOT NULL auto_increment,
@@ -36,29 +33,12 @@ CREATE TABLE IF NOT EXISTS `blockpos` (
   `ny` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `block_id` (`block_id`,`board_id`)
-) TYPE=MyISAM COMMENT='Позиции в блоках' AUTO_INCREMENT=427 ;
-
---
--- Комментарии к таблице `blockpos`:
---   `block_id`
---       `Ссылка а блок`
---   `board_id`
---       `Ссылка на плату`
---   `nib`
---       `Количество в блоке`
---   `nx`
---       `Количество по х`
---   `ny`
---       `Количество по у`
---
+) TYPE=MyISAM COMMENT='Позиции в блоках' AUTO_INCREMENT=591 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `blocks`
---
--- Создание: Окт 15 2009 г., 12:23
--- Последнее обновление: Янв 27 2010 г., 10:39
 --
 
 CREATE TABLE IF NOT EXISTS `blocks` (
@@ -73,36 +53,12 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `drlname` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `blockname` (`blockname`)
-) TYPE=MyISAM COMMENT='Блоки плат' AUTO_INCREMENT=490 ;
-
---
--- Комментарии к таблице `blocks`:
---   `blockname`
---       `Имя блока`
---   `customer_id`
---       `ссылка на заказчика`
---   `drlname`
---       `Имя сверловки`
---   `scomp`
---       `Площадь comp`
---   `sizex`
---       `размер по х`
---   `sizey`
---       `размер по y`
---   `ssolder`
---       `Площадь solder`
---   `thickness`
---       `толщина`
---
+) TYPE=MyISAM COMMENT='Блоки плат' AUTO_INCREMENT=719 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `boards`
---
--- Создание: Ноя 06 2009 г., 14:21
--- Последнее обновление: Янв 27 2010 г., 10:22
--- Последняя проверка: Ноя 06 2009 г., 14:21
 --
 
 CREATE TABLE IF NOT EXISTS `boards` (
@@ -134,70 +90,12 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `frez_factor` float(3,1) NOT NULL default '0.0',
   PRIMARY KEY  (`id`),
   KEY `board_id` (`board_name`,`texеolite`)
-) TYPE=MyISAM COMMENT='Даные по плате, только те что относятся к плате' AUTO_INCREMENT=427 ;
-
---
--- Комментарии к таблице `boards`:
---   `aurum`
---       `Золчение контактов`
---   `board_name`
---       `Имя платы для ТЗ без экселя`
---   `class`
---       `класс точности`
---   `complexity_factor`
---       `Коэфициент сложности`
---   `customer_id`
---       `Ссылка на заказчика`
---   `drawing_id`
---       `ссылка  чертеж`
---   `frezcorner`
---       `Фрезеровка по контуру`
---   `frez_factor`
---       `Коэффициент сложности фрезеровки`
---   `glasscloth`
---       `Стеклоткань`
---   `immer`
---       `Имерсионное покрытие`
---   `layers`
---       `количество слоев`
---   `lsizex`
---       `размер ламели х`
---   `lsizey`
---       `размер ламели у`
---   `mark`
---       `Марировка`
---   `mask`
---       `Маска`
---   `numlam`
---       `Количество ламелей`
---   `pallad`
---       `Палладирование`
---   `razr`
---       `Разрубка блока`
---   `rmark`
---       `ручная маркировка`
---   `sizex`
---       `размер по х`
---   `sizey`
---       `размер по у`
---   `textolitepsi`
---       `Текстолит в ПСИ`
---   `texеolite`
---       `Текстолит по чертежу`
---   `thickness`
---       `толщина`
---   `thick_tol`
---       `допуск`
---
+) TYPE=MyISAM COMMENT='Даные по плате, только те что относятся к плате' AUTO_INCREMENT=591 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `coments`
---
--- Создание: Окт 15 2009 г., 14:41
--- Последнее обновление: Ноя 17 2009 г., 11:50
--- Последняя проверка: Окт 15 2009 г., 14:41
 --
 
 CREATE TABLE IF NOT EXISTS `coments` (
@@ -210,11 +108,30 @@ CREATE TABLE IF NOT EXISTS `coments` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `coppers`
+-- Структура таблицы `conductors`
 --
--- Создание: Май 13 2009 г., 16:26
--- Последнее обновление: Янв 27 2010 г., 10:39
--- Последняя проверка: Май 13 2009 г., 16:26
+
+CREATE TABLE IF NOT EXISTS `conductors` (
+  `id` bigint(11) NOT NULL auto_increment,
+  `board_id` bigint(11) NOT NULL default '0',
+  `side` enum('TOP','BOT','TOPBOT') NOT NULL default 'TOP',
+  `lays` enum('3','5') NOT NULL default '3',
+  `sizex` int(11) NOT NULL default '0',
+  `sizey` int(11) NOT NULL default '0',
+  `ts` timestamp(14) NOT NULL,
+  `user_id` bigint(11) NOT NULL default '0',
+  `dir` varchar(255) NOT NULL default '',
+  `dirk` varchar(255) NOT NULL default '',
+  `pib` int(11) NOT NULL default '1',
+  `comment_id` bigint(20) NOT NULL default '0',
+  `ready` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `coppers`
 --
 
 CREATE TABLE IF NOT EXISTS `coppers` (
@@ -228,54 +145,27 @@ CREATE TABLE IF NOT EXISTS `coppers` (
   `sizey` float(5,3) NOT NULL default '0.000',
   PRIMARY KEY  (`id`),
   KEY `customer_id` (`customer_id`,`plate_id`)
-) TYPE=MyISAM COMMENT='Таблица площадей плат' AUTO_INCREMENT=1394 ;
-
---
--- Комментарии к таблице `coppers`:
---   `sizex`
---       `Размер блока по первой стороне`
---   `sizey`
---       `Размер блока по второй стороне`
---
-
---
--- Связи таблицы `coppers`:
---   `customer_id`
---       `customers` -> `id`
---   `plate_id`
---       `plates` -> `id`
---
+) TYPE=MyISAM COMMENT='Таблица площадей плат' AUTO_INCREMENT=1563 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `customers`
 --
--- Создание: Окт 15 2009 г., 14:40
--- Последнее обновление: Дек 21 2009 г., 14:30
---
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `id` int(10) NOT NULL auto_increment,
   `customer` varchar(40) NOT NULL default '',
   `fullname` varchar(200) NOT NULL default '',
+  `kdir` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `customer` (`customer`)
-) TYPE=MyISAM COMMENT='Заказчики' AUTO_INCREMENT=85 ;
-
---
--- Комментарии к таблице `customers`:
---   `fullname`
---       `Полное наименование`
---
+) TYPE=MyISAM COMMENT='Заказчики' AUTO_INCREMENT=88 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `docs`
---
--- Создание: Окт 15 2009 г., 12:44
--- Последнее обновление: Окт 15 2009 г., 12:44
 --
 
 CREATE TABLE IF NOT EXISTS `docs` (
@@ -288,25 +178,10 @@ CREATE TABLE IF NOT EXISTS `docs` (
   KEY `did` (`did`,`table`,`user_id`,`ts`)
 ) TYPE=MyISAM COMMENT='Сборник всех документов базы' AUTO_INCREMENT=1 ;
 
---
--- Комментарии к таблице `docs`:
---   `did`
---       `Идентификатор документа`
---   `table`
---       `Имя таблицы для документа`
---   `ts`
---       `Время создания`
---   `user_id`
---       `Идентификатор пользователя добавившего документ`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `eltest`
---
--- Создание: Ноя 19 2009 г., 13:10
--- Последнее обновление: Янв 27 2010 г., 10:17
 --
 
 CREATE TABLE IF NOT EXISTS `eltest` (
@@ -322,55 +197,24 @@ CREATE TABLE IF NOT EXISTS `eltest` (
   `sizey` float(5,3) NOT NULL default '0.000',
   `numpl` varchar(15) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Электроконторь' AUTO_INCREMENT=72 ;
-
---
--- Комментарии к таблице `eltest`:
---   `board_id`
---       `Ссылка на плату`
---   `factor`
---       `Коэффициент сложности`
---   `numcomp`
---       `Количество комплектов`
---   `numpl`
---       `Количество пластин`
---   `pib`
---       `Количество плат в блоке`
---   `points`
---       `Количество точек на плате`
---   `pointsb`
---       `Точек в блоке`
---   `sizex`
---       `Размер пластины`
---   `sizey`
---       `Размер пластины`
---   `type`
---       `Тип контроля`
---
+) TYPE=MyISAM COMMENT='Электроконторь' AUTO_INCREMENT=90 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `filelinks`
 --
--- Создание: Окт 15 2009 г., 14:40
--- Последнее обновление: Янв 27 2010 г., 10:40
---
 
 CREATE TABLE IF NOT EXISTS `filelinks` (
   `id` bigint(10) NOT NULL auto_increment,
   `file_link` text NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Ссылки на файлы' AUTO_INCREMENT=1341 ;
+) TYPE=MyISAM COMMENT='Ссылки на файлы' AUTO_INCREMENT=1739 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `lanch`
---
--- Создание: Окт 15 2009 г., 14:40
--- Последнее обновление: Янв 27 2010 г., 10:40
--- Последняя проверка: Ноя 24 2009 г., 16:28
 --
 
 CREATE TABLE IF NOT EXISTS `lanch` (
@@ -388,35 +232,12 @@ CREATE TABLE IF NOT EXISTS `lanch` (
   `pos_in_tz_id` bigint(10) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pos_in_tz` (`pos_in_tz`)
-) TYPE=MyISAM COMMENT='Заупски' AUTO_INCREMENT=2236 ;
-
---
--- Комментарии к таблице `lanch`:
---   `pos_in_tz_id`
---       `Ссылка на позицию ТЗ`
---
-
---
--- Связи таблицы `lanch`:
---   `board_id`
---       `plates` -> `id`
---   `comment_id`
---       `coments` -> `id`
---   `file_link_id`
---       `filelinks` -> `id`
---   `tz_id`
---       `tz` -> `id`
---   `user_id`
---       `users` -> `id`
---
+) TYPE=MyISAM COMMENT='Заупски' AUTO_INCREMENT=2546 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `lanched`
---
--- Создание: Янв 26 2010 г., 11:32
--- Последнее обновление: Янв 27 2010 г., 10:40
 --
 
 CREATE TABLE IF NOT EXISTS `lanched` (
@@ -430,9 +251,6 @@ CREATE TABLE IF NOT EXISTS `lanched` (
 --
 -- Структура таблицы `logs`
 --
--- Создание: Ноя 19 2009 г., 15:21
--- Последнее обновление: Янв 27 2010 г., 10:40
---
 
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` bigint(10) NOT NULL auto_increment,
@@ -442,25 +260,12 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `action` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `logdate` (`logdate`,`user_id`)
-) TYPE=MyISAM COMMENT='Логирование удалений' AUTO_INCREMENT=1807 ;
-
---
--- Комментарии к таблице `logs`:
---   `action`
---       `Тип дествия`
---   `sqltext`
---       `Что делал`
---   `user_id`
---       `Кто делал`
---
+) TYPE=MyISAM COMMENT='Логирование удалений' AUTO_INCREMENT=2856 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `masterplate`
---
--- Создание: Окт 23 2009 г., 14:33
--- Последнее обновление: Янв 27 2010 г., 10:11
 --
 
 CREATE TABLE IF NOT EXISTS `masterplate` (
@@ -470,23 +275,12 @@ CREATE TABLE IF NOT EXISTS `masterplate` (
   `mpdate` date NOT NULL default '0000-00-00',
   `user_id` bigint(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Мастерплаты' AUTO_INCREMENT=103 ;
-
---
--- Связи таблицы `masterplate`:
---   `tz_id`
---       `tz` -> `id`
---   `user_id`
---       `users` -> `id`
---
+) TYPE=MyISAM COMMENT='Мастерплаты' AUTO_INCREMENT=120 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `mppdop`
---
--- Создание: Окт 15 2009 г., 12:25
--- Последнее обновление: Янв 27 2010 г., 10:17
 --
 
 CREATE TABLE IF NOT EXISTS `mppdop` (
@@ -516,67 +310,12 @@ CREATE TABLE IF NOT EXISTS `mppdop` (
   `m7` varchar(50) NOT NULL default '',
   `m8` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Доплнительные материалы к многослойкам для сопроводительного' AUTO_INCREMENT=72 ;
-
---
--- Комментарии к таблице `mppdop`:
---   `block_id`
---       `Ссылка на блок`
---   `dfrez`
---       `Доплнительная фрезеровка`
---   `dop`
---       `Материалы: № партии, дата изготовления, входного контроля, перепроверки,`
---   `m1`
---       `Матриалы 1`
---   `m2`
---       `Матриалы 2`
---   `m3`
---       `Матриалы 3`
---   `m4`
---       `Матриалы 4`
---   `m5`
---       `Матриалы 5`
---   `m6`
---       `Матриалы 6`
---   `m7`
---       `Матриалы 7`
---   `m8`
---       `Матриалы 8`
---   `mn1`
---       `Материалы номера 1`
---   `mn2`
---       `Материалы номера 2`
---   `mn3`
---       `Материалы номера 3`
---   `mn4`
---       `Материалы номера 4`
---   `mn5`
---       `Материалы номера 5`
---   `mn6`
---       `Материалы номера 6`
---   `mn7`
---       `Материалы номера 7`
---   `mn8`
---       `Материалы номера 8`
---   `ndraw`
---       `Номер ертежа`
---   `nprokl`
---       `Количество прокладок`
---   `nstek`
---       `Количество листов стеклоткани`
---   `osob`
---       `Особое казание 2`
---   `tprokl`
---       `Толщина прокладок`
---
+) TYPE=MyISAM COMMENT='Доплнительные материалы к многослойкам для сопроводительного' AUTO_INCREMENT=90 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `orders`
---
--- Создание: Окт 15 2009 г., 14:39
--- Последнее обновление: Янв 27 2010 г., 10:12
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -585,21 +324,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `number` varchar(50) NOT NULL default '',
   `customer_id` bigint(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Заказы' AUTO_INCREMENT=490 ;
-
---
--- Связи таблицы `orders`:
---   `customer_id`
---       `customers` -> `id`
---
+) TYPE=MyISAM COMMENT='Заказы' AUTO_INCREMENT=548 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `phototemplates`
---
--- Создание: Окт 15 2009 г., 14:39
--- Последнее обновление: Янв 26 2010 г., 15:45
 --
 
 CREATE TABLE IF NOT EXISTS `phototemplates` (
@@ -608,22 +338,12 @@ CREATE TABLE IF NOT EXISTS `phototemplates` (
   `user_id` bigint(10) NOT NULL default '0',
   `filenames` longtext NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Фотошаблоны отправленные на рисование' AUTO_INCREMENT=5713 ;
-
---
--- Связи таблицы `phototemplates`:
---   `user_id`
---       `users` -> `id`
---
+) TYPE=MyISAM COMMENT='Фотошаблоны отправленные на рисование' AUTO_INCREMENT=5853 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `plates`
---
--- Создание: Окт 15 2009 г., 14:38
--- Последнее обновление: Янв 27 2010 г., 10:33
--- Последняя проверка: Окт 15 2009 г., 14:38
 --
 
 CREATE TABLE IF NOT EXISTS `plates` (
@@ -634,28 +354,12 @@ CREATE TABLE IF NOT EXISTS `plates` (
   PRIMARY KEY  (`id`),
   KEY `plate` (`plate`),
   KEY `customer_id` (`customer_id`)
-) TYPE=MyISAM COMMENT='Платы (заполняется через excel' AUTO_INCREMENT=2476 ;
-
---
--- Комментарии к таблице `plates`:
---   `isblock`
---       `Блок или плата?`
---
-
---
--- Связи таблицы `plates`:
---   `customer_id`
---       `customers` -> `id`
---
+) TYPE=MyISAM COMMENT='Платы (заполняется через excel' AUTO_INCREMENT=2635 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `posintz`
---
--- Создание: Янв 26 2010 г., 12:01
--- Последнее обновление: Янв 27 2010 г., 10:40
--- Последняя проверка: Янв 26 2010 г., 12:01
 --
 
 CREATE TABLE IF NOT EXISTS `posintz` (
@@ -685,65 +389,12 @@ CREATE TABLE IF NOT EXISTS `posintz` (
   `pitz_psimat` varchar(100) default NULL,
   PRIMARY KEY  (`id`),
   KEY `ldate` (`ldate`)
-) TYPE=MyISAM COMMENT='Позиции в ТЗ' AUTO_INCREMENT=2406 ;
-
---
--- Комментарии к таблице `posintz`:
---   `block_id`
---       `ссылка на блок`
---   `board_id`
---       `Ссылка на плату в блоке`
---   `comment_id`
---       `Ссылка на комментарий запуска`
---   `constr`
---       `Время подготовки, ч`
---   `eltest`
---       `Есть электроконтроль?`
---   `first`
---       `Первичное изготовление`
---   `ldate`
---       `Дата запуска`
---   `luser_id`
---       `ссылка на пользователя запускающего`
---   `mark`
---       `C маркировкой?`
---   `mask`
---       `C маской?`
---   `numbl`
---       `Количесвто тестируемых блоков`
---   `numpl`
---       `Количество тестируемых плат`
---   `pip`
---       `Плат в партии, для многослоек бывает и по пять и по одной`
---   `pitz_mater`
---       `Материал для платы указанный в ТЗ`
---   `pitz_psimat`
---       `Материал в ПСИ для платы указанный в ТЗ`
---   `priem`
---       `Приемка`
---   `srok`
---       `Срок изготовления`
---   `template_check`
---       `Проверить шаблонов`
---   `template_make`
---       `Изготовить Шаблонов`
---
-
---
--- Связи таблицы `posintz`:
---   `plate_id`
---       `plates` -> `id`
---   `tz_id`
---       `tz` -> `id`
---
+) TYPE=MyISAM COMMENT='Позиции в ТЗ' AUTO_INCREMENT=2717 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `relations`
---
--- Создание: Окт 15 2009 г., 12:49
--- Последнее обновление: Окт 15 2009 г., 12:49
 --
 
 CREATE TABLE IF NOT EXISTS `relations` (
@@ -756,25 +407,10 @@ CREATE TABLE IF NOT EXISTS `relations` (
   KEY `did1` (`did1`,`did2`,`rtype`)
 ) TYPE=MyISAM COMMENT='Таблица отношений между документами';
 
---
--- Комментарии к таблице `relations`:
---   `did1`
---       `Идентификатор старшего документа из таблицы docs`
---   `did2`
---       `Идентификатор младшего документа из таблицы docs`
---   `rtype`
---       `Идентификатор из таблицы отношений`
---   `ts`
---       `время создания отношения`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `reltype`
---
--- Создание: Окт 15 2009 г., 14:38
--- Последнее обновление: Окт 15 2009 г., 14:38
 --
 
 CREATE TABLE IF NOT EXISTS `reltype` (
@@ -783,19 +419,10 @@ CREATE TABLE IF NOT EXISTS `reltype` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='Типы отношений между документами' AUTO_INCREMENT=1 ;
 
---
--- Комментарии к таблице `reltype`:
---   `type`
---       `Название отношения`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `rights`
---
--- Создание: Окт 21 2009 г., 14:01
--- Последнее обновление: Ноя 19 2009 г., 12:36
 --
 
 CREATE TABLE IF NOT EXISTS `rights` (
@@ -806,28 +433,12 @@ CREATE TABLE IF NOT EXISTS `rights` (
   `right` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `u_id` (`u_id`)
-) TYPE=MyISAM COMMENT='Таблица прав доступа к управлению базой' AUTO_INCREMENT=418 ;
-
---
--- Комментарии к таблице `rights`:
---   `right`
---       `разрешено-не ращрешено`
---   `rtype_id`
---       `Тип прав`
---   `type_id`
---       `Тип данных к которому права`
---   `u_id`
---       `Идентификатор пользователя`
---
+) TYPE=MyISAM COMMENT='Таблица прав доступа к управлению базой' AUTO_INCREMENT=555 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `rrtypes`
---
--- Создание: Окт 21 2009 г., 14:04
--- Последнее обновление: Ноя 19 2009 г., 13:12
--- Последняя проверка: Ноя 19 2009 г., 13:12
 --
 
 CREATE TABLE IF NOT EXISTS `rrtypes` (
@@ -836,40 +447,22 @@ CREATE TABLE IF NOT EXISTS `rrtypes` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='Типы доступа' AUTO_INCREMENT=16 ;
 
---
--- Комментарии к таблице `rrtypes`:
---   `rtype`
---       `Типы доступа`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `rtypes`
---
--- Создание: Окт 21 2009 г., 14:02
--- Последнее обновление: Окт 22 2009 г., 13:03
 --
 
 CREATE TABLE IF NOT EXISTS `rtypes` (
   `id` bigint(20) NOT NULL auto_increment,
   `type` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Типы для доступа' AUTO_INCREMENT=18 ;
-
---
--- Комментарии к таблице `rtypes`:
---   `type`
---       `Nbgf к которому будет доступ`
---
+) TYPE=MyISAM COMMENT='Типы для доступа' AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `session`
---
--- Создание: Янв 15 2010 г., 12:51
--- Последнее обновление: Янв 27 2010 г., 10:40
 --
 
 CREATE TABLE IF NOT EXISTS `session` (
@@ -879,19 +472,10 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY  (`session`)
 ) TYPE=MyISAM;
 
---
--- Комментарии к таблице `session`:
---   `ts`
---       `Время авторизации`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `todo`
---
--- Создание: Окт 22 2009 г., 12:48
--- Последнее обновление: Янв 26 2010 г., 13:00
 --
 
 CREATE TABLE IF NOT EXISTS `todo` (
@@ -901,27 +485,12 @@ CREATE TABLE IF NOT EXISTS `todo` (
   `rts` timestamp(14) NOT NULL,
   `u_id` bigint(20) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Что сделать таблица' AUTO_INCREMENT=30 ;
-
---
--- Комментарии к таблице `todo`:
---   `cts`
---       `Дата создания`
---   `rts`
---       `Дата завершения`
---   `u_id`
---       `Кто добавил`
---   `what`
---       `Что собственно сделать`
---
+) TYPE=MyISAM COMMENT='Что сделать таблица' AUTO_INCREMENT=35 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `tz`
---
--- Создание: Окт 15 2009 г., 14:36
--- Последнее обновление: Янв 27 2010 г., 10:33
 --
 
 CREATE TABLE IF NOT EXISTS `tz` (
@@ -932,25 +501,12 @@ CREATE TABLE IF NOT EXISTS `tz` (
   `pos_in_order` tinyint(4) NOT NULL default '1',
   `file_link_id` bigint(10) default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Технические задания' AUTO_INCREMENT=772 ;
-
---
--- Связи таблицы `tz`:
---   `file_link_id`
---       `filelinks` -> `id`
---   `order_id`
---       `orders` -> `id`
---   `user_id`
---       `users` -> `id`
---
+) TYPE=MyISAM COMMENT='Технические задания' AUTO_INCREMENT=860 ;
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `users`
---
--- Создание: Янв 15 2010 г., 12:20
--- Последнее обновление: Янв 15 2010 г., 12:20
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -964,19 +520,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `password` (`password`)
 ) TYPE=MyISAM COMMENT='Пользватели базы данных' AUTO_INCREMENT=18 ;
 
---
--- Комментарии к таблице `users`:
---   `password`
---       `Пароль в открытом виде`
---
-
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `workers`
---
--- Создание: Окт 15 2009 г., 14:36
--- Последнее обновление: Дек 04 2009 г., 09:33
 --
 
 CREATE TABLE IF NOT EXISTS `workers` (
@@ -999,10 +546,6 @@ CREATE TABLE IF NOT EXISTS `workers` (
 --
 -- Структура таблицы `zadel`
 --
--- Создание: Сен 15 2009 г., 11:01
--- Последнее обновление: Янв 20 2010 г., 10:31
--- Последняя проверка: Ноя 19 2009 г., 13:12
---
 
 CREATE TABLE IF NOT EXISTS `zadel` (
   `id` bigint(10) NOT NULL auto_increment,
@@ -1011,14 +554,4 @@ CREATE TABLE IF NOT EXISTS `zadel` (
   `niz` varchar(10) NOT NULL default '',
   `number` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Задел в ОТК' AUTO_INCREMENT=1516 ;
-
---
--- Комментарии к таблице `zadel`:
---   `ldate`
---       `Дата запуска`
---   `niz`
---       `Номер извещения`
---   `number`
---       `Количество`
---
+) TYPE=MyISAM COMMENT='Задел в ОТК' AUTO_INCREMENT=1655 ;
