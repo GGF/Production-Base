@@ -9,8 +9,8 @@ $menu = new Menu();
 
 $menu->add("customers","Заказ чики");
 $menu->add("nzap","Не запу щенные");
-$menu->add("conductors","Кондук-торы");
 $menu->add("zap","Запуски");
+$menu->add("conductors","Кондук-торы");
 $menu->add("mp","Мастер-платы");
 $menu->add("zd","Задел");
 $menu->add("pt","Шабло-ны");
