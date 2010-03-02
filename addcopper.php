@@ -58,6 +58,7 @@ $sql="SELECT kdir FROM customers WHERE id='$customer_id'";
 debug("rem ".$sql);
 $res = mysql_query($sql);
 if($rs=mysql_fetch_array($res)) {
+	if ($customer == "Импульс" ) { $rs[0].="\\$drillname"; $mpp=-1;}
 	echo "mkdir k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
 	echo "copy /Y .\\$drillname.mk2 k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
 	echo "copy /Y .\\$drillname.mk4 k:\\".$rs[0].($mpp!=-1?"\\MPP":"")."\\\n";
