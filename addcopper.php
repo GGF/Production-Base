@@ -2,6 +2,8 @@
 $GLOBALS["debugAPI"] = false;
 include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
+if (empty($customer)) return;
+if (empty($board)) return;
 $sql="SELECT id FROM customers WHERE customer='$customer'";
 debug("rem ".$sql);
 $res = mysql_query($sql);
