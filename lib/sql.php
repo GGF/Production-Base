@@ -168,7 +168,7 @@ function mySQLconnect($mysql_db='zaompp')
 {
 	$mysql_host= 'localhost';
 	$mysql_login='root';
-	$mysql_password='';
+	$mysql_password='MMnnHs';
 
 
 	if( !mysql_connect($mysql_host,$mysql_login,$mysql_password) ) {
@@ -275,7 +275,7 @@ function mylog1($sql) {
 function showheader($subtitle='') {
 	global $dbname;
 	echo '
-<!--   Copyright 2000 Igor Fedoroff   |  g_g_f@mail.ru  -->
+<!--   Copyright 2010 Igor Fedoroff   |  g_g_f@mail.ru  -->
 <html>
 <head>
 	<LINK REL="STYLESHEET" TYPE="text/css" HREF="/style/style.css">
@@ -285,7 +285,7 @@ function showheader($subtitle='') {
 	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=windows-1251">
 	<meta name="Author" content="Игорь Федоров">
 	<meta name="Description" content="ЗАО МПП">
-	<script type="text/javascript" src="/lib/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="/lib/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/lib/jquery.wysiwyg.js"></script>
 	<script type="text/javascript" src="/lib/jquery.keyboard.js"></script>
 	<script type="text/javascript" src="/lib/myfunction.js"></script>
@@ -344,11 +344,36 @@ if (isset($dr)) print $mes;
 }
 
 // цитаты баша
-echo file_get_contents("http://computers/getbashlocal.php?$bash");
+echo file_get_contents("http://computers.mpp/getbashlocal.php?$bash");
 }
 
-function showfooter() {
-	echo "</body></html>";
+function showfooter($buffer='') {
+
+echo "<div class='maindiv' id=maindiv>";
+if (empty($buffer)) 
+	echo "Выбери чтонить!!!";
+else 
+	echo $buffer;
+echo "</div>";
+echo "<div class='loading' id='loading'>Загрузка...</div>";
+
+echo "<div class='editdiv' id=editdiv><img src=/picture/s_error2.png class='rigthtop' onclick='closeedit()'>";
+echo "<div class='editdivin' id='editdivin'></div>";
+echo "</div>";//место для редактирования всего
+
+echo "<script>newinterface=true;</script>";
+
+	if  ($user=="igor") {
+	echo "<div id=userswin class=sun style='display:none'>";
+	$sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts)) AS lt FROM session JOIN users ON session.u_id=users.id";
+	$res=mysql_query($sql);
+	while($rs=mysql_fetch_array($res)){
+		echo $rs[nik]." - ".$rs[lt]."<br>";
+	}
+	echo "</div>";
+}
+
+echo "</body></html>";
 }
 
 
@@ -396,10 +421,12 @@ if(!headers_sent()  && !isset($print)) {
 }
 
 foreach ($_GET as $key => $val) {
-	if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
+	//if (mb_detect_encoding($val)!="cp1251") 
+		$$key=mb_convert_encoding($val,"cp1251");
 }
 foreach ($_POST as $key => $val) {
-	if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
+	//if (mb_detect_encoding($val)!="cp1251") 
+		$$key=mb_convert_encoding($val,"cp1251");
 }
 
 importmodules();

@@ -1,12 +1,11 @@
 <?
-// управление шаблонами
+// управление ползователями
 
 include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 
-
 if (isset($edit) || isset($add) ) {
-	/*if (!isset($accept)) {
+	if (!isset($accept)) {
 		if ($edit) {
 			$sql = "SELECT * FROM users WHERE id='".$edit."'";
 			$res = mysql_query($sql);
@@ -49,27 +48,26 @@ if (isset($edit) || isset($add) ) {
 			echo "<script>updatetable('$tid','users','');closeedit();</script>";
 		}
 	}
-*/
+
 } elseif (isset($delete)) {
 	// удаление
-	$sql = "DELETE FROM phototemplates WHERE id='$delete'";
-	mylog('phototemplates',$delete,'DELETE');
+	$sql = "DELETE FROM users WHERE id='$delete'";
+	mylog('users',$delete,'DELETE');
 	mysql_query($sql);
 }
 else
 {
 // вывести таблицу
-	// sql
-	$sql="SELECT *,unix_timestamp(ts) AS uts FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
-	
-	$type="pt";
+	// sql	
+	$sql="SELECT * FROM users ".(isset($find)?"WHERE (nik LIKE '%$find%' OR fullname LIKE '%$find%' OR position LIKE '%$find%') ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY nik ").(isset($all)?"":"LIMIT 20");
+	//print $sql;
+	$type="users";
 	$cols[id]="ID";
-	$cols[ts]="Дата";
-	$cols[nik]="Кто запустил";
-	$cols[filenames]="Колво и Каталог";
-	
-	$addbutton=false;
-	$opentype='pt';
+	$cols[nik]="Nik";
+	$cols[fullname]="Fullname";
+	$cols[position]="Position";
+
+	$opentype = "rights";
 	
 	include "table.php";
 }

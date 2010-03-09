@@ -82,6 +82,7 @@ if ($action=='add') {
 } else
 {
 // вывести таблицу
+	
 	if(isset($view) & $view=='all')
 		print "<center><a href='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."'>Первые 20</a>";
 	else

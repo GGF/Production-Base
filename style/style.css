@@ -103,6 +103,9 @@ OL { text-align: justify; }
 	vertical-align:middle;
 	width:64px;
 	height:64px;
+	max-width:64px;
+	max-height:64px;
+	overflow:auto;
 	font-weight:bold;
 	background-image:URL("/picture/cp.png");
 }

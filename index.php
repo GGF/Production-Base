@@ -1,20 +1,19 @@
 <?
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header.php";
-echo "Главное меню";
-include $GLOBALS["DOCUMENT_ROOT"]."/style/header1.php";
-?>
-<div class="menu">
-<table width="100%"><tr><td align="center">
-<table><tr>
-<td><div class='menuitem'><a href="/zapuski/"><img src="/picture/zapusk.gif"><br>Запуски</a></div></td>
-<td><div class='menuitem'><a href="/zapuski/cp/"><img src="/picture/zapusk.gif"><br>Запуски<span class="red">(new)</span></a></div></td>
-<td><div class='menuitem'><a href="/sklads/"><img src="/picture/sclads.gif"><br>Склады</a></div></td>
-<!--td><div class='menuitem'><a href="/sklads2009/"><img src="/picture/sclads.gif"><br>Склады2009<br>(не&nbsp;редактировать)</a></div></td-->
-<td><div class='menuitem'><a target="_blank" href="http://mppwiki"><img src="/picture/bz.gif"><br>База знаний</a></div></td>
-<td><div class='menuitem'><a target="_blank" href="http://igor"><img src="/picture/find.gif"><br>Документы</a></div></td>
-</tr></table>
-</td></tr></table>
-</div>
-<?
-include $GLOBALS["DOCUMENT_ROOT"]."/style/footer.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+authorize();
+showheader( "Главное меню");
+// тут ссылк ана главное
+// дальше собственно текст страницы
+
+$menu = new Menu();
+
+$menu->add("lanch","Запуски",false,"/zapuski/");
+$menu->add("storage","Склады",false,"/sklads/");
+$menu->add("wiki","База знаний",false,"http://mppwiki");
+$menu->add("docsearch","Доку&shy;менты",false,"http://igor");
+$menu->add("logout","Выход",false,'/logout.php');
+
+$menu->show();
+
+showfooter();
 ?>
