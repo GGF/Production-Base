@@ -1,152 +1,185 @@
 .ident {
-		text-indent: 1cm;
-		}
+	text-indent: 1cm;
+}
 
 .noident {
-		text-indent: 0cm;
-		}
-	
-.rowhead { color: lime; 
-		text-align: center;
-		background-color: brown;}
+	text-indent: 0cm;
+}
 
-.arowhead { font-size:150%;
-		text-align: center;
-		text-indent: 0cm;
-	    	color: brown; 
-	    	background-color: rgb(172,194,172);}
+.rowhead {
+	color: lime;
+	text-align: center;
+	background-color: brown;
+}
 
-.advert { background-color: gray;}
-.ruby { color:red; }
-.giant { font-size:150%; 
-	 color: navy; }
-.name {color: yellow;
-	background-color: navy;}
+.arowhead {
+	font-size: 150%;
+	text-align: center;
+	text-indent: 0cm;
+	color: brown;
+	background-color: rgb(172, 194, 172);
+}
 
-A:link    { color: black; text-decoration:none; }          /* unvisited link */
-A:visited { color: black; text-decoration:none; }        /* visited links */
-A:active  { color: black; text-decoration:none; }        /* active links */  
-A img {border:0;}
+.advert {
+	background-color: gray;
+}
 
-.editdiv A {text-decoration:underline}
+.ruby {
+	color: red;
+}
 
-BODY { 
-	margin:0;
-	padding:0;
- }
+.giant {
+	font-size: 150%;
+	color: navy;
+}
 
-P {	text-indent: 1cm;
+.name {
+	color: yellow;
+	background-color: navy;
+}
+
+A:link {
+	color: black;
+	text-decoration: none;
+}  /* unvisited link */
+A:visited {
+	color: black;
+	text-decoration: none;
+}  /* visited links */
+A:active {
+	color: black;
+	text-decoration: none;
+}  /* active links */
+A img {
+	border: 0;
+}
+
+.editdiv A {
+	text-decoration: underline
+}
+
+BODY {
+	margin: 0;
+	padding: 0;
+}
+
+P {
+	text-indent: 1cm;
 	text-align: justify;
 	font-family: Times New Roman, serif;
 	margin: 0cm 0cm 0cm 0cm;
 	padding: 0cm 0cm 0cm 0cm;
 	border-width: thin thin thin thin;
-  }
+}
 
-.warning { color : red; 
-	   background-color: yellow;}
+.warning {
+	color: red;
+	background-color: yellow;
+}
 
-OL { text-align: justify; }
+OL {
+	text-align: justify;
+}
 
-.data { color: maroon; 
-		text-indent: 0cm;
-		}
-
+.data {
+	color: maroon;
+	text-indent: 0cm;
+}
 
 .glavmenu {
-	text-align:center;
-	background-color: rgb(172,194,172);
-	height:20px;
-	cursor:hand;
-	
+	text-align: center;
+	background-color: rgb(172, 194, 172);
+	height: 20px;
+	cursor: hand;
 }
 
 .soob {
-	text-align:center;
-	background-color: rgb(255,226,197);
-	color:red;
+	text-align: center;
+	background-color: rgb(255, 226, 197);
+	color: red;
 }
 
 .menu {
-	text-align:center;
-	background-color: rgb(200,255,200);
-	color:red;
+	text-align: center;
+	background-color: rgb(200, 255, 200);
+	color: red;
 }
+
 .menusel {
-	text-align:center;
-	background-color: rgb(100,255,100);
-	color:red;
-	height:60;
+	text-align: center;
+	background-color: rgb(100, 255, 100);
+	color: red;
+	height: 60;
 }
 
 .menuitem A {
-	color:blue;
+	color: blue;
 }
 
 .menuitem {
-	width:100%;
-	height:100%;
-	text-align:center;
+	width: 100%;
+	height: 100%;
+	text-align: center;
 	color: white;
-	/*float:left;*/
-	/*margin:5;*/
-	padding-left:2px;
-	padding-right:2px;
-	cursor:hand;
+	/*float:left;*/ /*margin:5;*/
+	padding-left: 2px;
+	padding-right: 2px;
+	cursor: hand;
 }
 
 .menuitemcp A {
-	color:black;
+	color: black;
 }
+
 .menuitemcp A div {
-	display:table-cell;
-	vertical-align:middle;
-	width:64px;
-	height:64px;
-	max-width:64px;
-	max-height:64px;
-	overflow:auto;
-	font-weight:bold;
-	background-image:URL("/picture/cp.png");
+	display: table-cell;
+	vertical-align: middle;
+	width: 64px;
+	height: 64px;
+	max-width: 64px;
+	max-height: 64px;
+	overflow: auto;
+	font-weight: bold;
+	background-image: URL("/picture/cp.png");
 }
+
 .menuitemcp {
-	width:100%;
-	height:100%;
-	text-align:center;
+	width: 100%;
+	height: 100%;
+	text-align: center;
 	color: white;
-	/*float:left;*/
-	/*margin:5;*/
-	padding-left:2px;
-	padding-right:2px;
-	cursor:hand;
+	/*float:left;*/ /*margin:5;*/
+	padding-left: 2px;
+	padding-right: 2px;
+	cursor: hand;
 }
 
 .menuitemsel {
-	text-align:center;
-	background-color: rgb(100,255,100);
+	text-align: center;
+	background-color: rgb(100, 255, 100);
 	color: blue;
-	float:left;
-	margin:5;
+	float: left;
+	margin: 5;
 }
 
 .chettr {
-	background-color:rgb(250,250,250);
+	background-color: rgb(250, 250, 250);
 }
 
 .nechettr {
-	background-color:rgb(230,230,230);
+	background-color: rgb(230, 230, 230);
 }
+
 .chettr1 {
-	background-color:rgb(250,250,250);
+	background-color: rgb(250, 250, 250);
 }
 
 .nechettr1 {
-	background-color:rgb(230,230,230);
+	background-color: rgb(230, 230, 230);
 }
 
-
 .listtable {
-	width:100%;
+	width: 100%;
 	border: solid black 1px;
 }
 
@@ -155,145 +188,158 @@ OL { text-align: justify; }
 }
 
 td {
-	vertical-align:top;
+	vertical-align: top;
 }
 
 thead {
-	font-weight:bold;
-	text-align:center;
-	padding:5px;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
 }
 
 th {
-	font-weight:bold;
-	text-align:center;
-	padding:5px;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
 	border: solid black 2px;
 }
 
 .fullwidth {
-	width:100%;
-	margin:0;
-	padding:0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 	/*border:solid 1px red;*/
-	
 }
 
 .red {
-	color:red;
+	color: red;
 	font-size: 0.5em;
 }
 
 .maindiv {
-	width:100%;
-	margin:0;
-	padding:0;
-	height:78%; 
-	overflow-y:scroll;
-	overflow-x:hidden;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 78%;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
-.editdiv {
-	/*margin:5%; */
-	position:absolute; 
-	top:0%;
-	left:0%; 
-	z-index:0;
-	border: solid 1px black; 
-	color:black; 
-	background-color:lightblue;
+.editdiv { /*margin:5%; */
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	z-index: 0;
+	border: solid 1px black;
+	color: black;
+	background-color: lightblue;
 }
 
 .editdivin {
-	min-height:100%;
-	border:solid 4px white;
-	padding : 10px;
+	min-height: 100%;
+	border: solid 4px white;
+	padding: 10px;
 }
 
 .loading {
-	margin:10; 
-	position:absolute; 
-	top:50%;
-	left:40%; 
-	color:white; 
-	background-color:red; 
+	margin: 10;
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	color: white;
+	background-color: red;
 	font-size: 40pt;
 }
 
-.rigthtop {
-	/* кнопка закрытия в углу */
-	position:absolute; 
-	right:0; 
-	top:0;
+.rigthtop { /* кнопка закрытия в углу */
+	position: absolute;
+	right: 0;
+	top: 0;
 	width: 20px;
 	height: 20px;
 }
 
 .blockedit {
-	border: solid 5px white; 
-	background-color:lightblue; 
+	border: solid 5px white;
+	background-color: lightblue;
 	/*margin:5%; */
-	position:absolute; 
-	top:0; 
-	left:0; 
+	position: absolute;
+	top: 0;
+	left: 0;
 	/*width:90%; 
 	height:100%; */
-	min-width:400px;
-	min-height:40%;
-	border: solid 1px black; 
+	min-width: 400px;
+	min-height: 40%;
+	border: solid 1px black;
 }
 
 .plateedit {
-	border: solid 5px white; 
-	background-color:lightblue; 
+	border: solid 5px white;
+	background-color: lightblue;
 	/*margin:10%; */
-	position:absolute; 
-	top:5%; 
-	left:0; 
+	position: absolute;
+	top: 5%;
+	left: 0;
 	/*width:80%; 
 	height:100%; */
-	min-width:400px;
-	min-height:50%;
-	border: solid 1px black; 
+	min-width: 400px;
+	min-height: 50%;
+	border: solid 1px black;
 }
 
 .preposblock {
-	width:100%; height:100%; min-height:50%;
+	width: 100%;
+	height: 100%;
+	min-height: 50%;
 }
 
 .position {
-	width:100%; height:100%; min-height:95%; background-color:lightgray;
+	width: 100%;
+	height: 100%;
+	min-height: 95%;
+	background-color: lightgray;
 }
 
 .blocks {
-	width:100%; height:100%; min-height:95%;  background-color:lightgreen;
+	width: 100%;
+	height: 100%;
+	min-height: 95%;
+	background-color: lightgreen;
 }
 
 .blockform {
-	width:40%; float:left; height:100%; /*min-height:100%;*/ background-color:lightgray; border: solid -1px red;
+	width: 40%;
+	float: left;
+	height: 100%; /*min-height:100%;*/
+	background-color: lightgray;
+	border: solid -1px red;
 }
 
 .platepool {
-	height:100%; /*min-height:100%;*/ float:left; width:60%; background-color:gray; border: solid -1px red;
+	height: 100%; /*min-height:100%;*/
+	float: left;
+	width: 60%;
+	background-color: gray;
+	border: solid -1px red;
 }
 
 .sun {
-	display:none;
-	position:absolute; 
-	right:0px;
-	z-index:10;
+	display: none;
+	position: absolute;
+	right: 0px;
+	z-index: 10;
 }
 
 #quote {
-	font-family: 'Monaco', 'Courier New', monospace; 
-	font-size: 10pt; 
-	margin: 0; 
+	font-family: 'Monaco', 'Courier New', monospace;
+	font-size: 10pt;
+	margin: 0;
 	font-weight: normal;
-	background: #f0f0f0; 
-	padding: 5px; 
+	background: #f0f0f0;
+	padding: 5px;
 	border: 1px dotted #999;
 }
 
 .find {
-	width:100%;
+	width: 100%;
 }

@@ -1,13 +1,13 @@
 .jquery-tree {
-    list-style: none;
+	list-style: none;
 }
 
 .jquery-tree ul {
-    list-style: none;
+	list-style: none;
 }
 
 .jquery-tree-handle {
-    cursor: pointer;
+	cursor: pointer;
 	width: 10px;
 	overflow: hidden;
 	display: inline-block;
@@ -17,11 +17,10 @@
 }
 
 .jquery-tree-collapsed ul {
-    display: none;
+	display: none;
 }
 
-.jquery-tree-collapseall,
-.jquery-tree-expandall {
+.jquery-tree-collapseall,.jquery-tree-expandall {
 	cursor: pointer;
 }
 
@@ -35,20 +34,19 @@
 }
 
 .jquery-tree-leaf {
-    padding-left: 20px;
+	padding-left: 20px;
 }
 
 .jquery-tree-node {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 .jquery-tree-title {
-	display:inline-block;
+	display: inline-block;
 }
 
-.jquery-tree-checked-partial,
-.jquery-tree-checked,
-.jquery-tree-unchecked {
+.jquery-tree-checked-partial,.jquery-tree-checked,.jquery-tree-unchecked
+	{
 	background-position: 5px 50%;
 	background-repeat: no-repeat;
 	cursor: default;
@@ -68,7 +66,6 @@
 	background-image: url('../picture/jqtree/checkbox-unchecked.png');
 }
 
-.jquery-tree-node label,
-.jquery-tree-handle {
+.jquery-tree-node label,.jquery-tree-handle {
 	-moz-user-select: none;
 }

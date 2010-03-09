@@ -1,4 +1,7 @@
 <?
+/*
+ *  Класс Таблица для выводна данных из базы
+ */
 class Table {
 	var $type;
 	var $opentype;
@@ -74,7 +77,7 @@ class Table {
 					// последний
 					$prtrid = $trid;
 					$trid = $netrid;
-					$netrid = $netrid;
+					//$netrid = $netrid;
 				} else {
 					// остальные проходы
 					$prtrid = $trid;

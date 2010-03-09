@@ -48,7 +48,7 @@
 				// последний
 				$prtrid = $trid;
 				$trid = $netrid;
-				$netrid = $netrid;
+				//$netrid = $netrid;
 			} else {
 				// остальные проходы
 				$prtrid = $trid;
