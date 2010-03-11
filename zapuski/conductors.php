@@ -85,20 +85,17 @@ else
 
 	//echo $sql;
 	
-	$type="conductors";
 	$cols[id]="ID";
 	$cols[customer]="Заказчик";
 	$cols[plate]="Плата";
 	$cols[side]="Сторона";
 	$cols[lays]="Пластин";
 	$cols[pib]="Плат в блоке";
-	
-	$edit=true;
-	$del=true;
-	$addbutton=true;
-	$opentype = "conductors";
 
-	include "table.php";
+
+	$table = new Table("conductors","conductors",$sql,$cols);
+	$table->addbutton=true;
+	$table->show();
 
 }
 

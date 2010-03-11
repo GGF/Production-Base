@@ -61,14 +61,14 @@ else
 	// sql	
 	$sql="SELECT * FROM users ".(isset($find)?"WHERE (nik LIKE '%$find%' OR fullname LIKE '%$find%' OR position LIKE '%$find%') ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY nik ").(isset($all)?"":"LIMIT 20");
 	//print $sql;
-	$type="users";
+
 	$cols[id]="ID";
 	$cols[nik]="Nik";
 	$cols[fullname]="Fullname";
 	$cols[position]="Position";
-
-	$opentype = "rights";
 	
-	include "table.php";
+	$table = new Table("users","rights",$sql,$cols);
+	$table->addbutton=true;
+	$table->show();
 }
 ?>

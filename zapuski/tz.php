@@ -127,26 +127,14 @@ else
 	$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
 	
-	$type="tz";
 	$cols[tzid]="ID";
 	$cols[tz_date]="Дата";
 	$cols[nik]="Кто заполнил";
-	//$cols[customer]="Заказчик";
-	//$cols[number]="Заказ";
-	//$cols[orderdate]="Дата заказа";
 
-	//$print[rasschet]="Техзадание";
-	//$print[rasschet2]="Для рассчета 2";
-	//$print[poduction1]="Для производства";
-
-	//$bgcolor='#CCCCCC';
-	$title = 'Техзадания';
-
-	//$openfunc = "opentztr";
-	$opentype = "posintz";
-	if (isset($orderid)) $idstr = "&orderid=$orderid";
-
-	//echo "<h1>Техзадания по письму ";
-	include "table.php";
+	$table = new Table("tz","posintz",$sql,$cols);
+	$table->title='Техзадания';
+	if (isset($orderid)) $table->idstr = "&orderid=$orderid";
+	$table->addbutton=true;
+	$table->show();
 }
 ?>

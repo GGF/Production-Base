@@ -512,7 +512,7 @@ else
 
 	$sql="SELECT *,posintz.id AS nzid,posintz.id FROM posintz LEFT JOIN (lanched) ON (posintz.plate_id=lanched.board_id) JOIN (plates,tz,filelinks,customers,orders) ON (tz.order_id=orders.id AND plates.id=posintz.plate_id  AND posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id AND plates.customer_id=customers.id) WHERE posintz.ldate = '0000-00-00' ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR filelinks.file_link LIKE '%$find%' OR orders.number LIKE '%$find%') ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY customers.customer,tz.id,posintz.id ").(isset($all)?"":"LIMIT 20");
 
-	$type="nzap";
+
 	$cols["№"]="№";
 	$cols[nzid]="ID";
 	$cols[customer]="Заказчик";
@@ -522,11 +522,8 @@ else
 	$cols[lastdate]="Посл. зап";
 	
 	
-	$addbutton=false;
-
-	$opentype = "nzap";
-
-	include "table.php";
+	$table = new Table("nzap","nzap",$sql,$cols);
+	$table->show();
 
 }
 

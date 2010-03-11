@@ -8,7 +8,7 @@ showheader( "Склады");
 
 $menu = new Menu();
 
-$menu->add("himiya","Ма&shy;те&shy;ри&shy;алы",false,"himiya/");
+$menu->add("himiya","Ма&shy;те&shy;ри&shy;алы",false,"himiya.php");
 $menu->add("materials","Тек&shy;сто&shy;лит",false,"materials/");
 $menu->add("himiya2","Ла&shy;бо&shy;ра&shy;то&shy;рия",false,"himiya2/");
 $menu->add("sverla","Све&shy;рла 3.0",false,"sverla/");

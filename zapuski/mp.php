@@ -26,10 +26,7 @@ else
 	$cols[customer]="Заказчик";
 	$cols[plate]="Плата";
 	
-	$opentype='mp';
-	
 	$table = new Table("mp","mp",$sql,$cols);
-
 	$table->show();
 	
 }

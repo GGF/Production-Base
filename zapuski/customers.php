@@ -1,7 +1,8 @@
 <?
 // управление заказчиками
 
-include "head.php";
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; 
+authorize(); // вызов авторизации
 
 if (isset($edit) || isset($add) ) {
 	if (!isset($accept)) {
@@ -97,18 +98,19 @@ else
 // вывести таблицу
 	// sql
 	$sql="SELECT * FROM customers ".(isset($find)?"WHERE (customers.customer LIKE '%$find%' OR customers.fullname LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY customers.customer ").(isset($all)?"":"LIMIT 20");
-	//print $sql;
-	$type="customers";
+	//echo $sql;
 	$cols[id]="ID";
 	$cols[customer]="Заказчик";
 	$cols[fullname]="Полное название";
 	$cols[kdir]="Сверловки";
-	$del=true;
-	$edit=true;
+
 	$openfunc = "opencustr";
-	$bgcolor='#FFFFFF';
-	$title = 'Заказчики';
+
 	
-	include "table.php";
+	$table = new Table("customers","opencustr",$sql,$cols);
+	$table->title='Заказчики';
+	$table->addbutton=true;
+	$table->show();
+
 }
 ?>

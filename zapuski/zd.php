@@ -48,7 +48,6 @@ if (isset($edit) || isset($add)) {
 		$ldate = substr($ldate,8,2).".".substr($ldate,5,2).".".substr($ldate,0,4);
 		echo "<br>№ извещения:<input size=10 name=niz Value=$niz>";
 		echo "<br>Дата запуска:<input size=10 name=ldate id=datepicker Value=$ldate><br>";
-		echo "<script>$('#datepicker').datepicker($.datepicker.regional['ru']);</script>";
 		echo "<input type=hidden name=accept value='yes'>";
 		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
 		echo "<input type=hidden name=tid value='$tid'>";
@@ -84,7 +83,6 @@ if (isset($edit) || isset($add)) {
 	$sql="SELECT *,zadel.id AS zid,zadel.id FROM zadel JOIN (plates,customers) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR customers.customer LIKE '%$find%')":"").($order!=''?" ORDER BY ".$order." ":" ORDER BY zadel.id DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;
 	
-	$type="zd";
 	$cols["№"]="№";
 	$cols[zid]="ID";
 	$cols[customer]="Заказчик";
@@ -93,7 +91,8 @@ if (isset($edit) || isset($add)) {
 	$cols[ldate]="Дата запуска";
 	$cols[number]="Кол-во";
 
-	$opentype='zd';
-	include "table.php";
+	$table = new Table("zd","zd",$sql,$cols);
+	$table->addbutton=true;
+	$table->show();
 }
 ?>

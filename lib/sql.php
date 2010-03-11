@@ -78,7 +78,7 @@ function authorize()
 		echo "<style>";
 		echo ".zag {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12pt; font-weight: bold; color: #000000} \n";
 		echo ".tekst {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000000}";
-		echo ".podtekst {  font-family: Arial, Helvetica, sans-serif; font-size: 6pt; color: red; align:left}";
+		echo ".podtekst {  font-family: Arial, Helvetica, sans-serif; font-size: 6pt; color: red; text-align:left}";
 		echo "</style></head>";
 		echo "<body bgcolor=#FFFFFF><div align=center> <p>&nbsp;</p>";
 		echo " <form action='' method='POST'>";
@@ -106,7 +106,7 @@ function authorize()
 
 
 function isadminhere() {
-
+	global $dbname;
 	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
 	$sql="SELECT (UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts))<180 FROM session WHERE u_id='1' ORDER BY ts DESC LIMIT 1";
 	$res=mysql_query($sql);
@@ -317,7 +317,7 @@ function showheader($subtitle='') {
 
 	$(function() {
 		$.datepicker.setDefaults($.extend({showMonthAfterYear: false}, $.datepicker.regional['']));
-		$('#datepicker').datepicker($.datepicker.regional['ru']);
+		$('#datepicker').live('focus',function(){\$(this).datepicker($.datepicker.regional['ru']);});
 	});
 	</script>
 <title>
@@ -348,32 +348,29 @@ echo file_get_contents("http://computers.mpp/getbashlocal.php?$bash");
 }
 
 function showfooter($buffer='') {
+	global $user;
+		if  ($user=="igor") {
+			echo "<div id=userswin class=sun style='display:none'>";
+			$sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts)) AS lt FROM session JOIN users ON session.u_id=users.id";
+			$res=mysql_query($sql);
+			while($rs=mysql_fetch_array($res)){
+				echo $rs[nik]." - ".$rs[lt]."<br>";
+			}
 
-echo "<div class='maindiv' id=maindiv>";
-if (empty($buffer)) 
-	echo "Выбери чтонить!!!";
-else 
-	echo $buffer;
-echo "</div>";
-echo "<div class='loading' id='loading'>Загрузка...</div>";
-
-echo "<div class='editdiv' id=editdiv><img src=/picture/s_error2.png class='rigthtop' onclick='closeedit()'>";
-echo "<div class='editdivin' id='editdivin'></div>";
-echo "</div>";//место для редактирования всего
-
-echo "<script>newinterface=true;</script>";
-
-	if  ($user=="igor") {
-	echo "<div id=userswin class=sun style='display:none'>";
-	$sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts)) AS lt FROM session JOIN users ON session.u_id=users.id";
-	$res=mysql_query($sql);
-	while($rs=mysql_fetch_array($res)){
-		echo $rs[nik]." - ".$rs[lt]."<br>";
-	}
+			echo "</div>";
+		}
+	echo "<div class='maindiv' id=maindiv>";
+	if (empty($buffer)) 
+		echo "Выбери чтонить!!!";
+	else 
+		echo $buffer;
 	echo "</div>";
-}
-
-echo "</body></html>";
+	echo "<div class='loading' id='loading'>Загрузка...</div>";
+	echo "<div class='editdiv' id=editdiv><img src=/picture/s_error2.png class='rigthtop' onclick='closeedit()'>";
+	echo "<div class='editdivin' id='editdivin'></div>";
+	echo "</div>";//место для редактирования всего
+	echo "<script>newinterface=true;</script>";
+	echo "</body></html>";
 }
 
 
@@ -421,12 +418,20 @@ if(!headers_sent()  && !isset($print)) {
 }
 
 foreach ($_GET as $key => $val) {
-	//if (mb_detect_encoding($val)!="cp1251") 
-		$$key=mb_convert_encoding($val,"cp1251");
+	//$test .= "get-$key".mb_detect_encoding($val)."-".$val;
+	if (mb_detect_encoding($val)=="UTF-8") 
+		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+	else 
+		${$key}=$val;
+	//$test .= ${$key}."<br>";
 }
 foreach ($_POST as $key => $val) {
-	//if (mb_detect_encoding($val)!="cp1251") 
-		$$key=mb_convert_encoding($val,"cp1251");
+	//$test .= "post-$key".mb_detect_encoding($val)."<br>";
+	if (mb_detect_encoding($val)=="UTF-8") 
+		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+	else 
+		${$key}=$val;
+	//$test .= ${$key}."<br>";
 }
 
 importmodules();

@@ -1,4 +1,8 @@
 <?
+$dbname = 'zaomppsklads';
+include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+authorize();
+$sklad = $_COOKIE["sklad"];
 
 if ($action=='add') {
 
@@ -45,7 +49,7 @@ if ($action=='add') {
 	mylog1($sql);
 	if(!mysql_query($sql)) 
 		my_error();
-	echo "<script>window.location='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."';</script>";
+	//echo "<script>window.location='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."';</script>";
 } 
  elseif (isset($dvizh))
 {
@@ -53,7 +57,8 @@ if ($action=='add') {
 } 
  elseif (isset($edit))
 {
-	if (isset($submit)) {
+	if (isset($accept)) 
+	{
 		// отредактировано
 		if ($edit==0) {
 			//добавление нового
@@ -70,19 +75,27 @@ if ($action=='add') {
 		mylog1($sql);
 		if(!mysql_query($sql)) 
 			my_error();
-		print "<script>window.location='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."';</script>";
-	} else {
+		echo "<script>updatetable('$tid','ost','');closeedit();</script>";
+	} 
+	else 
+	{
 		if($edit!=0) {
 			$sql="SELECT * FROM sk_".$sklad."_spr WHERE id='".$edit."'";
 			$res=mysql_query($sql);
 			if (!$rs=mysql_fetch_array($res)) my_error();
 		}
-		print "<form action='' method=post>Наименование:<input size=50 type=text name=nazv value='".$rs["nazv"]."'><br>Единица измерения:<input type=text name=edizm value='".$rs["edizm"]."'><br>Критический остаток:<input type=text name=krost value='".$rs["krost"]."'><br><input type=submit name=submit value='Сохранить'><input type=button onclick='history.back()' value='Отмена'><input type=hidden name=edit value='$edit'></form>";
+		echo "<form method=post id=editform>";
+		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
+		echo "<input type=hidden name=tid value='$tid'>";
+		echo "<input type=hidden name=uid value='$uid'>";
+		echo "<input type=hidden name=accept value='yes'>";
+		echo "Наименование:<input size=50 type=text name=nazv value='".$rs["nazv"]."'><br>Единица измерения:<input type=text name=edizm value='".$rs["edizm"]."'><br>Критический остаток:<input type=text name=krost value='".$rs["krost"]."'>";
+		echo "<br><input type=button value='Сохранить' onclick=\"editrecord('ost',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
 	}
 } else
 {
 // вывести таблицу
-	
+	/*
 	if(isset($view) & $view=='all')
 		print "<center><a href='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."'>Первые 20</a>";
 	else
@@ -122,6 +135,21 @@ if ($action=='add') {
 	}
 	print "</table>";
 	print "</form>";
+	*/
+
+	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_".$sklad."_spr.id FROM `sk_".$sklad."_spr` JOIN sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id WHERE nazv!='' ".(isset($find)?"AND nazv LIKE '%$find%' ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
+	//echo $sql;
+	
+	$cols[nazv]="Название";
+	$cols[edizm]="Ед.Изм.";
+	$cols[ost]="Остаток на складе";
+	$cols[krost]="Крит. кол-во";
+	$cols[malo]="Внимание";
+
+	
+	$table = new Table("ost","dvizh",$sql,$cols,false);
+	$table->addbutton=true;
+	$table->show();
 }
 
 ?>

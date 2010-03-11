@@ -18,17 +18,16 @@ else
 	// sql
 	$sql="SELECT *,logs.id FROM logs JOIN (users) ON (users.id=logs.user_id) ".(isset($find)?"WHERE (logs.sqltext LIKE '%$find%') ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY logs.logdate DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;
-	$type="logs";
+
 	$cols[id]="ID";
 	$cols[logdate]="TS";
 	$cols[nik]="User";
 	$cols[action]="Action";
 	$cols[sqltext]="SQL";
-	$del=true;
-	$edit=false;
-	$addbutton=false;
-	$openfunc = "openempty";
+
 	
-	include "table.php";
+	$table = new Table("logs","",$sql,$cols);
+	$table->show();
+	
 }
 ?>

@@ -5,6 +5,7 @@
 class Table {
 	var $type;
 	var $opentype;
+	var $openfunc;
 	var $sql;
 	var $cols;
 	var $tid;
@@ -14,11 +15,16 @@ class Table {
 	var $idstr;
 	var $addbutton;
 	var $all;
+	var $title;
+	var $checkrights;
 	
-	function Table($type='', $optype='', $sql='',$cols='') { //конструктор
+	function Table($type='', $optype='', $sql='',$cols='',$checkrights=true) { //конструктор
 		global $find,$all,$order;
 		$this->type=$type;
-		$this->opentype=$optype;
+		if (file_exists($optype.".php"))
+			$this->opentype=$optype;
+		else 
+			$this->openfunc=$optype;
 		$this->sql = $sql;
 		$this->cols=$cols;
 		$this->order=$order;
@@ -27,6 +33,8 @@ class Table {
 		$this->idstr='';
 		$this->all=isset($all);
 		$this->addbutton=false;
+		$this->title='';
+		$this->checkrights = $checkrights;
 	}
 	
 	
@@ -34,7 +42,7 @@ class Table {
 	function show_header($tid,$del,$edit) {
 		echo "<table class='listtable' style='background-color:".$this->bgcolor.";' cellspacing=0 cellpadding=0 id='".$tid."'".(!empty($this->find)?" find='$this->find' ":"").(!empty($this->idstr)?" idstr='$this->idstr' ":"").(!$this->all?" tall='$this->all' ":"").(!empty($this->order)?" order='$this->order' ":"").">";
 		echo "<thead>";
-		if (!empty($this->title)) {echo "<tr><th colspan=100 align=center>$this->title";}
+		if (!empty($this->title)) {echo "<tr><th colspan=100 align=center>".$this->title;}
 		echo "<tr>";
 		reset($this->cols);
 		while (list($key, $val) = each($this->cols)) {
@@ -53,11 +61,15 @@ class Table {
 	function show() {
 		global $user;
 
-		$r=getright($user);
-		$del = $r[$this->type]['del'];
-		$edit = $r[$this->type]['edit'];
+		if ($checkrights) {
+			$r=getright($user);
+			$del = $r[$this->type]['del'];
+			$edit = $r[$this->type]['edit'];
+		} else {
+			$del=$edit=true;
+		}
 		
-		$tid = uniqid($this->type);
+		$this->tid=$tid = uniqid($this->type);
 		
 		$this->show_header($tid,$del,$edit);
 
@@ -86,9 +98,9 @@ class Table {
 				}
 				//$trid = uniqid('tr');
 				if (!($i++%2))
-					echo "<tr class='chettr' parent='$this->tid' id='$trid' prev='$prtrid' next='$netrid'>";
+					echo "<tr class='chettr' parent='$tid' id='$trid' prev='$prtrid' next='$netrid'>";
 				else
-					echo "<tr class='nechettr' parent='$this->tid' id='$trid' prev='$prtrid' next='$netrid'>";
+					echo "<tr class='nechettr' parent='$tid' id='$trid' prev='$prtrid' next='$netrid'>";
 				$rs["№"]=$i;
 				$link = "<a alt='раскрыть' title='Раскрыть' onclick=\"".(!empty($this->openfunc)?$this->openfunc."('".$rs["id"]."','$trid')":(!empty($this->opentype)?"opentr('".$rs["id"]."','$trid','".$this->opentype."'".(($this->type==$this->opentype)?",'show'":"").")":"openempty()"))."\" id=showlink><div class='fullwidth'>";
 				$linkend = "</div></a>";
@@ -114,7 +126,6 @@ class Table {
 	
 	function showfooter($tid,$firsttrid,$lastrid) {
 		echo "<script>
-		yellowtr();
 		
 		$('#findtext$tid').focus(function() { $(this).val(''); $(this).addClass('hasFocus');});
 		$('#findtext$tid').blur(function() { 
@@ -128,7 +139,7 @@ class Table {
 			echo "firsttr = '$firsttrid';
 			curtr = firsttr;
 			lasttr = '$lasttrid';
-			$('#'+curtr).css({'background-color' : 'yellow'});
+			$('#'+curtr).toggleClass('yellow');
 			";
 		}
 		echo "</script>";

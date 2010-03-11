@@ -83,11 +83,9 @@ else
 
 	// sql
 	$sql="SELECT *,lanch.id FROM lanch JOIN (users,filelinks,coments,plates,customers,tz,orders) ON (lanch.user_id=users.id AND lanch.file_link_id=filelinks.id AND lanch.comment_id=coments.id AND lanch.board_id=plates.id AND plates.customer_id=customers.id AND lanch.tz_id=tz.id AND orders.id=tz.order_id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR file_link LIKE '%$find%' OR orders.number LIKE '%$find%')":"").($order!=''?" ORDER BY ".$order." ":" ORDER BY lanch.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
-	//$sql="SELECT *,posintz.id FROM posintz LEFT JOIN (lanch) ON (lanch.tz_id = posintz.tz_id AND lanch.pos_in_tz = posintz.posintz) LEFT JOIN (tmp) ON (posintz.plate_id=tmp.board_id) JOIN (plates,tz,filelinks,customers,orders) ON (tz.order_id=orders.id AND plates.id=posintz.plate_id  AND posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id AND plates.customer_id=customers.id) WHERE posintz.tz_id != '0' AND lanch.id IS NULL ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR filelinks.file_link LIKE '%$find%' OR orders.number LIKE '%$find%') ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY customers.customer,tz.id,posintz.id ").(isset($all)?"":"LIMIT 20");
 	//echo $sql; exit;
 
 	
-	$type="zap";
 	$cols["№"]="№";
 	$cols[ldate]="Дата";
 	$cols[id]="ID";
@@ -98,14 +96,10 @@ else
 	$cols[part]="Партия";
 	$cols[numbz]="Заг.";
 	$cols[numbp]="Плат";
-	//$cols[file_link]="Файл";
 	
-	$edit=false;
-	$del=true;
-	$addbutton=false;
-	$opentype = "zap";
 
-	include "table.php";
+	$table = new Table("zap","zap",$sql,$cols);
+	$table->show();
 
 }
 

@@ -22,19 +22,14 @@ if (isset($edit) || isset($add) ) {
 	
 	$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (plates) ON ( posintz.plate_id = plates.id ) ".(isset($find)?"WHERE (plates.plate LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;
-	$type="posintz";
+
 	$cols[posid]="ID";
 	$cols[plate]="Плата";
 	$cols[numbers]="Количество";
 
-	//$openfunc = "openposintztr";
-	//$bgcolor='#999999';
-	$addbutton=false;
-	$opentype = "posintz";
-	
-	$title = 'Позиции в ТЗ';
-	if (isset($tzid)) $idstr = "&tzid=$tzid";
-	
-	include "table.php";	
+	$table = new Table("posintz","posintz",$sql,$cols);
+	$table->title='Позиции в ТЗ';
+	if (isset($tzid)) $table->idstr = "&tzid=$tzid";
+	$table->show();
 }
 ?>

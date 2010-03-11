@@ -18,7 +18,6 @@ if (isset($edit) || isset($add) ) {
 		echo "<input type=hidden name=customerid value='".($edit==0?$cusid:$rs["customer_id"])."'>";
 		echo "<input type=hidden name=accept value='yes'>";
 		echo "Дата:<input type=text name=orderdate id=datepicker size=10 value='".$rs["odate"]."'><br>";
-		echo "<script>$('#datepicker').datepicker($.datepicker.regional['ru']);</script>";
 		echo "Номер письма:<input type=text name=number size=30 value='".$rs["number"]."'><br>";
 		echo "<input type=button value='Сохранить' onclick=\"editrecord('orders',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
 	} else {
@@ -75,24 +74,26 @@ if (isset($edit) || isset($add) ) {
 else
 {
 // вывести таблицу
+	if (isset($id)) $cusid=$id;
+		
 	$sql = "SELECT customer FROM customers WHERE id='$cusid'";
 	$rs=mysql_fetch_array(mysql_query($sql));
 	$customer = $rs[0];
-	//if (!isset($find) && !isset($order) && !isset($all)) echo "<h1>Заказчик - $customer <input type=button onclick=\"selectmenu('customers','')\" value='Другой'></h1>";
+
 
 	// sql
 	$sql="SELECT * FROM orders ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($cusid)?(isset($find)?"AND customer_id='$cusid'":"WHERE customer_id='$cusid'"):"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"":"LIMIT 20");
 
-	$type="orders";
+
 	$cols[id]="ID";
 	$cols[number]="Номер заказа";
 	$cols[orderdate]="Дата заказа";
-	//$openfunc="openordertr";
-	$opentype="tz";
-	//$bgcolor='#FFFFFF';
-	$title = "Заказы <h1>Заказчик - $customer <input type=button onclick=\"selectmenu('customers','')\" value='Другой'></h1>";
-	if (isset($cusid)) $idstr = "&cusid=$cusid";
 
-	include "table.php";
+	$table = new Table("orders","tz",$sql,$cols);
+	$table->title="Заказы <h1>Заказчик - $customer <input type=button onclick=\"selectmenu('customers','')\" value='Другой'></h1>";;
+	if (isset($cusid)) $table->idstr = "&cusid=$cusid";
+	$table->addbutton=true;
+	$table->show();
+
 }
 ?>
