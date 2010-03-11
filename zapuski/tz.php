@@ -114,6 +114,7 @@ elseif (isset($delete))
 		mylog('posintz',$delete);
 		mysql_query($sql);
 	}
+	echo "ok";
 } 
 elseif (isset($print)) 
 {

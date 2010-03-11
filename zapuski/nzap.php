@@ -83,6 +83,7 @@ elseif (isset($delete)) {
 	$sql="DELETE FROM posintz WHERE id='$delete'";
 	mylog1($sql);
 	mysql_query($sql);
+	echo "ok";
 }
 elseif (isset($print))
 {

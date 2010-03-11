@@ -12,6 +12,7 @@ if (isset($edit) || isset($add) ) {
 	$sql = "DELETE FROM masterplate WHERE id='$delete'";
 	mylog('masterplate',$delete,'DELETE');
 	mysql_query($sql);
+	echo "ok";
 }
 else
 {

@@ -54,6 +54,7 @@ if (isset($edit) || isset($add) ) {
 	$sql = "DELETE FROM users WHERE id='$delete'";
 	mylog('users',$delete,'DELETE');
 	mysql_query($sql);
+	echo "ok";
 }
 else
 {

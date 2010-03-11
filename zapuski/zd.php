@@ -79,6 +79,7 @@ if (isset($edit) || isset($add)) {
 	$sql = "DELETE FROM zadel WHERE id='".$delete."'";
 	mylog('zd',$delete,"DELETE");
 	mysql_query($sql);
+	echo "ok";
 } else {
 	$sql="SELECT *,zadel.id AS zid,zadel.id FROM zadel JOIN (plates,customers) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR customers.customer LIKE '%$find%')":"").($order!=''?" ORDER BY ".$order." ":" ORDER BY zadel.id DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;

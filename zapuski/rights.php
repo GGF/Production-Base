@@ -71,6 +71,7 @@ if (isset($edit) || isset($add) ) {
 	$sql = "DELETE FROM rights WHERE id='$delete'";
 	mylog('rights',$delete,'DELETE');
 	mysql_query($sql);
+	echo "ok";
 }
 else
 {

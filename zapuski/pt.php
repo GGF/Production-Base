@@ -12,6 +12,7 @@ if (isset($edit) || isset($add) ) {
 	$sql = "DELETE FROM phototemplates WHERE id='$delete'";
 	mylog('phototemplates',$delete,'DELETE');
 	mysql_query($sql);
+	echo "ok";
 }
 else
 {

@@ -47,7 +47,9 @@ if (isset($edit) || isset($add) ) {
 			echo "<script>updatetable('$tid','customers','');closeedit();</script>";
 		}
 	}
-} elseif (isset($delete)) {
+} 
+elseif (isset($delete)) 
+{
 	// удаление
 	$sql = "DELETE FROM customers WHERE id='$delete'";
 	mylog('customers',$delete);
@@ -92,6 +94,7 @@ if (isset($edit) || isset($add) ) {
 			}
 		}
 	}
+	echo "ok";
 }
 else
 {

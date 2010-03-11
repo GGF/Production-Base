@@ -17,6 +17,7 @@ if (isset($delete))
 	$sql = "DELETE FROM lanch WHERE id='$delete'";
 	mylog('lanch',$delete);
 	mysql_query($sql);
+	echo "ok";
 }
 elseif (isset($show) || isset($edit) )
 {

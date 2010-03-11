@@ -22,6 +22,7 @@ if (isset($delete))
 	mylog1($sql);
 	if(!mysql_query($sql)) 
 		my_error();
+	echo "ok";
 } 
 elseif (isset($edit)) 
 {

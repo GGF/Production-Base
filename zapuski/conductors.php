@@ -11,6 +11,7 @@ if (isset($delete))
 	$sql = "UPDATE conductors SET ts=NOW(), user_id='$userid', ready='1' WHERE id='$delete'";
 	mylog('conductors',$delete);
 	mysql_query($sql);
+	echo "ok";
 }
 elseif (isset($show) || isset($edit)|| isset($add) )
 {

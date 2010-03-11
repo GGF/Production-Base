@@ -7,10 +7,13 @@ authorize(); // вызов авторизации
 
 if (isset($edit) || isset($add) ) {
 	echo "<script>window.close();</script>";
-} elseif (isset($delete)) {
+} 
+elseif (isset($delete)) 
+{
 	// удаление
 	$sql = "DELETE FROM logs WHERE id='$delete'";
 	mysql_query($sql);
+	echo "ok";
 }
 else
 {

@@ -45,7 +45,9 @@ if (isset($edit) || isset($add) ) {
 			echo "<script>updatetable('$tid','orders','');closeedit();</script>";
 		}
 	}
-} elseif (isset($delete)) {
+} 
+elseif (isset($delete)) 
+{
 	// удаление
 	$sql = "DELETE FROM orders WHERE id='$delete'";
 	mylog('orders',$delete);
@@ -70,6 +72,7 @@ if (isset($edit) || isset($add) ) {
 			mysql_query($sql);
 		}
 	}
+	echo "ok";
 }
 else
 {

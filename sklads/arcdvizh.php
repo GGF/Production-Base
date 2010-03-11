@@ -9,6 +9,9 @@ if(isset($id)) $spr_id=$id;
 if (isset($delete)) {
 	// из архива не удаляем
 } 
+elseif (isset($edit)) {
+	// не редактируем
+}
 else
 {
 	// вывести таблицу

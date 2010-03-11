@@ -4,8 +4,8 @@ include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 
-if ($action=='add') {
-
+if (isset($delete)) {
+	// не удалется
 } 
  elseif (isset($edit))
 {

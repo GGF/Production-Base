@@ -4,7 +4,8 @@ include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 
 
-if (isset($edit) || isset($add)) {
+if (isset($edit) || isset($add)) 
+	{
 	if (!isset($accept)) {
 		$sql = "SELECT * FROM users WHERE nik='".$user."'";
 		$res = mysql_query($sql);
@@ -44,15 +45,21 @@ if (isset($edit) || isset($add)) {
 			echo "<script>updatetable('$tid','todo','');closeedit();</script>";
 		}
 	}
-} elseif (isset($delete)) {
+} 
+elseif (isset($delete)) 
+{
 	$sql = "SELECT * FROM todo WHERE id='".$delete."'";
 	$res = mysql_query($sql);
 	$rs=mysql_fetch_array($res);
 	$sql = "UPDATE todo SET rts=NOW(), what='<del>".$rs["what"]."</del>' WHERE id='$delete'";
 	mylog('todo',$delete,"UPDATE");
 	mysql_query($sql);
-} else {
-$sql="SELECT *, todo.id FROM todo JOIN users ON users.id=u_id ".(isset($find)?"WHERE (what LIKE '%$find%' ) ":"").((isset($all))?"":(isset($find)?" AND rtsrts='000000000000' ":" WHERE rts='000000000000' ")).(isset($order)?"ORDER BY ".$order." ":"ORDER BY cts ").((isset($all))?"":"LIMIT 20");
+	echo "ok";
+} 
+else 
+{
+	$sql="SELECT *, todo.id FROM todo JOIN users ON users.id=u_id ".(isset($find)?"WHERE (what LIKE '%$find%' ) ":"").((isset($all))?"":(isset($find)?" AND rtsrts='000000000000' ":" WHERE rts='000000000000' ")).(isset($order)?"ORDER BY ".$order." ":"ORDER BY cts ").((isset($all))?"":"LIMIT 20");
+	// echo $sql;
 
 	$cols[id]="ID";
 	$cols[nik]="Кто";

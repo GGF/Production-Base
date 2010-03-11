@@ -5,9 +5,7 @@ authorize(); // вызов авторизации
 
 
 if (isset($edit) || isset($add) ) {
-} elseif (isset($editblock)) {
-} elseif (isset($editplate)) {
-} elseif (isset($findplate)) {
+	// не редактируем
 } elseif (isset($delete)) 
 {
 	// удаление
@@ -15,6 +13,7 @@ if (isset($edit) || isset($add) ) {
 	mylog('posintz',$delete);
 	mysql_query($sql);
 	// удаление связей
+	echo "ok";
 } else 
 {
 	// список
