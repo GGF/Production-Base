@@ -9,6 +9,7 @@ $menu = new Menu();
 
 $menu->add("lanch","Запуски",false,"/zapuski/");
 $menu->add("storage","Склады",false,"/sklads/");
+$menu->add("cp","Admin",true,"/cp/");
 $menu->add("wiki","База знаний",false,"http://mppwiki");
 $menu->add("docsearch","Доку&shy;менты",false,"http://igor");
 $menu->add("logout","Выход",false,'/logout.php');

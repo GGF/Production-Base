@@ -349,16 +349,9 @@ echo file_get_contents("http://computers.mpp/getbashlocal.php?$bash");
 
 function showfooter($buffer='') {
 	global $user;
-		if  ($user=="igor") {
-			echo "<div id=userswin class=sun style='display:none'>";
-			$sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts)) AS lt FROM session JOIN users ON session.u_id=users.id";
-			$res=mysql_query($sql);
-			while($rs=mysql_fetch_array($res)){
-				echo $rs[nik]." - ".$rs[lt]."<br>";
-			}
-
-			echo "</div>";
-		}
+	if  ($user=="igor") {
+		echo "<div id=userswin class=sun style='display:none'>&nbsp;</div>";
+	}
 	echo "<div class='maindiv' id=maindiv>";
 	if (empty($buffer)) 
 		echo "Выбери чтонить!!!";
