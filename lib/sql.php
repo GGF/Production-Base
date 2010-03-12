@@ -294,6 +294,7 @@ function showheader($subtitle='') {
 	<script type="text/javascript" src="/lib/ui/i18n/ui.datepicker-ru.js"></script>
 	<script type="text/javascript" src="/lib/ui/ui.draggable.js"></script>
 	<script type="text/javascript" src="/lib/ui/ui.droppable.js"></script>
+	<script type="text/javascript" src="/lib/form_ajax.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		yellowtr();
@@ -307,7 +308,7 @@ function showheader($subtitle='') {
 		$("#loading").hide();
  		
 		$("#editdiv").hide();
-		$("#editdiv").draggable();
+		//$("#editdiv").draggable();
 		';
 		if (isadminhere()) {
 			echo "$('#sun').show();";
@@ -318,6 +319,7 @@ function showheader($subtitle='') {
 	$(function() {
 		$.datepicker.setDefaults($.extend({showMonthAfterYear: false}, $.datepicker.regional['']));
 		$('#datepicker').live('focus',function(){\$(this).datepicker($.datepicker.regional['ru']);});
+		$('input[datepicker]').live('focus',function(){\$(this).datepicker($.datepicker.regional['ru']);});
 	});
 	</script>
 <title>
@@ -427,6 +429,7 @@ foreach ($_POST as $key => $val) {
 	//$test .= ${$key}."<br>";
 }
 
+include "config.php";
 importmodules();
 
 if (!isset($dbname)) $dbname='zaompp';
