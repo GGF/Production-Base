@@ -2,8 +2,6 @@
 include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 showheader( "Главное меню");
-// тут ссылк ана главное
-// дальше собственно текст страницы
 
 $menu = new Menu();
 
