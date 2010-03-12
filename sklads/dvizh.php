@@ -26,7 +26,8 @@ if (isset($delete))
 } 
 elseif (isset($edit)) 
 {
-	if (isset($accept)) {
+	if (isset($accept)) 
+	{
 		// отредактировано
 		// найдем поставщика
 		if ($supply_id!=0) 
@@ -110,13 +111,23 @@ elseif (isset($edit))
 	else 
 	{
 		if($edit!=0) {
-			$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE spr_id='$id' AND sk_".$sklad."_dvizh.id='$edit'";
-			debug($sql);
+			$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
+			//echo $sql;
 			$res=mysql_query($sql);
 			if (!$rs=mysql_fetch_array($res)) my_error();
 		}
-		$form = "<form action='' method=post>
-		Дата:<input size=10 id=datepicker type=text name=ddate value='".($edit!=0?date("d.m.Y",mktime(0,0,0,substr($rs["ddate"],5,2),substr($rs["ddate"],8,2),substr($rs["ddate"],1,4))):date("d.m.Y"))."'><br>
+		$date=($edit!=0?date("d.m.Y",mktime(0,0,0,substr($rs["ddate"],5,2),substr($rs["ddate"],8,2),substr($rs["ddate"],1,4))):date("d.m.Y"));
+		$form = new Edit('dvizh');
+		$form->init();
+		$form->addfield('Дата:','ddate','text',$date);
+		$form->addfield('Тип докмента:','type','text',$rs["type"]);
+		$form->addfield('Номер документа:','numd','text',$rs["numd"]);
+		$form->addfield('Количество:','quant','text',$rs["quant"]);
+		$form->addfield('Поставщик:','supply','text','',20);
+		$form->addfield('Стоимость:','price','text',$rs["price"]);
+		$form->addfield('Примечание:','comment','text',$rs["comment"],70);
+		$form->show();
+		/*$form = "<form action='' method=post>
 		Тип докмента:<select id=type name=type onchange=\"if ($('#type').attr('value')>0) $('#prihod').show(); else $('#prihod').hide();\">
 		<option value=1 ".($rs["type"]==1?"selected":"").">Приход</option>
 		<option value=0 ".($rs["type"]==0?"selected":"").">Расход</option>
@@ -143,9 +154,13 @@ elseif (isset($edit))
 		<input type=hidden name=dedit value='$edit'></form>
 		<input type=hidden name=dvizh value='$id'></form>";
 		print $form;
+		*/
+		
+		/*
 		if ($edit!=0 & $rs["type"]==0) {
 			include "trebform.php";
 		}
+		*/
 }		
 } 
 else 
