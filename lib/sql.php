@@ -87,16 +87,12 @@ function authorize()
 		echo "<td colspan=2 class=zag align=center>&nbsp;</td><td>&nbsp;</td>";
 		echo "</tr> <tr><td colspan=2 class=zag align=center>Необходимо авторизоваться для работы с базой</td><td>&nbsp;</td> </tr>";
 		echo "<tr><td colspan=2 class=zag align=center>$mes &nbsp;</td> <td>&nbsp;</td> </tr>";
-		//echo "<tr><td class=tekst align=right>Логин</td>";
-		//echo "<td align=center><input type=text name='login'></td><td>&nbsp;</td></tr>";
-		//echo "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
 		echo "<tr><td class=tekst align=right>Пароль <span class=podtekst>(именно пароль и только пароль)</td>";
 		echo "<td align=center><input type=password name='password'></td>";
 		echo "<td width=40><input type=image src='/picture/sl_enter.gif' width=26 height=25/></td>";
 		echo "</tr><tr><td width='10'>&nbsp;</td><td class=tekst>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
 		echo "<tr valign=top align=left><td colspan=4><img src='/picture/sl_plb.gif' width=309 height=10></td></tr></table>";
 		echo "</form>";
-		//print_r($_COOKIE);echo $user." - ".$userid." - ".$sessionid;
 		echo "<p>&nbsp;</p></div></body></html>";
 		exit;
 	} 
@@ -402,8 +398,6 @@ function logout() {
 	mysql_query($sql);
 	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
 	setcookie("sessionid","",time() - 3600,'/');
-	//echo $sql;
-	//header('Location: http://'.$_SERVER['HTTP_HOST'].'');
 	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
 }
 
@@ -413,20 +407,16 @@ if(!headers_sent()  && !isset($print)) {
 }
 
 foreach ($_GET as $key => $val) {
-	//$test .= "get-$key".mb_detect_encoding($val)."-".$val;
 	if (mb_detect_encoding($val)=="UTF-8") 
 		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
 	else 
 		${$key}=$val;
-	//$test .= ${$key}."<br>";
 }
 foreach ($_POST as $key => $val) {
-	//$test .= "post-$key".mb_detect_encoding($val)."<br>";
 	if (mb_detect_encoding($val)=="UTF-8") 
 		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
 	else 
 		${$key}=$val;
-	//$test .= ${$key}."<br>";
 }
 
 include "config.php";

@@ -3,9 +3,9 @@ $dbname = 'zaomppsklads';
 include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
+$processing_type=basename (__FILE__,".php");;
 
 if(isset($id)) $spr_id=$id;
-
 
 if (isset($delete)) 
 {
@@ -24,24 +24,27 @@ if (isset($delete))
 		my_error();
 	echo "ok";
 } 
-elseif (isset($edit)) 
+elseif (isset($edit) || isset(${'form_'.$processing_type})) 
 {
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		print_R(${'form_'.$type});
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
+		}
+	}
+	
 	if (isset($accept)) 
 	{
 		// отредактировано
 		// найдем поставщика
+		//$GLOBALS["debugAPI"] = true;
 		if ($supply_id!=0) 
 		{
 			$post_id = $supply_id;
-			/*
-			$sql="SELECT id FROM sk_".$sklad."_postav WHERE id='$supply_id'";
-			debug($sql);
-			$res = mysql_query($sql);
-			if ($rs=mysql_fetch_array($res)){
-				$post_id = $rs["id"];
-			} else 
-				my_error();
-			*/
 		} 
 		else 
 		{
@@ -77,14 +80,15 @@ elseif (isset($edit))
 		if ($edit==0) {
 			//добавление нового
 			$ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));//$dyear."-".$dmonth."-".$dday;
-			$sql="INSERT INTO sk_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) VALUES ('$type','$numd','$numdf','$numyr','$id','$quant','$ddate','$post_id','$comment_id','$price')" ;
+			$sql="INSERT INTO sk_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) VALUES ('$type','$numd','$numdf','$numyr','$spr_id','$quant','$ddate','$post_id','$comment_id','$price')" ;
 			debug($sql);
 			if(!mysql_query($sql)) 
 				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='$id'";
+			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='$spr_id'";
 			debug($sql);
 			if(!mysql_query($sql)) 
 				my_error();	
+			
 		} 
 		else 
 		{
@@ -94,37 +98,63 @@ elseif (isset($edit))
 			$res = mysql_query($sql);
 			if(!$rs=mysql_fetch_array($res))
 				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='$id'";						debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();
-			$ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));//$dyear."-".$dmonth."-".$dday;
-			$sql="UPDATE sk_".$sklad."_dvizh SET type='$type',numd='$numd',numdf='$numdf',docyr='$numyr',spr_id='$id',quant='$quant',ddate='$ddate',post_id='$post_id',comment_id='$comment_id',price='$price' WHERE id='$edit'" ;
+			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='".$rs["spr_id"]."'";
 			debug($sql);
 			if(!mysql_query($sql)) 
 				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='$id'";
+			$ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));//$dyear."-".$dmonth."-".$dday;
+			$sql="UPDATE sk_".$sklad."_dvizh SET type='$type',numd='$numd',numdf='$numdf',docyr='$numyr',spr_id='".$rs["spr_id"]."',quant='$quant',ddate='$ddate',post_id='$post_id',comment_id='$comment_id',price='$price' WHERE id='$edit'" ;
+			debug($sql);
+			if(!mysql_query($sql)) 
+				my_error();
+			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='".$rs["spr_id"]."'";
 			debug($sql);
 			if(!mysql_query($sql)) 
 				my_error();					
 		}
+		echo "<script>updatetable('$tid','$processing_type','');closeedit();</script>";// успешное завершение обработки
 	} 
 	else 
 	{
+		// поставщики список для выбора
+		$supply["0"] = "Новый";
+		$sql="SELECT * FROM sk_".$sklad."_postav";
+		$res = mysql_query($sql);
+		while($rs=mysql_fetch_array($res)) {
+			$supply[$rs["id"]] = $rs["supply"];
+		}
+
 		if($edit!=0) {
 			$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
 			//echo $sql;
 			if (!$rs=mysql_fetch_array(mysql_query($sql))) my_error();
 		}
 		$date=($edit!=0?date("d.m.Y",mktime(0,0,0,substr($rs["ddate"],5,2),substr($rs["ddate"],8,2),substr($rs["ddate"],1,4))):date("d.m.Y"));
+		
 		$form = new Edit('dvizh');
 		$form->init();
 		$form->addFields(array(
+			array(
+				"type"		=> CMSFORM_TYPE_HIDDEN,
+				"name"		=> "spr_id",
+				"value"		=> $spr_id,
+			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "ddate",
 				"label"			=>'Дата:',
 				"value"		=> $date,
 				"options"		=> array( "html" => ' datepicker=1 '),
+			),
+			array(
+				"type"	=> CMSFORM_TYPE_SELECT,
+				"name"	=> "type",
+				"label"	=>	"Тип документа:",
+				"values"	=>	array(
+									"1"	=>	"Приход",
+									"0"	=>	"Расход",
+								),
+				"value"		=> $rs["type"],
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
@@ -138,53 +168,40 @@ elseif (isset($edit))
 				"label"			=>'Количество:',
 				"value"		=> $rs["quant"],
 			),
+			array(
+				"type"	=> CMSFORM_TYPE_SELECT,
+				"name"	=> "supply_id",
+				"label"	=>	"Поставщик:",
+				"values"	=>	$supply,
+				"value"		=> $rs["supply_id"],
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "supply",
+				"label"			=>'Новый:',
+				"value"		=> "",
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "price",
+				"label"			=>'Стоимость:',
+				"value"		=> $rs["price"],
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXTAREA,
+				"name"		=>	"comment",
+				"label"		=>	'Комментарий:',
+				"value"		=>	$rs["comment"],
+				//"options"	=>	array( "html" => "size=70", ),
+			),
 			));
-		//$form->addfield('Дата:','ddate','text',$date);
-		//$form->addfield('Тип докмента:','type','text',$rs["type"]);
-		//$form->addfield('Номер документа:','numd','text',$rs["numd"]);
-		//$form->addfield('Количество:','quant','text',$rs["quant"]);
-		//$form->addfield('Поставщик:','supply','text','',20);
-		//$form->addfield('Стоимость:','price','text',$rs["price"]);
-		//$form->addfield('Примечание:','comment','text',$rs["comment"],70);
+
 		$form->show();
 
-		
-		
-		/*$form = "<form action='' method=post>
-		Тип докмента:<select id=type name=type onchange=\"if ($('#type').attr('value')>0) $('#prihod').show(); else $('#prihod').hide();\">
-		<option value=1 ".($rs["type"]==1?"selected":"").">Приход</option>
-		<option value=0 ".($rs["type"]==0?"selected":"").">Расход</option>
-		</select><br>
-		Номер документа:<input size=10 type=text name=numd value='".$rs["numd"]."'><br>
-		Количество:<input type=text name=quant value='".abs($rs["quant"])."'><br>";
-		//if ($rs["type"]==1) { 
-			$form .= "<div id=prihod ".($rs["type"]==1?"style='display:block'":"style='display:none'").">
-			Поставщик:<select name=supply_id>
-			<option value=0 ".($edit==0?"selected":"").">Новый</option>";
-			$sql="SELECT * FROM sk_".$sklad."_postav";
-			debug($sql);
-			$res1 = mysql_query($sql);
-			while($rs1=mysql_fetch_array($res1)) {
-				$form .= "<option value=".$rs1["id"]." ".($rs["supply_id"]==$rs1["id"]?"selected":"").">".$rs1["supply"]."</option>";
-			}
-			$form .= "</select>:<input type=text name=supply value='' size=20><br>
-			Стоимость:<input type=text name=price value='".$rs["price"]."'><br>
-			</div>";
-			$form .= "Примечание:<input size=70 type=text name=comment value='".$rs["comment"]."'><br>";
-		//}
-		$form .= "
-		<input type=submit name=submit value='Сохранить'><input type=button onclick='history.back()' value='Отмена'>
-		<input type=hidden name=dedit value='$edit'></form>
-		<input type=hidden name=dvizh value='$id'></form>";
-		print $form;
-		*/
-		
-		/*
-		if ($edit!=0 & $rs["type"]==0) {
+		//if ($edit!=0 & $rs["type"]==0) {
 			include "trebform.php";
-		}
-		*/
-}		
+		//}
+	}
 } 
 else 
 {
@@ -205,7 +222,7 @@ else
 	$cols[price]="Цена";
 
 	
-	$table = new Table("dvizh","dvizh",$sql,$cols,false);
+	$table = new Table($processing_type,$processing_type,$sql,$cols,false);
 	if (isset($spr_id)) $table->idstr = "&spr_id=$spr_id";
 	$table->addbutton=true;
 	$table->show();

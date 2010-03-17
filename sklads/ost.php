@@ -3,6 +3,8 @@ $dbname = 'zaomppsklads';
 include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
+$processing_type=basename (__FILE__,".php");;
+
 
 if ($action=='add') {
 
@@ -55,8 +57,19 @@ if ($action=='add') {
 {
 	include 'dvizh.php';
 } 
- elseif (isset($edit))
+ elseif (isset($edit) || isset(${'form_'.$processing_type})) 
 {
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		print_R(${'form_'.$type});
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
+		}
+	}
+	
 	if (isset($accept)) 
 	{
 		// отредактировано
@@ -75,7 +88,7 @@ if ($action=='add') {
 		mylog1($sql);
 		if(!mysql_query($sql)) 
 			my_error();
-		echo "<script>updatetable('$tid','ost','');closeedit();</script>";
+		echo "<script>updatetable('$tid','$processing_type','');closeedit();</script>";
 	} 
 	else 
 	{
@@ -84,13 +97,29 @@ if ($action=='add') {
 			$res=mysql_query($sql);
 			if (!$rs=mysql_fetch_array($res)) my_error();
 		}
-		echo "<form method=post id=editform>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=uid value='$uid'>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "Наименование:<input size=50 type=text name=nazv value='".$rs["nazv"]."'><br>Единица измерения:<input type=text name=edizm value='".$rs["edizm"]."'><br>Критический остаток:<input type=text name=krost value='".$rs["krost"]."'>";
-		echo "<br><input type=button value='Сохранить' onclick=\"editrecord('ost',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
+		$form = new Edit($processing_type);
+		$form->init();
+		$form->addFields(array(
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "nazv",
+				"label"			=>'Наименование:',
+				"value"		=> $rs["nazv"],
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "edizm",
+				"label"			=>'Единица измерения:',
+				"value"		=> $rs["edizm"],
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "krost",
+				"label"			=>'Критический остаток:',
+				"value"		=> $rs["krost"],
+			),
+				));
+		$form->show();
 	}
 } else
 {
@@ -106,7 +135,7 @@ if ($action=='add') {
 	$cols[malo]="Внимание";
 
 	
-	$table = new Table("ost","dvizh",$sql,$cols,false);
+	$table = new Table($processing_type,"dvizh",$sql,$cols,false);
 	$table->addbutton=true;
 	$table->show();
 }

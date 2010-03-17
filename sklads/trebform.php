@@ -1,5 +1,5 @@
 <?
-print "<form action='../treb.php' target=_blank method='post'>
+print "<form action='treb.php' target=_blank method='post'>
 Через кого:
 <select name=cherezkogo>
 <option value=''></option>
@@ -40,13 +40,13 @@ print "<form action='../treb.php' target=_blank method='post'>
 <option value='Соковнин С.А.' style='color:black;'>Соковнин С.А.</option>
 </optgroup>
 </select>
-Разрешил:
+<br>Разрешил:
 <select name=razresh>
 <option value='Китуничев Д.С.' style='color:black;'>Китуничев Д.С.</option>
 <option value='Николайчук И.И.' style='color:black;'>Николайчук И.И.</option>
 <option value='' style='color:black;'></option>
 </select>
-Затребовал:
+<br>Затребовал:
 <select name=zatreb>
 <option value=''></option>
 <optgroup label='Красная группа'>

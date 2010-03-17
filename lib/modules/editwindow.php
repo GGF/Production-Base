@@ -62,7 +62,7 @@ class Edit {
 		$this->form->addFields(array(
 			array(
 				"type"		=> CMSFORM_TYPE_BUTTON,
-				"name"		=> "submit",
+				"name"		=> "save",
 				"value"		=> "Сохранить",
 				"options"		=> array ( "html" => " onclick=\"editrecord('".$this->type."',$('form[name=".$this->form->name."]').serialize())\" "),
 			),
@@ -84,21 +84,17 @@ class Edit {
 		echo $this->form->add("tid");
 		echo $this->form->add("edit");
 		echo $this->form->add("accept");
+		echo "<table>";
 		foreach($this->fields as $field) {
-			echo "<label>$field->label</label>";
+			echo "<tr><td><label>$field->label</label><td>";
 			echo $this->form->add($field->name);
-			echo "<br>";
 		}
-		echo $this->form->add("submit");
+		echo "<tr><td colspan=3>";
+		echo $this->form->add("save");
 		echo $this->form->add("close");
 		echo $this->form->add("serialize");
+		echo "</table>";
 		$this->form->end();
-	}
-	
-	
-	function showfooter() {
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('".$this->type."',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
-
 	}
 }
 ?>

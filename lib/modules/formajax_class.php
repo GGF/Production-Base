@@ -1265,27 +1265,28 @@ class cmsForm_ajax {
 		
 		print "<select class='select' name='" . $this->getName($name) . "' id='" . $this->getId($name) . "'{$optionsHTML}>";
 		
-		if (is_array($values)) foreach ($values as $id => $label) {
+		if (is_array($values)) 
+			foreach ($values as $id => $label) {
 			
-			if (is_array($label)) {
-				
-				print "<optgroup label='{$id}'>";
-				foreach ($label as $k => $v) {
+				if (is_array($label)) {
 					
-					$selected = ($value == $k) ? " selected" : "";
-					print "<option value='{$k}'{$selected}>{$v}</option>";
+					print "<optgroup label='{$id}'>";
+					foreach ($label as $k => $v) {
+						
+						$selected = ($value == $k) ? " selected" : "";
+						print "<option value='{$k}'{$selected}>{$v}</option>";
+						
+					}
+					print "</optgroup>";
+					
+				} else {
+					
+					$selected = ($value == $id) ? " selected" : "";
+					print "<option value='{$id}'{$selected}>{$label}</option>";
 					
 				}
-				print "</optgroup>";
-				
-			} else {
-				
-				$selected = ($value == $id) ? " selected" : "";
-				print "<option value='{$id}'{$selected}>{$label}</option>";
-				
-			}
 			
-		}
+			}
 		
 		print "</select>";
 		

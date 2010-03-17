@@ -28,7 +28,9 @@ else
 	$cols[price]="Цена";
 
 	
-	$table = new Table("arcdvizh","arcdvizh",$sql,$cols,false);
+	$table = new Table("arcdvizh","",$sql,$cols,false);
+	$table->del= false;
+	$table->edit= false;
 	if (isset($spr_id)) $table->idstr = "&spr_id=$spr_id";
 	$table->show();
 	

@@ -27,6 +27,8 @@ else
 
 	
 	$table = new Table("arc","arcdvizh",$sql,$cols,false);
+	$table->del= false;
+	$table->edit= false;
 	$table->show();
 }
 
