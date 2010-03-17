@@ -5,14 +5,12 @@ include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 
-echo "<form method=get id=form action=''>";
-echo "<input type=hidden name='o1'>";
 echo "Îעקוע חא לוסÿצ:";
 
 $sql="SELECT MONTH(ddate), YEAR(ddate) FROM (sk_".$sklad."_dvizh) GROUP BY MONTH(ddate)";
 $res=mysql_query($sql);
 //echo $sql."<br>";
-echo "<select onchange=\"$('#submit').click()\" id=month name=month>";
+echo "<select onchange=\"updatetable('maindivin','movecheck','?o1&month='+$('#month').val())\" id=month name=month>";
 while($rs=mysql_fetch_array($res)) {
 	echo "<option value=".($rs[0]*10000+$rs[1])." ".((floor($month/10000)==$rs[0] && ($month%10000)==$rs[1])?"SELECTED":"").">".sprintf("%02d",$rs[0])."-".$rs[1]."</option>";
 }
@@ -23,8 +21,8 @@ while($rs=mysql_fetch_array($res)) {
 	echo "<option value=".($rs[0]*10000+$rs[1])." ".((floor($month/10000)==$rs[0] && ($month%10000)==$rs[1])?"SELECTED":"").">".sprintf("%02d",$rs[0])."-".$rs[1]."</option>";
 }
 echo "</select>
-<input id=submit type=submit value='Îעקוע' >
-</form>";
+<input id=submit type=button value='Îעקוע' onclick=\"updatetable('maindivin','movecheck','?o1&month='+$('#month').val())\" >
+";
 
 if (isset($month)) {
 	
