@@ -5,67 +5,42 @@ include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 
-echo "Отчет за месяц:";
+$cols[nazv]="Наименование";
+$cols[prihod]="Приход";
+$cols[rashod]="Расход";
+$cols[ost]="Остаток на сегодня";
+$cols[edizm]="Ед.Изм.";
 
-$sql="SELECT MONTH(ddate), YEAR(ddate) FROM (sk_".$sklad."_dvizh) GROUP BY MONTH(ddate)";
-$res=mysql_query($sql);
+
+$table = new Table("movecheck","",$sql,$cols,false);
+$table->del= false;
+$table->edit= false;
+
+if (empty($month)) $month=(date("m")-1)*10000+date("Y");
+
+
+$sql="(SELECT MONTH(ddate) as dmonth, YEAR(ddate) as dyear FROM (sk_".$sklad."_dvizh) GROUP BY MONTH(ddate)) UNION (SELECT MONTH(ddate) as dmonth, YEAR(ddate) as dyear FROM (sk_".$sklad."_dvizh_arc) GROUP BY YEAR(ddate),MONTH(ddate)) ORDER BY dyear DESC, dmonth DESC";
 //echo $sql."<br>";
-echo "<select onchange=\"updatetable('maindivin','movecheck','?o1&month='+$('#month').val())\" id=month name=month>";
-while($rs=mysql_fetch_array($res)) {
-	echo "<option value=".($rs[0]*10000+$rs[1])." ".((floor($month/10000)==$rs[0] && ($month%10000)==$rs[1])?"SELECTED":"").">".sprintf("%02d",$rs[0])."-".$rs[1]."</option>";
-}
-$sql="SELECT MONTH(ddate), YEAR(ddate) FROM (sk_".$sklad."_dvizh_arc) GROUP BY YEAR(ddate),MONTH(ddate) ORDER BY YEAR(ddate) DESC, MONTH(ddate) DESC";
-$res=mysql_query($sql);
-//echo $sql."<br>";
-while($rs=mysql_fetch_array($res)) {
-	echo "<option value=".($rs[0]*10000+$rs[1])." ".((floor($month/10000)==$rs[0] && ($month%10000)==$rs[1])?"SELECTED":"").">".sprintf("%02d",$rs[0])."-".$rs[1]."</option>";
-}
-echo "</select>
-<input id=submit type=button value='Отчет' onclick=\"updatetable('maindivin','movecheck','?o1&month='+$('#month').val())\" >
-";
 
-if (isset($month)) {
-	
-	$sql="SELECT *,sk_".$sklad."_spr.id FROM sk_".$sklad."_spr JOIN sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id WHERE nazv<>'' ORDER BY nazv";
-	$res = mysql_query($sql);
-	echo "<table class='listtable' cellspacing=0 cellpadding=0>";
-	echo "<thead>";
-	echo "<tr>";
-	echo "<th>Наименование<th>Приход<th>Расход<th>Остаток на сегодня<th>Ед.изм.";
-	echo "<tbody>";
-	
-	while ($rs=mysql_fetch_array($res)) {
-		$prih = 0;
-		$rash = 0;
-		$sql = "SELECT SUM(quant) as prihod FROM (sk_".$sklad."_dvizh) JOIN sk_".$sklad."_spr ON (sk_".$sklad."_spr.id=sk_".$sklad."_dvizh.spr_id) WHERE MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000) AND sk_".$sklad."_spr.id='".$rs["id"]."' AND type='1' AND numd<>'9999' GROUP BY sk_".$sklad."_spr.id";
-		$res1 = mysql_query($sql);
-		while ($rs1=mysql_fetch_array($res1)){
-			$prih += $rs1["prihod"];
-		} 
-		$sql = "SELECT SUM(quant) as prihod FROM (sk_".$sklad."_dvizh_arc) JOIN sk_".$sklad."_spr ON (sk_".$sklad."_spr.id=sk_".$sklad."_dvizh_arc.spr_id) WHERE MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000) AND sk_".$sklad."_spr.id='".$rs["id"]."' AND type='1' AND numd<>'9999' GROUP BY sk_".$sklad."_spr.id";
-		$res1 = mysql_query($sql);
-		while ($rs1=mysql_fetch_array($res1)){
-			$prih += $rs1["prihod"];
-		}
-		$sql = "SELECT SUM(quant) as prihod FROM (sk_".$sklad."_dvizh) JOIN sk_".$sklad."_spr ON (sk_".$sklad."_spr.id=sk_".$sklad."_dvizh.spr_id) WHERE MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000)  AND sk_".$sklad."_spr.id='".$rs["id"]."' AND type='0' AND numd<>'9999' GROUP BY sk_".$sklad."_spr.id";
-		$res1 = mysql_query($sql);
-		if ($rs1=mysql_fetch_array($res1)){
-			$rash += $rs1["prihod"];
-		} 
-		$sql = "SELECT SUM(quant) as prihod FROM (sk_".$sklad."_dvizh_arc) JOIN sk_".$sklad."_spr ON (sk_".$sklad."_spr.id=sk_".$sklad."_dvizh_arc.spr_id) WHERE MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000)  AND sk_".$sklad."_spr.id='".$rs["id"]."' AND type='0' AND numd<>'9999' GROUP BY sk_".$sklad."_spr.id";
-		$res1 = mysql_query($sql);
-		while ($rs1=mysql_fetch_array($res1)){
-			$rash += $rs1["prihod"];
-		}
-		if (!empty($prih) || !empty($rash) || !empty($rs["ost"]) ) {
-			if (!($i++%2)) 
-				echo "<tr class='chettr'>";
-			else 
-				echo "<tr class='nechettr'>";		
-			echo "<td>".$rs["nazv"]."<td>".sprintf("%10.2f",$prih)."<td>".sprintf("%10.2f",$rash)."<td>".$rs["ost"]."<td>".$rs["edizm"];
+$title="Отчет за месяц:";
+$title.="<select onchange=\"updatetable('".$table->tid."','movecheck','?o1&month='+$('#month').val())\" id=month name=month>";
+$res = mysql_query($sql);
+while($rs=mysql_fetch_array($res)) {
+	$title.="<option value=".($rs["dmonth"]*10000+$rs["dyear"])." ".((floor($month/10000)==$rs["dmonth"] && ($month%10000)==$rs["dyear"])?"SELECTED":"").">".sprintf("%02d",$rs["dmonth"])."-".$rs["dyear"]."</option>";
+}
 
-		}
-	}
-	echo "</table>";
-} 
+
+$title.="</select>";
+$table->title=$title;
+
+$sql="(SELECT  nazv,FORMAT(ost,3) as ost,edizm,FORMAT(SUM(IF(type=1,quant,0)),3) as prihod, FORMAT(SUM(IF(type=0,quant,0)),3) as rashod,sk_".$sklad."_spr.id FROM sk_".$sklad."_spr JOIN sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id RIGHT JOIN sk_".$sklad."_dvizh ON sk_".$sklad."_dvizh.spr_id=sk_".$sklad."_spr.id WHERE nazv<>'' AND MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000) ".(isset($find)?"AND nazv LIKE '%$find%' ":"")." GROUP BY nazv) UNION (SELECT  nazv,FORMAT(ost,3) as ost,edizm,FORMAT(SUM(IF(type=1,quant,0)),3) as prihod, FORMAT(SUM(IF(type=0,quant,0)),3) as rashod,sk_".$sklad."_spr.id FROM sk_".$sklad."_spr JOIN sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id RIGHT JOIN sk_".$sklad."_dvizh_arc ON sk_".$sklad."_dvizh_arc.spr_id=sk_".$sklad."_spr.id WHERE nazv<>'' AND MONTH(ddate)=(FLOOR($month/10000)) AND YEAR(ddate)=($month%10000) ".(isset($find)?"AND nazv LIKE '%$find%' ":"")." GROUP BY nazv) ".(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ");
+
+//echo $sql;
+
+$table->sql=$sql;
+$table->idstr='&month='.$month;
+$table->show();
+
+
+
 ?>
