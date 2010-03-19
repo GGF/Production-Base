@@ -6,11 +6,11 @@
 // filenames - количество файлов и путь откуда отправлены
 //
 // Возвращает либо таблицу либо пустую строку
-$GLOBALS["debugAPI"] = false;
+$_SERVER["debugAPI"] = false;
 
 if ($action=='add') 
 	{
-	include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
+	include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 	// найдем номер заказчика
 	$files = addslashes($file_link);
 	debug ($file_link);

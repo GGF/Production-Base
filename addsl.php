@@ -15,8 +15,8 @@
 //
 // Возвращает id добавленого СЛ
 
-$GLOBALS["debugAPI"] = false;
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
+$_SERVER["debugAPI"] = false;
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 // найдем номер заказчика
 $file_link = addslashes($file_link);

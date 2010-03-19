@@ -1,4 +1,4 @@
 <?
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; 
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
 logout();
 ?>

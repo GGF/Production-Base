@@ -1,0 +1,32 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   NODES FOR SITEMAP                                                                                                                                               */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	.cmsMap										{ background: url(/admin/ui/nodes/bg_branch.gif) no-repeat top left; display: table; font-size: 11px; font-family: "verdana" }
+	.expand, .collapse				{ background: url(/admin/ui/nodes/bg_normal.gif) no-repeat top left !important; cursor: default }
+	.cmsMapStraight .cmsMap		{ background: none !important }
+	
+	.cmsMap span							{ background: url(/admin/ui/nodes/bg_normal.gif)  	 no-repeat top left; padding-left: 18px !important; display: block } /* background: url(/admin/ui/nodes/node_branch.gif)   no-repeat top left;  */
+	.cmsMap span.expand				{ background: url(/admin/ui/nodes/node_expand.gif)   no-repeat top left !important }
+	.cmsMap span.collapse 		{ background: url(/admin/ui/nodes/node_collapse.gif) no-repeat top left !important }
+
+	.lastNode									{ background: url(/admin/ui/nodes/bg_last.gif)   no-repeat top left !important }
+	.lastNode span						{ background: none !important }
+	
+	.cmsMapSub								{ background: url(/admin/ui/nodes/bg_branch.gif) repeat-y top left !important; padding-left: 18px }
+	.lastSub									{ background: none !important }
+	
+	.cmsMap a 								{ padding: 2px 4px 3px 20px !important; display: block; cursor: pointer }
+	.cmsMap a:hover 					{  }
+	
+	* html .cmsMap a 					{ display: block; width: auto }
+	* html .cmsMap 						{ display: block; width: auto }
+	
+	.cmsMap a.doc							{ background: url(/admin/ui/nodes/icon_doc.gif) no-repeat top left }
+	.cmsMap a.dir							{ background: url(/admin/ui/nodes/icon_dir.gif) no-repeat top left }
+	.cmsMap a.pic							{ background: url(/admin/ui/nodes/icon_pic.gif) no-repeat top left }
+	
+	.cmsMap .action						{ margin-left: -1px; text-decoration: none !important; padding: 2px 3px 2px 3px !important; width: 18px; text-align: center }

@@ -1,0 +1,85 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   FORMS                                                                                                                                                           */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	input.text, textarea, select										{ width: 500px }
+	
+	/*
+	input.submit										{ height: 19px; min-width: 100px; width: auto; *width: 100px; color: #FFFFFF; border: 1px solid #1C5180; background: #c5d9ee url(/admin/ui/form/input_submit.gif) repeat-x center center; margin: 1px 0px 1px 0px; overflow: visible; padding-left: 10px; padding-right: 10px }
+	*/
+	
+	input.submit										{ min-width: 100px; width: auto; *width: 100px; }
+	@-moz-document url-prefix() { 
+		
+		input.submit									{ min-width: 60px }
+		
+		input.submit,	x:-moz-any-link, x:default	{ min-width: 100px }
+		
+	}
+	
+	
+	label														{ padding-right: 3px; color: #213D7E; text-decoration: none }
+	.disabled												{ color: #888888 !important; cursor: default }
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   HOVERING                                                                                                                                                        */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/*
+	.submit:hover, .submit:focus		{ border: 1px solid #1C5180; color: #213D7E; background: url(/admin/ui/form/input_submit_hover.gif) repeat-x center center }
+	*/
+	
+	label:hover											{ color: #FF7E00 }
+
+	input.short											{ width: 482px; border-right: 0px !important }
+	input.short:hover 							{ border: 1px solid #1C5180 !important }
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   SPECIAL FIELDS                                                                                                                                                  */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	.selFile												{  }
+	.selPage												{ cursor: pointer !important }
+	.selDate												{ cursor: pointer !important; width: 135px !important }
+	.selTime												{ cursor: default !important; width: 142px !important }
+	.selID													{  }
+	
+	.cmsHelper											{ vertical-align: top; width: 65px; height: 11px; margin: 0px -65px -11px 0px; position: relative; top: 5px; left: -70px; cursor: text }
+	.cmsHelper_file									{  }
+	.cmsHelper_page									{ cursor: pointer !important }
+	.cmsHelper_date									{ cursor: pointer !important }
+	.cmsHelper_time									{ cursor: default !important }
+	
+	.cmsField_time									{ display: -moz-inline-box; display: inline-block; *zoom: 1; *display: inline; overflow: hidden; width: 9px; height: 19px; margin: 0px -9px -19px 0px; position: relative; top: -13px }
+	.cmsField_time_hours						{ left: -130px }
+	.cmsField_time_minutes					{ left: -104px }
+	.cmsField_time_seconds					{ left: -79px }
+	
+	.cmsField_time span											{ display: block; width: 9px; height: 9px; cursor: pointer }
+	.cmsField_time span.cmsField_time_up					{ background: url(/admin/ui/form/cms_time_up.gif) no-repeat 0 0; }
+	.cmsField_time span.cmsField_time_down				{ background: url(/admin/ui/form/cms_time_down.gif) no-repeat 0 0; }
+	.cmsField_time span.cmsField_time_up:hover		{ background-position: 0px -9px }
+	.cmsField_time span.cmsField_time_down:hover	{ background-position: 0px -9px }
+	
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   UPLOAD                                                                                                                                                          */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	#uploadProgressCont							{ overflow: hidden; height: 21px }
+	#uploadName											{ background: transparent !important }
+	#uploadField										{ position: relative; top: -21px; height: 21px; overflow: hidden }
+	#uploadProgressPad							{ background: #F9F9F9; padding: 1px 0px 1px 0px; height: 21px; overflow: hidden; display: table; width: 100% }
+	#uploadProgress									{ background: #DDDDDD; width: 0%; height: 100%; display: table; font-size: 1px }
+	
+	.loadingField										{ background: #F6F6F6 url(/admin/ui/loading_field.gif) no-repeat right center !important; color: #666666 !important }
+	

@@ -1,7 +1,7 @@
 <?
 // управление заказчиками
 
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; 
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
 authorize(); // вызов авторизации
 
 if (isset($edit) || isset($add) ) {
@@ -11,7 +11,7 @@ if (isset($edit) || isset($add) ) {
 			$res = mysql_query($sql);
 			$rs=mysql_fetch_array($res);
 		}
-		echo "<form method=post id=editform action='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."'>";
+		echo "<form method=post id=editform action='http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."'>";
 		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
 		echo "<input type=hidden name=tid value=$tid>";
 		if (isset($order)) echo "<input type=hidden name=order value=$order>";

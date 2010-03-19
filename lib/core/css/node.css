@@ -1,0 +1,39 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   NODES                                                                                                                                                           */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	.cmsNode									{ background: url(/admin/ui/nodes/bg_branch.gif) no-repeat top left; height: 18px; display: table; white-space: nowrap; font-size: 11px; font-family: "verdana" }
+	.expand, .collapse				{ background: url(/admin/ui/nodes/bg_normal.gif) no-repeat top left !important; cursor: default }
+	.cmsNodeStraight .cmsNode	{ background: none !important }
+	
+	.cmsNode span							{ background: url(/admin/ui/nodes/bg_normal.gif)  	 no-repeat top left; padding-left: 18px !important; display: block; height: 18px } /* background: url(/admin/ui/nodes/node_branch.gif)   no-repeat top left;  */
+	.cmsNode span.expand			{ background: url(/admin/ui/nodes/node_expand.gif)   no-repeat top left !important }
+	.cmsNode span.collapse 		{ background: url(/admin/ui/nodes/node_collapse.gif) no-repeat top left !important }
+
+	.lastNode									{ background: url(/admin/ui/nodes/bg_last.gif)   no-repeat top left !important }
+	.lastNode span						{ background: none !important }
+	
+	.cmsNodeSub								{ background: url(/admin/ui/nodes/bg_branch.gif) repeat-y top left !important; padding-left: 18px }
+	.lastSub									{ background: none !important }
+	
+	.cmsNode a 								{ border: 1px solid #FFFFFF; background-color: #FFFFFF; padding: 1px 3px 2px 20px !important; display: block; cursor: pointer }
+	.cmsNode a:hover 					{ border: 1px solid #E8E8E8; background-color: #F6F6F6 !important }
+
+	.nodeSel a								{ border: 1px solid #CCCCCC; background-color: #EEEEEE !important }
+	.nodeSel a:hover					{ border: 1px solid #CCCCCC; background-color: #EEEEEE !important }
+	
+	* html .cmsNode a 				{ display: block; width: 10px }
+	* html .cmsNode 					{ display: block; width: 10px }
+	
+	.cmsNode a.doc						{ background: url(/admin/ui/nodes/icon_doc.gif) no-repeat top left }
+	.cmsNode a.dir						{ background: url(/admin/ui/nodes/icon_dir.gif) no-repeat top left }
+	.cmsNode a.pic						{ background: url(/admin/ui/nodes/icon_pic.gif) no-repeat top left }
+	.cmsNode a.pic_gif				{ background: url(/admin/ui/nodes/icon_pic_gif.gif) no-repeat top left }
+	.cmsNode a.pic_png				{ background: url(/admin/ui/nodes/icon_pic_png.gif) no-repeat top left }
+	
+	.cmsNode_hidden a					{ color: #666666 !important }
+	.cmsNode_protected a			{ color: #009900 !important }
+	.cmsNode_inactive a				{ color: #EE0000 !important }

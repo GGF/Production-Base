@@ -1,0 +1,44 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   LAYOUT                                                                                                                                                          */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	table.layout, td.layout, div.layout {
+		border: 0px;
+		border-collapse: collapse;
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+		vertical-align: top;
+		text-align: left;
+	}
+	
+	table.layoutCenter {
+    text-align: center;
+		margin: 0px auto;
+	}
+	
+	.layoutStopper {
+		width: 0px;
+		height: 0px;
+		overflow: hidden;
+		*zoom: 1;
+		*width: 1px;
+		*height: 1px;
+	}
+	
+	table.layoutContent {
+		width: 100%;
+	}
+	
+	/* Very important stopper stuff */
+	
+	.layoutMinWidth {
+		width: 990px;
+	}
+	
+	.layoutMaxWidth {
+		width: 1200px;
+	}

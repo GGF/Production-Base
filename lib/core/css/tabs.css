@@ -1,0 +1,29 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   ADMIN TABS                                                                                                                                                      */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	table.cmsTabs tr				{ background: url(/admin/ui/tabs/bg.gif) }
+	
+	table.cmsTabs td.cmsTabs_first	{ padding: 5px }
+	
+	table.cmsTabs td.cmsTabs_norm1	{ background: url(/admin/ui/tabs/tabs.gif) 0px	0px; padding: 3px }
+	table.cmsTabs td.cmsTabs_norm2	{ background: url(/admin/ui/tabs/tabs.gif) -6px	0px; padding: 4px }
+	table.cmsTabs td.cmsTabs_norm3	{ background: url(/admin/ui/tabs/tabs.gif) 6px	0px; padding: 3px }
+	
+	table.cmsTabs td.cmsTabs_hover1	{ background: url(/admin/ui/tabs/tabs.gif) 0px	21px }
+	table.cmsTabs td.cmsTabs_hover2	{ background: url(/admin/ui/tabs/tabs.gif) -6px	21px }
+	table.cmsTabs td.cmsTabs_hover3	{ background: url(/admin/ui/tabs/tabs.gif) 6px	21px }
+	
+	table.cmsTabs td.cmsTabs_sel1		{ background: url(/admin/ui/tabs/tabs.gif) 0px	42px }
+	table.cmsTabs td.cmsTabs_sel2		{ background: url(/admin/ui/tabs/tabs.gif) -6px	42px; padding: 7px 4px 1px 4px }
+	table.cmsTabs td.cmsTabs_sel3		{ background: url(/admin/ui/tabs/tabs.gif) 6px	42px }
+	
+	table.cmsTabs td.cmsTabs_dis1		{  }
+	table.cmsTabs td.cmsTabs_dis2		{ color: #999999; cursor: default }
+	table.cmsTabs td.cmsTabs_dis3		{  }
+	
+	.cmsTabs_content					{ border: 0px; border-bottom: 1px solid #BBBBBB; padding: 10px; vertical-align: top }
+	.cmsTabs_contentLine			{ width: 1px; background: #BBBBBB }

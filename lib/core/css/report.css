@@ -1,0 +1,24 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   REPORT                                                                                                                                                          */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	#cmsReport p						{ margin-bottom: 5px }
+	#cmsReport_cont					{ border-bottom: 1px solid #AAAAAA; background: #FFFFFF; white-space: nowrap; width: 1px; display: block; overflow: hidden; font-size: 9px; font-family: "tahoma"; visibility: hidden }
+	#cmsReport							{
+		cursor: pointer;
+		position: absolute; top: 0px; left: 0px;
+		border-left:  15px solid #AAAAAA; 
+		z-index: 255;
+		filter: alpha(opacity=90); opacity: 0.9;
+		zoom: 1; 
+	}
+
+/*
+
+		position: fixed; top: 0px; left: 0px;
+		//position: absolute; top: expression(parseInt(document.body.scrollTop) + 'px');
+	
+*/

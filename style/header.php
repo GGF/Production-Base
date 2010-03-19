@@ -1,7 +1,7 @@
 <?
-$GLOBALS["rootpath"]=realpath($GLOBALS["DOCUMENT_ROOT"]);
+$_SERVER["rootpath"]=realpath($_SERVER["DOCUMENT_ROOT"]);
 include_once $rootpath."/lib/sql.php";
-$GLOBALS["debugAPI"] = 0;
+$_SERVER["debugAPI"] = 0;
 ?>
 <!--   Copyright 2000 Igor Fedoroff   |  g_g_f@mail.ru  -->
 <html>

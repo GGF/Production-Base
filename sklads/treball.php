@@ -1,6 +1,6 @@
 <?
 $dbname = 'zaomppsklads';
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызываетс€ заголовк html
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызываетс€ заголовк html
 if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Ќе удалось выбрать таблицу $dbname");
 $ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));
 $top = file_get_contents ("treb.tpl");

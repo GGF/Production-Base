@@ -7,8 +7,8 @@
 // user - кто добавил
 // Возвращает id добавленого МП
 
-$GLOBALS["debugAPI"] = false;
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
+$_SERVER["debugAPI"] = false;
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 // Определим идентификатор пользователя
 $sql="SELECT id FROM users WHERE nik='$user'";

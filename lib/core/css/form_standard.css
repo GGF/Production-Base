@@ -1,0 +1,72 @@
+	
+	/*
+		
+		ИЗВЕСТНЫЕ БАГИ
+		У Оперы когда элементы располагаются инлайново (текстовое поле, сразу за ним чекбокс и т.д. и все в одной строке),
+		то лейбл по неизвестным причинам сползает вниз на 1 пиксель.
+		
+		КАК ПОЛЬЗОВАТЬСЯ
+		Просто определить в файле стилей проекта стили для всех контролов, и отдельно цвет для кнопок,
+		т.к. у них обычно другой фон (если рассматривать стиль системных контролов).
+		
+		ПРИМЕР
+		input, textarea, select, option, optgroup	{ color: #444; font: normal 12px "Tahoma", Sans-serif }
+		input.submit, button											{ color: #000 }
+		input.confirm															{ width: 50px } — придется также задать в случае извращенных шрифтов, если поедет капча
+		
+		ВНИМАНИЕ!!! Шрифт Arial отличается от остальных (Tahoma, Verdana и т.д.) по высоте!!!
+		
+	*/
+	
+	
+	/* ОБНУЛЕНИЕ СТИЛЕЙ ФОРМ И ЗАДАНИЕ СТИЛЕЙ СТАНДАРТНОЙ */
+	
+	
+	form		{ margin: 0px; padding: 0px; position: relative } /* relative нужен для корректного определения позиционирования выводов ошибок */
+	
+	.basic	{ border: 1px solid #ccc;	padding: 10px;	background: #f9f9f9; display: block; width: 400px }
+	.simple	{ border: 0px;						padding: 0px;		background: transparent }
+	
+	
+	/* РАЗМЕРЫ ШРИФТА, ГАБАРИТЫ И МЕЛОЧИ */
+	
+	
+	input, textarea, select, option, optgroup, button	{ font: normal 12px "Tahoma", Sans-serif }
+	input.text, input.file, textarea, select, option	{ width: 98% } /* 100% */
+	input.submit																			{ width: auto }
+	input.confirm																			{ width: 50px } /* CAPTCHA, расчитано для 12px шрифта «с запасом» */
+	
+	optgroup																					{ font-style: normal; font-weight: bold }
+	
+	input.submit																			{ cursor: pointer; text-align: center }
+	label																							{ cursor: pointer }
+	
+	
+	/* ПОЗИЦИОНИРОВАНИЕ ЛЕЙБЛОВ И КОНТРОЛОВ */
+	
+	
+	/* Делаем лейблы inline-block элементами */
+	label, .label, .labelText			{ display: -moz-inline-box; display: inline-block; *zoom: 1; *display: inline }
+	
+	/* Чтобы поля не слипались */
+	input, textarea, select, option, img.captcha, label, .label, .labelText { margin: 1px 0 }
+	
+	/* Приведение отступов лейбла к отступам текстовых полей */
+	label, .label, .labelText { padding: 3px 0 }
+	
+	/* Выравнивание радиокнопок и чекбоксов по середине */
+	input.radio, input.checkbox		{ vertical-align: middle; margin: 0 0.4em -3px 0; position: relative; top: -0.15em }
+	
+	/* Ие неправильно считает нижний паддинг, плюс ему нужно большее смещение */
+	label, .label, .labelText { margin-bottom: -2px\9 }
+	input.radio, input.checkbox { top: -0.21em\9 }
+	
+	/* Фаерфокс неправильно считает нижний паддинг — меняем отступ у контролов */
+	@-moz-document url-prefix() { 
+		input.radio, input.checkbox { margin-bottom: -2px }
+	}
+	
+	/* Патч для сафари — ему нужно большее смещение */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		input.radio, input.checkbox { top: -0.25em }
+	}

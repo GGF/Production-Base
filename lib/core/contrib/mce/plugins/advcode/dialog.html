@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>{#advcode_dlg.title}</title>
+    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+		<script type="text/javascript" src="../../../editarea/edit_area_full.js"></script>
+    <script type="text/javascript" src="js/dialog.js"></script>
+	</head>
+
+  <body>
+		
+		<table cellspacing='10' cellpadding='0' border='0' width='100%' height='100%'>
+			<tr><td colspan='2'><h3 style='margin: 0px; padding: 0px'>Редактор HTML</h3></td></tr>
+			<tr><td colspan='2' height='100%' style='border: 1px solid #CCCCCC'>
+				
+				<form onsubmit="CodeDialog.insert();return false;" style='width: 100%; height: 100%'>
+					<textarea id="codepress" style='width: 100%; height: 100%'></textarea>
+				</form>
+				
+			</td></tr>
+			<tr>
+				<td class="mceActionPanel" width='50%' align='left' ><input type="button" id="insert" name="insert" value="{#insert}" onclick="CodeDialog.insert();" /></td>
+				<td class="mceActionPanel" width='50%' align='right'><input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" /></td>
+			</tr>
+		</table>
+		
+  </body>
+</html>

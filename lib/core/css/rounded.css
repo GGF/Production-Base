@@ -1,0 +1,19 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   ROUNDED CORNERS                                                                                                                                                 */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	td.cmsRounded_left, td.cmsRounded_right { 
+		width: 20px;
+	}
+	
+	tr.cmsRounded_top, tr.cmsRounded_bottom {
+		height: 10px;
+	}
+	
+	tr.cmsRounded_top td.cmsRounded_left			{ background-position: 0px 0px; }
+	tr.cmsRounded_top td.cmsRounded_right			{ background-position: -20px 0px; }
+	tr.cmsRounded_bottom td.cmsRounded_left		{ background-position: 0px -20px; }
+	tr.cmsRounded_bottom td.cmsRounded_right	{ background-position: -20px -20px; }

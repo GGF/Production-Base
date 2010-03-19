@@ -5,7 +5,7 @@
 
 // Функция получения случайного парол
 
-$GLOBALS["astore"] = array("Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M","1","2","3","4","5","6","7","8","9","0","q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m");
+$_SERVER["astore"] = array("Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M","1","2","3","4","5","6","7","8","9","0","q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m");
 mt_srand((double)microtime()*1000000);
 function passwdGen($len)
 {
@@ -20,58 +20,40 @@ function passwdGen($len)
 // функция авторизации
 function authorize()
 {
-	global $sessionid,$user,$userid,$HTTP_POST_VARS,$_COOKIE,$dbname;
-	$sessionid = $_COOKIE["sessionid"];
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
-	mysql_query("set names cp1251");
-	mysql_query("DELETE FROM session WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(ts) > 3600*8");
-	
+	$sessionid = session_id();
+	sql::query("DELETE FROM session WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(ts) > 3600*8");
 	$mes = "";
 	if($sessionid)
 	{
-		$result = mysql_query("SELECT * from session WHERE session='".$sessionid."'");
-		if($rs = mysql_fetch_array($result))
+		$rs = sql::fetchOne("SELECT * from session WHERE session='".$sessionid."'");
+		if($rs)
 		{
-			$result = mysql_query("SELECT * FROM users WHERE id='".$rs['u_id']."'");
-			if($urs = mysql_fetch_array($result))
+			$urs = sql::fetchOne("SELECT * FROM users WHERE id='".$rs['u_id']."'");
+			if($urs)
 			{
-				$user = $urs["nik"];
-				$userid = $rs["u_id"];
-				setcookie("sessionid",$sessionid,time() + 60*60*8,'/');//*24,"/");//,"baza");
+				$_SERVER[user] = $urs["nik"];
+				$_SERVER[userid] = $rs["u_id"];
 				mysql_query("UPDATE session SET ts=NOW() WHERE session='$sessionid'");
 			}else{
-				setcookie("user","",time() - 3600,'/');unset($user);
-				setcookie("userid","",time() - 3600,'/');unset($userid);
-				setcookie("sessionid","",time() - 3600,'/');unset($sessionid);
 				$mes = "Не могу найти пользователя по сессии. Обратитесь к разработчику!";
 			}
 		}else{
-			setcookie("user","",time() - 3600,'/');unset($user);
-			setcookie("userid","",time() - 3600,'/');unset($userid);
-			setcookie("sessionid","",time() - 3600,'/');unset($sessionid);
-			$mes = "Сессия не верна или устарела!";
+			//$mes = "Сессия не верна или устарела!";
 		}
 	} 
-	if($HTTP_POST_VARS["password"] && !$user)
+	if($_POST["password"] && !$_SERVER[user])
 	{
-		$result = mysql_query("SELECT * FROM users WHERE password='".$HTTP_POST_VARS["password"]."'");
-		if($user = mysql_fetch_array($result)){
-			$sessionid = passwdGen(12);
-			$result = mysql_query("SELECT * FROM session WHERE session='".$sessionid."'");
-			while(mysql_num_rows($result) >0){
-				$sessionid = passwdGen(12);
-				$result = mysql_query("SELECT * FROM session WHERE session='".$sessionid."'");
-			}
-			mysql_query("INSERT INTO session (session,u_id) VALUES ('".$sessionid."','".$user["id"]."')");
-			setcookie("sessionid",$sessionid,time() + 60*60*8,'/');//*24,"/");//,"baza");
-			$userid = $user["id"];
-			$user = $user["nik"];
+		$res = sql::fetchOne("SELECT * FROM users WHERE password='".$_POST["password"]."'");
+		if($res){
+			sql::query("INSERT INTO session (session,u_id) VALUES ('".$sessionid."','".$res["id"]."')");
+			$_SERVER[userid] = $res["id"];
+			$_SERVER[user] = $res["nik"];
 			header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'');
 		}else{
 			$mes = "Логин или пароль указаны не верно. Авторизация не удалась. Попробуйте ещё раз.";
 		}
 	}
-	if(!$user)
+	if(!$_SERVER[user])
 	{
 		echo "<html><head>	<title>База данных ЗАО МПП. Вход.</title>";
 		echo "<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=windows-1251>";
@@ -97,53 +79,33 @@ function authorize()
 		exit;
 	} 
 	
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
 }
 
 
 function isadminhere() {
-	global $dbname;
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
 	$sql="SELECT (UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts))<180 FROM session WHERE u_id='1' ORDER BY ts DESC LIMIT 1";
-	$res=mysql_query($sql);
-	if ($res) {
-		$rs=mysql_fetch_array($res);
-		if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
-		if ($rs[0]=='1') {
-			return true;//echo "<LINK REL='STYLESHEET' TYPE='text/css' HREF='/style/styleggf.css'>";
-		} else {
-			return false;//echo "<LINK REL='STYLESHEET' TYPE='text/css' HREF='/style/style.css'>";
-		}
-	}
-	return false;
-
+	$res=sql::fetchOne($sql);
+	//profiler::add($sql);
+	//profiler::add(print_r($res,false));
+	return empty($res)?false:$res;
 }
 //
 // end Auth
 //
 
-function getright($nik) {
-	global $dbname;
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
-	//$sql="SELECT * FROM rtypes LEFT JOIN rrtypes ON 1 LEFT JOIN users ON 1 LEFT JOIN rights ON ( rtypes.id = type_id AND rrtypes.id = rtype_id AND users.id=u_id ) WHERE nik='".$nik."'";
-	//echo $sql;
-	
-	$sql="SELECT * FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=u_id AND rtypes.id=type_id AND rrtypes.id=rtype_id) WHERE nik='".$nik."'";
-	$res=mysql_query($sql);
-	while ($rs=mysql_fetch_array($res)) {
+function getright() {
+	$sql="SELECT rights.right,type,rtype FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=u_id AND rtypes.id=type_id AND rrtypes.id=rtype_id) WHERE nik='".$_SERVER[user]."'";
+	$res=sql::fetchAll($sql);
+	foreach($res as $rs) {
 		if ($rs["right"]=='1') {
 			$r[$rs["type"]][$rs["rtype"]] = true;
-	//		setcookie("r[".$rs["type"]."][".$rs["rtype"]."]","true",time() + 60*60*24,"/","baza");
-		} else {
-	//		setcookie("r[".$rs["type"]."][".$rs["rtype"]."]","false",time() + 60*60*24,"/","baza");
-		}
+		} 
 	}
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
 	return $r;
 }
 
 function debug($text,$uslov='') {
-	if ($GLOBALS["debugAPI"]) {
+	if ($_SERVER["debugAPI"]) {
 		if (empty($uslov) || strstr($text,$uslov)) {
 			echo $text."<br>\n";
 		}
@@ -158,21 +120,6 @@ function my_error($text='')
 		echo "99999999";
 	}
 	exit;
-}
-
-function mySQLconnect($mysql_db='zaompp')
-{
-	$mysql_host= 'localhost';
-	$mysql_login='root';
-	$mysql_password='MMnnHs';
-
-
-	if( !mysql_connect($mysql_host,$mysql_login,$mysql_password) ) {
-		return 0;
-	}
-	if( !mysql_select_db($mysql_db) ) return 0;
-	mysql_query("set names cp1251");
-	return 1;
 }
 
 function mylog($table,$id='0',$action='DELETE') {
@@ -269,7 +216,7 @@ function mylog1($sql) {
 
 // функции для хидера и футера
 function showheader($subtitle='') {
-	global $dbname;
+	ob_start(); //включаем буферизацию вывода - потом в футуре соберем
 	echo '
 <!--   Copyright 2010 Igor Fedoroff   |  g_g_f@mail.ru  -->
 <html>
@@ -281,16 +228,53 @@ function showheader($subtitle='') {
 	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=windows-1251">
 	<meta name="Author" content="Игорь Федоров">
 	<meta name="Description" content="ЗАО МПП">
-	<script type="text/javascript" src="/lib/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="/lib/jquery.wysiwyg.js"></script>
-	<script type="text/javascript" src="/lib/jquery.keyboard.js"></script>
-	<script type="text/javascript" src="/lib/myfunction.js"></script>
-	<script type="text/javascript" src="/lib/ui/ui.core.js"></script>
-	<script type="text/javascript" src="/lib/ui/ui.datepicker.js"></script>
-	<script type="text/javascript" src="/lib/ui/i18n/ui.datepicker-ru.js"></script>
-	<script type="text/javascript" src="/lib/ui/ui.draggable.js"></script>
-	<script type="text/javascript" src="/lib/ui/ui.droppable.js"></script>
-	<script type="text/javascript" src="/lib/form_ajax.js"></script>
+	<style type="text/css" media="all"> 
+		@import url(/lib/core/contrib/jquery/jquery.nyroModal.css);
+		@import url(/lib/core/css/style.css);
+		@import url(/lib/core/css/alert.css);
+		@import url(/lib/core/css/form.css);
+		@import url(/lib/core/css/form_standard.css);
+		@import url(/lib/core/css/node.css);
+		@import url(/lib/core/css/tables.css);
+		@import url(/lib/core/css/var.css);
+		@import url(/lib/core/css/layout.css);
+		@import url(/lib/core/css/calendar.css);
+		@import url(/lib/core/css/rounded.css);
+		@import url(/lib/core/css/mce.css);
+		@import url(/lib/core/css/console.css);
+		@import url(/lib/core/css/mysql.css);
+		@import url(/lib/core/css/node_map.css);
+		@import url(/lib/core/css/tabs.css);
+	</style> 
+	<script type="text/javascript" src="/lib/js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/lib/js/jquery.wysiwyg.js"></script>
+	<script type="text/javascript" src="/lib/js/jquery.keyboard.js"></script>
+	<script type="text/javascript" src="/lib/js/myfunction.js"></script>
+	<script type="text/javascript" src="/lib/js/ui/ui.core.js"></script>
+	<script type="text/javascript" src="/lib/js/ui/ui.datepicker.js"></script>
+	<script type="text/javascript" src="/lib/js/ui/i18n/ui.datepicker-ru.js"></script>
+	<script type="text/javascript" src="/lib/js/ui/ui.draggable.js"></script>
+	<script type="text/javascript" src="/lib/js/ui/ui.droppable.js"></script>
+	<script type="text/javascript" src="/lib/core/js/browserdetect.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/json/json.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/md5/md5.js"></script> 
+	<!--script type="text/javascript" src="/lib/core/contrib/swfobject/swfobject.js"></script--> 
+	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.nyroModal.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.png.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.maskedinput.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/autoexec.js"></script> 
+	<script type="text/javascript" src="/lib/core/classes/form/form.js"></script> 
+	<script type="text/javascript" src="/lib/core/classes/form_ajax/form_ajax.js"></script> 
+	<!--script type="text/javascript" src="/lib/core/js/ajax.js"></script--> 
+	<script type="text/javascript" src="/lib/core/js/alert.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/png.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/pos.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/print.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/calendar.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/console.js"></script> 
+	<script type="text/javascript" src="/lib/core/js/tabs.js"></script> 
+	<!-- script type="text/javascript" src="/lib/modules/media/includes/autoexec.js"></script --> 
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		yellowtr();
@@ -327,42 +311,23 @@ echo "<div class=sun id=sun><img onclick=showuserswin() title='Admin здесь' src=
 echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
 
 //дни рождения
+
 {
 $mes = "<div class='soob'>";
-if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
-$sqlquery = "SELECT *, (YEAR(NOW())-YEAR(dr)) as let FROM workers WHERE DAYOFYEAR(dr)>= DAYOFYEAR(CURRENT_DATE()) AND DAYOFYEAR(dr)<= (DAYOFYEAR(CURRENT_DATE())+4) ORDER BY DAYOFYEAR(dr)";
-$res = mysql_query($sqlquery);
-while ($rs=mysql_fetch_array($res)) {
+$sql = "SELECT fio,dr, (YEAR(NOW())-YEAR(dr)) as let FROM workers WHERE DAYOFYEAR(dr)>= DAYOFYEAR(CURRENT_DATE()) AND DAYOFYEAR(dr)<= (DAYOFYEAR(CURRENT_DATE())+4) ORDER BY DAYOFYEAR(dr)";
+$res = sql::fetchAll($sql);
+foreach($res as $rs) {
 	$dr = true;
 	$mes .= "<div>День рождения - ".$rs["fio"]." - ".$rs["dr"]." - ".$rs["let"]." лет</div>";
 }
-if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
 $mes .= "</div>";
-if (isset($dr)) print $mes;
+if (isset($dr)) echo $mes;
 }
 
 // цитаты баша
-echo file_get_contents("http://computers.mpp/getbashlocal.php?$bash");
+echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
 }
 
-function showfooter($buffer='') {
-	global $user;
-	if  ($user=="igor") {
-		echo "<div id=userswin class=sun style='display:none'>&nbsp;</div>";
-	}
-	echo "<div class='maindiv' id=maindiv>";
-	if (empty($buffer)) 
-		echo "Выбери чтонить!!!";
-	else 
-		echo $buffer;
-	echo "</div>";
-	echo "<div class='loading' id='loading'>Загрузка...</div>";
-	echo "<div class='editdiv' id=editdiv><img src=/picture/s_error2.png class='rigthtop' onclick='closeedit()'>";
-	echo "<div class='editdivin' id='editdivin'></div>";
-	echo "</div>";//место для редактирования всего
-	echo "<script>newinterface=true;</script>";
-	echo "</body></html>";
-}
 
 
 function mysql_query1($sql) {
@@ -392,12 +357,8 @@ function importmodules()
 }
 
 function logout() {
-	global $dbname;
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
-	$sql="DELETE FROM session WHERE session='".$sessionid."'";
-	mysql_query($sql);
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
-	setcookie("sessionid","",time() - 3600,'/');
+	$sql="DELETE FROM session WHERE session='".session_id()."'";
+	sql::query($sql);
 	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
 }
 
@@ -419,12 +380,105 @@ foreach ($_POST as $key => $val) {
 		${$key}=$val;
 }
 
-include "config.php";
-importmodules();
-
+//importmodules();
+/*
 if (!isset($dbname)) $dbname='zaompp';
 if (!mySQLconnect()) {
 	my_error('Not connect to base!');
+}
+*/
+
+define("MODAUTH_ADMIN", false);
+
+session_start();  //starting session
+setCookie(session_name(), session_id(), time() + 60 * 60 * 24, "/"); // 1 день
+
+require  $_SERVER[DOCUMENT_ROOT]."/lib/config.php";
+require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
+
+function showfooter($buffer='') 
+	{
+	global $user;
+	if  ($user=="igor") {
+		echo "<div id=userswin class=sun style='display:none'>&nbsp;</div>";
+	}
+	echo "<div class='maindiv' id=maindiv>";
+	if (empty($buffer)) 
+		echo "Выбери чтонить!!!";
+	else 
+		echo $buffer;
+	echo "</div>";
+	echo "<div class='loading' id='loading'>Загрузка...</div>";
+	echo "<div class='editdiv' id=editdiv><img src=/picture/s_error2.png class='rigthtop' onclick='closeedit()'>";
+	echo "<div class='editdivin' id='editdivin'></div>";
+	echo "</div>";//место для редактирования всего
+	echo "<script>newinterface=true;</script>";
+	echo "</body></html>";
+	
+		$pageContents = ob_get_clean(); // закрываем буферизацию
+		$console = "";
+		
+		if ($_SERVER[debug][report] || $_SERVER[local]) {
+			
+			foreach (sql::$lang->logOut(		CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
+			$console .= cmsConsole_out("", "mysql");
+			foreach (sql::$shared->logOut(	CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
+			
+			profiler::add("Завершение", "Вывод логов SQL");
+			
+			$console .= profiler::export();
+			
+		}
+		
+		if ($_SERVER[cmsGZIP][enabled]) 
+			{
+			
+			//$pageContents = "<!-- {$_SERVER[cmsGZIP][algorythm]} -->\n{$pageContents}";
+			
+			if ($_SERVER[cmsGZIP][algorythm] == 'deflate') {
+				header("Content-Encoding: deflate");
+				$pageContentsGZIP = gzdeflate($pageContents, 9); //первоначальный ГЗИП для отчета
+			} else {	
+				header("Content-Encoding: gzip");
+				$pageContentsGZIP = gzencode($pageContents, 9); //первоначальный ГЗИП для отчета
+			}
+			
+			if ($_SERVER[debug][report] || $_SERVER[local]) { // Если надо генерить отчет
+				
+				$unCompressed    = getKBSize($pageContents);
+				$gzCompressed    = getKBSize($pageContentsGZIP);
+				$compRatio       = 100 - floor(($gzCompressed/$unCompressed)*1000)/10;
+				
+				$reportGZIP      = $console;
+				$reportGZIP      .= cmsConsole_out("Сжатие <b>" . mb_strtoupper($_SERVER[cmsGZIP][algorythm]) . "</b>: <b>{$unCompressed}</b> &rarr; <b>{$gzCompressed}</b> ({$compRatio}%).", "", "notice");
+				$reportGZIP      .= cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
+				$reportGZIP      .= cmsConsole_out("");
+				
+				if ($_SERVER[cmsGZIP][algorythm] == 'deflate') {
+					$pageContentsGZIP = gzdeflate($pageContents . $reportGZIP, 9); //первоначальный ГЗИП для отчета
+				} else {	
+					$pageContentsGZIP = gzencode($pageContents . $reportGZIP, 9); //первоначальный ГЗИП для отчета
+				}
+				
+			}
+			
+			print $pageContentsGZIP; // окончательно выплевываем содержимое в браузер
+			
+		} else {
+			
+			print $pageContents; // окончательно выплевываем содержимое в браузер
+			
+			if ($_SERVER[debug][report] || $_SERVER[local]) {
+				
+				print $console;
+				print cmsConsole_out("Сжатие <b>отключено</b>.", "", "notice");
+				print cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
+				print cmsConsole_out("");
+				
+			}
+			
+		}
+
 }
 
 ?>

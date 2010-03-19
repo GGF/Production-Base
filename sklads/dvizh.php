@@ -1,6 +1,6 @@
 <?
 $dbname = 'zaomppsklads';
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
@@ -41,7 +41,7 @@ elseif (isset($edit) || isset(${'form_'.$processing_type}))
 	{
 		// отредактировано
 		// найдем поставщика
-		//$GLOBALS["debugAPI"] = true;
+		//$_SERVER["debugAPI"] = true;
 		if ($supply_id!=0) 
 		{
 			$post_id = $supply_id;

@@ -1,0 +1,27 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   TAGS                                                                                                                                                            */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	*												{ box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box }
+	
+	body, html							{ height: auto } /* оверрайд обратно для режима без DOCTYPE */
+	
+	body, td, th						{ font-family: "Tahoma", sans-serif; font-size: 11px; color: #222222 }
+	
+	/*
+	table, td, th						{ color: inherit; font-size: inherit; *font-size: expression(this.parentNode.currentStyle['fontSize']); *color: expression(this.parentNode.currentStyle['color']) }
+	*/
+	
+	ul            					{ margin-left: 15px; padding: 0px; list-style-type: none }
+	ul li										{ padding-left: 18px; background: url(/admin/ui/bull.gif) no-repeat 0px 6px }
+	
+	ol											{ margin-left: 33px; padding: 0px }
+	ol li										{  }
+	
+	/*
+	body *										{ line-height: 136% }
+	@media screen and (min-width: 0px) { body *	{ line-height: 138% } }
+	*/

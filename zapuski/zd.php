@@ -1,7 +1,7 @@
 <?
 // управление заделом
 
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 
 
@@ -33,7 +33,7 @@ if (isset($edit) || isset($add)) {
 		while ($rs=mysql_fetch_array($res)) {
 			echo "<option value=".$rs["id"]." ".($rs["id"]==$customer?"SELECTED":"").">".$rs["customer"];
 		}
-		echo "</SELECT><!--input type=button value='Добавить' onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."?zd&addcus\";'--><br>";
+		echo "</SELECT><!--input type=button value='Добавить' onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?zd&addcus\";'--><br>";
 		echo "Плата:<SELECT name=plate_id id=plates>";
 		if(isset($edit)) {
 			$sql = "SELECT * FROM plates WHERE customer_id='$customer' ORDER BY plate ";
@@ -43,7 +43,7 @@ if (isset($edit) || isset($add)) {
 				echo "<option value=".$rs["id"]." ".($rs["id"]==$plid?"SELECTED":"").">".$rs["plate"];
 			}
 		}
-		echo "</SELECT><!--input id=addplbut type=button value=Добавить $disabled onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."?zd&addpl&cusid=\"+$(\"#cusid\").val();'-->";
+		echo "</SELECT><!--input id=addplbut type=button value=Добавить $disabled onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?zd&addpl&cusid=\"+$(\"#cusid\").val();'-->";
 		echo "<br>Количество:<input size=3 name=number value=$number>";
 		$ldate = substr($ldate,8,2).".".substr($ldate,5,2).".".substr($ldate,0,4);
 		echo "<br>№ извещения:<input size=10 name=niz Value=$niz>";

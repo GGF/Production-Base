@@ -1,11 +1,11 @@
 <?
 // Отображает запущенные платы
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 
 if (isset($show) || isset($edit) || isset($add))
 {
-	$r = getright($user);
+	$r = getright();
 	$posid=isset($show)?$id:(isset($edit)?$edit:$add);
 	//print_r($HTTP_GET_VARS);
 	$sql="SELECT *,tz.id AS tzid, blocks.sizex AS bsizex, blocks.sizey AS bsizey, blocks.id AS bid FROM posintz JOIN (tz,filelinks) ON (tz.id=posintz.tz_id AND tz.file_link_id=filelinks.id) LEFT JOIN (blocks) ON (blocks.id=block_id) WHERE posintz.id='$posid'";
@@ -511,7 +511,7 @@ else
 
 	// sql
 
-	$sql="SELECT *,posintz.id AS nzid,posintz.id FROM posintz LEFT JOIN (lanched) ON (posintz.plate_id=lanched.board_id) JOIN (plates,tz,filelinks,customers,orders) ON (tz.order_id=orders.id AND plates.id=posintz.plate_id  AND posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id AND plates.customer_id=customers.id) WHERE posintz.ldate = '0000-00-00' ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR filelinks.file_link LIKE '%$find%' OR orders.number LIKE '%$find%') ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY customers.customer,tz.id,posintz.id ").(isset($all)?"":"LIMIT 20");
+	$sql="SELECT *,posintz.id AS nzid,posintz.id FROM posintz LEFT JOIN (lanched) ON (posintz.plate_id=lanched.board_id) JOIN (plates,tz,filelinks,customers,orders) ON (tz.order_id=orders.id AND plates.id=posintz.plate_id  AND posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id AND plates.customer_id=customers.id) WHERE posintz.ldate = '0000-00-00' ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR filelinks.file_link LIKE '%$find%' OR orders.number LIKE '%$find%') ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY customers.customer,tz.id,posintz.id ").(isset($all)?"":"LIMIT 20");
 
 
 	$cols["№"]="№";

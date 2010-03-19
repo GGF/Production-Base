@@ -1,6 +1,6 @@
 <?
 $dbname = 'zaomppsklads';
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 
 
@@ -15,9 +15,9 @@ $menu->add("movecheck","ƒви&shy;же&shy;ние от&shy;чет",false);
 
 
 
-$sql = "SELECT YEAR(NOW())>(YEAR(sk_".$sklad."_dvizh_arc.ddate)+1) FROM sk_".$sklad."_dvizh_arc ORDER BY ddate DESC LIMIT 1";
-$rs = mysql_fetch_array(mysql_query($sql));
-if ($rs[0]=='1' || isset($year)) {
+$sql = "SELECT YEAR(NOW())>(YEAR(sk_".$sklad."_dvizh_arc.ddate)+1) FROM zaomppsklads.sk_".$sklad."_dvizh_arc ORDER BY ddate DESC LIMIT 1";
+$rs = sqlShared::fetchOne($sql);
+if ($rs==1 || isset($year)) {
 	$menu->add("year","—жать",false);
 }
 

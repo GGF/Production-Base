@@ -1,56 +1,25 @@
 <?
-$dbname = 'zaomppsklads';
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+$db = 'zaomppsklads`.`';
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
 
 
-if ($action=='add') {
-
-} 
- elseif (isset($delete))
+if (isset($delete))
 {
-	$sql = "INSERT INTO sk_arc_".$sklad."_spr (nazv,edizm,krost) SELECT sk_".$sklad."_spr.nazv,sk_".$sklad."_spr.edizm,sk_".$sklad."_spr.krost FROM sk_".$sklad."_spr WHERE sk_".$sklad."_spr.id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-	$id = mysql_insert_id();
+	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_spr (nazv,edizm,krost) SELECT sk_".$sklad."_spr.nazv,sk_".$sklad."_spr.edizm,sk_".$sklad."_spr.krost FROM ".$db."sk_".$sklad."_spr WHERE sk_".$sklad."_spr.id='$delete'";
+	
+	$id = sql::lastId();
 	
 	$sql = "DELETE FROM sk_".$sklad."_spr WHERE id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-
 	$sql = "INSERT INTO sk_arc_".$sklad."_ost (spr_id,ost) SELECT $id,sk_".$sklad."_ost.ost FROM sk_".$sklad."_ost WHERE sk_".$sklad."_ost.spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-	
 	$sql = "DELETE FROM sk_".$sklad."_ost WHERE spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-		
 	$sql = "INSERT INTO sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh.type,sk_".$sklad."_dvizh.numd,sk_".$sklad."_dvizh.numdf,sk_".$sklad."_dvizh.docyr,$id,sk_".$sklad."_dvizh.quant,sk_".$sklad."_dvizh.ddate,sk_".$sklad."_dvizh.post_id,sk_".$sklad."_dvizh.comment_id,sk_".$sklad."_dvizh.price FROM sk_".$sklad."_dvizh WHERE sk_".$sklad."_dvizh.spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-
 	$sql = "DELETE FROM sk_".$sklad."_dvizh WHERE spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-
 	$sql = "INSERT INTO sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh_arc.type,sk_".$sklad."_dvizh_arc.numd,sk_".$sklad."_dvizh_arc.numdf,sk_".$sklad."_dvizh_arc.docyr,$id,sk_".$sklad."_dvizh_arc.quant,sk_".$sklad."_dvizh_arc.ddate,sk_".$sklad."_dvizh_arc.post_id,sk_".$sklad."_dvizh_arc.comment_id,sk_".$sklad."_dvizh_arc.price FROM sk_".$sklad."_dvizh_arc WHERE sk_".$sklad."_dvizh_arc.spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-		
 	$sql = "DELETE FROM sk_".$sklad."_dvizh_arc WHERE spr_id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
+	sql::error(true); 
 	echo "ok";
 } 
  elseif (isset($dvizh))
@@ -61,7 +30,7 @@ if ($action=='add') {
 {
 	// serialize form
 	if(!empty(${'form_'.$processing_type})){
-		print_R(${'form_'.$type});
+		//print_r(${'form_'.$processing_type});
 		foreach(${'form_'.$processing_type} as $key => $val) {
 			if (mb_detect_encoding($val)=="UTF-8") 
 				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
@@ -73,30 +42,24 @@ if ($action=='add') {
 	if (isset($accept)) 
 	{
 		// отредактировано
-		if ($edit==0) {
+		$fields = array("nazv"=>$nazv, "edizm"=>$edizm, "krost"=>$krost);
+		
+		if (empty($edit)) {
 			//добавление нового
-			$sql="INSERT INTO sk_".$sklad."_spr (nazv,edizm,krost) VALUES ('$nazv','$edizm','$krost')" ;
-			mylog1($sql);
-			mysql_query($sql);
-			$spr_id = mysql_insert_id();
-			if(!$spr_id) 
-				my_error();
-			$sql="INSERT INTO sk_".$sklad."_ost (spr_id,ost) VALUES ($spr_id,'0')" ;
+			if (sql::insert($db.'sk_'.$sklad.'_spr',$fields)>0) {
+				$spr_id = sql::lastId();
+				sql::insert($db."sk_".$sklad."_ost",array("spr_id"=>$spr_id,"ost"=>"0"));
+			}
 		} else {
-			$sql="UPDATE sk_".$sklad."_spr SET nazv='$nazv', edizm='$edizm', krost='$krost' WHERE id='$edit'";
+			sql::update($db.'sk_'.$sklad.'_spr',"id='$edit'",$fields);
 		}
-		mylog1($sql);
-		if(!mysql_query($sql)) 
-			my_error();
+		sql::error(true);
 		echo "<script>updatetable('$tid','$processing_type','');closeedit();</script>";
 	} 
 	else 
 	{
-		if($edit!=0) {
-			$sql="SELECT * FROM sk_".$sklad."_spr WHERE id='".$edit."'";
-			$res=mysql_query($sql);
-			if (!$rs=mysql_fetch_array($res)) my_error();
-		}
+		$sql="SELECT * FROM `".$db."sk_".$sklad."_spr` WHERE id='".$edit."'";
+		$rs = sql::fetchOne($sql);
 		$form = new Edit($processing_type);
 		$form->init();
 		$form->addFields(array(
@@ -105,18 +68,21 @@ if ($action=='add') {
 				"name"		=> "nazv",
 				"label"			=>'Наименование:',
 				"value"		=> $rs["nazv"],
+				"options"	=>	array( "html" => "size=70", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "edizm",
 				"label"			=>'Единица измерения:',
 				"value"		=> $rs["edizm"],
+				"options"	=>	array( "html" => "size=10", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "krost",
 				"label"			=>'Критический остаток:',
 				"value"		=> $rs["krost"],
+				"options"	=>	array( "html" => "size=10", ),
 			),
 				));
 		$form->show();
@@ -125,7 +91,7 @@ if ($action=='add') {
 {
 // вывести таблицу
 
-	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_".$sklad."_spr.id FROM `sk_".$sklad."_spr` JOIN sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id WHERE nazv!='' ".(isset($find)?"AND nazv LIKE '%$find%' ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
+	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_".$sklad."_spr.id FROM `".$db."sk_".$sklad."_spr` JOIN `".$db."sk_".$sklad."_ost` ON `".$db."sk_".$sklad."_ost`.spr_id=`".$db."sk_".$sklad."_spr`.id WHERE nazv!='' ".(isset($find)?"AND nazv LIKE '%$find%' ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
 	
 	$cols[nazv]="Название";

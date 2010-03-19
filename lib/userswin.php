@@ -1,6 +1,6 @@
 <?
 
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; 
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
 //authorize();
 if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
 $sql="SELECT *,(UNIX_TIMESTAMP()-UNIX_TIMESTAMP(MAX(ts))) AS lt FROM session JOIN users ON session.u_id=users.id GROUP BY u_id";

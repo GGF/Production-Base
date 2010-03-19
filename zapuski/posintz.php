@@ -1,6 +1,6 @@
 <?
 // создание и редактирование Тех заданий
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 
 

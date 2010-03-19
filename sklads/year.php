@@ -78,5 +78,5 @@ while ($rs=mysql_fetch_array($res)){
 	
 }
 
-print "<script>window.location='http://".$_SERVER['HTTP_HOST'].$GLOBALS["PHP_SELF"]."';</script>";
+print "<script>window.location='http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."';</script>";
 ?>

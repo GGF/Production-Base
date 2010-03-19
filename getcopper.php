@@ -1,6 +1,6 @@
 <?
-$GLOBALS["debugAPI"] = false;
-include_once $GLOBALS["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
+$_SERVER["debugAPI"] = false;
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
 
 $sql="SELECT * 
 FROM coppers
