@@ -1,5 +1,5 @@
 <?
-$dbname = 'zaomppsklads';
+$db = '`zaomppsklads`.';
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
@@ -9,26 +9,20 @@ if(isset($id)) $spr_id=$id;
 
 if (isset($delete)) 
 {
-	$sql = "SELECT * FROM sk_".$sklad."_dvizh WHERE id='$delete'";
-	mylog1($sql);
-	$res = mysql_query($sql);
-	if(!$rs=mysql_fetch_array($res))
-		my_error();
-	$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='".$rs["spr_id"]."'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
-	$sql = "DELETE FROM sk_".$sklad."_dvizh WHERE id='$delete'";
-	mylog1($sql);
-	if(!mysql_query($sql)) 
-		my_error();
+	$sql = "SELECT * FROM ".$db."sk_".$sklad."_dvizh WHERE id='$delete'";
+	$rs=sql::fetchOne($sql);
+	$sql = "UPDATE ".$db."sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='".$rs["spr_id"]."'";
+	sql::query($sql);
+	sql::error(true);
+	$sql = "DELETE FROM ".$db."sk_".$sklad."_dvizh WHERE id='$delete'";
+	sql::query($sql);
+	sql::error(true);
 	echo "ok";
 } 
 elseif (isset($edit) || isset(${'form_'.$processing_type})) 
 {
 	// serialize form
 	if(!empty(${'form_'.$processing_type})){
-		print_R(${'form_'.$type});
 		foreach(${'form_'.$processing_type} as $key => $val) {
 			if (mb_detect_encoding($val)=="UTF-8") 
 				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
@@ -41,95 +35,78 @@ elseif (isset($edit) || isset(${'form_'.$processing_type}))
 	{
 		// отредактировано
 		// найдем поставщика
-		//$_SERVER["debugAPI"] = true;
-		if ($supply_id!=0) 
+		if (!empty($supply_id)) 
 		{
 			$post_id = $supply_id;
 		} 
 		else 
 		{
-			$sql="SELECT id FROM sk_".$sklad."_postav WHERE supply='$supply'";
-			debug($sql);
-			$res = mysql_query($sql);
-			if ($rs=mysql_fetch_array($res)){
-				$post_id = $rs["id"];
-			} else 
-			{			
-				$sql="INSERT INTO sk_".$sklad."_postav (supply) VALUES ('$supply')";
-				debug($sql);
-				mysql_query($sql);
-				$post_id = mysql_insert_id();
-				if (!$post_id) 
-					my_error();
+			$sql="SELECT id FROM ".$db."sk_".$sklad."_postav WHERE supply='$supply'";
+			if ($rs=sql::fetchOne($sql)){
+				$post_id = $rs;
+			} 
+			else 
+			{
+				$sql="INSERT INTO ".$db."sk_".$sklad."_postav (supply) VALUES ('$supply')";
+				sql::query($sql);
+				if (sql::error(true)!=null) exit;
+				$post_id = sql::lastId();
 			}
 		}			
 		// Определим идентификатор коментария
-		$sql="SELECT id FROM coments WHERE comment='$comment'";
-		debug($sql);
-		$res = mysql_query($sql);
-		if ($rs=mysql_fetch_array($res)){
+		$sql="SELECT id FROM ".$db."coments WHERE comment='$comment'";
+		if ($rs=sql::fetchOne($sql)){
 			$comment_id = $rs["id"];
 		} else {
-			$sql="INSERT INTO coments (comment) VALUES ('$comment')";
-			debug($sql);
-			mysql_query($sql);
-			$comment_id = mysql_insert_id();
-			if (!$comment_id) my_error();
-		}		
-		list($numdf,$docyr)=explode("/",$numd);
-		if ($edit==0) {
+			$sql="INSERT INTO ".$db."coments (comment) VALUES ('$comment')";
+			sql::query($sql);
+			sql::error();
+			$comment_id = sql::lastId();
+		}
+		list($numdf,$numyr)=explode("/",$numd);
+		if (empty($edit)) {
 			//добавление нового
 			$ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));//$dyear."-".$dmonth."-".$dday;
-			$sql="INSERT INTO sk_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) VALUES ('$type','$numd','$numdf','$numyr','$spr_id','$quant','$ddate','$post_id','$comment_id','$price')" ;
-			debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='$spr_id'";
-			debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();	
-			
+			$sql="INSERT INTO ".$db."sk_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) VALUES ('$type','$numd','$numdf','$numyr','$spr_id','$quant','$ddate','$post_id','$comment_id','$price')" ;
+			sql::query($sql);
+			sql::error(true);
+			$sql = "UPDATE ".$db."sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='$spr_id'";
+			sql::query($sql);
+			sql::error(true);
 		} 
 		else 
 		{
 			// удалить  старое движенеи
-			$sql = "SELECT * FROM sk_".$sklad."_dvizh WHERE id='$edit'";
-			debug($sql);
-			$res = mysql_query($sql);
-			if(!$rs=mysql_fetch_array($res))
-				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='".$rs["spr_id"]."'";
-			debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();
+			$sql = "SELECT * FROM ".$db."sk_".$sklad."_dvizh WHERE id='$edit'";
+			$rs=sql::fetchOne($sql);
+			$sql = "UPDATE ".$db."sk_".$sklad."_ost SET ost=ost".($rs["type"]?"-":"+").abs($rs["quant"])." WHERE spr_id='".$rs["spr_id"]."'";
+			sql::query($sql);
+			sql::error(true);
 			$ddate = date("Y-m-d",mktime(0,0,0,substr($ddate,3,2),substr($ddate,0,2),substr($ddate,6,4)));//$dyear."-".$dmonth."-".$dday;
-			$sql="UPDATE sk_".$sklad."_dvizh SET type='$type',numd='$numd',numdf='$numdf',docyr='$numyr',spr_id='".$rs["spr_id"]."',quant='$quant',ddate='$ddate',post_id='$post_id',comment_id='$comment_id',price='$price' WHERE id='$edit'" ;
-			debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();
-			$sql = "UPDATE sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='".$rs["spr_id"]."'";
-			debug($sql);
-			if(!mysql_query($sql)) 
-				my_error();					
+			$sql="UPDATE ".$db."sk_".$sklad."_dvizh SET type='$type',numd='$numd',numdf='$numdf',docyr='$numyr',spr_id='".$rs["spr_id"]."',quant='$quant',ddate='$ddate',post_id='$post_id',comment_id='$comment_id',price='$price' WHERE id='$edit'" ;
+			sql::query($sql);
+			sql::error(true);
+			$sql = "UPDATE ".$db."sk_".$sklad."_ost SET ost=ost".($type?"+":"-").abs($quant)." WHERE spr_id='".$rs["spr_id"]."'";
+			sql::query($sql);
+			sql::error(true);
 		}
-		echo "<script>updatetable('$tid','$processing_type','');closeedit();</script>";// успешное завершение обработки
+		echo "ok";
 	} 
 	else 
 	{
 		// поставщики список для выбора
 		$supply["0"] = "Новый";
-		$sql="SELECT * FROM sk_".$sklad."_postav";
-		$res = mysql_query($sql);
-		while($rs=mysql_fetch_array($res)) {
+		$sql="SELECT * FROM ".$db."sk_".$sklad."_postav";
+		$res = sql::fetchAll($sql);
+		foreach($res as $rs) {
 			$supply[$rs["id"]] = $rs["supply"];
 		}
 
-		if($edit!=0) {
-			$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
-			//echo $sql;
-			if (!$rs=mysql_fetch_array(mysql_query($sql))) my_error();
-		}
-		$date=($edit!=0?date("d.m.Y",mktime(0,0,0,substr($rs["ddate"],5,2),substr($rs["ddate"],8,2),substr($rs["ddate"],1,4))):date("d.m.Y"));
+		$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM ".$db."sk_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
+		//echo $sql;
+		$rs=sql::fetchOne($sql);
+		//print_r($rs);
+		$date=(!empty($edit)?date("d.m.Y",mktime(0,0,0,ceil(substr($rs["ddate"],5,2)),ceil(substr($rs["ddate"],8,2)),ceil(substr($rs["ddate"],1,4)))):date("d.m.Y"));
 		
 		$form = new Edit('dvizh');
 		$form->init();
@@ -137,7 +114,7 @@ elseif (isset($edit) || isset(${'form_'.$processing_type}))
 			array(
 				"type"		=> CMSFORM_TYPE_HIDDEN,
 				"name"		=> "spr_id",
-				"value"		=> $spr_id,
+				"value"		=> empty($spr_id)?$rs["spr_id"]:$spr_id,
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
@@ -198,18 +175,18 @@ elseif (isset($edit) || isset(${'form_'.$processing_type}))
 
 		$form->show();
 
-		//if ($edit!=0 & $rs["type"]==0) {
+		if (!empty($edit) & $rs["type"]==0) {
 			include "trebform.php";
-		//}
+		}
 	}
 } 
 else 
 {
 
 	if (isset($all)) {
-		$sql="(SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh.id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").") UNION (SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh_arc.id FROM sk_".$sklad."_dvizh_arc JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh_arc.post_id AND coments.id=sk_".$sklad."_dvizh_arc.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").") ".($order!=''?"ORDER BY ".$order." ":"ORDER BY ddate ");
+		$sql="(SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh.id FROM ".$db."sk_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").") UNION (SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh_arc.id FROM ".$db."sk_".$sklad."_dvizh_arc JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh_arc.post_id AND coments.id=sk_".$sklad."_dvizh_arc.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").") ".(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ddate ");
 	} else {
-		$sql="SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh.id FROM sk_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY ddate ");
+		$sql="SELECT *,if(type='1','Приход','Расход') AS prras, sk_".$sklad."_dvizh.id FROM ".$db."sk_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id' ".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%' ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ddate ");
 	}
 	//echo $sql;
 

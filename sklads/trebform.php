@@ -69,8 +69,8 @@ print "<form action='treb.php' target=_blank method='post'>
 <input type=hidden name=nomer value='".$rs["numd"]."'>
 <input type=hidden name=date value='".substr($rs["ddate"],8,2)."-".substr($rs["ddate"],5,2)."-".substr($rs["ddate"],0,4)."'>
 <input type=hidden name=otp value='".abs($rs["quant"])."'>
-<input type=hidden name=nazv value='".$nazv."'>
-<input type=hidden name=edizm value='".$edizm."'>
+<input type=hidden name=nazv value='".$rs["nazv"]."'>
+<input type=hidden name=edizm value='".$rs["edizm"]."'>
 <input type=submit value='Требование'>
 </form>";
 ?>

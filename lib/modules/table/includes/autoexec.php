@@ -105,15 +105,17 @@ class Table {
 			$link = "<a alt='раскрыть' title='Раскрыть' onclick=\"".(!empty($this->openfunc)?$this->openfunc."('".$rs["id"]."','$trid')":(!empty($this->opentype)?"opentr('".$rs["id"]."','$trid','".$this->opentype."'".(($this->type==$this->opentype)?",'show'":"").")":"openempty()"))."\" id=showlink><div class='fullwidth'>";
 			$linkend = "</div></a>";
 			$rs["file_link"] = substr($rs["file_link"],strrpos($rs["file_link"],"\\")+1);
+			$delstr = '';
 			reset($this->cols);
 			while (list($key, $val) = each($this->cols)) {
 				echo "<td>".$link.(empty($rs["$key"])?"&nbsp;":$rs["$key"]).$linkend;
+				$delstr .= $rs["$key"].' - ';
 			}
 			if ($this->edit) {
 				echo "<td align=center valign=center><a title='Редактировать' onclick=\"editrecord('".$this->type."','edit=".$rs["id"]."&tid=".$this->tid."')\" id=editlink><img src=/picture/b_edit.png></a>";
 			}
 			if ($this->del) {
-				echo "<td align=center valign=center><a title='Удалить' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($rs[0]."-".$rs[1]."-".$rs[2]."-".$rs[3]))."')\" id=dellink><img src=/picture/b_drop.png></a>";
+				echo "<td align=center valign=center><a title='Удалить' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($delstr))."')\" id=dellink><img src=/picture/b_drop.png></a>";
 			}
 		}
 

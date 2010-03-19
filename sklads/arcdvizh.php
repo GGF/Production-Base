@@ -1,5 +1,5 @@
 <?
-$dbname = 'zaomppsklads';
+$db = '`zaomppsklads`.';
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
@@ -16,7 +16,7 @@ else
 {
 	// вывести таблицу
 
-	$sql="SELECT *,sk_arc_".$sklad."_dvizh.id FROM sk_arc_".$sklad."_dvizh JOIN (sk_".$sklad."_postav,coments) ON (sk_".$sklad."_postav.id=sk_arc_".$sklad."_dvizh.post_id AND coments.id=sk_arc_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id'".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%'":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY ddate DESC ").((isset($all))?"":"LIMIT 20");
+	$sql="SELECT *,sk_arc_".$sklad."_dvizh.id FROM ".$db."sk_arc_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_arc_".$sklad."_dvizh.post_id AND coments.id=sk_arc_".$sklad."_dvizh.comment_id) WHERE spr_id='$spr_id'".(isset($find)?"AND comment LIKE '%$find%' OR supply LIKE '%$find%' OR numd LIKE '%$find%'":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ddate DESC ").((isset($all))?"":"LIMIT 20");
 	//echo $sql;
 
 	$cols[ddate]="Дата";

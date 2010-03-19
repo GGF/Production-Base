@@ -3,20 +3,6 @@
 // Auth
 //
 
-// Функция получения случайного парол
-
-$_SERVER["astore"] = array("Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M","1","2","3","4","5","6","7","8","9","0","q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m");
-mt_srand((double)microtime()*1000000);
-function passwdGen($len)
-{
-	global $astore;
-	$ret = "";
-	for ($i=0;$i <$len;$i++ )
-	{
-		$ret .= $astore[mt_rand(0,sizeof($astore)-1)];
-	}
-	return $ret;
-}
 // функция авторизации
 function authorize()
 {
@@ -81,7 +67,6 @@ function authorize()
 	
 }
 
-
 function isadminhere() {
 	$sql="SELECT (UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts))<180 FROM session WHERE u_id='1' ORDER BY ts DESC LIMIT 1";
 	$res=sql::fetchOne($sql);
@@ -102,116 +87,6 @@ function getright() {
 		} 
 	}
 	return $r;
-}
-
-function debug($text,$uslov='') {
-	if ($_SERVER["debugAPI"]) {
-		if (empty($uslov) || strstr($text,$uslov)) {
-			echo $text."<br>\n";
-		}
-	}
-}
-
-function my_error($text='')
-{
-	if ($text!='') {
-		echo "ERROR:".$text."<br>";
-	} else {
-		echo "99999999";
-	}
-	exit;
-}
-
-function mylog($table,$id='0',$action='DELETE') {
-
-	global $userid;
-	
-	if ($id=='0') {
-		$sql = "INSERT INTO logs (logdate,user_id,sqltext,action) VALUES (NOW(),'$userid','".addslashes($table)."','OTHER')";
-		mysql_query($sql);
-	} else {
-		$sql = "SELECT * FROM $table WHERE id='$id'";
-		$res = mysql_query($sql);
-		while ($rs=mysql_fetch_array($res,MYSQL_ASSOC)) {
-			while (list($key,$val)=each($rs)) {
-				$keys .= ($keys==''?"":",")."$key";
-				$sets .= ($sets==''?"":",")."$key='$val'";
-				$vals .= ($vals==''?"":",")."'$val'";
-			}
-			if ($action=='DELETE') {
-				$text = "INSERT INTO $table ($keys) VALUES($vals)";
-			} elseif ($action=='UPDATE') {
-				$text = "UPDATE $table SET $sets WHERE id='$id'";
-			}
-			$sql = "INSERT INTO logs (logdate,user_id,sqltext,action) VALUES (NOW(),'$userid','".addslashes($text)."','$action')";
-			mysql_query($sql);
-		}
-	}
-}
-
-function mylog1($sql) {
-	
-	global $dbname,$userid ;
-	
-	$wordarr = explode(" ",$sql);
-	// определим действие
-	$action = strtoupper($wordarr[0]);
-	if ($action=="INSERT") {
-		// определим таблицу
-		$table = strtolower($wordarr[2]); // INSERT INTO table
-	}
-	elseif ($action=="DELETE") {
-		// определим таблицу
-		$table = strtolower($wordarr[2]); // DELETE FROM table
-	}
-	elseif ($action=="UPDATE") {
-		// определим таблицу
-		$table = strtolower($wordarr[1]); // UPDATE table
-	} 
-	else {
-		// если селект возвращаемся ничего не делая
-		// DROP или TRUNCATE надеюсь не бедет
-		return 0;
-	}
-	// определим идентификатор
-	if (eregi("where (.*)",$sql,$wordarr)) {
-		$id = $wordarr[1];
-	} else {
-		$id=0;
-	}
-	
-	if ($id!='0') {
-		$sql1 = "SELECT * FROM $table WHERE $id";
-		//echo $sql1."<br>";
-		if ($res = mysql_query($sql1)){
-			while ($rs=mysql_fetch_array($res,MYSQL_ASSOC)) {
-				while (list($key,$val)=each($rs)) {
-					$keys .= ($keys==''?"":",")."$key";
-					$sets .= ($sets==''?"":",")."$key='$val'";
-					$vals .= ($vals==''?"":",")."'$val'";
-				}
-				if ($action=='DELETE') {
-					$text = "INSERT INTO $table ($keys) VALUES($vals)";
-				} elseif ($action=='UPDATE') {
-					$text = "UPDATE $table SET $sets WHERE id='$id'";
-				}
-			}
-		}
-	}
-	
-	//echo "$dbname ___ $userid ___ $id <br>";
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db("zaompp") ) my_error("Не удалось выбрать таблицу zaompp");
-	$sql = "INSERT INTO logs (logdate,user_id,sqltext,action) VALUES (NOW(),'$userid','".addslashes($sql)."','$action')";
-	//echo $sql."<br>";
-	if (!mysql_query($sql)) echo mysql_error();
-	$id = mysql_insert_id();
-	if ($text!='') {
-		$sql = "INSERT INTO logs (logdate,user_id,sqltext,action) VALUES (NOW(),'$userid','".addslashes($text)."','$id')";
-		//echo $sql."<br>";
-		if (!mysql_query($sql)) echo mysql_error();
-	}
-	if (isset($dbname) && $dbname!="zaompp" && !mysql_select_db($dbname) ) my_error("Не удалось выбрать таблицу $dbname");
-	return 1;
 }
 
 // функции для хидера и футера
@@ -329,33 +204,6 @@ echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]
 }
 
 
-
-function mysql_query1($sql) {
-	// логирование вставить
-	mylog1($sql);
-	return mysql_query($sql);
-}
-
-// импортировать дополнительные модули
-function importmodules()
-{
-	$dir = dirname(__FILE__)."/modules/";
-	$ls = opendir($dir);
-	if ($ls) {
-		while(false !== ($file=readdir($ls)))
-		{
-			$file = trim($file);
-			if($file == basename(__FILE__) ||  $file == "sql.php") continue; // самого себя и главный файл библиотеки не брать, хотя библиотека в другом каталоге
-			$a = explode(".",$file); // $a[0] = имяфайла без расширения
-			if(!empty($a[0])) // потом добавить словие по которому не импортировать, пока все
-			{
-				include_once($dir."/".$file);
-			}
-		}
-	}
-	
-}
-
 function logout() {
 	$sql="DELETE FROM session WHERE session='".session_id()."'";
 	sql::query($sql);
@@ -379,14 +227,6 @@ foreach ($_POST as $key => $val) {
 	else 
 		${$key}=$val;
 }
-
-//importmodules();
-/*
-if (!isset($dbname)) $dbname='zaompp';
-if (!mySQLconnect()) {
-	my_error('Not connect to base!');
-}
-*/
 
 define("MODAUTH_ADMIN", false);
 
