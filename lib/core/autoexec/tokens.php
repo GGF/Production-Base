@@ -4,18 +4,18 @@
 	
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	tokens::add("cmsHead",						"/core/tokens/cmsHead.php",						CMSTOKENS_FILE_ABS);
-	tokens::add("cmsHead.belated",		"/core/tokens/cmsHead.belated.php",		CMSTOKENS_FILE_ABS);
-	tokens::add("cmsVideo",						"/core/tokens/cmsVideo.php",					CMSTOKENS_FILE_ABS);
-	tokens::add("cmsFlash",						"/core/tokens/cmsFlash.php",					CMSTOKENS_FILE_ABS);
-	tokens::add("cmsAdmin",						"/core/tokens/cmsAdmin.php",					CMSTOKENS_FILE_ABS);
-	tokens::add("cmsPopup",						"/core/tokens/cmsPopup.php",					CMSTOKENS_FILE_ABS);
-	tokens::add("cmsLayout",					"/core/tokens/cmsLayout.php",					CMSTOKENS_FILE_ABS);
-	tokens::add("cmsGMap",						"/core/tokens/cmsGMap.php",						CMSTOKENS_FILE_ABS);
-	tokens::add("cmsRounded",					"/core/tokens/cmsRounded.php",				CMSTOKENS_FILE_ABS);
-	tokens::add("cmsDoctype",					"/core/tokens/cmsDoctype.php",				CMSTOKENS_FILE_ABS);
+	tokens::add("cmsHead",						"/lib/core/tokens/cmsHead.php",						CMSTOKENS_FILE_ABS);
+	tokens::add("cmsHead.belated",		"/lib/core/tokens/cmsHead.belated.php",		CMSTOKENS_FILE_ABS);
+	tokens::add("cmsVideo",						"/lib/core/tokens/cmsVideo.php",					CMSTOKENS_FILE_ABS);
+	tokens::add("cmsFlash",						"/lib/core/tokens/cmsFlash.php",					CMSTOKENS_FILE_ABS);
+	tokens::add("cmsAdmin",						"/lib/core/tokens/cmsAdmin.php",					CMSTOKENS_FILE_ABS);
+	tokens::add("cmsPopup",						"/lib/core/tokens/cmsPopup.php",					CMSTOKENS_FILE_ABS);
+	tokens::add("cmsLayout",					"/lib/core/tokens/cmsLayout.php",					CMSTOKENS_FILE_ABS);
+	tokens::add("cmsGMap",						"/lib/core/tokens/cmsGMap.php",						CMSTOKENS_FILE_ABS);
+	tokens::add("cmsRounded",					"/lib/core/tokens/cmsRounded.php",				CMSTOKENS_FILE_ABS);
+	tokens::add("cmsDoctype",					"/lib/core/tokens/cmsDoctype.php",				CMSTOKENS_FILE_ABS);
 	
-	tokens::add("template.head",			"/core/tokens/cmsHead.php",						CMSTOKENS_FILE_ABS); // DEPRECATED
+	tokens::add("template.head",			"/lib/core/tokens/cmsHead.php",						CMSTOKENS_FILE_ABS); // DEPRECATED
 	
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	

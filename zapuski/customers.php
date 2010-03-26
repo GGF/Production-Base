@@ -1,99 +1,111 @@
 <?
 // управление заказчиками
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
-if (isset($edit) || isset($add) ) {
-	if (!isset($accept)) {
-		if ($edit) {
-			$sql = "SELECT * FROM customers WHERE id='".$edit."'";
-			$res = mysql_query($sql);
-			$rs=mysql_fetch_array($res);
+if (isset($edit) || isset(${'form_'.$processing_type})) 
+{
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
 		}
-		echo "<form method=post id=editform action='http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."'>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value=$tid>";
-		if (isset($order)) echo "<input type=hidden name=order value=$order>";
-		if (isset($idstr)) echo "<input type=hidden name=idstr value=$idstr>";
-		if (isset($find))echo "<input type=hidden name=find value=$find>";
-		if (isset($all)) echo "<input type=hidden name=all value=$all>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "Краткое название (имя каталога):<input type=text name=customer size=20 value='".$rs["customer"]."'><br>";
-		echo "Полное название (для теззаданий): <input type=text name=fullname size=50 value='".$rs["fullname"]."'><br>";
-		echo "Каталог на диске К (для сверловок): <input type=text name=kdir size=50 value='".$rs["kdir"]."'><br>";
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('customers',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'>";
+	}
+	
+	if (!isset($accept)) {
+		$sql = "SELECT * FROM customers WHERE id='$edit'";
+		$cust=sql::fetchOne($sql);
+		
+		$form = new Edit($processing_type);
+		$form->init();
+		$form->addFields(array(
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"customer",
+				"label"		=>	"Краткое название (имя каталога):",
+				"value"		=>	$cust["customer"],
+				//"options"	=>	array( "html" => "size=10", ),
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"fullname",
+				"label"		=>	"Полное название (для теззаданий):",
+				"value"		=>	$cust["fullname"],
+				"options"	=>	array( "html" => "size=60", ),
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"kdir",
+				"label"		=>	"Каталог на диске К (для сверловок):",
+				"value"		=>	$cust["kdir"],
+			),
+		));
+		$form->show();
 	} else {
 		// сохрнение
-		foreach ($_GET as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-		foreach ($_POST as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-		if ($edit) {
+		if (!empty($edit)) {
 			// редактирование
 			$sql = "UPDATE customers SET customer='$customer', fullname='$fullname', kdir='$kdir' WHERE id='$edit'";
-			mylog('customers',$edit,'UPDATE');
-			mylog($sql);
 		} else {
 			// добавление
 			$sql = "INSERT INTO customers (customer,fullname,kdir) VALUES ('$customer','$fullname','$kdir')";
-			mylog($sql);
 		}
-		if (!mysql_query($sql)) {
-			my_error("Не удалось внести изменения в таблицу customers!!!");
-		} else {
-			echo "<script>updatetable('$tid','customers','');closeedit();</script>";
-		}
+		sql::query($sql);
+		sql::error(true);
+		echo "ok";
 	}
 } 
 elseif (isset($delete)) 
 {
 	// удаление
 	$sql = "DELETE FROM customers WHERE id='$delete'";
-	mylog('customers',$delete);
-	mysql_query($sql);
+	sql::query($sql);
+	sql::error(true);
 	// удаление связей
 	// удалить и платы заказчика
 	$sql = "SELECT * FROM plates WHERE customer_id='$delete'";
-	$res = mysql_query($sql);
-	while ($rs=mysql_fetch_array($res)) {
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) 
+	{
 		$sql = "DELETE FROM plates WHERE id='".$rs["id"]."'";
-		mylog(plates,$rs["id"]);
-		mysql_query($sql);
+		sql::query($sql);
+		sql::error(true);
 		// надо бы удалить и блоки т.п.
 	}
 	// удалить вязанные заказы и тз
 	$sql = "SELECT * FROM orders WHERE customer_id='$delete'";
-	$res2 = mysql_query($sql);
-	while($rs2=mysql_fetch_array($res1)) {
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) 
+	{
 		// удаление
-		$delete = $rs2["id"];
+		$delete = $rs["id"];
 		$sql = "DELETE FROM orders WHERE id='$delete'";
-		mylog('orders',$delete);
-		mysql_query($sql);
-		
+		sql::query($sql);
+		sql::error(true);
 		// удаление связей
 		$sql = "SELECT * FROM tz WHERE order_id='$delete'";
-		$res1 = mysql_query($sql);
-		while($rs1=mysql_fetch_array($res1)) {
+		$res1 =  sql::fetchAll($sql);
+		foreach($res1 as $rs1) {
 			// удаление
 			$delete = $rs1["id"];
 			$sql = "DELETE FROM tz WHERE id='$delete'";
-			mylog('tz',$delete);
-			mysql_query($sql);
+			sql::query($sql);
+			sql::error(true);
 			// удаление связей
 			$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
-			$res = mysql_query($sql);
-			while($rs=mysql_fetch_array($res)) {
-				$delete = $rs["id"];
+			$res2 =  sql::fetchAll($sql);
+			foreach($res2 as $rs2)
+				$delete = $rs2["id"];
 				$sql = "DELETE FROM posintz WHERE id='$delete'";
-				mylog('posintz',$delete);
-				mysql_query($sql);
+				sql::query($sql);
+				sql::error(true);
 			}
 		}
-	}
 	echo "ok";
 }
 else
@@ -110,7 +122,7 @@ else
 	$openfunc = "opencustr";
 
 	
-	$table = new Table("customers","opencustr",$sql,$cols);
+	$table = new Table($processing_type,"opencustr",$sql,$cols);
 	$table->title='Заказчики';
 	$table->addbutton=true;
 	$table->show();

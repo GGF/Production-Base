@@ -1,108 +1,23 @@
 <?
-//
-// Auth
-//
 
-// функция авторизации
-function authorize()
-{
-	$sessionid = session_id();
-	sql::query("DELETE FROM session WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(ts) > 3600*8");
-	$mes = "";
-	if($sessionid)
-	{
-		$rs = sql::fetchOne("SELECT * from session WHERE session='".$sessionid."'");
-		if($rs)
-		{
-			$urs = sql::fetchOne("SELECT * FROM users WHERE id='".$rs['u_id']."'");
-			if($urs)
-			{
-				$_SERVER[user] = $urs["nik"];
-				$_SERVER[userid] = $rs["u_id"];
-				mysql_query("UPDATE session SET ts=NOW() WHERE session='$sessionid'");
-			}else{
-				$mes = "Не могу найти пользователя по сессии. Обратитесь к разработчику!";
-			}
-		}else{
-			//$mes = "Сессия не верна или устарела!";
-		}
-	} 
-	if($_POST["password"] && !$_SERVER[user])
-	{
-		$res = sql::fetchOne("SELECT * FROM users WHERE password='".$_POST["password"]."'");
-		if($res){
-			sql::query("INSERT INTO session (session,u_id) VALUES ('".$sessionid."','".$res["id"]."')");
-			$_SERVER[userid] = $res["id"];
-			$_SERVER[user] = $res["nik"];
-			header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'');
-		}else{
-			$mes = "Логин или пароль указаны не верно. Авторизация не удалась. Попробуйте ещё раз.";
-		}
-	}
-	if(!$_SERVER[user])
-	{
-		echo "<html><head>	<title>База данных ЗАО МПП. Вход.</title>";
-		echo "<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=windows-1251>";
-		echo "<style>";
-		echo ".zag {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12pt; font-weight: bold; color: #000000} \n";
-		echo ".tekst {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000000}";
-		echo ".podtekst {  font-family: Arial, Helvetica, sans-serif; font-size: 6pt; color: red; text-align:left}";
-		echo "</style></head>";
-		echo "<body bgcolor=#FFFFFF><div align=center> <p>&nbsp;</p>";
-		echo " <form action='' method='POST'>";
-		echo "<table width=309 border=0 cellspacing=0 cellpadding=0 bgcolor='#FFFFFF'>";
-		echo "<tr>  <td rowspan=6 width=3>&nbsp;</td>";
-		echo "<td colspan=2 class=zag align=center>&nbsp;</td><td>&nbsp;</td>";
-		echo "</tr> <tr><td colspan=2 class=zag align=center>Необходимо авторизоваться для работы с базой</td><td>&nbsp;</td> </tr>";
-		echo "<tr><td colspan=2 class=zag align=center>$mes &nbsp;</td> <td>&nbsp;</td> </tr>";
-		echo "<tr><td class=tekst align=right>Пароль <span class=podtekst>(именно пароль и только пароль)</td>";
-		echo "<td align=center><input type=password name='password'></td>";
-		echo "<td width=40><input type=image src='/picture/sl_enter.gif' width=26 height=25/></td>";
-		echo "</tr><tr><td width='10'>&nbsp;</td><td class=tekst>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
-		echo "<tr valign=top align=left><td colspan=4><img src='/picture/sl_plb.gif' width=309 height=10></td></tr></table>";
-		echo "</form>";
-		echo "<p>&nbsp;</p></div></body></html>";
-		exit;
-	} 
-	
-}
-
-function isadminhere() {
-	$sql="SELECT (UNIX_TIMESTAMP()-UNIX_TIMESTAMP(ts))<180 FROM session WHERE u_id='1' ORDER BY ts DESC LIMIT 1";
-	$res=sql::fetchOne($sql);
-	//profiler::add($sql);
-	//profiler::add(print_r($res,false));
-	return empty($res)?false:$res;
-}
-//
-// end Auth
-//
-
-function getright() {
-	$sql="SELECT rights.right,type,rtype FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=u_id AND rtypes.id=type_id AND rrtypes.id=rtype_id) WHERE nik='".$_SERVER[user]."'";
-	$res=sql::fetchAll($sql);
-	foreach($res as $rs) {
-		if ($rs["right"]=='1') {
-			$r[$rs["type"]][$rs["rtype"]] = true;
-		} 
-	}
-	return $r;
-}
+require  $_SERVER[DOCUMENT_ROOT]."/lib/config.php";
+require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
 
 // функции для хидера и футера
-function showheader($subtitle='') {
+function showheader($subtitle='') 
+{
 	ob_start(); //включаем буферизацию вывода - потом в футуре соберем
 	echo '
 <!--   Copyright 2010 Igor Fedoroff   |  g_g_f@mail.ru  -->
 <html>
 <head>
+	<meta name="Author" content="Игорь Федоров">
+	<meta name="Description" content="ЗАО МПП">
 	<LINK REL="STYLESHEET" TYPE="text/css" HREF="/style/style.css">
 	<link type="text/css" href="/style/themes/base/ui.all.css" rel="stylesheet" />
 	<link type="text/css" href="/style/jquery.wysiwyg.css" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=windows-1251">
-	<meta name="Author" content="Игорь Федоров">
-	<meta name="Description" content="ЗАО МПП">
 	<style type="text/css" media="all"> 
 		@import url(/lib/core/contrib/jquery/jquery.nyroModal.css);
 		@import url(/lib/core/css/style.css);
@@ -133,14 +48,12 @@ function showheader($subtitle='') {
 	<script type="text/javascript" src="/lib/core/js/browserdetect.js"></script> 
 	<script type="text/javascript" src="/lib/core/contrib/json/json.js"></script> 
 	<script type="text/javascript" src="/lib/core/contrib/md5/md5.js"></script> 
-	<!--script type="text/javascript" src="/lib/core/contrib/swfobject/swfobject.js"></script--> 
 	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.nyroModal.js"></script> 
 	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.png.js"></script> 
 	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.maskedinput.js"></script> 
 	<script type="text/javascript" src="/lib/core/js/autoexec.js"></script> 
 	<script type="text/javascript" src="/lib/core/classes/form/form.js"></script> 
 	<script type="text/javascript" src="/lib/core/classes/form_ajax/form_ajax.js"></script> 
-	<!--script type="text/javascript" src="/lib/core/js/ajax.js"></script--> 
 	<script type="text/javascript" src="/lib/core/js/alert.js"></script> 
 	<script type="text/javascript" src="/lib/core/js/png.js"></script> 
 	<script type="text/javascript" src="/lib/core/js/pos.js"></script> 
@@ -148,7 +61,6 @@ function showheader($subtitle='') {
 	<script type="text/javascript" src="/lib/core/js/calendar.js"></script> 
 	<script type="text/javascript" src="/lib/core/js/console.js"></script> 
 	<script type="text/javascript" src="/lib/core/js/tabs.js"></script> 
-	<!-- script type="text/javascript" src="/lib/modules/media/includes/autoexec.js"></script --> 
 
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -165,11 +77,11 @@ function showheader($subtitle='') {
 		$("#editdiv").hide();
 		//$("#editdiv").draggable();
 		';
-		if (isadminhere()) {
-			echo "$('#sun').show();";
-			echo "$('div:visible').fadeTo(0,0.95);";
-		}
-		echo "});
+	if (isadminhere()) {
+		echo "$('#sun').show();";
+		echo "$('div:visible').fadeTo(0,0.95);";
+	}
+	echo "});
 
 	$(function() {
 		$.datepicker.setDefaults($.extend({showMonthAfterYear: false}, $.datepicker.regional['']));
@@ -204,42 +116,9 @@ echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]
 }
 
 
-function logout() {
-	$sql="DELETE FROM session WHERE session='".session_id()."'";
-	sql::query($sql);
-	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
-}
-
-// запускается - не функция
-if(!headers_sent()  && !isset($print)) {
-	header('Content-type: text/html; charset=windows-1251');
-}
-
-foreach ($_GET as $key => $val) {
-	if (mb_detect_encoding($val)=="UTF-8") 
-		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
-	else 
-		${$key}=$val;
-}
-foreach ($_POST as $key => $val) {
-	if (mb_detect_encoding($val)=="UTF-8") 
-		${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
-	else 
-		${$key}=$val;
-}
-
-define("MODAUTH_ADMIN", false);
-
-session_start();  //starting session
-setCookie(session_name(), session_id(), time() + 60 * 60 * 24, "/"); // 1 день
-
-require  $_SERVER[DOCUMENT_ROOT]."/lib/config.php";
-require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
-
 function showfooter($buffer='') 
 	{
-	global $user;
-	if  ($user=="igor") {
+	if  ($_SERVER[user]=="igor") {
 		echo "<div id=userswin class=sun style='display:none'>&nbsp;</div>";
 	}
 	echo "<div class='maindiv' id=maindiv>";
@@ -254,6 +133,10 @@ function showfooter($buffer='')
 	echo "</div>";//место для редактирования всего
 	echo "<script>newinterface=true;</script>";
 	echo "</body></html>";
+	printpage();
+}
+
+function printpage() {
 	
 		$pageContents = ob_get_clean(); // закрываем буферизацию
 		$console = "";
@@ -302,23 +185,105 @@ function showfooter($buffer='')
 				
 			}
 			
-			print $pageContentsGZIP; // окончательно выплевываем содержимое в браузер
+			echo $pageContentsGZIP; // окончательно выплевываем содержимое в браузер
 			
 		} else {
 			
-			print $pageContents; // окончательно выплевываем содержимое в браузер
+			echo $pageContents; // окончательно выплевываем содержимое в браузер
 			
 			if ($_SERVER[debug][report] || $_SERVER[local]) {
 				
-				print $console;
-				print cmsConsole_out("Сжатие <b>отключено</b>.", "", "notice");
-				print cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
-				print cmsConsole_out("");
+				echo $console;
+				echo cmsConsole_out("Сжатие <b>отключено</b>.", "", "notice");
+				echo cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
+				echo cmsConsole_out("");
 				
 			}
 			
 		}
 
 }
+
+function date2datepicker($date) {
+	return !empty($date)?date("d.m.Y",mktime(0,0,0,ceil(substr($date,5,2)),ceil(substr($date,8,2)),ceil(substr($date,1,4)))):date("d.m.Y");
+}
+
+function datepicker2date($date) {
+	return substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
+}
+
+function sharefilelink($filelink) {
+	return "file://servermpp/".str_replace("\\","/",str_replace(":","",$filelink))."";
+}
+
+define("SERVERFILECODEPAGE",$_SERVER[HTTP_HOST]=="bazawork1"?"UTF-8":"KOI8R");
+function serverfilelink($filelink) {
+	return mb_convert_encoding("/home/common/".str_replace("заказчики","Заказчики",str_replace("\\","/",str_replace(":","",$filelink))),SERVERFILECODEPAGE,"cp1251");
+}
+
+function removeOSsimbols($filename) {
+	// для удаления из имен заказов спецсимволов ОС
+	return 	str_replace("'","-",str_replace("`","-",str_replace("?","-",str_replace(":","-",str_replace("\'","-",str_replace("\"","-",str_replace("*","-",str_replace("/","-",str_replace("\\","-",$filename)))))))));
+
+}
+
+function createdironserver($filelink) {
+	list($disk,$path) = explode(":",$filelink);
+	$serpath = "/home/common/".strtolower($disk)."/";
+	$path=str_replace("\\\\","\\",$path);
+	$dirs = explode("\\",$path);
+	$filename = $dirs[count($dirs)-1];
+	unset ($dirs[count($dirs)-1]);
+/*
+	echo "<br>";
+	print_r($dirs);
+	echo "<br>".$filename;
+	echo "<br>";
+*/
+	$dir = $serpath;
+	$cats='';
+	foreach($dirs as $cat) {
+		if (!empty($cat)) {
+			$cats .= str_replace("заказчики","Заказчики",$cat)."/";
+			$dir = mb_convert_encoding($serpath.$cats,SERVERFILECODEPAGE,"cp1251");
+			if (!is_dir($dir)) {
+				mkdir ($dir);
+				chmod ($dir,0777);
+			} 
+//			echo $dir."<br>";
+		}
+	}
+//	echo $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251")."XXX";
+	return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
+
+}
+
+// запускается - не функция
+if(!headers_sent()  && !isset($print)) {
+	header('Content-type: text/html; charset=windows-1251');
+}
+
+foreach ($_GET as $key => $val) {
+	${$key}=$val;
+	/*if (!is_array($val)) {
+		if (mb_detect_encoding($val)=="UTF-8") 
+			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+	}
+	*/
+	//echo mb_detect_encoding($val)."=".$key."=>".$val."==>".${$key};
+}
+foreach ($_POST as $key => $val) {
+	${$key}=$val;
+	if (!is_array($val)) {
+		if (mb_detect_encoding($val)=="UTF-8") 
+			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+	}
+	//echo mb_detect_encoding($val)."=".$key."=>".$val."==>".${$key};
+}
+
+define("MODAUTH_ADMIN", false);
+
+session_start();  //starting session
+setCookie(session_name(), session_id(), time() + 60 * 60 * 24, "/"); // 1 день
 
 ?>

@@ -139,9 +139,6 @@
 	$modules = array(
 		"backup"	=> "Восстановление",
 		"auth"		=> "Пользователи",
-		//"content"	=> "Страницы",
-		//"files"		=> "Файлы",
-		//"cache"		=> "Кеш",
 	);
 	
 	if (is_array($_SERVER[modules])) $_SERVER[modules] = array_merge($modules, $_SERVER[modules]); else $_SERVER[modules] = $modules;
@@ -237,13 +234,13 @@
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/feed.php";
 	
 	// После обычного autoexec выполняем функции обратной совместимости
-	$autoexecStuff[] = $_SERVER[CORE] . "/autoexec/includes/reverse.php";
+	//$autoexecStuff[] = $_SERVER[CORE] . "/autoexec/includes/reverse.php";
 	
 	// И классы
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_lang.php";
-	$autoexecStuff[] = $_SERVER[CORE] . "/classes/mail.php";
+	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/mail.php";
 	
 	// Модули
 	if (count($_SERVER[modules])) foreach ($_SERVER[modules] as $path => $name) {
@@ -278,7 +275,7 @@
 			
 		}
 		
-		if ($_SERVER[modules][cache]) require($_SERVER[DOCUMENT_ROOT] . "/modules/cache/includes/cache_get.php");
+		if ($_SERVER[modules][cache]) require($_SERVER[DOCUMENT_ROOT] . "/lib/modules/cache/includes/cache_get.php");
 		
 		foreach ($autoexecStuff as $e) {
 			
@@ -297,7 +294,7 @@
 		require($_SERVER[SYSCACHE] . "/autoexec_main.php");
 		profiler::add("Autoexec", "Выполнение основного кеша");
 		
-		if ($_SERVER[modules][cache]) require($_SERVER[DOCUMENT_ROOT] . "/modules/cache/includes/cache_get.php");
+		if ($_SERVER[modules][cache]) require($_SERVER[DOCUMENT_ROOT] . "/lib/modules/cache/includes/cache_get.php");
 		
 		require($_SERVER[SYSCACHE] . "/autoexec_stuff.php");
 		profiler::add("Autoexec", "Выполнение вторичного кеша");

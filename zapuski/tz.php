@@ -1,81 +1,88 @@
 <?
 // создание и редактирование Тех заданий
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
-if (isset($add) ) {
+
+if (isset($add) ) 
+{
 	if (isset($typetz)) 
 	{
 		// np не надо редактировать - только добавлять с текущей датой и пользователем
 		// определим позицию в письме
-		$sql="SELECT COUNT(*)+1 FROM tz WHERE order_id='$orderid'";
-		$rs=mysql_fetch_array(mysql_query($sql));
-		$pos_in_order = $rs[0];
-
-		// $userid глобальный
+		$sql="SELECT COUNT(*)+1 AS next FROM tz WHERE order_id='$orderid'";
+		$rs=sql::fetchOne($sql);
+		$pos_in_order = $rs[next];
 
 		// добавление
 		// создать файл с табличкой
 		// определим заказчика
 		$sql="SELECT number,orderdate,customer, fullname FROM orders JOIN customers ON customers.id=customer_id WHERE orders.id='$orderid'";
 		//echo $sql;
-		$rs=mysql_fetch_array(mysql_query($sql));
+		$rs=sql::fetchOne($sql);
 		$order = $rs["number"];
 		$customer = $rs["customer"];
 		$fullname = $rs["fullname"];
 		$odate = $rs["orderdate"];
 		$cdate = date("m-d-Y");
 		
-		$dir=mb_convert_encoding("/home/common/t/Расчет стоимости плат/ТехЗад/".$customer,"KOI8R","cp1251");
-		if (!is_dir($dir)) {
-			mkdir($dir);
-			chmod($dir,0777);
-		}
-		
-		do {
-			$filename = mb_convert_encoding("/home/common/t/Расчет стоимости плат/ТехЗад/".$customer."/".str_replace("\'","-",str_replace("\"","-",str_replace("*","-",str_replace("/","-",str_replace("\\","-",$rs["number"])))))." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls","KOI8R","cp1251");
+		do 
+		{
+			$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls";
+			$filename = createdironserver($file_link);
 			$fe = file_exists($filename);
 			if ($fe) $pos_in_order++;
 		} while ($fe);
-		
+		//echo mb_convert_encoding($filename,"cp1251","UTF-8");
 		// Определим идентификатор файловой ссылки
-		$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\".$customer."\\\\".str_replace("\'","-",str_replace("\"","-",str_replace("*","-",str_replace("/","-",str_replace("\\","-",$rs["number"])))))." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls";
 		$sql="SELECT id FROM filelinks WHERE file_link='$file_link'";
-		$res = mysql_query($sql);
-		if ($rs=mysql_fetch_array($res)){
+		$rs=sql::fetchOne($sql);
+		if (!empty($rs[id]))
+		{
 			$file_id = $rs["id"];
-		} else {
+		} 
+		else 
+		{
 			$sql="INSERT INTO filelinks (file_link) VALUES ('$file_link')";
-			debug($sql);
-			mysql_query($sql);
-			$file_id = mysql_insert_id();
-			if (!$file_id) my_error();
+			sql::query($sql);
+			sql::error(true);
+			$file_id = sql::lastId();
 		}
 		
-		$sql = "INSERT INTO tz (order_id,tz_date,user_id,pos_in_order,file_link_id) VALUES ('$orderid',NOW(),'$userid','$pos_in_order','$file_id')";
-		mylog($sql);
-		if (!mysql_query($sql)) {
-			my_error("Не удалось внести изменения в таблицу tz!!!");
-		} else {
-			$tzid = mysql_insert_id();
-			echo "<script>updatetable('$tid','tz','');</script>";
-			echo "<div style='margin:10px'>";
-			echo "<a href='file://servermpp/".str_replace("\\","/",str_replace(":","",$file_link))."'>TZ-$tzid</a>";
-			echo "</div>";
-			$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":"tzdpp.xls");
-			$file = fopen($filename,"w");
+		$sql = "INSERT INTO tz (order_id,tz_date,user_id,pos_in_order,file_link_id) VALUES ('$orderid',NOW(),'".$_SERVER[userid]."','$pos_in_order','$file_id')";
+		sql::query($sql);
+
+		$tzid =  sql::lastId();
+
+		$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":"tzdpp.xls");
+		if ($file = @fopen($filename,"w")) 
+		{
 			fwrite($file,$excel);
 			fclose($file);
 			chmod($filename,0777);
-			$file = fopen($filename.".txt","w");
-			fwrite($file,$cdate."\n");
-			fwrite($file,$fullname."\n");
-			fwrite($file,$order."\n");
-			fwrite($file,$odate."\n");
-			fwrite($file,sprintf("%08d\n",$tzid));
-			fclose($file);
-			
+			if ($file = @fopen($filename.".txt","w")) 
+			{
+				fwrite($file,$cdate."\n");
+				fwrite($file,$fullname."\n");
+				fwrite($file,$order."\n");
+				fwrite($file,$odate."\n");
+				fwrite($file,sprintf("%08d\n",$tzid));
+				fclose($file);
+				echo "<script>updatetable('$tid','tz','');</script>";
+				echo "<div style='margin:10px'>";
+				echo "<a href='".sharefilelink($file_link)."'>TZ-$tzid</a>";
+				echo "</div>";
+			} 
+			else 
+			{
+				echo "Не удалось создать файл txt";
+			}
+		}
+		else
+		{
+			echo "Не удалось создать файл xls";
 		}
 	}
 	else
@@ -94,25 +101,26 @@ elseif (isset($edit))
 	// пока ничего
 	$sql = "SELECT file_link FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
 	//echo $sql;
-	$rs=mysql_fetch_array(mysql_query($sql));
+	$rs=sql::fetchOne($sql);
 	echo "<div style='margin:10px'>";
-	echo "<a href='file://servermpp/".str_replace("\\","/",str_replace(":","",$rs[0]))."'>TZ-$edit</a>";
+	echo "<a href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
 	echo "</div>";
 }
 elseif (isset($delete)) 
 {
 	// удаление
 	$sql = "DELETE FROM tz WHERE id='$delete'";
-	mylog('tz',$delete);
-	mysql_query($sql);
+	sql::query($sql);
+	sql::error(true);
 	// удаление связей
 	$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
-	$res = mysql_query($sql);
-	while($rs=mysql_fetch_array($res)) {
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) 
+	{
 		$delete = $rs["id"];
 		$sql = "DELETE FROM posintz WHERE id='$delete'";
-		mylog('posintz',$delete);
-		mysql_query($sql);
+		sql::query($sql);
+		sql::error(true);
 	}
 	echo "ok";
 } 
@@ -132,7 +140,7 @@ else
 	$cols[tz_date]="Дата";
 	$cols[nik]="Кто заполнил";
 
-	$table = new Table("tz","posintz",$sql,$cols);
+	$table = new Table($processing_type,"posintz",$sql,$cols);
 	$table->title='Техзадания';
 	if (isset($orderid)) $table->idstr = "&orderid=$orderid";
 	$table->addbutton=true;

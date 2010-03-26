@@ -3,74 +3,134 @@
 
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
-
+$processing_type=basename (__FILE__,".php");
 
 if (isset($delete)) 
 {
 	// удаление
-	$sql = "UPDATE conductors SET ts=NOW(), user_id='$userid', ready='1' WHERE id='$delete'";
+	$sql = "UPDATE conductors SET ts=NOW(), user_id='".$_SERVER[userid]."', ready='1' WHERE id='$delete'";
 	mylog('conductors',$delete);
 	mysql_query($sql);
 	echo "ok";
 }
-elseif (isset($show) || isset($edit)|| isset($add) )
+elseif (isset($edit)|| isset(${'form_'.$processing_type})) 
 {
-	if (!isset($accept) ) {
-	$id=isset($show)?$id:(isset($edit)?$edit:$add);
-	$r = getright($user);
-
-		echo "<form method=post id=editform>";
-		if ($edit!=0) {
-			$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
-			$res = mysql_query($sql);
-			if ($rs=mysql_fetch_array($res)) {
-				$customer=$rs["cusid"];
-				$plid = $rs["plid"];
-				$side = $rs["side"];
-				$pib=$rs["pib"];
-				$lays=$rs["lays"];
-				echo "Заказчик:<input type=input readonly style='background-color:gray;' value='".$rs["customer"]."'><br>";
-				echo "Плата:<input type=input readonly style='background-color:gray;' value='".$rs["plate"]."'>";
-				echo "<input type=hidden name=plate_id value='$plid'>";
-			}
-		} else {
-			echo "Заказчик:<SELECT name=customer_id ".($edit!=0?"readonly":"")." id=cusid onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$('#cusid').val()+'&selectplates',async:false}).responseText; $('#plates').html(plat); $('#plates').removeAttr('disabled');\">";
-			$sql = "SELECT * FROM customers ORDER BY customer";
-			$res = mysql_query($sql);
-			while ($rs=mysql_fetch_array($res)) {
-				echo "<option value=".$rs["id"].">".$rs["customer"];
-			}
-			echo "</SELECT><br>";
-			echo "Плата:<SELECT name=plate_id disabled id=plates>";
-			echo "</SELECT>";
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
 		}
-		echo "<br>Плат в блоке:<input size=3 name=pib value=$pib>";
-		echo "<br>Пластин:<input size=3 name=lays value=$lays>";
-		echo "<br>Сторона:<select name=side><option value='TOP'>TOP<option value='BOT'>BOT<option value='TOPBOT'>TOPBOT";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "<input type=hidden value='$edit' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=uid value='$uid'>";
+	}
+	
+	if (!isset($accept) ) {
+		$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
+		//echo $sql;
+		$cond = sql::fetchOne($sql);
+			
+		$form = new Edit($processing_type);
+		$form->init();
+		$customer = array();
+		$sql="SELECT id,customer FROM customers ORDER BY customer";
+		$res=sql::fetchAll($sql);
+		foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
+		$plates=array();
+		$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$cond[cusid]' ORDER BY plate";
+		$res=sql::fetchAll($sql);
+		foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
 
-		echo "<br><input type=button value='Сохранить' onclick=\"editrecord('conductors',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
-		echo "</form>";
-		
+		$form->addFields(array(
+			(!empty($edit)?
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"customer",
+				"label"		=>	"Заказчик:",
+				"value"		=>	$cond["customer"],
+				"options"	=>	array( "html" => " readonly ", ),
+			)
+			:
+			array(
+				"type"		=> CMSFORM_TYPE_SELECT,
+				"name"		=> "customer_id",
+				"label"		=>	"Заказчик:",
+				"values"	=>	$customers,
+				"value"		=> $cond["cusid"],
+				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
+			)
+			),
+			(!empty($edit)?
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"plate",
+				"label"		=>	"Плата:",
+				"value"		=>	$cond["plate"],
+				"options"	=>	array( "html" => " readonly ", ),
+			)
+			:
+			array(
+				"type"		=> CMSFORM_TYPE_SELECT,
+				"name"		=> "plate_id",
+				"label"		=>	"Плата:",
+				"values"	=>	$plates,
+				"value"		=> $cond["plid"],
+				"options"	=>	array( "html" => " plates ", ),
+			)
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"pib",
+				"label"		=>	"Плат в блоке",
+				"value"		=>	$cond["pib"],
+				//"options"	=>	array( "html" => "size=10", ),
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "lays",
+				"label"		=>	"Пластин",
+				"value"		=> $cond["lays"],
+				//"options"	=>	array( "html" => "size=10", ),
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_SELECT,
+				"name"		=> "side",
+				"label"		=>	"Сторона:",
+				"values"	=>	array(
+										"TOP"	=>	"TOP",
+										"BOT"	=>	"BOT",
+										"TOPBOT"	=>	"TOPBOT",
+									),
+				"value"		=> $cond["side"],
+				//"options"	=>	array( "html" => " side ", ),
+			),
+			(!empty($edit)?
+			array(
+				"type"		=> CMSFORM_TYPE_HIDDEN,
+				"name"		=> "customer_id",
+				"value"		=> $cond["cusid"],
+			):null),
+			(!empty($edit)?
+			array(
+				"type"		=> CMSFORM_TYPE_HIDDEN,
+				"name"		=> "plate_id",
+				"value"		=> $cond["plid"],
+			):null),
+		));
+		$form->show();
 	} 
 	else 
-		{
+	{
 		// сохранение
-		
-		if ($edit!=0) {
-			$sql = "UPDATE conductors SET board_id='$plate_id', pib='$pib', side='$side', lays='$lays', user_id='$userid', ts=NOW() WHERE id='$edit'";
+		if (!empty($edit)) {
+			$sql = "UPDATE conductors SET board_id='$plate_id', pib='$pib', side='$side', lays='$lays', user_id='".$_SERVER[userid]."', ts=NOW() WHERE id='$edit'";
 			
 		} else {
-			$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('$plate_id','$pib','$side','$lays','$userid',NOW())";
+			$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('$plate_id','$pib','$side','$lays','".$_SERVER[userid]."',NOW())";
 		}
-		if (!mysql_query($sql)) {
-			my_error("Не удалось изменить Кондуктор");
-		} else {
-			echo "<script>updatetable('$tid','conductors','');closeedit();</script>";
-		}
+		sql::query($sql);
+		sql::error(true);
+		echo "ok";
 	}
 
 }
@@ -82,7 +142,7 @@ else
 // вывести таблицу
 
 	// sql
-	$sql="SELECT *,conductors.id FROM conductors JOIN (plates,customers) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id ) WHERE ready='0' ".(isset($find)?"AND (plates.plate LIKE '%$find%')":"").($order!=''?" ORDER BY ".$order." ":" ORDER BY conductors.id DESC ").(isset($all)?"":"LIMIT 20");
+	$sql="SELECT *,conductors.id FROM conductors JOIN (plates,customers) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id ) WHERE ready='0' ".(isset($find)?"AND (plates.plate LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY conductors.id DESC ").(isset($all)?"":"LIMIT 20");
 
 	//echo $sql;
 	
@@ -94,7 +154,7 @@ else
 	$cols[pib]="Плат в блоке";
 
 
-	$table = new Table("conductors","conductors",$sql,$cols);
+	$table = new Table($processing_type,$processing_type,$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 

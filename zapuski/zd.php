@@ -1,96 +1,123 @@
 <?
 // управление заделом
-
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
-
-if (isset($edit) || isset($add)) {
+if (isset($edit) || isset(${'form_'.$processing_type})) 
+{
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
+		}
+	}
+	
 	if (!isset($accept) ) 
-		{
-		$sql = "SELECT * FROM users WHERE nik='".$user."'";
-		$res = mysql_query($sql);
-		$rs=mysql_fetch_array($res);
-		$uid = $rs["id"];
-		echo "<form method=post id=editform>";
-		if (isset($edit)) {
-			$sql="SELECT *, customers.id AS cusid, plates.id AS plid FROM zadel JOIN (customers,plates) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) WHERE zadel.id='$edit'";
-			$res = mysql_query($sql);
-			if ($rs=mysql_fetch_array($res)) {
-				$customer=$rs["cusid"];
-				$plid = $rs["plid"];
-				$number = $rs["number"];
-				$ldate = $rs["ldate"];
-				$niz=$rs["niz"];
-				echo "<input type=hidden name=edit value=$edit>";
-			}
-		} else {
-			$disabled = "disabled";
-		}
-		echo "Заказчик:<SELECT name=customer_id id=cusid onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$('#cusid').val()+'&selectplates',async:false}).responseText; $('#plates').html(plat); $('#addplbut').removeAttr('disabled');\">";
-		$sql = "SELECT * FROM customers ORDER BY customer";
-		$res = mysql_query($sql);
-		while ($rs=mysql_fetch_array($res)) {
-			echo "<option value=".$rs["id"]." ".($rs["id"]==$customer?"SELECTED":"").">".$rs["customer"];
-		}
-		echo "</SELECT><!--input type=button value='Добавить' onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?zd&addcus\";'--><br>";
-		echo "Плата:<SELECT name=plate_id id=plates>";
-		if(isset($edit)) {
-			$sql = "SELECT * FROM plates WHERE customer_id='$customer' ORDER BY plate ";
-			//echo $sql;
-			$res = mysql_query($sql);
-			while ($rs=mysql_fetch_array($res)) {
-				echo "<option value=".$rs["id"]." ".($rs["id"]==$plid?"SELECTED":"").">".$rs["plate"];
-			}
-		}
-		echo "</SELECT><!--input id=addplbut type=button value=Добавить $disabled onclick='window.location=\"http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?zd&addpl&cusid=\"+$(\"#cusid\").val();'-->";
-		echo "<br>Количество:<input size=3 name=number value=$number>";
-		$ldate = substr($ldate,8,2).".".substr($ldate,5,2).".".substr($ldate,0,4);
-		echo "<br>№ извещения:<input size=10 name=niz Value=$niz>";
-		echo "<br>Дата запуска:<input size=10 name=ldate id=datepicker Value=$ldate><br>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=uid value='$uid'>";
+	{
+		$sql="SELECT *, customers.id AS cusid, plates.id AS plid FROM zadel JOIN (customers,plates) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) WHERE zadel.id='$edit'";
+		//echo $sql;
+		$zd = sql::fetchOne($sql);
+			
+		$form = new Edit($processing_type);
+		$form->init();
+		$customer = array();
+		$sql="SELECT id,customer FROM customers ORDER BY customer";
+		$res=sql::fetchAll($sql);
+		foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
+		$plates=array();
+		$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$zd[cusid]' ORDER BY plate";
+		$res=sql::fetchAll($sql);
+		foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
 
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('zd',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
-		echo "</form>";
-		
+		$form->addFields(array(
+			array(
+				"type"		=> CMSFORM_TYPE_SELECT,
+				"name"		=> "customer_id",
+				"label"		=>	"Заказчик:",
+				"values"	=>	$customers,
+				"value"		=> $zd["cusid"],
+				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_SELECT,
+				"name"		=> "plate_id",
+				"label"		=>	"Плата:",
+				"values"	=>	$plates,
+				"value"		=> $zd["plid"],
+				"options"	=>	array( "html" => " plates ", ),
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"number",
+				"label"		=>	'Количество:',
+				"value"		=>	$zd["number"],
+				//"options"	=>	array( "html" => "size=10", ),
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "niz",
+				"label"			=>'№ извещения:',
+				"value"		=> $zd["niz"],
+				//"options"	=>	array( "html" => "size=10", ),
+			),
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "ldate",
+				"label"			=>'Дата:',
+				"value"		=> date2datepicker($zd[ldate]),
+				"options"		=> array( "html" => ' datepicker=1 '),
+			),
+		));
+		$form->show();
 	} 
 	else 
-		{
+	{
 		// сохранение
-		$ldate=substr($ldate,6,4)."-".substr($ldate,3,2)."-".substr($ldate,0,2);
-		
-		if ($edit!=0) {
+		$ldate=datepicker2date($ldate);
+		if (!empty($edit)) {
 			$sql = "UPDATE zadel SET number = '$number', ldate='$ldate', board_id='$plate_id', niz='$niz' WHERE id='$edit'";
 			
 		} else {
 			$sql = "INSERT INTO zadel (board_id,ldate,number,niz) VALUES('$plate_id','$ldate','$number','$niz')";
 		}
-		if (!mysql_query($sql)) {
-			my_error("Не удалось изменить задел");
-		} else {
-			echo "<script>updatetable('$tid','zd','');closeedit();</script>";
-		}
+		sql::query($sql);
+		sql::error(true);
+		echo "ok";
 	}
-
-} elseif (isset($delete)) {
+}
+elseif (isset($selectplates)) 
+{
+	$sql = "SELECT * FROM plates WHERE customer_id='$cusid' ORDER BY plate ";
+	//echo $sql;
+	foreach (sql::fetchAll($sql) as $rs) {
+		echo "<option value=".$rs["id"].">".$rs["plate"];
+	}
+} 
+elseif (isset($delete)) 
+{
 	$sql = "DELETE FROM zadel WHERE id='".$delete."'";
-	mylog('zd',$delete,"DELETE");
-	mysql_query($sql);
+	sql::query($sql);
+	sql::error(true);
 	echo "ok";
-} else {
-	$sql="SELECT *,zadel.id AS zid,zadel.id FROM zadel JOIN (plates,customers) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR customers.customer LIKE '%$find%')":"").($order!=''?" ORDER BY ".$order." ":" ORDER BY zadel.id DESC ").(isset($all)?"":"LIMIT 20");
+} 
+else 
+{
+	$sql="SELECT *,zadel.id AS zid,zadel.id FROM zadel JOIN (plates,customers) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR customers.customer LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY zadel.id DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;
 	
-	$cols["№"]="№";
-	$cols[zid]="ID";
-	$cols[customer]="Заказчик";
-	$cols[plate]="Плата";
-	$cols[niz]="№ изв.";
-	$cols[ldate]="Дата запуска";
-	$cols[number]="Кол-во";
+	$cols = array (
+		"№"		=>		"№",
+		"zid"	=>		"ID",
+		"customer"	=>	"Заказчик",
+		"plate"		=>	"Плата",
+		"niz"		=>	"№ изв.",
+		"ldate"		=>	"Дата запуска",
+		"number"	=>	"Кол-во",
+	);
 
 	$table = new Table("zd","zd",$sql,$cols);
 	$table->addbutton=true;

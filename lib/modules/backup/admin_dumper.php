@@ -1,6 +1,7 @@
 <?php
 	
-	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/login.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
+//	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/login.php";
 	
 	header("Expires: Tue, 1 Jul 2003 05:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -47,8 +48,8 @@
 	define('DBHOST', $_SERVER[mysql][lang][host]);
 	// Базы данных, если сервер не разрешает просматривать список баз данных,
 	// и ничего не показывается после авторизации. Перечислите названия через запятую
-	//define('DBNAMES',  implode(",", $dbs));
-	define('DBNAMES',  '');
+	define('DBNAMES',  implode(",", $dbs));
+	//define('DBNAMES',  '');
 	// Кодировка соединения с MySQL
 	// auto - автоматический выбор (устанавливается кодировка таблицы), cp1251 - windows-1251, и т.п.
 	define('CHARSET', 'auto');
@@ -105,7 +106,7 @@
 		$_SESSION[cmsDumper][user] = $_REQUEST[mysql_user];
 		$_SESSION[cmsDumper][pass] = $_REQUEST[mysql_pass];
 		
-		cmsRedirect("/modules/backup/admin_dumper.php");
+		cmsRedirect("/lib/modules/backup/admin_dumper.php");
 		
 	}
 	
@@ -124,9 +125,11 @@
 	if (!$_SESSION[cmsDumper][auth] || isset($_REQUEST[logout])) {
 		
 		$_SESSION[cmsDumper][auth] = false;
-		REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/blank.php";
-		echo tpl_page(tpl_auth($error ? tpl_error($error) : ''));
-		echo "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " сек.'</SCRIPT>";
+		//REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/blank.php";
+		showheader();
+		$buffer = tpl_page(tpl_auth($error ? tpl_error($error) : ''));
+		$buffer .= "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " сек.'</SCRIPT>";
+		showfooter($buffer);
 		exit;
 		
 	}
@@ -141,11 +144,13 @@
 	define('C_ERROR', 3);
 	define('C_WARNING', 4);
 
-	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/blank.php";
+	//REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/blank.php";
+	showheader();
+	ob_start();
 	
 	if (isset($_REQUEST[advMode]))		$_SESSION[cmsDumper][advMode] = true;
 	if (isset($_REQUEST[normalMode]))	$_SESSION[cmsDumper][advMode] = false;
-	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='/modules/backup/admin_dumper.php?normalMode=false'>Переключить на обычный режим</a>" : "<a href='/modules/backup/admin_dumper.php?advMode=true'>Переключить на расширенный режим</a>";
+	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='/lib/modules/backup/admin_dumper.php?normalMode=false'>Переключить на обычный режим</a>" : "<a href='/lib/modules/backup/admin_dumper.php?advMode=true'>Переключить на расширенный режим</a>";
 	
 	$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 	switch($action){
@@ -162,7 +167,7 @@
 	mysql_close();
 	
 	echo "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " сек.'</SCRIPT>";
-	
+	showfooter(ob_get_clean());
 	// ----------------------------------------------------------------------------------------------------------------------------------------- //
 
 class dumper {
@@ -921,12 +926,14 @@ HTML;
 function tpl_main(){
 global $SK;
 
-$bakTable = ($_SESSION[cmsDumper][advMode]) ? "<select name='db_backup'>{$SK->vars['db_backup']}</select>"		: "<input type='text' class='text' value='{$_SERVER[mysql][lang][base]}' readonly>";
-$resTable = ($_SESSION[cmsDumper][advMode]) ? "<select name='db_restore'>{$SK->vars['db_restore']}</select>"	: "<input type='text' class='text' value='{$_SERVER[mysql][lang][base]}' readonly>";
+//$bakTable = ($_SESSION[cmsDumper][advMode]) ? "<select name='db_backup'>{$SK->vars['db_backup']}</select>"		: "<input type='text' class='text' value='{$_SERVER[mysql][lang][base]}' readonly>";
+$bakTable = "<select name='db_backup'>{$SK->vars['db_backup']}</select>";
+//$resTable = ($_SESSION[cmsDumper][advMode]) ? "<select name='db_restore'>{$SK->vars['db_restore']}</select>"	: "<input type='text' class='text' value='{$_SERVER[mysql][lang][base]}' readonly>";
+$resTable = "<select name='db_restore'>{$SK->vars['db_restore']}</select>";
 
 return <<<HTML
 	
-	<form name='skb_backup' method='post' action='/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
+	<form name='skb_backup' method='post' action='/lib/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
 		
 		<input type='hidden' name='action' value='backup'>
 		<input type='hidden' name='comp_level' value='9'>
@@ -955,7 +962,7 @@ return <<<HTML
 		
 	</form>
 	
-	<form name='skb_restore' method='post' action='/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
+	<form name='skb_restore' method='post' action='/lib/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
 		
 		<input type='hidden' name='action' value='restore'>
 		
@@ -978,7 +985,7 @@ return <<<HTML
 		
 	</form>
 	
-	<p align='right'><small><a href='/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
+	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
 
 HTML;
 }
@@ -1011,7 +1018,7 @@ return <<<HTML
 		<tr><td width='100%' class='editButton' colspan='2'><input id='back' type='button' class='submit' value='Назад' disabled onClick="history.back();"></td></tr>
 	</table>
 	
-	<p align='right'><small><a href='/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
+	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
 
 	<SCRIPT>
 	var WidthLocked = false;
@@ -1052,7 +1059,7 @@ $pass = "";
 
 return <<<HTML
 
-	<form name='skb_restore' method='post' action='/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
+	<form name='skb_restore' method='post' action='/lib/modules/backup/admin_dumper.php' style='vertical-align: top' class='noParse'>
 		
 		<table class='editTable'>
 			

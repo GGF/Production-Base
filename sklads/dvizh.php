@@ -1,6 +1,6 @@
 <?
 $db = '`zaomppsklads`.';
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
@@ -102,7 +102,7 @@ elseif (isset($edit) || isset(${'form_'.$processing_type}))
 			$supply[$rs["id"]] = $rs["supply"];
 		}
 
-		$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM ".$db."sk_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
+		$sql="SELECT *,sk_".$sklad."_dvizh.id,sk_".$sklad."_postav.id as supply_id FROM ".$db."sk_".$sklad."_dvizh JOIN (".$db."sk_".$sklad."_postav,".$db."coments,".$db."sk_".$sklad."_spr) ON (sk_".$sklad."_postav.id=sk_".$sklad."_dvizh.post_id AND coments.id=sk_".$sklad."_dvizh.comment_id AND ".$db."sk_".$sklad."_spr.id=".$db."sk_".$sklad."_dvizh.spr_id) WHERE sk_".$sklad."_dvizh.id='$edit'";
 		//echo $sql;
 		$rs=sql::fetchOne($sql);
 		//print_r($rs);

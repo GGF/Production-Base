@@ -1,31 +1,31 @@
 <?
 // управление шаблонами
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
-
+$processing_type=basename (__FILE__,".php");
 
 if (isset($edit) || isset($add) ) {
 
 } elseif (isset($delete)) {
 	// удаление
 	$sql = "DELETE FROM phototemplates WHERE id='$delete'";
-	mylog('phototemplates',$delete,'DELETE');
-	mysql_query($sql);
+	sql::query($sql);
+	sql::error(true);
 	echo "ok";
 }
 else
 {
 // вывести таблицу
 	// sql
-	$sql="SELECT *,unix_timestamp(ts) AS uts FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").($order!=''?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
-	
+	$sql="SELECT *,unix_timestamp(ts) AS uts,phototemplates.id FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+	//echo $sql;
 	$cols[id]="ID";
 	$cols[ts]="Дата";
 	$cols[nik]="Кто запустил";
 	$cols[filenames]="Колво и Каталог";
 	
-	$table = new Table("pt","pt",$sql,$cols);
+	$table = new Table($processing_type,$processing_type,$sql,$cols);
 	$table->show();
 }
 ?>

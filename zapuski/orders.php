@@ -1,75 +1,91 @@
 <?
 // управление заказчиками
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
 
-if (isset($edit) || isset($add) ) {
-	if (!isset($accept)) {
-		if ($edit) {
-			$sql = "SELECT *,DATE_FORMAT(orderdate,'%d.%m.%Y') as odate FROM orders WHERE id='".$edit."'";
-			$res = mysql_query($sql);
-			$rs=mysql_fetch_array($res);
+if (isset($edit) || isset(${'form_'.$processing_type})) 
+{
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
 		}
-		echo "<form method=post id=editform>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=customerid value='".($edit==0?$cusid:$rs["customer_id"])."'>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "Дата:<input type=text name=orderdate id=datepicker size=10 value='".$rs["odate"]."'><br>";
-		echo "Номер письма:<input type=text name=number size=30 value='".$rs["number"]."'><br>";
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('orders',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
+	}
+	
+	if (!isset($accept)) {
+		$sql = "SELECT * FROM orders WHERE id='$edit'";
+		$ord=sql::fetchOne($sql);
+		
+		$form = new Edit($processing_type);
+		$form->init();
+		$form->addFields(array(
+			array(
+				"type"		=> CMSFORM_TYPE_TEXT,
+				"name"		=> "orderdate",
+				"label"			=>'Дата:',
+				"value"		=> date2datepicker($ord[orderdate]),
+				"options"		=> array( "html" => ' datepicker=1 '),
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXT,
+				"name"		=>	"number",
+				"label"		=>	"Номер письма:",
+				"value"		=>	$ord["number"],
+				"options"	=>	array( "html" => "size=30", ),
+			),
+			array(
+				"type"		=>	CMSFORM_TYPE_HIDDEN,
+				"name"		=>	"customerid",
+				"value"		=>	!empty($cusid)?$cusid:$ord["customer_id"],
+				"options"	=>	array( "html" => "size=30", ),
+			),
+		));
+		$form->show();
 	} else {
 		// сохрнение
-		foreach ($_GET as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-		foreach ($_POST as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-		$orderdate=substr($orderdate,6,4)."-".substr($orderdate,3,2)."-".substr($orderdate,0,2);
 		if ($edit) {
 			// редактирование
-			$sql = "UPDATE orders SET customer_id='$customerid', orderdate='$orderdate', number='$number' WHERE id='$edit'";
-			mylog('orders',$edit,'UPDATE');
-			mylog($sql);
+			$sql = "UPDATE orders SET customer_id='$customerid', orderdate='".datepicker2date($orderdate)."', number=".addslashes($number)." WHERE id='$edit'";
 		} else {
 			// добавление
-			$sql = "INSERT INTO orders (customer_id,orderdate,number) VALUES ('$customerid','$orderdate','$number')";
-			mylog($sql);
+			$sql = "INSERT INTO orders (customer_id,orderdate,number) VALUES ('$customerid','".datepicker2date($orderdate)."','".addslashes($number)."')";
 		}
-		if (!mysql_query($sql)) {
-			my_error("Не удалось внести изменения в таблицу orders!!!");
-		} else {
-			echo "<script>updatetable('$tid','orders','');closeedit();</script>";
-		}
+		sql::query($sql);
+		sql::error(true);
+		echo "ok";
 	}
 } 
 elseif (isset($delete)) 
 {
 	// удаление
 	$sql = "DELETE FROM orders WHERE id='$delete'";
-	mylog('orders',$delete);
-	mysql_query($sql);
-
+	sql::query($sql);
+	sql::error(true);
 	// удаление связей
 	$sql = "SELECT * FROM tz WHERE order_id='$delete'";
-	$res1 = mysql_query($sql);
-	while($rs1=mysql_fetch_array($res1)) {
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) 
+	{
 		// удаление
-		$delete = $rs1["id"];
+		$delete = $rs["id"];
 		$sql = "DELETE FROM tz WHERE id='$delete'";
-		mylog('tz',$delete);
-		mysql_query($sql);
+		sql::query($sql);
+		sql::error(true);
 		// удаление связей
 		$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
-		$res = mysql_query($sql);
-		while($rs=mysql_fetch_array($res)) {
-			$delete = $rs["id"];
+		$res1 = sql::fetchAll($sql);
+		foreach ($res1 as $rs1) 
+		{
+			$delete = $rs1["id"];
 			$sql = "DELETE FROM posintz WHERE id='$delete'";
-			mylog('posintz',$delete);
-			mysql_query($sql);
+			sql::query($sql);
+			sql::error(true);
 		}
 	}
 	echo "ok";
@@ -92,7 +108,7 @@ else
 	$cols[number]="Номер заказа";
 	$cols[orderdate]="Дата заказа";
 
-	$table = new Table("orders","tz",$sql,$cols);
+	$table = new Table($processing_type,"tz",$sql,$cols);
 	$table->title="Заказы <h1>Заказчик - $customer <input type=button onclick=\"selectmenu('customers','')\" value='Другой'></h1>";;
 	if (isset($cusid)) $table->idstr = "&cusid=$cusid";
 	$table->addbutton=true;

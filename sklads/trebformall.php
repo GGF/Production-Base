@@ -1,5 +1,5 @@
 <?
-print "
+echo "
 Через кого:
 <select name=cherezkogo>
 <option value=''></option>

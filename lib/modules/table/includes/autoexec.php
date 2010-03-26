@@ -58,7 +58,7 @@ class Table {
 		echo "<tr>";
 		reset($this->cols);
 		while (list($key, $val) = each($this->cols)) {
-			echo "<th><a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">$val".($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>";
+			echo "<th>".($key=='check'?"":"<a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">").$val.($key=='check'?"":($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>");
 		}
 		if ($this->edit) {echo "<th>&nbsp;";}
 		if ($this->del)  {echo "<th>&nbsp;";}

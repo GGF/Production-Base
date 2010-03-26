@@ -3,7 +3,7 @@ $db = '`zaomppsklads`.';
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
-$processing_type=basename (__FILE__,".php");;
+$processing_type=basename (__FILE__,".php");
 
 
 if (isset($delete))
@@ -15,19 +15,19 @@ if (isset($delete))
 	$sql = "DELETE FROM ".$db."sk_".$sklad."_spr WHERE id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
-	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_ost (spr_id,ost) SELECT $id,sk_".$sklad."_ost.ost FROM sk_".$sklad."_ost WHERE sk_".$sklad."_ost.spr_id='$delete'";
+	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_ost (spr_id,ost) SELECT $id,sk_".$sklad."_ost.ost FROM ".$db."sk_".$sklad."_ost WHERE sk_".$sklad."_ost.spr_id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
 	$sql = "DELETE FROM ".$db."sk_".$sklad."_ost WHERE spr_id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
-	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh.type,sk_".$sklad."_dvizh.numd,sk_".$sklad."_dvizh.numdf,sk_".$sklad."_dvizh.docyr,$id,sk_".$sklad."_dvizh.quant,sk_".$sklad."_dvizh.ddate,sk_".$sklad."_dvizh.post_id,sk_".$sklad."_dvizh.comment_id,sk_".$sklad."_dvizh.price FROM sk_".$sklad."_dvizh WHERE sk_".$sklad."_dvizh.spr_id='$delete'";
+	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh.type,sk_".$sklad."_dvizh.numd,sk_".$sklad."_dvizh.numdf,sk_".$sklad."_dvizh.docyr,$id,sk_".$sklad."_dvizh.quant,sk_".$sklad."_dvizh.ddate,sk_".$sklad."_dvizh.post_id,sk_".$sklad."_dvizh.comment_id,sk_".$sklad."_dvizh.price FROM ".$db."sk_".$sklad."_dvizh WHERE sk_".$sklad."_dvizh.spr_id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
 	$sql = "DELETE FROM ".$db."sk_".$sklad."_dvizh WHERE spr_id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
-	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh_arc.type,sk_".$sklad."_dvizh_arc.numd,sk_".$sklad."_dvizh_arc.numdf,sk_".$sklad."_dvizh_arc.docyr,$id,sk_".$sklad."_dvizh_arc.quant,sk_".$sklad."_dvizh_arc.ddate,sk_".$sklad."_dvizh_arc.post_id,sk_".$sklad."_dvizh_arc.comment_id,sk_".$sklad."_dvizh_arc.price FROM sk_".$sklad."_dvizh_arc WHERE sk_".$sklad."_dvizh_arc.spr_id='$delete'";
+	$sql = "INSERT INTO ".$db."sk_arc_".$sklad."_dvizh (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh_arc.type,sk_".$sklad."_dvizh_arc.numd,sk_".$sklad."_dvizh_arc.numdf,sk_".$sklad."_dvizh_arc.docyr,$id,sk_".$sklad."_dvizh_arc.quant,sk_".$sklad."_dvizh_arc.ddate,sk_".$sklad."_dvizh_arc.post_id,sk_".$sklad."_dvizh_arc.comment_id,sk_".$sklad."_dvizh_arc.price FROM ".$db."sk_".$sklad."_dvizh_arc WHERE sk_".$sklad."_dvizh_arc.spr_id='$delete'";
 	sql::query($sql);
 	sql::error(true); 
 	$sql = "DELETE FROM ".$db."sk_".$sklad."_dvizh_arc WHERE spr_id='$delete'";
