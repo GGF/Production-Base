@@ -1,64 +1,65 @@
 <?
 // отображает задачи по усовершенствованию
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
-
-if (isset($edit) || isset($add)) 
-	{
-	if (!isset($accept)) {
-		$sql = "SELECT * FROM users WHERE nik='".$user."'";
-		$res = mysql_query($sql);
-		$rs=mysql_fetch_array($res);
-		$uid = $rs["id"];
-		if ($edit) {
-			$sql = "SELECT * FROM todo WHERE id='".$edit."'";
-			$res = mysql_query($sql);
-			$rs=mysql_fetch_array($res);
+if (isset($edit) || isset(${'form_'.$processing_type})) 
+{
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		foreach(${'form_'.$processing_type} as $key => $val) {
+			if (mb_detect_encoding($val)=="UTF-8") 
+				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+			else 
+				${$key}=$val;
 		}
-		echo "<form method=post id=editform>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=uid value='$uid'>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "<textarea rows=10 cols=70 name=what id='wysiwyg'>".$rs["what"]."</textarea><br>";
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('todo',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
-		echo "<script>$(function()
-  {
-      $('#wysiwyg').wysiwyg();
-  });</script>";
-	} else {
+	}
+	
+	if (!isset($accept)) 
+	{
+		$sql = "SELECT * FROM todo WHERE id='".$edit."'";
+		$rs=sql::fetchOne($sql);
+		
+		$form = new Edit($processing_type);
+		$form->init();
+		$form->addFields(array(
+			array(
+				"type"		=>	CMSFORM_TYPE_TEXTAREA,
+				"name"		=> "what",
+				"label"		=>	'',
+				"value"		=> $rs["what"],
+				"options"		=> array( "rows" => "10", "html" => " cols=50 onfocus='$(this).wysiwyg();' ",),
+			),
+		));
+		$form->show();
+	} 
+	else 
+	{
 		// сохранение
 
 		if ($edit!=0) {
-			$sql="UPDATE todo SET what='".str_replace("'","\'",$what)."', cts=NOW(), rts='0', u_id='$uid' WHERE id='$edit'";
-			mylog('todo',$edit,"UPDATE");
-			mylog($sql);
+			$sql="UPDATE todo SET what='".addslashes($what)."', cts=NOW(), rts='0', u_id='".$_SERVER[userid]."' WHERE id='$edit'";
 		} else {
-			$sql="INSERT INTO todo (what,cts,rts,u_id) VALUES ('".str_replace("'","\'",$what)."',NOW(),'0',$uid)";
-			mylog($sql);
+			$sql="INSERT INTO todo (what,cts,rts,u_id) VALUES ('".addslashes($what)."',NOW(),'0',".$_SERVER[userid].")";
 		}
-		if (!mysql_query($sql)) {
-			echo $sql;
-			my_error("Не удалось изменить таблицу todo");
-		} else {
-			echo "<script>updatetable('$tid','todo','');closeedit();</script>";
-		}
+		sql::query($sql);
+		sql::error(true);
+		echo "ok";
 	}
 } 
 elseif (isset($delete)) 
 {
-	$sql = "SELECT * FROM todo WHERE id='".$delete."'";
-	$res = mysql_query($sql);
-	$rs=mysql_fetch_array($res);
+	$sql = "SELECT what FROM todo WHERE id='".$delete."'";
+	$rs=sql::fetchOne($sql);
 	$sql = "UPDATE todo SET rts=NOW(), what='<del>".$rs["what"]."</del>' WHERE id='$delete'";
-	mylog('todo',$delete,"UPDATE");
-	mysql_query($sql);
+	sql::query($sql);
+	sql::error(true);
 	echo "ok";
 } 
 else 
 {
-	$sql="SELECT *, todo.id FROM todo JOIN users ON users.id=u_id ".(isset($find)?"WHERE (what LIKE '%$find%' ) ":"").((isset($all))?"":(isset($find)?" AND rtsrts='000000000000' ":" WHERE rts='000000000000' ")).(isset($order)?"ORDER BY ".$order." ":"ORDER BY cts ").((isset($all))?"":"LIMIT 20");
+	$sql="SELECT *, todo.id FROM todo JOIN users ON users.id=u_id ".(isset($find)?"WHERE (what LIKE '%$find%' ) ":"").((isset($all))?"":(isset($find)?" AND rtsrts='000000000000' ":" WHERE rts='000000000000' ")).(!empty($order)?"ORDER BY ".$order." ":"ORDER BY cts ").((isset($all))?"":"LIMIT 20");
 	// echo $sql;
 
 	$cols[id]="ID";

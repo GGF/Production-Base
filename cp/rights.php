@@ -1,76 +1,83 @@
 <?
 // управление правами доступа
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
+$processing_type=basename (__FILE__,".php");
 
-if (isset($edit) || isset($add) ) {
+if (isset($edit) || isset(${'form_'.$processing_type})) 
+{
+	// serialize form
+	if(!empty(${'form_'.$processing_type})){
+		serializeform(${'form_'.$processing_type});
+	}
+	
 	if (!isset($accept)) {
-		if ($edit) {
-			$sql = "SELECT * FROM rights WHERE id='".$edit."'";
-			$res = mysql_query($sql);
-			$rs=mysql_fetch_array($res);
-			$uid = $rs["u_id"];
-		}
-		echo "<form method=post id=editform>";
-		echo "<input type='hidden' value='".(isset($edit)?$edit:"0")."' name='edit'>";
-		echo "<input type=hidden name=tid value='$tid'>";
-		echo "<input type=hidden name=uid value='$uid'>";
-		echo "<input type=hidden name=accept value='yes'>";
-		echo "<pre>";
+		$sql = "SELECT * FROM rights WHERE id='".$edit."'";
+		$rs=sql::fetchOne($sql);
+		$uid = !empty($uid)?$uid:$rs["u_id"];
+		
+		$form = new Edit($processing_type);
+		$form->init();
+		/*$form->addFields(array(
+		);*/
 		$sql="SELECT * FROM rtypes";
-		$res=mysql_query($sql);
-		while($rs=mysql_fetch_array($res)) {
-			printf("[%-10s]:",$rs["type"]);
-			$sql = "SELECT * FROM rrtypes";
-			$res1=mysql_query($sql);
-			while($rs1=mysql_fetch_array($res1)) {
+		$res=sql::fetchAll($sql);
+		$sql = "SELECT * FROM rrtypes";
+		$res1=sql::fetchAll($sql);
+		foreach($res as $rs) 
+		{
+			$label = sprintf("[%-10s]:",$rs["type"]);
+			$name = "r|".$rs["id"]."";//sprintf("[%-10s]:",$rs["type"]);
+			//echo $name."<br>";
+			foreach($res1 as $rs1) 
+			{
 				$sql="SELECT * FROM rights WHERE type_id='".$rs["id"]."' AND u_id='$uid' AND rtype_id='".$rs1["id"]."'";
-				$rs2=mysql_fetch_array(mysql_query($sql));
-				echo $rs1["rtype"]."-<input type=checkbox name=r[".$rs["id"]."][".$rs1["id"]."] ".($rs2["right"]=='1'?"checked":"").">";
+				$rs2=sql::fetchOne($sql);
+				//echo $rs1["rtype"]."-<input type=checkbox name=r[".$rs["id"]."][".$rs1["id"]."] ".($rs2["right"]=='1'?"checked":"").">";
+				$value[$rs1["id"]]=($rs2["right"]==1?1:0);
+				$values[$rs1["id"]]='-';
 			}
-			echo "<br>";
+			//print_r($value);
+				$form->addFields(array(
+					array(
+						"type"		=>	CMSFORM_TYPE_CHECKBOXES,
+						"name"		=>	$name,
+						"label"		=>	$label,
+						"value"		=>	$value,
+						"values"	=>	$values,
+						"options"	=>	array( "nobr"=>true, ),
+					),
+				));
+				unset($values);unset($value);
 		}
-		echo "</pre>";
-		echo "<input type=button value='Сохранить' onclick=\"editrecord('rights',$('#editform').serialize())\"><input type=button value='Отмена' onclick='closeedit()'><input type=button onclick=\"alert($('#editform').serialize())\">";
+		$form->addFields(array(
+			array(
+				"type"		=>	CMSFORM_TYPE_HIDDEN,
+				"name"		=>	"userid",
+				"value"		=>	$uid,
+			),
+		));
+		$form->show();
 	} else {
 		// сохрнение
-		foreach ($_GET as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-		foreach ($_POST as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") $$key=mb_convert_encoding($val,"cp1251");
-		}
-//		print_r($r);
-		/*
-		foreach ($r as $key=>$val) {
-			echo $key."<br>";
-			foreach($val as $k=>$V) {
-				echo "&nbsp;&nbsp;".$k."<br>";
-			}
-		}
-		echo $uid;
-		*/
-
-		$sql="DELETE FROM rights WHERE u_id='$uid'";
-		mysql_query($sql);
-		foreach ($r as $key=>$val) {
-			foreach($val as $k=>$V) {
-				$sql="INSERT INTO rights (u_id,type_id,rtype_id,rights.right) VALUES ('$uid','$key','$k','1')";
-				//echo $sql;
-				if(!mysql_query($sql)) {
-					my_error("Не удалось внести изменения в таблицу rights!!!");
+		$sql="DELETE FROM rights WHERE u_id='$userid'";
+		sql::query($sql) or die(sql::error(true));
+			if (!empty($r)) {
+			foreach ($r as $key=>$val) {
+				foreach($val as $k=>$V) {
+					$sql="INSERT INTO rights (u_id,type_id,rtype_id,rights.right) VALUES ('$userid','$key','$k','1')";
+					sql::query($sql) or die(sql::error(true));
 				}
 			}
 		}
-		echo "<script>updatetable('$tid','rights','');closeedit();</script>";
+		echo "ok";
 	}
 
 } elseif (isset($delete)) {
 	// удаление
 	$sql = "DELETE FROM rights WHERE id='$delete'";
-	mylog('rights',$delete,'DELETE');
-	mysql_query($sql);
+	sql::query($sql) or die(sql::error(true));
 	echo "ok";
 }
 else
@@ -86,7 +93,7 @@ else
 	$cols[rtype]="right";
 	$cols[enable]="on/off";
 
-	$table = new Table("rights","openrights",$sql,$cols);
+	$table = new Table($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
 	if (isset($uid)) $table->idstr = "&uid=$uid";
 	$table->addbutton=true;
 	$table->show();

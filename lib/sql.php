@@ -258,6 +258,42 @@ function createdironserver($filelink) {
 
 }
 
+function serializeform($form) {
+		foreach($form as $key => $val) {
+			if (!is_array($val) and mb_detect_encoding($val)=="UTF-8") 
+				$val=mb_convert_encoding($val,"cp1251","UTF-8");
+			else { 
+			}
+			if (strstr($key,"|")) {
+				$tmp=preg_match_all("/([^|]+)/",$key,$matches);//$key=substr($key,0,$pos)."[";
+				$matches=$matches[0];
+				$key=$matches[0];
+				global ${$key};
+				//print_r($matches);
+				switch (count($matches)){
+					case 2:
+						${$key}[$matches[1]] = $val;
+						break;
+					case 3:
+						${$key}[$matches[1]][$matches[2]] = $val;
+						break;
+					default:
+						break;
+				}
+				/*foreach($matches as $index) {
+					$key.="[".$index."]";
+				}
+				*/
+				//${$key}=$val;
+			} else {
+				global ${$key};
+				${$key}=$val;
+			}
+			//echo $key."=>".$val."=>".${$key}."<br>";
+		}
+}
+
+
 // запускается - не функция
 if(!headers_sent()  && !isset($print)) {
 	header('Content-type: text/html; charset=windows-1251');

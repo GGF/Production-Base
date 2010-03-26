@@ -39,13 +39,7 @@ if (isset($delete))
 {
 	// serialize form
 	if(!empty(${'form_'.$processing_type})){
-		//print_r(${'form_'.$processing_type});
-		foreach(${'form_'.$processing_type} as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") 
-				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
-			else 
-				${$key}=$val;
-		}
+		serializeform(${'form_'.$processing_type});
 	}
 	
 	if (isset($accept)) 

@@ -103,4 +103,10 @@
 			"noValidate"	=> false,
 		),
 	);
+	
+	$_SERVER[tableaction] = array(
+		"users"		=>	array( "next" => "rights" ),
+		"rights"	=>	array( "next" => "openrights" ),
+	);
+	
 ?>
