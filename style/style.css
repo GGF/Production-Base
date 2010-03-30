@@ -38,6 +38,9 @@
 	background-color: navy;
 }
 
+a, a:hover { 
+	text-decoration: none;
+}
 A:link {
 	color: black;
 	text-decoration: none;
@@ -120,6 +123,7 @@ OL {
 
 .menuitemcp A {
 	color: black;
+	text-decoration: none;
 }
 
 .menuitemcp A div {

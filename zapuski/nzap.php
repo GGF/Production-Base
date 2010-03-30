@@ -3,6 +3,8 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+if(!isset($print)) ob_start();
+
 
 if (isset($edit)) 
 {
@@ -14,7 +16,7 @@ if (isset($edit))
 	$rs=sql::fetchOne($sql);
 	if ($r["nzap"]["edit"]) 
 	{
-		echo "<a href='".sharefilelink($rs["file_link"])."'>".$rs["file_link"]."</a><br>";
+		echo "<a class='filelink' href='".sharefilelink($rs["file_link"])."'>".$rs["file_link"]."</a><br>";
 	} 
 	else 
 	{
@@ -22,6 +24,7 @@ if (isset($edit))
 		echo "<a href='#' onclick=\"window.open('nzap.php?print=tz&posid=$posid');void(0);\">".$rs["file_link"]."</a><br>";
 	}
 	echo "&nbsp;".$rs["blockname"]."&nbsp;&nbsp;&nbsp;".$rs["numbers"]."шт.&nbsp;&nbsp;&nbsp;".ceil($rs["bsizex"])."x".ceil($rs["bsizey"])." ".$rs["mask"]." ".$rs["mark"]." ".($rs["template_make"]=='0'?$rs["template_check"]:$rs["template_make"])."шаб. <br>";
+
 	$sql="SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, boards.id AS bid FROM blockpos JOIN (customers,blocks,boards) ON (customers.id=boards.customer_id AND blocks.id=block_id AND boards.id=board_id) WHERE block_id='".$rs["bid"]."'";
 	//echo $sql;
 	$res=sql::fetchAll($sql);
@@ -40,9 +43,12 @@ if (isset($edit))
 		$customer=$rs1["customer"];
 	}
 	//echo $nz." ".$nl."<br>";
+
+
 	if ($r["nzap"]["edit"]) 
 	{
-		if ($nl>2) {
+		if ($nl>2) 
+		{
 			// многослойкау радара партии по одной
 			if ($rs["customer_id"] == '8') // радар
 				$zip = 1;
@@ -50,11 +56,11 @@ if (isset($edit))
 				$zip = 5;
 			// если первичный запуск - мастерплата
 			if ($rs["first"]=='1' || $rs["template_make"]>0) 
-				{
-				$sql="SELECT * FROM masterplate WHERE tz_id='".$rs["tz_id"]."' AND posintz='".$rs["posintz"]."'";
-					//echo count(sql::fetchOne($sql));
-				if (count(sql::fetchOne($sql))==1) {
-					echo "<input type=button id=maspl value='Мастерплата' onclick=\"$('#maspl').hide();window.open('nzap.php?print=mp&tzid=".$rs["tz_id"]."&posintz=".$rs["posintz"]."&drlname=".$rs["drlname"]."&sizex=".ceil($rs["bsizex"])."&sizey=".ceil($rs["bsizey"])."&customer=".urlencode($customer)."&blockname=".urlencode($rs["blockname"])."')\"'><br>";
+			{
+				$sql="SELECT * FROM masterplate WHERE posid='$posid'";
+				$mp=sql::fetchOne($sql);
+				if (empty($mp)) {
+					echo "<input type=button id=maspl value='Мастерплата' onclick=\"$('#maspl').hide();window.open('nzap.php?print=mp&posid=$posid')\"><br>";
 				}
 			}
 			$mpp = 1;
@@ -70,47 +76,59 @@ if (isset($edit))
 			echo $i%5==0?"<br>":"";
 			$rs3=sql::fetchOne($sql);
 			if (!empty($rs3)) {
-				echo "<a href='".sharefilelink($rs3[file_link])."'>СЛ-".$rs3[id]."</a>&nbsp;";
+				echo "<a class='filelink' href='".sharefilelink($rs3[file_link])."'>СЛ-".$rs3[id]."</a>&nbsp;";
 			} else {
-				echo "<input type=button id=sl$i value='$i партия' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&class=".$cl."&party=$i&posid=$posid&tzid=".$rs["tz_id"]."&posintz=".$rs["posintz"].($i==ceil($nz/$zip)?"&last":"")."&numbers=".$rs["numbers"]."&piz=$piz&zip=$zip&nz=$nz&drlname=".$rs["drlname"]."&plate_id=".$rs["plate_id"]."&sizex=".ceil($rs["bsizex"])."&sizey=".ceil($rs["bsizey"])."&customer=".urlencode($customer)."&blockname=".urlencode($rs["blockname"]).($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
+				echo "<input type=button id=sl$i value='$i партия' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&party=$i&posid=$posid".($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
 			}
 		}
 	}
 	echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
 }
-elseif (isset($delete)) {
+elseif (isset($delete)) 
+{
 	$sql="DELETE FROM posintz WHERE id='$delete'";
 	sql::query($sql);
-	sql::error(true);
 	echo "ok";
 }
 elseif (isset($print))
 {
 	if ($print=='mp') 
 	{
+		$sql="SELECT tz_id,posintz,block_id FROM posintz WHERE id='$posid'";
+		$rs=sql::fetchOne($sql);
+		$posintz=$rs[posintz];
+		$tzid=$rs[tz_id];
+		$block_id=$rs[block_id];
 		$sql="SELECT * FROM masterplate WHERE tz_id='$tzid' AND posintz='$posintz'";
-		if (count(sql::fetchOne($res)) == 1){
-			$sql="INSERT INTO masterplate (tz_id,posintz,mpdate,user_id) VALUES ('$tzid','$posintz',Now(),'".$_SEVER[userid]."')";
+		$res=sql::fetchOne($sql);
+		if (empty($res)){
+			$sql="INSERT INTO masterplate (tz_id,posintz,mpdate,user_id,posid) VALUES ('$tzid','$posintz',Now(),'".$_SESSION[userid]."','$posid')";
 			sql::query($sql);
-			sql::error(true);
 			$mp_id = sql::lastId();
 		} else {
-			$sql="UPDATE masterplate SET mpdate=NOW(), user_id='".$_SERVER[userid]."' WHERE tz_id='$tzid' AND posintz='$posintz'";
+			$sql="UPDATE masterplate SET mpdate=NOW(), user_id='".$_SESSION[userid]."' WHERE tz_id='$tzid' AND posintz='$posintz' AND posid='$posid'";
 			$rs=sql::fetchOne($res);
-			sql::error(true);
-			$mp_id = $rs["id"];
+			$mp_id = $res["id"];
 		}
+		$sql="SELECT * FROM blocks JOIN customers ON blocks.customer_id=customers.id WHERE blocks.id='$block_id'";
+		$rs=sql::fetchOne($sql);
+		$customer=$rs[customer];
+		$blockname=$rs[blockname];
+		$sizex=$rs[sizex];
+		$sizey=$rs[sizey];
+		$drlname=$rs[drlname];
 		$date = date("d-m-Y");
 		$filename = createdironserver("z:/Заказчики/".$customer."/".$blockname."/Мастерплаты/МП-".date("Y-m-d")."-".$mp_id.".xml");
-		$excel .= file_get_contents("mp.xml");
+		//echo $filename;
+		$excel = file_get_contents("mp.xml");
 		$excel = str_replace("_number_",sprintf("%08d",$mp_id),$excel);
 		$customer = mb_convert_encoding($customer,"UTF-8","cp1251");
 		$excel = str_replace("_customer_",$customer,$excel);
 		$excel = str_replace("_date_",$date,$excel);
 		$blockname = mb_convert_encoding($blockname,"UTF-8","cp1251");
 		$excel = str_replace("_blockname_",$blockname,$excel);
-		$excel = str_replace("_sizex_",$sizex,$excel);
-		$excel = str_replace("_sizey_",$sizey,$excel);
+		$excel = str_replace("_sizex_",ceil($sizex),$excel);
+		$excel = str_replace("_sizey_",ceil($sizey),$excel);
 		$excel = str_replace("_drlname_",$drlname,$excel);
 		// записать файл
 		if($file = @fopen($filename,"w")) 
@@ -121,8 +139,10 @@ elseif (isset($print))
 			header("Content-type: application/vnd.ms-excel");
 			header("content-disposition: attachment;filename=mp.xml");
 			echo $excel;
+			exit;
 		} else {
 			echo "Не удалось создать файл";
+			exit;
 		}
 	} 
 	elseif ($print=='sl') 
@@ -164,15 +184,49 @@ elseif (isset($print))
 		} 
 		else 
 		{
+			$sql="SELECT * FROM posintz WHERE id='$posid'";
+			$rs=sql::fetchOne($sql);
+			$tzid=$rs[tz_id];
+			$posintz=$rs[posintz];
+			$numbers=$rs[numbers];
+			$plate_id=$rs[plate_id];
+			$block_id=$rs[block_id];
+			
+			
+			$nz = 0; // максимальное количество заготовок по количеству плат в блоке
+			$nl = 0; // максимальное количество слоев на плате в блоке, хотя бред
+			$cl = 0; // класс платы, наибольший по позициям
+			$piz = 0; // число плат на заготовке (сумма по блоку)
+			//$sql="SELECT * FROM blockspos JOIN blocks ON blockpos.block_id=blocks.id WHERE blocks.id='$block_id'";
+			$sql="SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, boards.id AS bid FROM blockpos JOIN (customers,blocks,boards) ON (customers.id=boards.customer_id AND blocks.id=block_id AND boards.id=board_id) WHERE block_id='$block_id'";
+			$res=sql::fetchAll($sql);
+			foreach($res as $rs )
+			{
+				$sql="SELECT numbers FROM posintz WHERE tz_id='".$tzid."' AND board_id='".$rs["board_id"]."'";
+				$rs2=sql::fetchOne($sql);
+				$nz = max($nz,ceil($rs2["numbers"]/$rs["nib"]));
+				$nl = max($nl,$rs["layers"]);
+				$cl = max($cl,$rs["class"]);
+				$piz += $rs["nib"];
+				$customer=$rs["customer"];
+				$blockname=$rs["blockname"];
+			}
+			
+			if ($customer == 'Радар') // радар
+				$zip = 1;
+			else
+				$zip = 5;
+			
 			$numbz = $nz<=$zip?$nz:(isset($last)?($nz-($party-1)*$zip):$zip);
 			$numbp = $nz<=$zip?$numbers:(isset($last)?($numbers-($party-1)*$zip*$piz):$zip*$piz);
+			
 		}
-		$sql="SELECT * FROM lanch WHERE tz_id='$tzid' AND pos_in_tz='$posintz' AND part='$party'";
-		if (count(sql::fetchOne($sql)) == 1)
+		$sql="SELECT * FROM lanch WHERE pos_in_tz_id='$posid' AND part='$party'";
+		$rs=sql::fetchOne($sql);
+		if (empty($rs))
 		{
 			$sql="INSERT INTO lanch (ldate,board_id,part,numbz,numbp,user_id,pos_in_tz,tz_id,pos_in_tz_id) VALUES (NOW(),'$plate_id','$party','$numbz','$numbp','".$_SERVER[userid]."','$posintz','$tzid','$posid')";
 			sql::query($sql);
-			sql::error(true);
 			$lanch_id = sql::lastId();
 		} 
 		else 
@@ -181,10 +235,11 @@ elseif (isset($print))
 			$lanch_id = $rs["id"];
 			$sql="UPDATE lanch SET ldate=NOW(), board_id='$plate_id', numbz='$numbz', numbp='$numbp', user_id='".$_SERVER[userid]."', tz_id='$tzid', pos_in_tz_id='$posid' WHERE id='$lanch_id'";
 			sql::query($sql);
-			sql::error(true);
 		}
 		$date = date("d-m-Y");
 		// Определим идентификатор коментария
+		$comment_id =1;//пустой
+		/*
 		{
 		if(empty($comment)) $comment='';
 		$sql="SELECT id FROM coments WHERE comment='$comment'";
@@ -197,6 +252,7 @@ elseif (isset($print))
 			$comment_id = sql::lastId();
 		}
 		}
+		*/
 		// Определим идентификатор файловой ссылки
 		{
 		$file_link = 'z:\\\\Заказчики\\\\'.$customer.'\\\\'.$blockname.'\\\\запуски\\\\СЛ-'.date("Y-m-d").'-'.$lanch_id.'.xml';
@@ -212,27 +268,22 @@ elseif (isset($print))
 		}
 		$sql="UPDATE lanch SET file_link_id='$file_id', comment_id='$comment_id' WHERE id='$lanch_id'";
 		sql::query($sql);
-		sql::error(true);
 
 		// обновим таблицу запусков
 		{
 			
 			$sql="DELETE FROM lanched WHERE board_id='$plate_id'";
 			sql::query($sql);
-			sql::error(true);
 			$sql="INSERT INTO lanched (board_id,lastdate) VALUES ('$plate_id',NOW())";
 			sql::query($sql);
-			sql::error(true);
 		}
 		// если все запущены - исключить из запуска
 		if (!isset($dozap)){
-			$sql="SELECT SUM(numbp) FROM lanch WHERE pos_in_tz_id='$posid' GROUP BY pos_in_tz_id";
+			$sql="SELECT SUM(numbp) AS snumbp FROM lanch WHERE pos_in_tz_id='$posid' GROUP BY pos_in_tz_id";
 			$rs=sql::fetchOne($sql);
-			sql::error(true);
-			if ($rs[0]>=$nz) {
+			if ($rs[snumbp]>=$nz) {
 				$sql="UPDATE posintz SET ldate=NOW(), luser_id='".$_SERVER[userid]."' WHERE id='$posid'";
 				sql::query($sql);
-				sql::error(true);
 			}
 		}
 		// создать каталог и имя файла для запуска
@@ -481,4 +532,5 @@ else
 
 }
 
+printpage();
 ?>

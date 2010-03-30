@@ -6,6 +6,11 @@ require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
 // функции для хидера и футера
 function showheader($subtitle='') 
 {
+	if (isadminhere()) {
+		setcookie("adminhere","1");
+	} else {
+		setcookie("adminhere","");
+	}
 	ob_start(); //включаем буферизацию вывода - потом в футуре соберем
 	echo '
 <!--   Copyright 2010 Igor Fedoroff   |  g_g_f@mail.ru  -->
@@ -13,87 +18,39 @@ function showheader($subtitle='')
 <head>
 	<meta name="Author" content="Игорь Федоров">
 	<meta name="Description" content="ЗАО МПП">
-	<LINK REL="STYLESHEET" TYPE="text/css" HREF="/style/style.css">
-	<link type="text/css" href="/style/themes/base/ui.all.css" rel="stylesheet" />
-	<link type="text/css" href="/style/jquery.wysiwyg.css" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=windows-1251">
 	<style type="text/css" media="all"> 
-		@import url(/lib/core/contrib/jquery/jquery.nyroModal.css);
-		@import url(/lib/core/css/style.css);
-		@import url(/lib/core/css/alert.css);
-		@import url(/lib/core/css/form.css);
 		@import url(/lib/core/css/form_standard.css);
-		@import url(/lib/core/css/node.css);
-		@import url(/lib/core/css/tables.css);
-		@import url(/lib/core/css/var.css);
-		@import url(/lib/core/css/layout.css);
-		@import url(/lib/core/css/calendar.css);
-		@import url(/lib/core/css/rounded.css);
-		@import url(/lib/core/css/mce.css);
-		@import url(/lib/core/css/console.css);
-		@import url(/lib/core/css/mysql.css);
-		@import url(/lib/core/css/node_map.css);
-		@import url(/lib/core/css/tabs.css);
+		@import url(/lib/core/css/style.css);
+		@import url(/lib/core/css/style_common.css);
+		@import url(/lib/core/contrib/console/css/console.css);
+		@import url(/lib/core/contrib/tabs/css/tabs.css);
+		@import url(/lib/core/contrib/jquery/themes/base/jquery.ui.all.css);
+		@import url(/lib/core/contrib/jquery.wysiwyg/css/jquery.wysiwyg.css);
+		@import url(/style/style.css);
 	</style> 
-	<script type="text/javascript" src="/lib/js/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="/lib/js/jquery.wysiwyg.js"></script>
-	<script type="text/javascript" src="/lib/js/jquery.keyboard.js"></script>
-	<script type="text/javascript" src="/lib/js/myfunction.js"></script>
-	<script type="text/javascript" src="/lib/js/ui/ui.core.js"></script>
-	<script type="text/javascript" src="/lib/js/ui/ui.datepicker.js"></script>
-	<script type="text/javascript" src="/lib/js/ui/i18n/ui.datepicker-ru.js"></script>
-	<script type="text/javascript" src="/lib/js/ui/ui.draggable.js"></script>
-	<script type="text/javascript" src="/lib/js/ui/ui.droppable.js"></script>
-	<script type="text/javascript" src="/lib/core/js/browserdetect.js"></script> 
-	<script type="text/javascript" src="/lib/core/contrib/json/json.js"></script> 
-	<script type="text/javascript" src="/lib/core/contrib/md5/md5.js"></script> 
-	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.nyroModal.js"></script> 
-	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.png.js"></script> 
-	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery.maskedinput.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/autoexec.js"></script> 
-	<script type="text/javascript" src="/lib/core/classes/form/form.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/jquery/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery/ui/jquery.ui.core.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery/ui/jquery.ui.datepicker.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery/ui/i18n/jquery.ui.datepicker-ru.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery/ui/i18n/jquery-ui-i18n.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery.wysiwyg/jquery.wysiwyg.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery.keyboard/jquery.keyboard.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery.cookie/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/jquery.contextmenu/jquery.contextmenu.js"></script>
+	<script type="text/javascript" src="/lib/core/contrib/tabs/tabs.js"></script> 
+	<script type="text/javascript" src="/lib/core/contrib/console/console.js"></script> 
 	<script type="text/javascript" src="/lib/core/classes/form_ajax/form_ajax.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/alert.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/png.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/pos.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/print.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/calendar.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/console.js"></script> 
-	<script type="text/javascript" src="/lib/core/js/tabs.js"></script> 
-
+	<script type="text/javascript" src="/lib/js/myfunction.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		yellowtr();
-		setkeyboard();
-		
-		$("#loading").bind("ajaxSend", function(){
-		  $(this).show();
-		}).bind("ajaxComplete", function(){
-		  $(this).hide();
-		});
-		$("#loading").hide();
- 		
-		$("#editdiv").hide();
-		//$("#editdiv").draggable();
-		';
-	if (isadminhere()) {
-		echo "$('#sun').show();";
-		echo "$('div:visible').fadeTo(0,0.95);";
-	}
-	echo "});
-
-	$(function() {
-		$.datepicker.setDefaults($.extend({showMonthAfterYear: false}, $.datepicker.regional['']));
-		$('#datepicker').live('focus',function(){\$(this).datepicker($.datepicker.regional['ru']);});
-		$('input[datepicker]').live('focus',function(){\$(this).datepicker($.datepicker.regional['ru']);});
-	});
+	$(document).ready(docloaded);
 	</script>
 <title>
-База данных ЗАО МПП - $subtitle 
+База данных ЗАО МПП - '.$subtitle.'
 </title>
 </head>
-<body >";
+<body >';
 echo "<div class=sun id=sun><img onclick=showuserswin() title='Admin здесь' src=/picture/sun.gif></div>";
 echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
 
@@ -139,7 +96,7 @@ function showfooter($buffer='')
 function printpage() {
 	
 		$pageContents = ob_get_clean(); // закрываем буферизацию
-		$console = "";
+		$console = "<script>cmsConsole_clear()</script>";
 		
 		if ($_SERVER[debug][report] || $_SERVER[local]) {
 			
@@ -153,7 +110,7 @@ function printpage() {
 			
 		}
 		
-		if ($_SERVER[cmsGZIP][enabled]) 
+		if ($_SERVER[cmsGZIP][enabled] && strlen($pageContents)>30) 
 			{
 			
 			//$pageContents = "<!-- {$_SERVER[cmsGZIP][algorythm]} -->\n{$pageContents}";
@@ -234,12 +191,6 @@ function createdironserver($filelink) {
 	$dirs = explode("\\",$path);
 	$filename = $dirs[count($dirs)-1];
 	unset ($dirs[count($dirs)-1]);
-/*
-	echo "<br>";
-	print_r($dirs);
-	echo "<br>".$filename;
-	echo "<br>";
-*/
 	$dir = $serpath;
 	$cats='';
 	foreach($dirs as $cat) {
@@ -250,11 +201,9 @@ function createdironserver($filelink) {
 				mkdir ($dir);
 				chmod ($dir,0777);
 			} 
-//			echo $dir."<br>";
 		}
 	}
-//	echo $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251")."XXX";
-	return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
+return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
 
 }
 
@@ -289,7 +238,7 @@ function serializeform($form) {
 				global ${$key};
 				${$key}=$val;
 			}
-			//echo $key."=>".$val."=>".${$key}."<br>";
+			echo $key."=>".$val."=>".${$key}."<br>";
 		}
 }
 
@@ -301,11 +250,10 @@ if(!headers_sent()  && !isset($print)) {
 
 foreach ($_GET as $key => $val) {
 	${$key}=$val;
-	/*if (!is_array($val)) {
+	if (!is_array($val)) {
 		if (mb_detect_encoding($val)=="UTF-8") 
 			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
 	}
-	*/
 	//echo mb_detect_encoding($val)."=".$key."=>".$val."==>".${$key};
 }
 foreach ($_POST as $key => $val) {

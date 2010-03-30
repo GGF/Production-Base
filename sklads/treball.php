@@ -4,17 +4,6 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызыва
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
 
-// обработка get тут поставил перекодировку потому что в другом месте не работает с перекодировкой
-foreach ($_GET as $key => $val) {
-	${$key}=$val;
-	if (!is_array($val)) {
-		if (mb_detect_encoding($val)=="UTF-8") 
-			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
-	}
-}
-
-
-
 $top = file_get_contents ("treb.tpl");
 $middle = file_get_contents("row.tpl");
 $bot = file_get_contents ("bottom.tpl");

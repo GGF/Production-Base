@@ -5,38 +5,29 @@ function authorize()
 {
 	$sessionid = session_id();
 	sql::query("DELETE FROM session WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(ts) > 3600*8");
+	
 	$mes = "";
-	if($sessionid)
-	{
-		$rs = sql::fetchOne("SELECT * from session WHERE session='".$sessionid."'");
-		if($rs)
-		{
-			$urs = sql::fetchOne("SELECT * FROM users WHERE id='".$rs['u_id']."'");
-			if($urs)
-			{
-				$_SERVER[user] = $urs["nik"];
-				$_SERVER[userid] = $rs["u_id"];
-				mysql_query("UPDATE session SET ts=NOW() WHERE session='$sessionid'");
-			}else{
-				$mes = "Не могу найти пользователя по сессии. Обратитесь к разработчику!";
-			}
-		}else{
-			//$mes = "Сессия не верна или устарела!";
-		}
-	} 
-	if($_POST["password"] && !$_SERVER[user])
+	if(!$_SESSION[user] && !empty($_POST["password"]) )
 	{
 		$res = sql::fetchOne("SELECT * FROM users WHERE password='".$_POST["password"]."'");
 		if($res){
 			sql::query("INSERT INTO session (session,u_id) VALUES ('".$sessionid."','".$res["id"]."')");
-			$_SERVER[userid] = $res["id"];
-			$_SERVER[user] = $res["nik"];
+			$_SESSION[userid] = $res["id"];
+			$_SESSION[user] = $res["nik"];
+			$sql="SELECT rights.right,type,rtype FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=u_id AND rtypes.id=type_id AND rrtypes.id=rtype_id) WHERE nik='".$_SESSION[user]."'";
+			$res=sql::fetchAll($sql);
+			foreach($res as $rs) {
+				if ($rs["right"]=='1') {
+					$_SESSION[rights][$rs["type"]][$rs["rtype"]] = true;
+				} 
+			}
 			header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'');
 		}else{
 			$mes = "Логин или пароль указаны не верно. Авторизация не удалась. Попробуйте ещё раз.";
 		}
 	}
-	if(!$_SERVER[user])
+	
+	if(!$_SESSION[user])
 	{
 		echo "<html><head>	<title>База данных ЗАО МПП. Вход.</title>";
 		echo "<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=windows-1251>";
@@ -60,12 +51,18 @@ function authorize()
 		echo "</form>";
 		echo "<p>&nbsp;</p></div></body></html>";
 		exit;
-	} 
-	
+	} else {
+		sql::query("UPDATE session SET ts=NOW() WHERE session='$sessionid'");
+		$_SERVER[user]=$_SESSION[user];
+		$_SERVER[userid]=$_SESSION[userid];
+	}
+	//print_r($_SESSION);
 }
 
 function logout() {
 	$sql="DELETE FROM session WHERE session='".session_id()."'";
+	unset($_SESSION[user]);
+	unset($_SESSION[userid]);
 	sql::query($sql);
 	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
 }
@@ -77,14 +74,8 @@ function isadminhere() {
 }
 
 function getright() {
-	$sql="SELECT rights.right,type,rtype FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=u_id AND rtypes.id=type_id AND rrtypes.id=rtype_id) WHERE nik='".$_SERVER[user]."'";
-	$res=sql::fetchAll($sql);
-	foreach($res as $rs) {
-		if ($rs["right"]=='1') {
-			$r[$rs["type"]][$rs["rtype"]] = true;
-		} 
-	}
-	return $r;
+
+	return $_SESSION[rights];
 }
 
 ?>

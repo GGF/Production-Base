@@ -5,12 +5,13 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
 
+ob_start();
+
 if (isset($delete)) 
 {
 	// удаление
-	$sql = "UPDATE conductors SET ts=NOW(), user_id='".$_SERVER[userid]."', ready='1' WHERE id='$delete'";
-	mylog('conductors',$delete);
-	mysql_query($sql);
+	$sql = "UPDATE conductor-s SET ts=NOW(), user_id='".$_SESSION[userid]."', ready='1' WHERE id='$delete'";
+	sql::query($sql);
 	echo "ok";
 }
 elseif (isset($edit)|| isset(${'form_'.$processing_type})) 
@@ -124,7 +125,6 @@ elseif (isset($edit)|| isset(${'form_'.$processing_type}))
 			$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('$plate_id','$pib','$side','$lays','".$_SERVER[userid]."',NOW())";
 		}
 		sql::query($sql);
-		sql::error(true);
 		echo "ok";
 	}
 
@@ -154,5 +154,7 @@ else
 	$table->show();
 
 }
+
+printpage();
 
 ?>

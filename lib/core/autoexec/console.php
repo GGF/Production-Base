@@ -24,7 +24,7 @@
 		
 		$html = "<script> cmsConsole{$type}('" . sql::check($msg) . "', '{$pane}'); </script>\n";
 		
-		if ($print) print $html; else return $html;
+		if ($print) echo $html; else return $html;
 		
 	}
 	

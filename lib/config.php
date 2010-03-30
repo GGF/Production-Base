@@ -52,7 +52,7 @@
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
 				//"query" 	=> true,
-				//"notice"	=> true,
+				"notice"	=> true,
 				"warning"	=> true,
 				"error"		=> true,
 			),
@@ -66,7 +66,7 @@
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
 				//"query" 	=> true,
-				//"notice"	=> true,
+				"notice"	=> true,
 				"warning"	=> true,
 				"error"		=> true,
 			),

@@ -16,9 +16,8 @@ class Menu {
 	}
 	
 	function add($type,$text,$checkright=true,$link='') {
-		global $user;
 		if ($checkright) {
-			$r = getright($user);
+			$r = isset($_SEVRER[rights])?$_SEVRER[rights]:getright();
 			if (!($r[$type]["edit"] || $r[$type]["del"] || $r[$type]["view"])) return; 
 		}
 		$this->html.="<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div>$text</div></a></div>";
