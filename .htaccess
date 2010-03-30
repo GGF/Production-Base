@@ -1,0 +1,31 @@
+	#SecFilterEngine Off 
+	
+	php_flag	trace_mode					off
+	php_flag	display_errors					on
+	php_flag	magic_quotes_gpc				off
+	php_flag	register_globals				off
+	php_value	error_reporting					6135
+	php_value	session.cookie_lifetime	0
+	php_value	session.gc_maxlifetime	86400
+#	php_value	sendmail_from						osmio
+	
+	Options +FollowSymlinks -MultiViews
+	RewriteEngine on
+	
+###################################################################################################################################################
+#	
+#	RewriteRule ^(.+)?print$														/$1?print=true [QSA]
+#	RewriteRule ^site/([^/]+)/(.+)$											/$2 [QSA]
+#	
+###################################################################################################################################################
+	
+	ErrorDocument		404																	/
+#	RewriteRule ^sitemap.xml$														/core/pages/sitemap.php [QSA]
+#	RewriteRule ^install?$															/core/pages/install/ [QSA]
+#	
+###################################################################################################################################################
+	
+
+#	RewriteCond %{HTTP_HOST} ^www\.(.*)\.(com|ru)$
+#	RewriteRule ^(.*)$ http://%1.%2/$1 [R,L]
+

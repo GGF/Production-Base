@@ -57,7 +57,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 	// Ќа случай переноса со старых версий MySQL (до 4.1), у которых не указана кодировка таблиц в дампе
 	// ѕри добавлении 'forced->', к примеру 'forced->cp1251', кодировка таблиц при восстановлении будет принудительно заменена на cp1251
 	// ћожно также указывать сравнение нужное к примеру 'cp1251_ukrainian_ci' или 'forced->cp1251_ukrainian_ci'
-	define('RESTORE_CHARSET', $_SERVER[cmsEncodingSQL]);
+	define('RESTORE_CHARSET', 'forced->cp1251');//$_SERVER[cmsEncodingSQL]);
 	// ¬ключить сохранение настроек и последних действий
 	// ƒл€ отключени€ установить значение 0
 	define('SC', 1);
