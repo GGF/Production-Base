@@ -19,7 +19,11 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 		$_SESSION[order]=$rs[number];
 		echo "ok<script>selectmenu('tz','');</script>";
 	} 
-	else 
+	elseif(empty($_SESSION[customer_id]))
+	{
+		echo "Не выбран заказчик!!!";
+	}
+	else
 	{
 		// serialize form
 		if(!empty(${'form_'.$processing_type})){
@@ -50,7 +54,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 				array(
 					"type"		=>	CMSFORM_TYPE_HIDDEN,
 					"name"		=>	"customerid",
-					"value"		=>	!empty($cusid)?$cusid:$ord["customer_id"],
+					"value"		=>	!empty($_SESSION[customer_id])?$_SESSION[customer_id]:$ord["customer_id"],
 					"options"	=>	array( "html" => "size=30", ),
 				),
 			));
@@ -61,13 +65,12 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			// сохрнение
 			if ($edit) {
 				// редактирование
-				$sql = "UPDATE orders SET customer_id='$customerid', orderdate='".datepicker2date($orderdate)."', number=".addslashes($number)." WHERE id='$edit'";
+				$sql = "UPDATE orders SET customer_id='$customerid', orderdate='".datepicker2date($orderdate)."', number='".addslashes($number)."' WHERE id='$edit'";
 			} else {
 				// добавление
 				$sql = "INSERT INTO orders (customer_id,orderdate,number) VALUES ('$customerid','".datepicker2date($orderdate)."','".addslashes($number)."')";
 			}
 			sql::query($sql);
-			sql::error(true);
 			echo "ok";
 		}
 	}
@@ -77,7 +80,6 @@ elseif (isset($delete))
 	// удаление
 	$sql = "DELETE FROM orders WHERE id='$delete'";
 	sql::query($sql);
-	sql::error(true);
 	// удаление связей
 	$sql = "SELECT * FROM tz WHERE order_id='$delete'";
 	$res = sql::fetchAll($sql);
@@ -87,7 +89,6 @@ elseif (isset($delete))
 		$delete = $rs["id"];
 		$sql = "DELETE FROM tz WHERE id='$delete'";
 		sql::query($sql);
-		sql::error(true);
 		// удаление связей
 		$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
 		$res1 = sql::fetchAll($sql);
@@ -96,7 +97,6 @@ elseif (isset($delete))
 			$delete = $rs1["id"];
 			$sql = "DELETE FROM posintz WHERE id='$delete'";
 			sql::query($sql);
-			sql::error(true);
 		}
 	}
 	echo "ok";
@@ -108,7 +108,8 @@ else
 	if (empty($_SESSION[customer_id])) 
 	{
 		$customer = "Выберите заказчика!!!";
-		$sql="SELECT * FROM orders ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT *,orders.id FROM orders JOIN customers ON customers.id=customer_id ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"LIMIT 50":"LIMIT 20");
+		$cols[customer]="Заказчик";
 	} 
 	else 
 	{
@@ -125,7 +126,6 @@ else
 
 		$table = new Table($processing_type,$processing_type,$sql,$cols);
 		$table->title="Заказчик - $customer ";;
-		if (isset($cusid)) $table->idstr = "&cusid=$cusid";
 		$table->addbutton=true;
 		$table->show();
 
