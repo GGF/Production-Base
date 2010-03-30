@@ -1,0 +1,35 @@
+	
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*                                                                                                                                                                   */
+/*   CMS CONSOLE                                                                                                                                                     */
+/*                                                                                                                                                                   */
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	#cmsConsole 							{ z-index: 100; position: fixed; left: 0px; bottom: 0px; *position: absolute; *bottom: expression(parseInt(document.body.offsetHeight - document.body.clientHeight - document.body.scrollTop - 4, 10) + "px"); width: 100% }
+	#cmsConsole, #cmsConsole td	{ font: normal normal 11px "Tahoma", Sans-serif !important }
+	#cmsConsole a							{ color: #213D7E }
+	#cmsConsole .cmsTabs a		{ text-decoration: none !important }
+	#cmsConsole pre						{ margin: 0px }
+	#cmsConsole_main					{ background: #FFFFFF; color: black; padding: 4px 0px 0px 0px; border-top: 1px solid #CCCCCC; text-align: left }
+	
+	#cmsConsole table td.cmsConsole_text				{ background: url(../ui/bg.gif); color: #222222; height: 22px; padding: 4px 6px 0px 6px; cursor: default }
+	
+	div.cmsConsole_tab				{ height: 400px; overflow: auto; padding: 10px } /* overflow: scroll; overflow-x: auto;  */
+	div.cmsConsole_line, table.cmsConsole_table td, table.cmsConsole_table th	{ color: #222222; padding: 1px 2px 2px 20px; border-bottom: 1px solid #DDDDDD }
+	span.cmsConsole_time			{ display: block; float: left; clear: right; width: 250px }
+	table.cmsConsole_table th	{ font-weight: bold }
+	
+	div.cmsConsole_error			{ padding-left: 20px; color: #880000; background-image: url(../ui/error.gif) }
+	div.cmsConsole_notice			{ padding-left: 20px; color: #444444; background-image: url(../ui/notice.gif) }
+
+	div.cmsConsole_error, div.cmsConsole_notice, div.cmsConsole_warning { background: url(../ui/warning.gif) no-repeat 2px 1px }
+	
+	#cmsConsole div.cmsConsole_plain			{ border: none; padding: 0px }
+	#cmsConsole div.cmsConsole_error			{ color: #AA0000; background-image: url(../ui/error.gif) }
+	#cmsConsole div.cmsConsole_error a		{ color: #AA0000 }
+	#cmsConsole div.cmsConsole_notice			{ color: #222222; background-image: url(../ui/notice.gif) }
+	#cmsConsole div.cmsConsole_notice a		{ color: #222222 }
+	#cmsConsole div.cmsConsole_warning		{ color: #213D7E }
+	#cmsConsole div.cmsConsole_warning a	{ color: #213D7E }
+	
+	td.cmsTabs_last						{ text-align: right; padding: 1px 4px 0px 0px !important }
