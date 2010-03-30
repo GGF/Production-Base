@@ -1,4 +1,5 @@
 <?
+defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
 class Menu {
 	var $html=''; 

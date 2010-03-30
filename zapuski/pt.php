@@ -18,9 +18,9 @@ else
 {
 // вывести таблицу
 	// sql
-	$sql="SELECT *,unix_timestamp(ts) AS uts,phototemplates.id FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+	$sql="SELECT *,unix_timestamp(ts) AS uts,phototemplates.id AS ptid FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 	//echo $sql;
-	$cols[id]="ID";
+	$cols[ptid]="ID";
 	$cols[ts]="Дата";
 	$cols[nik]="Кто запустил";
 	$cols[filenames]="Колво и Каталог";

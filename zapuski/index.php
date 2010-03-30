@@ -14,7 +14,7 @@ $menu->add("conductors","Кондук&shy;торы");
 $menu->add("mp","Мастер&shy;платы");
 $menu->add("zd","Задел");
 $menu->add("pt","Шабло&shy;ны");
-$menu->add("logout","Выход",false,'/logout.php');
+$menu->add("back","Назад",false,'/');
 
 $menu->show();
 

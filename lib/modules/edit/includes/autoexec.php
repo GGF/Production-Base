@@ -1,4 +1,6 @@
 <?
+	defined("CMS") or die("Restricted usage: " . basename(__FILE__));
+	
 class Field {
 	var $name;
 	var $label;

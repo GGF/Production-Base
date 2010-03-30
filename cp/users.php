@@ -4,6 +4,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+ob_start();
 
 if (isset($edit) || isset(${'form_'.$processing_type})) 
 {
@@ -70,7 +71,6 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			$sql = "INSERT INTO users (nik,fullname,position,password) VALUES ('$nik','$fullname','$position','$password1')";
 		}
 		sql::query($sql);
-		sql::error(true);
 		echo "ok";
 	}
 
@@ -97,4 +97,6 @@ else
 	$table->addbutton=true;
 	$table->show();
 }
+
+printpage();
 ?>

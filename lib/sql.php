@@ -7,9 +7,9 @@ require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
 function showheader($subtitle='') 
 {
 	if (isadminhere()) {
-		setcookie("adminhere","1");
+		setcookie("adminhere","1",time()+3*60,"/");
 	} else {
-		setcookie("adminhere","");
+		setcookie("adminhere","",time()-3*60,"/");
 	}
 	ob_start(); //включаем буферизацию вывода - потом в футуре соберем
 	echo '
@@ -96,7 +96,7 @@ function showfooter($buffer='')
 function printpage() {
 	
 		$pageContents = ob_get_clean(); // закрываем буферизацию
-		$console = "<script>cmsConsole_clear()</script>";
+		$console = "";//<script>cmsConsole_clear()</script>";
 		
 		if ($_SERVER[debug][report] || $_SERVER[local]) {
 			
@@ -238,15 +238,17 @@ function serializeform($form) {
 				global ${$key};
 				${$key}=$val;
 			}
-			echo $key."=>".$val."=>".${$key}."<br>";
+			//echo $key."=>".$val."=>".${$key}."<br>";
 		}
 }
 
 
 // запускается - не функция
+/*
 if(!headers_sent()  && !isset($print)) {
 	header('Content-type: text/html; charset=windows-1251');
 }
+*/
 
 foreach ($_GET as $key => $val) {
 	${$key}=$val;

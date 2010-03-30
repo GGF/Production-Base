@@ -108,6 +108,9 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 		
 		cmsRedirect("/lib/modules/backup/admin_dumper.php");
 		
+	} else {
+		$_SESSION[cmsDumper][user] = $_SERVER[mysql][lang][name];
+		$_SESSION[cmsDumper][pass] = $_SERVER[mysql][lang][pass];
 	}
 	
 	if (@mysql_connect(DBHOST, $_SESSION[cmsDumper][user], $_SESSION[cmsDumper][pass])) {
@@ -150,7 +153,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 	
 	if (isset($_REQUEST[advMode]))		$_SESSION[cmsDumper][advMode] = true;
 	if (isset($_REQUEST[normalMode]))	$_SESSION[cmsDumper][advMode] = false;
-	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='/lib/modules/backup/admin_dumper.php?normalMode=false'>Переключить на обычный режим</a>" : "<a href='/lib/modules/backup/admin_dumper.php?advMode=true'>Переключить на расширенный режим</a>";
+	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='?normalMode=false'>Переключить на обычный режим</a>" : "<a href='?advMode=true'>Переключить на расширенный режим</a>";
 	
 	$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 	switch($action){

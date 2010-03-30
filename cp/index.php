@@ -11,7 +11,7 @@ $menu->add("todo","ToDo");
 $menu->add("logs","Logs");
 $menu->add("users","Users");
 $menu->add("backup","Backup",false,'/lib/modules/backup/admin_dumper.php');
-$menu->add("logout","Выход",false,'/logout.php');
+$menu->add("back","Назад",false,'/');
 
 $menu->show();
 
