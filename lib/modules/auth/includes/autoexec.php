@@ -7,7 +7,7 @@ function authorize()
 	sql::query("DELETE FROM session WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(ts) > 3600*8");
 	
 	$mes = "";
-	if(!$_SESSION[user] && !empty($_POST["password"]) )
+	if(empty($_SESSION[user]) && !empty($_POST["password"]) )
 	{
 		$res = sql::fetchOne("SELECT * FROM users WHERE password='".$_POST["password"]."'");
 		if($res){
@@ -27,7 +27,7 @@ function authorize()
 		}
 	}
 	
-	if(!$_SESSION[user])
+	if(empty($_SESSION[user]))
 	{
 		echo "<html><head>	<title>База данных ЗАО МПП. Вход.</title>";
 		echo "<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=windows-1251>";
@@ -61,9 +61,10 @@ function authorize()
 
 function logout() {
 	$sql="DELETE FROM session WHERE session='".session_id()."'";
-	unset($_SESSION[user]);
-	unset($_SESSION[userid]);
 	sql::query($sql);
+	$_SESSION=false;
+	setCookie(session_name(), session_id(), time() - 60 * 60 * 24, "/"); // 1 день
+	print_r($_SESSION);
 	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
 }
 

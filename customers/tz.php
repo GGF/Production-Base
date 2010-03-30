@@ -131,18 +131,33 @@ elseif (isset($print))
 else 
 {
 	// список
-	if (isset($id)) $orderid=$id;
-
-	$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
-	//echo $sql;
+	if(isset($all)) $_SESSION[tz_id]='';
+	if (!empty($_SESSION[customer_id])) 
+	{
+		if(empty($_SESSION[order_id])){
+			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+			$ordername="Заказчик - ".$_SESSION[customer]." - Техзадания";
+		}
+		else
+		{
+			$orderid=$_SESSION[order_id];
+			$ordername = "Заказчик - ".$_SESSION[customer]." - ТЗ - ".$_SESSION[order];
+			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
+		}
+	} 
+	else
+	{
+		$ordername='Техзадания';
+		$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+	}
 	
 	$cols[tzid]="ID";
 	$cols[tz_date]="Дата";
 	$cols[nik]="Кто заполнил";
 
 	$table = new Table($processing_type,"posintz",$sql,$cols);
-	$table->title='Техзадания';
-	if (isset($orderid)) $table->idstr = "&orderid=$orderid";
+	$table->title=$ordername;
+	//if (isset($orderid)) $table->idstr = "&orderid=$orderid";
 	$table->addbutton=true;
 	$table->show();
 }

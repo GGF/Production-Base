@@ -7,12 +7,12 @@ showheader("Управление");
 
 $menu = new Menu();
 
-$menu->add("nzap","Не запу щенные");
-$menu->add("zap","Запуски");
-$menu->add("conductors","Кондук&shy;торы");
-$menu->add("mp","Мастер&shy;платы");
-$menu->add("zd","Задел");
-$menu->add("pt","Шабло&shy;ны");
+$menu->add("customers","Заказ&shy;чики");
+$menu->add("orders","Заказы");
+$menu->add("tz","ТЗ");
+$menu->add("posintz","Позиции ТЗ");
+$menu->add("blocks","Блоки",false);
+$menu->add("boards","Платы",false);
 $menu->add("back","Назад",false,'/');
 
 $menu->show();

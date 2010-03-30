@@ -6,6 +6,7 @@ showheader( "Главное меню");
 $menu = new Menu();
 
 $menu->add("lanch","Запуски",false,"/zapuski/");
+$menu->add("lanch","Заказы",false,"/customers/");
 $menu->add("storage","Склады",false,"/sklads/");
 $menu->add("cp","Admin",true,"/cp/");
 $menu->add("wiki","База знаний",false,"http://mppwiki");

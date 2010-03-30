@@ -4,55 +4,69 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; 
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+ob_start();
 
 if (isset($edit) || isset(${'form_'.$processing_type})) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
+	if (!empty($id))
+	{
+		$sql="SELECT * FROM customers WHERE id='$id'";
+		$rs=sql::fetchOne($sql);
+		$_SESSION[customer_id]=$rs[id];
+		$_SESSION[customer]=$rs[customer];
+		echo "ok<script>selectmenu('orders','');</script>";
+		exit;
 	}
-	
-	if (!isset($accept)) {
-		$sql = "SELECT * FROM customers WHERE id='$edit'";
-		$cust=sql::fetchOne($sql);
-		
-		$form = new Edit($processing_type);
-		$form->init();
-		$form->addFields(array(
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"customer",
-				"label"		=>	"Краткое название (имя каталога):",
-				"value"		=>	$cust["customer"],
-				//"options"	=>	array( "html" => "size=10", ),
-			),
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"fullname",
-				"label"		=>	"Полное название (для теззаданий):",
-				"value"		=>	$cust["fullname"],
-				"options"	=>	array( "html" => "size=60", ),
-			),
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"kdir",
-				"label"		=>	"Каталог на диске К (для сверловок):",
-				"value"		=>	$cust["kdir"],
-			),
-		));
-		$form->show();
-	} else {
-		// сохрнение
-		if (!empty($edit)) {
-			// редактирование
-			$sql = "UPDATE customers SET customer='$customer', fullname='$fullname', kdir='$kdir' WHERE id='$edit'";
-		} else {
-			// добавление
-			$sql = "INSERT INTO customers (customer,fullname,kdir) VALUES ('$customer','$fullname','$kdir')";
+	else 
+	{
+		// serialize form
+		if(!empty(${'form_'.$processing_type})){
+			serializeform(${'form_'.$processing_type});
 		}
-		sql::query($sql);
-		sql::error(true);
-		echo "ok";
+		
+		if (!isset($accept)) {
+			$sql = "SELECT * FROM customers WHERE id='$edit'";
+			$cust=sql::fetchOne($sql);
+			
+			$form = new Edit($processing_type);
+			$form->init();
+			$form->addFields(array(
+				array(
+					"type"		=>	CMSFORM_TYPE_TEXT,
+					"name"		=>	"customer",
+					"label"		=>	"Краткое название (имя каталога):",
+					"value"		=>	$cust["customer"],
+					//"options"	=>	array( "html" => "size=10", ),
+				),
+				array(
+					"type"		=>	CMSFORM_TYPE_TEXT,
+					"name"		=>	"fullname",
+					"label"		=>	"Полное название (для теззаданий):",
+					"value"		=>	$cust["fullname"],
+					"options"	=>	array( "html" => "size=60", ),
+				),
+				array(
+					"type"		=>	CMSFORM_TYPE_TEXT,
+					"name"		=>	"kdir",
+					"label"		=>	"Каталог на диске К (для сверловок):",
+					"value"		=>	$cust["kdir"],
+				),
+			));
+			$form->show();
+		} 
+		else 
+		{
+			// сохрнение
+			if (!empty($edit)) {
+				// редактирование
+				$sql = "UPDATE customers SET customer='$customer', fullname='$fullname', kdir='$kdir' WHERE id='$edit'";
+			} else {
+				// добавление
+				$sql = "INSERT INTO customers (customer,fullname,kdir) VALUES ('$customer','$fullname','$kdir')";
+			}
+			sql::query($sql);
+			echo "ok";
+		}
 	}
 } 
 elseif (isset($delete)) 
@@ -106,6 +120,7 @@ elseif (isset($delete))
 else
 {
 // вывести таблицу
+	if(isset($all)) $_SESSION[customer_id]='';
 	// sql
 	$sql="SELECT * FROM customers ".(isset($find)?"WHERE (customers.customer LIKE '%$find%' OR customers.fullname LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY customers.customer ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
@@ -117,10 +132,11 @@ else
 	$openfunc = "opencustr";
 
 	
-	$table = new Table($processing_type,"opencustr",$sql,$cols);
-	$table->title='Заказчики';
+	$table = new Table($processing_type,$processing_type,$sql,$cols);
+	//$table->title='Заказчики';
 	$table->addbutton=true;
 	$table->show();
 
 }
+printpage();
 ?>
