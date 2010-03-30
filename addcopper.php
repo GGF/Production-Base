@@ -1,5 +1,4 @@
 <?
-$_SERVER ["debugAPI"] = false;
 include_once $_SERVER ["DOCUMENT_ROOT"] . "/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 
@@ -8,67 +7,51 @@ if (empty ( $customer ))
 if (empty ( $board ))
 	return;
 $sql = "SELECT id FROM customers WHERE customer='$customer'";
-debug ( "rem " . $sql );
-$res = mysql_query ( $sql );
-$rs = mysql_fetch_array ( $res );
-if ($rs) {
-	$customer_id = $rs ["id"];
+$rs = sql::fetchOne($sql);
+if (!empty($rs)) {
+	$customer_id = $rs["id"];
 } else {
 	$sql = "INSERT INTO customers (customer) VALUES ('$customer')";
-	print $sql;
-	mysql_query ( $sql );
-	$customer_id = mysql_insert_id ();
-	if (! $customer_id)
-		exit ();
+	sql::query ($sql) or die(sql::error(true));
+	$customer_id = sql::lastId();
 }
 $sql = "SELECT id FROM plates WHERE customer_id='$customer_id' AND plate='$board'";
-debug ( "rem " . $sql );
-$res = mysql_query ( $sql );
-if ($rs = mysql_fetch_array ( $res )) {
+$rs = sql::fetchOne($sql);
+if (!empty($rs)) {
 	$plate_id = $rs ["id"];
 } else {
 	$sql = "INSERT INTO plates (customer_id,plate) VALUES ('$customer_id','$board')";
-	debug ( $sql );
-	mysql_query ( $sql );
-	$plate_id = mysql_insert_id ();
-	if (! $plate_id)
-		exit ();
+	sql::query ($sql) or die(sql::error(true));
+	$plate_id = sql::lastId();
 }
 $sql = "SELECT * FROM coppers WHERE customer_id='$customer_id' AND plate_id='$plate_id'";
-debug ( "rem " . $sql );
-$res = mysql_query ( $sql );
-if (mysql_num_rows ( $res ) == 0) {
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
 	$sql = "INSERT INTO coppers (scomp,ssolder,drlname,customer_id,plate_id,sizex,sizey) VALUES ('$comp','$solder','$drillname','$customer_id','$plate_id','$sizex','$sizey')";
-	debug ( "rem " . $sql );
-	mysql_query ( $sql );
+	sql::query ($sql) or die(sql::error(true));
 } else {
 	$sql = "UPDATE coppers SET scomp='$comp', ssolder='$solder', drlname='$drillname', sizex='$sizex', sizey='$sizey' WHERE customer_id='$customer_id' AND plate_id='$plate_id'";
-	debug ( "rem " . $sql );
-	mysql_query ( $sql );
+	sql::query ($sql) or die(sql::error(true));
 }
 // изменения в блоки
 $sql = "SELECT id FROM blocks WHERE customer_id='$customer_id' AND blockname='$board'";
-debug ( "rem " . $sql );
-$res = mysql_query ( $sql );
-if (! ($rs = mysql_fetch_array ( $res ))) {
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
 	$sql = "INSERT INTO blocks (scomp,ssolder,drlname,customer_id,blockname,sizex,sizey) VALUES ('$comp','$solder','$drillname','$customer_id','$board','$sizex','$sizey')";
-	debug ( "rem " . $sql );
-	mysql_query ( $sql );
+	sql::query ($sql) or die(sql::error(true));
 } else {
 	$plate_id = $rs ["id"];
 	$sql = "UPDATE blocks SET scomp='$comp', ssolder='$solder', drlname='$drillname', sizex='$sizex', sizey='$sizey' WHERE id='$plate_id'";
-	debug ( "rem " . $sql );
-	mysql_query ( $sql );
+	sql::query ($sql) or die(sql::error(true));
 }
 
 // а тепрерь созадидим фал копирования сверловок
 $sql = "SELECT kdir FROM customers WHERE id='$customer_id'";
-debug ( "rem " . $sql );
-$res = mysql_query ( $sql );
-if ($rs = mysql_fetch_array ( $res )) {
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
 	if ($customer == "Импульс") {
-		$rs [0] .= "\\$drillname";
-		$mpp = - 1;
+		$rs [kdir] .= "\\$drillname";
+		$mpp = -1;
 	}
 	echo "mkdir k:\\" . $rs [0] . ($mpp != - 1 ? "\\MPP" : "") . "\\\n";
 	echo "copy /Y .\\$drillname.mk2 k:\\" . $rs [0] . ($mpp != - 1 ? "\\MPP" : "") . "\\\n";

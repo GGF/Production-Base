@@ -1,49 +1,36 @@
 <?
-
-$_SERVER ["debugAPI"] = true;
 include_once $_SERVER ["DOCUMENT_ROOT"] . "/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 
 // заказчик 
 $sql = "SELECT id FROM customers WHERE customer='$customer'";
-debug ( $sql );
-$res = mysql_query ( $sql );
-if ($rs = mysql_fetch_array ( $res )) {
+$rs = sql::fetchOne($sql);
+if (!empty($rs)) {
 	$customer_id = $rs ["id"];
 } else {
 	$sql = "INSERT INTO customers (customer) VALUES ('$customer')";
-	print $sql;
-	mysql_query ( $sql );
-	$customer_id = mysql_insert_id ();
-	if (! $customer_id)
-		exit ();
+	sql::query ($sql) or die(sql::error(true));
+	$customer_id = sql::lastId();
 }
 
 // изменение платы
 $sql = "SELECT id FROM boards WHERE customer_id='$customer_id' AND board_name='$board'";
-debug ( $sql );
-$res = mysql_query ( $sql );
-if (! ($rs = mysql_fetch_array ( $res ))) {
-	my_error ();
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
+	exit;
 } else {
-	$plate_id = $rs [0];
+	$plate_id = $rs [id];
 }
 
 $sql = "SELECT id FROM eltest WHERE board_id='$plate_id'";
-debug ( $sql );
-$res = mysql_query ( $sql );
-if (! ($rs = mysql_fetch_array ( $res ))) {
-	$sql = "INSERT INTO eltest (id,board_id,type,points,pib,pointsb,factor,numcomp,sizex,sizey,numpl) VALUES (
-NULL,'$plate_id','$type','$points','$pib','$pointsb','$factor','$numcomp','$sizex','$sizey','$numpl')";
-	debug ( $sql );
-	mysql_query ( $sql );
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
+	$sql = "INSERT INTO eltest (id,board_id,type,points,pib,pointsb,factor,numcomp,sizex,sizey,numpl) VALUES (NULL,'$plate_id','$type','$points','$pib','$pointsb','$factor','$numcomp','$sizex','$sizey','$numpl')";
+	sql::query ($sql) or die(sql::error(true));
 } else {
-	$et_id = $rs [0];
+	$et_id = $rs [id];
 	$sql = "DELETE FROM eltest WHERE id='$et_id'";
-	debug ( $sql );
-	mysql_query ( $sql );
-	$sql = "INSERT INTO eltest (id,board_id,type,points,pib,pointsb,factor,numcomp,sizex,sizey,numpl) VALUES (
-'$et_id','$plate_id','$type','$points','$pib','$pointsb','$factor','$numcomp','$sizex','$sizey','$numpl')";
-	debug ( $sql );
-	mysql_query ( $sql );
+	sql::query ($sql) or die(sql::error(true));
+	$sql = "INSERT INTO eltest (id,board_id,type,points,pib,pointsb,factor,numcomp,sizex,sizey,numpl) VALUES ('$et_id','$plate_id','$type','$points','$pib','$pointsb','$factor','$numcomp','$sizex','$sizey','$numpl')";
+	sql::query ($sql) or die(sql::error(true));
 }

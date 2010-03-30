@@ -1,70 +1,55 @@
 <?
-
-$_SERVER["debugAPI"] = true;
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 // заказчик 
 $sql="SELECT id FROM customers WHERE customer='$customer'";
-debug($sql);
-$res = mysql_query($sql);
-if ($rs=mysql_fetch_array($res)){
+$rs = sql::fetchOne($sql);
+if (!empty($rs)) {
 	$customer_id = $rs["id"];
 } else {
 	$sql="INSERT INTO customers (customer) VALUES ('$customer')";
-	print $sql;
-	mysql_query($sql);
-	$customer_id = mysql_insert_id();
-	if (!$customer_id) exit;
+	sql::query ($sql) or die(sql::error(true));
+	$customer_id = sql::lastId();
 }
 
 // изменение платы
 $sql="SELECT id FROM boards WHERE customer_id='$customer_id' AND board_name='$board'";
-debug($sql);
-$res = mysql_query($sql);
-if (!($rs=mysql_fetch_array($res))){
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
 	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texеolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES (NULL , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
-	debug($sql);
-	mysql_query($sql);
-	$plate_id = mysql_insert_id();
+	sql::query ($sql) or die(sql::error(true));
+	$plate_id  = sql::lastId();
 } else {
 	$plate_id = $rs["id"];
-	mysql_query("DELETE FROM boards WHERE id='$plate_id'");
+	$sql="DELETE FROM boards WHERE id='$plate_id'";
+	sql::query ($sql) or die(sql::error(true));
 	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texеolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES ('$plate_id' , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
-	debug($sql);
-	mysql_query($sql);
+	sql::query ($sql) or die(sql::error(true));
 }
+
 // добавление блока
 $sql="SELECT id,block_id FROM blockpos WHERE board_id='$plate_id'";
-debug($sql);
-$res = mysql_query($sql);
-if (!($rs=mysql_fetch_array($res))){
+$rs = sql::fetchOne($sql);
+if (!empty($rs)) {
 	$sql = "SELECT id FROM blocks WHERE customer_id='$customer_id' AND blockname='$board'";
-	debug($sql);
-	$res = mysql_query($sql);
-	if (!($rs=mysql_fetch_array($res))){
+	$rs = sql::fetchOne($sql);
+	if (empty($rs)) {
 		$sql = "INSERT INTO blocks (id,customer_id,blockname,sizex,sizey,thickness) VALUES(NULL,'$customer_id','$board','$bsizex','$bsizey','$thickness')";
-		debug($sql);
-		mysql_query($sql);
-		$block_id = mysql_insert_id();
+		sql::query ($sql) or die(sql::error(true));
+		$block_id  = sql::lastId();
 	} else {
 		$block_id = $rs["id"];
 		$sql="UPDATE blocks SET customer_id='$customer_id',blockname='$board',sizex='$bsizex',sizey='$bsizey',thickness='$thickness' WHERE id='$block_id'";
-		debug($sql);
-		mysql_query($sql);
+		sql::query ($sql) or die(sql::error(true));
 	}
 	$sql = "INSERT INTO blockpos (block_id,board_id,nib,nx,ny) VALUES ('$block_id','$plate_id','$num','$bnx','$bny')";
-	debug($sql);
-	mysql_query($sql);
+	sql::query ($sql) or die(sql::error(true));
 } else {
 	$block_id = $rs["block_id"];
 	$pib_id = $rs["id"];
 	$sql="UPDATE blocks SET customer_id='$customer_id',blockname='$board',sizex='$bsizex',sizey='$bsizey',thickness='$thickness' WHERE id='$block_id'";
-	debug($sql);
-	mysql_query($sql);
+	sql::query ($sql) or die(sql::error(true));
 	$sql = "UPDATE blockpos SET block_id='$block_id',board_id='$plate_id',nib='$num',nx='$bnx',ny='$bny' WHERE id='$pib_id'";
-	debug($sql);
-	mysql_query($sql);
+	sql::query ($sql) or die(sql::error(true));
 }
-
-
 ?>
