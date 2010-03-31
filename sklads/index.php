@@ -5,19 +5,87 @@ showheader( "Склады");
 
 $menu = new Menu();
 
-$menu->add("himiya","Материалы",false,"himiya.php");
-$menu->add("materials","Текстолит",false,"materials.php");
-$menu->add("himiya2","Лаборатория",false,"himiya2.php");
-$menu->add("sverla","Сверла 3.0",false,"sverla.php");
-$menu->add("halaty","Спецодежда",false,"halaty.php");
-$menu->add("back","Назад",false,'/');
+
+$menuitems=array(
+				array(
+					type	=>	"himiya",
+					text	=>	"Материалы",
+					link	=>	"himiya.php",
+					picture	=>	"him.gif",
+				),
+				array(
+					type	=>	"materials",
+					text	=>	"Текстолит",
+					link	=>	"materials.php",
+					picture	=>	"mater.gif",
+				),
+				array(
+					type	=>	"himiya2",
+					text	=>	"Лаборатория",
+					link	=>	"himiya2.php",
+					picture	=>	"him2.gif",
+				),
+				array(
+					type	=>	"sverla",
+					text	=>	"Сверла 3.0",
+					link	=>	"sverla.php",
+					picture	=>	"sver.gif",
+				),
+				array(
+					type	=>	"halaty",
+					text	=>	"Спецодежда",
+					link	=>	"halaty.php",
+					picture	=>	"halat.gif",
+				),
+				array(
+					type	=>	"back",
+					text	=>	"Назад",
+					link	=>	"/",
+					picture	=>	"backsclads.gif",
+				),
+				);
+$menu->adds($menuitems);
 $menu->add_newline();
-$menu->add("instr","Осн. средства",false,"instr.php");
-$menu->add("nepon","Сверла 3.175",false,"nepon.php");
-$menu->add("maloc","Малоценка",false,"maloc.php");
-$menu->add("stroy","Стройматериалы",false,"stroy.php");
-$menu->add("zap","Запчасти",false,"zap.php");
-$menu->add("back","Назад",false,'/');
+$menuitems=array(
+				array(
+					type	=>	"instr",
+					text	=>	"Осн. средства",
+					link	=>	"instr.php",
+					picture	=>	"instr.gif",
+				),
+				array(
+					type	=>	"nepon",
+					text	=>	"Сверла 3.175",
+					link	=>	"nepon.php",
+					picture	=>	"sver.gif",
+				),
+				array(
+					type	=>	"maloc",
+					text	=>	"Малоценка",
+					link	=>	"maloc.php",
+					picture	=>	"none.gif",
+				),
+				array(
+					type	=>	"stroy",
+					text	=>	"Стройматериалы",
+					link	=>	"stroy.php",
+					picture	=>	"stroy.gif",
+				),
+				array(
+					type	=>	"zap",
+					text	=>	"Запчасти",
+					link	=>	"zap.php",
+					picture	=>	"none.gif",
+				),
+				array(
+					type	=>	"back",
+					text	=>	"Назад",
+					link	=>	"/",
+					picture	=>	"backsclads.gif",
+				),
+				);
+$menu->adds($menuitems);
+
 
 $menu->show();
 

@@ -207,6 +207,13 @@ return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
 
 }
 
+function serialize_array($arr) {
+	foreach($form as $key => $val) {
+		global ${$key};
+		${$key}=$val;
+	}
+}
+
 function serializeform($form) {
 		foreach($form as $key => $val) {
 			if (!is_array($val) and mb_detect_encoding($val)=="UTF-8") 
