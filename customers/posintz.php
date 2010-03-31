@@ -4,6 +4,8 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
 
+ob_start();
+
 if (isset($edit) || isset($add) ) {
 	// не редактируем
 } elseif (isset($delete)) 
@@ -11,24 +13,31 @@ if (isset($edit) || isset($add) ) {
 	// удаление
 	$sql = "DELETE FROM posintz WHERE id='$delete'";
 	sql::query($sql);
-	sql::error(true);
 	// удаление связей
 	echo "ok";
 } else 
 {
 	// список
-	if (isset($id)) $tzid=$id;
-	
-	$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (plates) ON ( posintz.plate_id = plates.id ) ".(isset($find)?"WHERE (plates.plate LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
-	//print $sql;
-
+	if (!empty($_SESSION[tz_id]))
+	{
+		$tzid = $_SESSION[tz_id];
+		$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (plates) ON ( posintz.plate_id = plates.id ) ".(isset($find)?"WHERE (plates.plate LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
+		$title = "Позиции в ТЗ ".$_SESSION[customer]." - ".$_SESSION[order]." от ".$_SESSION[orderdate]." - #".$_SESSION[tz_id]."";
+	} 
+	elseif (true)
+	{
+	}
+	elseif (true)
+	{
+	}
 	$cols[posid]="ID";
 	$cols[plate]="Плата";
 	$cols[numbers]="Количество";
 
 	$table = new Table($processing_type,$processing_type,$sql,$cols);
-	$table->title='Позиции в ТЗ';
-	if (isset($tzid)) $table->idstr = "&tzid=$tzid";
+	$table->title=$title;
 	$table->show();
 }
+
+printpage();
 ?>

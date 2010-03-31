@@ -19,14 +19,8 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			
 		$form = new Edit($processing_type);
 		$form->init();
-		$customers = array();
-		$sql="SELECT id,customer FROM customers ORDER BY customer";
-		$res=sql::fetchAll($sql);
-		foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
-		$plates=array();
-		$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$zd[cusid]' ORDER BY plate";
-		$res=sql::fetchAll($sql);
-		foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
+		$customers = getCustomers();
+		$plates=getPlates($zd[cusid]);
 
 		$form->addFields(array(
 			array(
@@ -86,11 +80,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 }
 elseif (isset($selectplates)) 
 {
-	$sql = "SELECT * FROM plates WHERE customer_id='$cusid' ORDER BY plate ";
-	//echo $sql;
-	foreach (sql::fetchAll($sql) as $rs) {
-		echo "<option value=".$rs["id"].">".$rs["plate"];
-	}
+	getPlates($cusid,true);
 } 
 elseif (isset($delete)) 
 {

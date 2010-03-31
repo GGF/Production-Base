@@ -8,102 +8,125 @@ ob_start();
 
 if (isset($edit))
 {
-	if (empty($edit)){
-		if (isset($typetz)) 
-		{
-			// np не надо редактировать - только добавлять с текущей датой и пользователем
-			// определим позицию в письме
-			$sql="SELECT COUNT(*)+1 AS next FROM tz WHERE order_id='$orderid'";
-			$rs=sql::fetchOne($sql);
-			$pos_in_order = $rs[next];
-
-			// добавление
-			// создать файл с табличкой
-			// определим заказчика
-			$sql="SELECT number,orderdate,customer, fullname FROM orders JOIN customers ON customers.id=customer_id WHERE orders.id='$orderid'";
-			//echo $sql;
-			$rs=sql::fetchOne($sql);
-			$order = $rs["number"];
-			$customer = $rs["customer"];
-			$fullname = $rs["fullname"];
-			$odate = $rs["orderdate"];
-			$cdate = date("m-d-Y");
-			
-			do 
-			{
-				$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls";
-				$filename = createdironserver($file_link);
-				$fe = file_exists($filename);
-				if ($fe) $pos_in_order++;
-			} while ($fe);
-			// Определим идентификатор файловой ссылки
-			$sql="SELECT id FROM filelinks WHERE file_link='$file_link'";
-			$rs=sql::fetchOne($sql);
-			if (!empty($rs[id]))
-			{
-				$file_id = $rs["id"];
-			} 
-			else 
-			{
-				$sql="INSERT INTO filelinks (file_link) VALUES ('$file_link')";
-				sql::query($sql);
-				sql::error(true);
-				$file_id = sql::lastId();
-			}
-			
-			$sql = "INSERT INTO tz (order_id,tz_date,user_id,pos_in_order,file_link_id) VALUES ('$orderid',NOW(),'".$_SERVER[userid]."','$pos_in_order','$file_id')";
-			sql::query($sql);
-
-			$tzid =  sql::lastId();
-
-			$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":"tzdpp.xls");
-			if ($file = @fopen($filename,"w")) 
-			{
-				fwrite($file,$excel);
-				fclose($file);
-				chmod($filename,0777);
-				if ($file = @fopen($filename.".txt","w")) 
-				{
-					fwrite($file,$cdate."\n");
-					fwrite($file,$fullname."\n");
-					fwrite($file,$order."\n");
-					fwrite($file,$odate."\n");
-					fwrite($file,sprintf("%08d\n",$tzid));
-					fclose($file);
-					echo "<script>updatetable('$tid','tz','');</script>";
-					echo "<div style='margin:10px'>";
-					echo "<a href='".sharefilelink($file_link)."'>TZ-$tzid</a>";
-					echo "</div>";
-				} 
-				else 
-				{
-					echo "Не удалось создать файл txt";
-				}
+	if (!empty($id))
+	{
+		$sql="SELECT *,orders.id AS order_id, tz.id AS tz_id FROM tz JOIN (customers,orders) ON (customers.id=customer_id AND tz.order_id=orders.id) WHERE tz.id='$id'";
+		$rs=sql::fetchOne($sql);
+		$_SESSION[tz_id]=$rs[tz_id];
+//		$_SESSION[order]=$rs[number];
+		$_SESSION[order_id]=$rs[order_id];
+		$_SESSION[order]=$rs[number];
+		$_SESSION[orderdate]=$rs[orderdate];
+		$_SESSION[customer_id]=$rs[customer_id];
+		$_SESSION[customer]=$rs[customer];
+		echo "ok<script>selectmenu('posintz','');</script>";
+	}
+	else
+	{
+		if (empty($edit)){
+			if(empty($_SESSION[order_id])) {
+				echo "Не известно куда добавлять. Выбери заказ!";
 			}
 			else
 			{
-				echo "Не удалось создать файл xls";
+				if (isset($typetz)) 
+				{
+					// np не надо редактировать - только добавлять с текущей датой и пользователем
+					// определим позицию в письме
+					$sql="SELECT COUNT(*)+1 AS next FROM tz WHERE order_id='$orderid'";
+					$rs=sql::fetchOne($sql);
+					$pos_in_order = $rs[next];
+
+					// добавление
+					// создать файл с табличкой
+					// определим заказчика
+					$sql="SELECT number,orderdate,customer, fullname FROM orders JOIN customers ON customers.id=customer_id WHERE orders.id='$orderid'";
+					//echo $sql;
+					$rs=sql::fetchOne($sql);
+					$order = $rs["number"];
+					$customer = $rs["customer"];
+					$fullname = $rs["fullname"];
+					$odate = $rs["orderdate"];
+					$cdate = date("m-d-Y");
+					
+					do 
+					{
+						$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls";
+						$filename = createdironserver($file_link);
+						$fe = file_exists($filename);
+						if ($fe) $pos_in_order++;
+					} while ($fe);
+					// Определим идентификатор файловой ссылки
+					$sql="SELECT id FROM filelinks WHERE file_link='$file_link'";
+					$rs=sql::fetchOne($sql);
+					if (!empty($rs[id]))
+					{
+						$file_id = $rs["id"];
+					} 
+					else 
+					{
+						$sql="INSERT INTO filelinks (file_link) VALUES ('$file_link')";
+						sql::query($sql);
+						sql::error(true);
+						$file_id = sql::lastId();
+					}
+					
+					$sql = "INSERT INTO tz (order_id,tz_date,user_id,pos_in_order,file_link_id) VALUES ('$orderid',NOW(),'".$_SERVER[userid]."','$pos_in_order','$file_id')";
+					sql::query($sql);
+
+					$tzid =  sql::lastId();
+
+					$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":"tzdpp.xls");
+					if ($file = @fopen($filename,"w")) 
+					{
+						fwrite($file,$excel);
+						fclose($file);
+						chmod($filename,0777);
+						if ($file = @fopen($filename.".txt","w")) 
+						{
+							fwrite($file,$cdate."\n");
+							fwrite($file,$fullname."\n");
+							fwrite($file,$order."\n");
+							fwrite($file,$odate."\n");
+							fwrite($file,sprintf("%08d\n",$tzid));
+							fclose($file);
+							echo "<script>updatetable('$tid','tz','');</script>";
+							echo "<div style='margin:10px'>";
+							echo "<a href='".sharefilelink($file_link)."'>TZ-$tzid</a>";
+							echo "</div>";
+						} 
+						else 
+						{
+							echo "Не удалось создать файл txt";
+						}
+					}
+					else
+					{
+						echo "Не удалось создать файл xls";
+					}
+				}
+				else
+				{
+					//не известен тип задания - спросим
+					$orderid = $_SESSION[order_id];
+					
+					echo "<div style='margin:10px'>";
+					echo "<input type=button onclick=\"editrecord('tz','typetz=mpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='МПП'>";
+					echo "<input type=button onclick=\"editrecord('tz','typetz=dpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ДПП'>";
+					echo "</div>";
+				}
 			}
 		}
 		else
 		{
-			//не известен тип задания - спросим
-			//print_r ($_GET);
+			// пока ничего
+			$sql = "SELECT file_link FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
+			//echo $sql;
+			$rs=sql::fetchOne($sql);
 			echo "<div style='margin:10px'>";
-			echo "<input type=button onclick=\"editrecord('tz','typetz=mpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='МПП'>";
-			echo "<input type=button onclick=\"editrecord('tz','typetz=dpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ДПП'>";
+			echo "<a href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
 			echo "</div>";
 		}
-	}
-	else
-	{
-		// пока ничего
-		$sql = "SELECT file_link FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
-		//echo $sql;
-		$rs=sql::fetchOne($sql);
-		echo "<div style='margin:10px'>";
-		echo "<a href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
-		echo "</div>";
 	}
 }
 elseif (isset($delete)) 
@@ -135,11 +158,12 @@ else
 		if(empty($_SESSION[order_id])){
 			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 			$ordername="Заказчик - ".$_SESSION[customer]." - Техзадания";
+			$cols[number]="Заказ";
 		}
 		else
 		{
 			$orderid=$_SESSION[order_id];
-			$ordername = "Заказчик - ".$_SESSION[customer]." - ТЗ - ".$_SESSION[order];
+			$ordername = "Заказчик - ".$_SESSION[customer]." - ТЗ - ".$_SESSION[order]." от ".$_SESSION[orderdate];
 			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
 		}
 	} 
@@ -147,6 +171,8 @@ else
 	{
 		$ordername='Техзадания';
 		$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+		$cols[customer]="Заказчик";
+		$cols[number]="Заказ";
 	}
 	
 	$cols[tzid]="ID";

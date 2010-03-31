@@ -207,6 +207,48 @@ return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
 
 }
 
+function getCustomers($print=false)
+{
+	$sql = "SELECT * FROM customers  ORDER BY customer ";
+	$res = sql::fetchAll($sql);
+		foreach ($res as $rs) {
+			if ($print)
+				echo "<option value=".$rs["id"].">".$rs["customer"];
+			else
+				$cus[$rs[id]]=$rs[customer];
+		}
+	return $cus;
+}
+
+
+function getPlates($cusid,$print=false)
+{
+	$sql = "SELECT * FROM plates WHERE customer_id='$cusid' ORDER BY plate ";
+	$res = sql::fetchAll($sql);
+	$pl=array();
+	foreach ($res as $rs) 
+	{
+		if ($print) 
+			echo "<option value=".$rs["id"].">".$rs["plate"];
+		else 
+			$pl[$rs[id]]=$rs[plate];
+	}
+	return $pl;
+}
+
+function getBlocks($cusid,$print=false)
+{
+	$sql = "SELECT * FROM blocks WHERE customer_id='$cusid' ORDER BY blockname ";
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) {
+		if ($print) 
+			echo "<option value=".$rs["id"].">".$rs["blockname"];
+		else
+			$pl[$rs[id]]=$rs[blockname];
+	}
+	return $res;
+}
+
 function serializeform($form) {
 		foreach($form as $key => $val) {
 			if (!is_array($val) and mb_detect_encoding($val)=="UTF-8") 
@@ -218,7 +260,6 @@ function serializeform($form) {
 				$matches=$matches[0];
 				$key=$matches[0];
 				global ${$key};
-				//print_r($matches);
 				switch (count($matches)){
 					case 2:
 						${$key}[$matches[1]] = $val;
@@ -229,16 +270,10 @@ function serializeform($form) {
 					default:
 						break;
 				}
-				/*foreach($matches as $index) {
-					$key.="[".$index."]";
-				}
-				*/
-				//${$key}=$val;
 			} else {
 				global ${$key};
 				${$key}=$val;
 			}
-			//echo $key."=>".$val."=>".${$key}."<br>";
 		}
 }
 

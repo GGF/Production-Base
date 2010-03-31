@@ -14,9 +14,10 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 		$sql="SELECT *,orders.id as order_id FROM orders JOIN customers ON customers.id=customer_id WHERE orders.id='$id'";
 		$rs=sql::fetchOne($sql);
 		$_SESSION[order_id]=$rs[order_id];
+		$_SESSION[order]=$rs[number];
+		$_SESSION[orderdate]=$rs[orderdate];
 		$_SESSION[customer_id]=$rs[customer_id];
 		$_SESSION[customer]=$rs[customer];
-		$_SESSION[order]=$rs[number];
 		echo "ok<script>selectmenu('tz','');</script>";
 	} 
 	else
@@ -32,7 +33,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			
 			$form = new Edit($processing_type);
 			$form->init();
-			if(empty($edit))
+			if(empty($edit) && empty($_SESSION[customer_id]))
 			{
 				$customers = array();
 				$sql="SELECT id,customer FROM customers ORDER BY customer";
