@@ -19,10 +19,6 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 		$_SESSION[order]=$rs[number];
 		echo "ok<script>selectmenu('tz','');</script>";
 	} 
-	elseif(empty($_SESSION[customer_id]))
-	{
-		echo "Не выбран заказчик!!!";
-	}
 	else
 	{
 		// serialize form
@@ -36,6 +32,32 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			
 			$form = new Edit($processing_type);
 			$form->init();
+			if(empty($edit))
+			{
+				$customers = array();
+				$sql="SELECT id,customer FROM customers ORDER BY customer";
+				$res=sql::fetchAll($sql);
+				foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
+				$form->addFields(array(
+					array(
+						"type"		=> CMSFORM_TYPE_SELECT,
+						"name"		=> "customerid",
+						"label"		=>	"Заказчик:",
+						"values"	=>	$customers,
+					),
+				));
+			}
+			else
+			{
+				$form->addFields(array(
+					array(
+						"type"		=>	CMSFORM_TYPE_HIDDEN,
+						"name"		=>	"customerid",
+						"value"		=>	!empty($_SESSION[customer_id])?$_SESSION[customer_id]:$ord["customer_id"],
+						"options"	=>	array( "html" => "size=30", ),
+					),
+				));
+			}
 			$form->addFields(array(
 				array(
 					"type"		=> CMSFORM_TYPE_TEXT,
@@ -49,12 +71,6 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 					"name"		=>	"number",
 					"label"		=>	"Номер письма:",
 					"value"		=>	$ord["number"],
-					"options"	=>	array( "html" => "size=30", ),
-				),
-				array(
-					"type"		=>	CMSFORM_TYPE_HIDDEN,
-					"name"		=>	"customerid",
-					"value"		=>	!empty($_SESSION[customer_id])?$_SESSION[customer_id]:$ord["customer_id"],
 					"options"	=>	array( "html" => "size=30", ),
 				),
 			));

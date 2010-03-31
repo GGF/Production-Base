@@ -19,7 +19,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			
 		$form = new Edit($processing_type);
 		$form->init();
-		$customer = array();
+		$customers = array();
 		$sql="SELECT id,customer FROM customers ORDER BY customer";
 		$res=sql::fetchAll($sql);
 		foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
