@@ -1,5 +1,5 @@
 <?
-require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как при notop не вызывается заголовк html
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно так как при notop не вызывается заголовк html
 authorize(); // вызов авторизации
 
 

@@ -1,7 +1,7 @@
 <?
 // Отображает отчет
 $db = '`zaomppsklads`.';
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;

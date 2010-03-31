@@ -1,5 +1,5 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно при добавлении так как не вызывается заголовк html
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 // Определим идентификатор пользователя
 $sql="SELECT id FROM users WHERE nik='$user'";

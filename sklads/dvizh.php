@@ -1,6 +1,6 @@
 <?
 $db = '`zaomppsklads`.';
-require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;

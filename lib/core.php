@@ -246,10 +246,12 @@
 	if (count($_SERVER[modules])) foreach ($_SERVER[modules] as $path => $name) {
 		
 		$file = $_SERVER[DOCUMENT_ROOT] . "/lib/modules/" . $path . "/includes/autoexec.php";
-		$autoexecStuff[] = $file;
+		if (file_exists($file)) 
+			$autoexecStuff[] = $file;
 		
 		$file = $_SERVER[DOCUMENT_ROOT] . "/lib/modules/" . $path . "/includes/lang.php";
-		$autoexecStuff[] = $file;
+		if (file_exists($file)) 
+			$autoexecStuff[] = $file;
 		
 	}
 	

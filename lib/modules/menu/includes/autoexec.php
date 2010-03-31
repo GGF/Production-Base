@@ -17,16 +17,12 @@ class Menu {
 	}
 	
 	function add($type,$text,$checkright=true,$link='') {
-		if ($checkright) {
-			$r = getright();
-			if (!($r[$type]["edit"] || $r[$type]["del"] || $r[$type]["view"])) return; 
-		}
-		//$this->html.="<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div>".(is_callable("addhypher")?addhypher($text):$text)."</div></a></div>";
 		array_push($this->items, array( 
 								"type"	=>	$type,
 								"text"	=>	$text,
 								"link"	=>	$link,
 								"picture"	=>	'',
+								"right"		=>	$checkright,
 								)
 					);
 	}
@@ -45,8 +41,9 @@ class Menu {
 		$this->start();
 		foreach($this->items as $item)
 		{
-			$text=$type=$link=$picture='';
+			$text=$type=$link=$picture=$right='';
 			extract($item);
+			if ($right and $_SESSION[rights][$type][view]!='1') continue;
 			if ($type=="newline") {
 				echo "</tr><tr>";
 			} else {

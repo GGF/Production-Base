@@ -1,7 +1,7 @@
 <?
 // отображает логи
 
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 
 

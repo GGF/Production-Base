@@ -1,6 +1,6 @@
 <?
 $db = '`zaomppsklads`.';
-require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно так как не вызывается заголовк html
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
 

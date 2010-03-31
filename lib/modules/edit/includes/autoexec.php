@@ -1,5 +1,5 @@
 <?
-	defined("CMS") or die("Restricted usage: " . basename(__FILE__));
+defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 	
 class Field {
 	var $name;
@@ -25,7 +25,7 @@ class Edit {
 	function init() {
 		global $tid,$edit;
 		
-		$this->form = new cmsForm_ajax($this->type);
+		$this->form = new cmsForm_ajax($this->type,$this->type.'.php');
 		$this->form->addFields(array(
 			array(
 				"type"		=> CMSFORM_TYPE_HIDDEN,
@@ -99,4 +99,46 @@ class Edit {
 		$this->form->end();
 	}
 }
+
+
+//функция для преобразования из формы в глобальные
+function serializeform($form) {
+		foreach($form as $key => $val) {
+			if (!is_array($val) and mb_detect_encoding($val)=="UTF-8") 
+				$val=mb_convert_encoding($val,"cp1251","UTF-8");
+			else { 
+			}
+			if (strstr($key,"|")) {
+				$tmp=preg_match_all("/([^|]+)/",$key,$matches);//$key=substr($key,0,$pos)."[";
+				$matches=$matches[0];
+				$key=$matches[0];
+				global ${$key};
+				switch (count($matches)){
+					case 2:
+						${$key}[$matches[1]] = $val;
+						break;
+					case 3:
+						${$key}[$matches[1]][$matches[2]] = $val;
+						break;
+					default:
+						break;
+				}
+			} else {
+				global ${$key};
+				${$key}=$val;
+			}
+		}
+}
+
+
+// 2 функции преобразования даты для пикера и базы
+function date2datepicker($date) {
+	return !empty($date)?date("d.m.Y",mktime(0,0,0,ceil(substr($date,5,2)),ceil(substr($date,8,2)),ceil(substr($date,1,4)))):date("d.m.Y");
+}
+
+function datepicker2date($date) {
+	return substr($date,6,4)."-".substr($date,3,2)."-".substr($date,0,2);
+}
+
+
 ?>

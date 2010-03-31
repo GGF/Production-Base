@@ -1,5 +1,5 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как не вызывается заголовк html
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно так как не вызывается заголовк html
 
 $sql="SELECT * FROM lanch";
 $res = sql::fetchAll($sql);
