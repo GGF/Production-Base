@@ -1,5 +1,5 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как при notop не вызывается заголовк html
+require $_SERVER["DOCUMENT_ROOT"]."/lib/sql.php"; // это нужно так как при notop не вызывается заголовк html
 authorize(); // вызов авторизации
 
 
@@ -7,7 +7,7 @@ showheader("Управление");
 
 $menu = new Menu();
 
-$menu->add("customers","Заказ&shy;чики");
+$menu->add("customers","Заказчики");
 $menu->add("orders","Заказы");
 $menu->add("tz","ТЗ");
 $menu->add("posintz","Позиции ТЗ");

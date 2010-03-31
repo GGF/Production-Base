@@ -11,8 +11,8 @@ $menu = new Menu();
 
 $menu->add("ost","Склад",false);
 $menu->add("arc","Архив",false);
-$menu->add("movecheck","Дви&shy;же&shy;ние от&shy;чет",false);
-$menu->add("trebcheck","Тре&shy;бо&shy;ва&shy;ния",false);
+$menu->add("movecheck","Движение отчет",false);
+$menu->add("trebcheck","Требования",false);
 
 
 

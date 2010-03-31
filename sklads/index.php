@@ -5,18 +5,18 @@ showheader( "Склады");
 
 $menu = new Menu();
 
-$menu->add("himiya","Ма&shy;те&shy;ри&shy;алы",false,"himiya.php");
-$menu->add("materials","Тек&shy;сто&shy;лит",false,"materials.php");
-$menu->add("himiya2","Ла&shy;бо&shy;ра&shy;то&shy;рия",false,"himiya2.php");
-$menu->add("sverla","Све&shy;рла 3.0",false,"sverla.php");
-$menu->add("halaty","Спец&shy;одеж&shy;да",false,"halaty.php");
+$menu->add("himiya","Материалы",false,"himiya.php");
+$menu->add("materials","Текстолит",false,"materials.php");
+$menu->add("himiya2","Лаборатория",false,"himiya2.php");
+$menu->add("sverla","Сверла 3.0",false,"sverla.php");
+$menu->add("halaty","Спецодежда",false,"halaty.php");
 $menu->add("back","Назад",false,'/');
 $menu->add_newline();
-$menu->add("instr","Осн. сред&shy;ства",false,"instr.php");
-$menu->add("nepon","Све&shy;рла 3.175",false,"nepon.php");
-$menu->add("maloc","Ма&shy;ло&shy;цен&shy;ка",false,"maloc.php");
-$menu->add("stroy","Строй&shy;ма&shy;те&shy;ри&shy;алы",false,"stroy.php");
-$menu->add("zap","Зап&shy;час&shy;ти",false,"zap.php");
+$menu->add("instr","Осн. средства",false,"instr.php");
+$menu->add("nepon","Сверла 3.175",false,"nepon.php");
+$menu->add("maloc","Малоценка",false,"maloc.php");
+$menu->add("stroy","Стройматериалы",false,"stroy.php");
+$menu->add("zap","Запчасти",false,"zap.php");
 $menu->add("back","Назад",false,'/');
 
 $menu->show();

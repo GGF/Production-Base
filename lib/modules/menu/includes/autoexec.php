@@ -21,7 +21,7 @@ class Menu {
 			$r = isset($_SEVRER[rights])?$_SEVRER[rights]:getright();
 			if (!($r[$type]["edit"] || $r[$type]["del"] || $r[$type]["view"])) return; 
 		}
-		$this->html.="<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div>$text</div></a></div>";
+		$this->html.="<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div>".(is_callable("addhypher")?addhypher($text):$text)."</div></a></div>";
 	}
 	
 	function add_newline() {
