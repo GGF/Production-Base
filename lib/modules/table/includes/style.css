@@ -1,0 +1,50 @@
+
+.find {
+	width: 100%;
+}
+
+.fullwidth {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	/*border:solid 1px red;*/
+}
+
+.chettr {
+	background-color: rgb(250, 250, 250);
+}
+
+.nechettr {
+	background-color: rgb(230, 230, 230);
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+
+.listtable {
+	width: 100%;
+	border: solid black 1px;
+}
+
+.listtable td {
+	border: solid black 1px;
+}
+
+td {
+	vertical-align: top;
+}
+
+thead {
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+}
+
+th {
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+	border: solid black 2px;
+}

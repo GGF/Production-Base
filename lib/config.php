@@ -87,7 +87,22 @@
 		"bazafunc"		=> "ТСМЙЖХХ ДКЪ ЙНМЙПЕРМНИ АЮГШ",
 	);
 	
-	// йнмтхцспюжхъ лндскеи
+	// лндскх опнейрю
+	
+	$_SERVER[contrib] = array(
+		"jquery"			=> array(),
+		"jquery.ui.core"	=>	array(),
+		"jquery.ui.datepicker"	=>	array(),
+		"jquery.ui.datepicker-ru1251"	=> array(),
+		"jquery.contextmenu"			=> array(),
+		"jquery.cookie"			=> array(),
+		"jquery.keyboard"	=> array(),
+		"jquery.wysiwyg"		=> array(),
+		"tabs"			=> array(),
+		"console"		=> array(),
+	);
+
+// йнмтхцспюжхъ лндскеи
 	
 	/*
 	$_SERVER[modForm] = array(

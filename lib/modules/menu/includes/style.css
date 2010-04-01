@@ -1,0 +1,43 @@
+.menu {
+	text-align: center;
+	background-color: rgb(200, 255, 200);
+	color: red;
+}
+
+.menuitemcp {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: white;
+	/*float:left;*/ /*margin:5;*/
+	padding-left: 2px;
+	padding-right: 2px;
+	cursor: hand;
+}
+
+
+.menuitemcp A {
+	color: black;
+	text-decoration: none;
+}
+
+.menuitemcp A div {
+	display: table-cell;
+	vertical-align: middle;
+	width: 64px;
+	height: 64px;
+	max-width: 64px;
+	max-height: 64px;
+	min-width: 64px;
+	min-height: 64px;
+	overflow: hidden;
+	font-weight: bold;
+	font-size:17px;
+	background-image: URL("/picture/cp.png");
+}
+
+
+.menuitemsel {
+	background-color: rgb(100, 255, 100);
+}
+

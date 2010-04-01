@@ -5,46 +5,50 @@
 	$list = array();
 	
 	// jQuery and contributions
-	foreach ($options[jquery] as $v) $list[] = "/core/contrib/jquery/jquery." . trim($v) . ".css";
-	foreach ($options[contrib] as $v) $list[] = "/core/contrib/{$v}/{$v}.css";
+	foreach ($options[jquery] as $v) $list[] = "/lib/core/contrib/jquery/jquery." . trim($v) . ".css";
+	foreach ($options[contrib] as $v) $list[] = "/lib/core/contrib/{$v}/{$v}.css";
 	
 	// CMS
-	$list[] = "/core/css/style.css";
-	$list[] = "/core/css/style_common.css";
-	if (!$_SERVER[project][doctype] || $options[admin])	$list[] = "/core/css/common.css";
-	$list[] = "/core/css/alert.css";
-	$list[] = "/core/css/form.css";
-	if (!$_SERVER[project][doctype] || $options[admin])	$list[] = "/core/css/form_style.css";
-	if ($_SERVER[project][doctype] && !$options[admin])	$list[] = "/core/css/form_standard.css";
-	$list[] = "/core/css/node.css";
-	$list[] = "/core/css/tables.css";
-	$list[] = "/core/css/var.css";
-	$list[] = "/core/css/layout.css";
-	$list[] = "/core/css/calendar.css";
-	$list[] = "/core/css/rounded.css";
-	$list[] = "/core/css/mce.css";
+	$list[] = "/lib/core/css/style.css";
+	$list[] = "/lib/core/css/style_common.css";
+	if (!$_SERVER[project][doctype] || $options[admin])	$list[] = "/lib/core/css/common.css";
+	$list[] = "/lib/core/css/alert.css";
+	$list[] = "/lib/core/css/form.css";
+	if (!$_SERVER[project][doctype] || $options[admin])	$list[] = "/lib/core/css/form_style.css";
+	if ($_SERVER[project][doctype] && !$options[admin])	$list[] = "/lib/core/css/form_standard.css";
+	$list[] = "/lib/core/css/node.css";
+	$list[] = "/lib/core/css/tables.css";
+	$list[] = "/lib/core/css/var.css";
+	$list[] = "/lib/core/css/layout.css";
+	$list[] = "/lib/core/css/calendar.css";
+	$list[] = "/lib/core/css/rounded.css";
+	$list[] = "/lib/core/css/mce.css";
 	
-	if ($_SERVER[debug][report]) $list[] = "/core/css/console.css";
-	if ($_SERVER[debug][report]) $list[] = "/core/css/mysql.css";
+	if ($_SERVER[debug][report]) $list[] = "/lib/core/css/console.css";
+	if ($_SERVER[debug][report]) $list[] = "/lib/core/css/mysql.css";
 	
 	if ($options[admin]) {
 		
-		$list[] = "/core/css/calendar.css";
-		$list[] = "/core/css/form_admin.css";
-		$list[] = "/core/css/tabs.css";
-		$list[] = "/core/css/admin.css";
+		$list[] = "/lib/core/css/calendar.css";
+		$list[] = "/lib/core/css/form_admin.css";
+		$list[] = "/lib/core/css/tabs.css";
+		$list[] = "/lib/core/css/admin.css";
 		
 	} else {
 		
-		$list[] = "/core/css/node_map.css";
+		$list[] = "/lib/core/css/node_map.css";
 		
-		if ($_SERVER[debug][report]) $list[] = "/core/css/tabs.css";
+		if ($_SERVER[debug][report]) $list[] = "/lib/core/css/tabs.css";
 		
 	}
 	
 	// Modules autoexec
-												foreach($_SERVER[modules] as $mod => $name) $list[] = "/modules/" . $mod . "/includes/style.css";
-	if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/modules/" . $mod . "/includes/style_admin.css";
+							foreach($_SERVER[modules] as $mod => $name) $list[] = "/lib/modules/" . $mod . "/includes/style.css";
+	if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/lib/modules/" . $mod . "/includes/style_admin.css";
+
+	// Contrib autoexec
+							foreach($_SERVER[contrib] as $mod => $name) $list[] = "/lib/core/contrib/" . $mod . "/css/" . $mod . ".css";
+	//if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/lib/modules/" . $mod . "/includes/style_admin.css";
 	
 	// Main CSS file
 	if (!$options[admin]) $list[] = cmsFile_pathRel($_SERVER[TEMPLATES]) . "/default.css";

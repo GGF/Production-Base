@@ -1,43 +1,3 @@
-.ident {
-	text-indent: 1cm;
-}
-
-.noident {
-	text-indent: 0cm;
-}
-
-.rowhead {
-	color: lime;
-	text-align: center;
-	background-color: brown;
-}
-
-.arowhead {
-	font-size: 150%;
-	text-align: center;
-	text-indent: 0cm;
-	color: brown;
-	background-color: rgb(172, 194, 172);
-}
-
-.advert {
-	background-color: gray;
-}
-
-.ruby {
-	color: red;
-}
-
-.giant {
-	font-size: 150%;
-	color: navy;
-}
-
-.name {
-	color: yellow;
-	background-color: navy;
-}
-
 a, a:hover { 
 	text-decoration: none;
 }
@@ -55,10 +15,6 @@ A:active {
 }  /* active links */
 A img {
 	border: 0;
-}
-
-.editdiv A {
-	text-decoration: underline
 }
 
 BODY {
@@ -103,89 +59,6 @@ OL {
 	color: red;
 }
 
-.menu {
-	text-align: center;
-	background-color: rgb(200, 255, 200);
-	color: red;
-}
-
-.menuitemcp {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	color: white;
-	/*float:left;*/ /*margin:5;*/
-	padding-left: 2px;
-	padding-right: 2px;
-	cursor: hand;
-}
-
-
-.menuitemcp A {
-	color: black;
-	text-decoration: none;
-}
-
-.menuitemcp A div {
-	display: table-cell;
-	vertical-align: middle;
-	width: 64px;
-	height: 64px;
-	max-width: 64px;
-	max-height: 64px;
-	min-width: 64px;
-	min-height: 64px;
-	overflow: hidden;
-	font-weight: bold;
-	font-size:17px;
-	background-image: URL("/picture/cp.png");
-}
-
-
-.menuitemsel {
-	background-color: rgb(100, 255, 100);
-}
-
-.chettr {
-	background-color: rgb(250, 250, 250);
-}
-
-.nechettr {
-	background-color: rgb(230, 230, 230);
-}
-
-.listtable {
-	width: 100%;
-	border: solid black 1px;
-}
-
-.listtable td {
-	border: solid black 1px;
-}
-
-td {
-	vertical-align: top;
-}
-
-thead {
-	font-weight: bold;
-	text-align: center;
-	padding: 5px;
-}
-
-th {
-	font-weight: bold;
-	text-align: center;
-	padding: 5px;
-	border: solid black 2px;
-}
-
-.fullwidth {
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	/*border:solid 1px red;*/
-}
 
 .red {
 	color: red;
@@ -201,21 +74,6 @@ th {
 	overflow-x: hidden;
 }
 
-.editdiv { /*margin:5%; */
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	z-index: 0;
-	border: solid 1px black;
-	color: black;
-	background-color: lightblue;
-}
-
-.editdivin {
-	min-height: 100%;
-	border: solid 4px white;
-	padding: 10px;
-}
 
 .loading {
 	margin: 10;
@@ -227,84 +85,6 @@ th {
 	font-size: 40pt;
 }
 
-.rigthtop { /* кнопка закрытия в углу */
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 20px;
-	height: 20px;
-}
-
-.blockedit {
-	border: solid 5px white;
-	background-color: lightblue;
-	/*margin:5%; */
-	position: absolute;
-	top: 0;
-	left: 0;
-	/*width:90%; 
-	height:100%; */
-	min-width: 400px;
-	min-height: 40%;
-	border: solid 1px black;
-}
-
-.plateedit {
-	border: solid 5px white;
-	background-color: lightblue;
-	/*margin:10%; */
-	position: absolute;
-	top: 5%;
-	left: 0;
-	/*width:80%; 
-	height:100%; */
-	min-width: 400px;
-	min-height: 50%;
-	border: solid 1px black;
-}
-
-.preposblock {
-	width: 100%;
-	height: 100%;
-	min-height: 50%;
-}
-
-.position {
-	width: 100%;
-	height: 100%;
-	min-height: 95%;
-	background-color: lightgray;
-}
-
-.blocks {
-	width: 100%;
-	height: 100%;
-	min-height: 95%;
-	background-color: lightgreen;
-}
-
-.blockform {
-	width: 40%;
-	float: left;
-	height: 100%; /*min-height:100%;*/
-	background-color: lightgray;
-	border: solid -1px red;
-}
-
-.platepool {
-	height: 100%; /*min-height:100%;*/
-	float: left;
-	width: 60%;
-	background-color: gray;
-	border: solid -1px red;
-}
-
-.sun {
-	display: none;
-	position: absolute;
-	right: 0px;
-	z-index: 10;
-}
 
 #quote {
 	font-family: 'Monaco', 'Courier New', monospace;
@@ -314,12 +94,4 @@ th {
 	background: #f0f0f0;
 	padding: 5px;
 	border: 1px dotted #999;
-}
-
-.find {
-	width: 100%;
-}
-
-.yellow {
-	background-color: yellow;
 }

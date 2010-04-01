@@ -37,82 +37,81 @@ elseif (isset($edit)|| isset(${'form_'.$processing_type}))
 		$res=sql::fetchAll($sql);
 		foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
 
-		$form->addFields(array(
-			(!empty($edit)?
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"customer",
-				"label"		=>	"Заказчик:",
-				"value"		=>	$cond["customer"],
-				"options"	=>	array( "html" => " readonly ", ),
-			)
-			:
-			array(
-				"type"		=> CMSFORM_TYPE_SELECT,
-				"name"		=> "customer_id",
-				"label"		=>	"Заказчик:",
-				"values"	=>	$customers,
-				"value"		=> $cond["cusid"],
-				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
-			)
-			),
-			(!empty($edit)?
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"plate",
-				"label"		=>	"Плата:",
-				"value"		=>	$cond["plate"],
-				"options"	=>	array( "html" => " readonly ", ),
-			)
-			:
-			array(
-				"type"		=> CMSFORM_TYPE_SELECT,
-				"name"		=> "plate_id",
-				"label"		=>	"Плата:",
-				"values"	=>	$plates,
-				"value"		=> $cond["plid"],
-				"options"	=>	array( "html" => " plates ", ),
-			)
-			),
-			array(
-				"type"		=>	CMSFORM_TYPE_TEXT,
-				"name"		=>	"pib",
-				"label"		=>	"Плат в блоке",
-				"value"		=>	$cond["pib"],
-				//"options"	=>	array( "html" => "size=10", ),
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "lays",
-				"label"		=>	"Пластин",
-				"value"		=> $cond["lays"],
-				//"options"	=>	array( "html" => "size=10", ),
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_SELECT,
-				"name"		=> "side",
-				"label"		=>	"Сторона:",
-				"values"	=>	array(
-										"TOP"	=>	"TOP",
-										"BOT"	=>	"BOT",
-										"TOPBOT"	=>	"TOPBOT",
-									),
-				"value"		=> $cond["side"],
-				//"options"	=>	array( "html" => " side ", ),
-			),
-			(!empty($edit)?
-			array(
-				"type"		=> CMSFORM_TYPE_HIDDEN,
-				"name"		=> "customer_id",
-				"value"		=> $cond["cusid"],
-			):null),
-			(!empty($edit)?
-			array(
-				"type"		=> CMSFORM_TYPE_HIDDEN,
-				"name"		=> "plate_id",
-				"value"		=> $cond["plid"],
-			):null),
-		));
+		$fields=array();
+		if (!empty($edit)) 
+		{
+			array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_HIDDEN,
+								"name"		=> "customer_id",
+								"value"		=> $cond["cusid"],
+							));
+			array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_HIDDEN,
+								"name"		=> "plate_id",
+								"value"		=> $cond["plid"],
+							));
+			array_push($fields,array(
+								"type"		=>	CMSFORM_TYPE_TEXT,
+								"name"		=>	"customer",
+								"label"		=>	"Заказчик:",
+								"value"		=>	$cond["customer"],
+								"options"	=>	array( "html" => " readonly ", ),
+							));
+			array_push($fields,array(
+								"type"		=>	CMSFORM_TYPE_TEXT,
+								"name"		=>	"plate",
+								"label"		=>	"Плата:",
+								"value"		=>	$cond["plate"],
+								"options"	=>	array( "html" => " readonly ", ),
+							));
+		} 
+		else
+		{
+			array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_SELECT,
+								"name"		=> "customer_id",
+								"label"		=>	"Заказчик:",
+								"values"	=>	$customers,
+								"value"		=> $cond["cusid"],
+								"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
+							));
+			array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_SELECT,
+								"name"		=> "plate_id",
+								"label"		=>	"Плата:",
+								"values"	=>	$plates,
+								"value"		=> $cond["plid"],
+								"options"	=>	array( "html" => " plates ", ),
+							));
+		}
+		array_push($fields,array(
+								"type"		=>	CMSFORM_TYPE_TEXT,
+								"name"		=>	"pib",
+								"label"		=>	"Плат в блоке",
+								"value"		=>	$cond["pib"],
+								//"options"	=>	array( "html" => "size=10", ),
+							));
+		array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_TEXT,
+								"name"		=> "lays",
+								"label"		=>	"Пластин",
+								"value"		=> $cond["lays"],
+								//"options"	=>	array( "html" => "size=10", ),
+							));
+		array_push($fields,array(
+								"type"		=> CMSFORM_TYPE_SELECT,
+								"name"		=> "side",
+								"label"		=>	"Сторона:",
+								"values"	=>	array(
+														"TOP"	=>	"TOP",
+														"BOT"	=>	"BOT",
+														"TOPBOT"	=>	"TOPBOT",
+													),
+								"value"		=> $cond["side"],
+								//"options"	=>	array( "html" => " side ", ),
+							));
+
+		$form->addFields($fields);
 		$form->show();
 	} 
 	else 

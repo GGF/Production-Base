@@ -138,7 +138,6 @@
 	
 	$modules = array(
 		"backup"	=> "Восстановление",
-		"auth"		=> "Пользователи",
 	);
 	
 	if (is_array($_SERVER[modules])) $_SERVER[modules] = array_merge($modules, $_SERVER[modules]); else $_SERVER[modules] = $modules;
@@ -147,7 +146,7 @@
 	
 	// PATHS
 	
-	$_SERVER[TPL]								= "/style/templates";
+	$_SERVER[TPL]								= "/style";
 	$_SERVER[TEMPLATES]					= $_SERVER[DOCUMENT_ROOT] . $_SERVER[TPL];
 	$_SERVER[CORE]							= $_SERVER[DOCUMENT_ROOT] . "/lib/core";
 	$_SERVER[CACHE]							= $_SERVER[DOCUMENT_ROOT] . "/cache";
@@ -217,27 +216,34 @@
 	
 	// Токены выполняются перед autoexec — потому как они в нем используются
 	$autoexecMain[] = $_SERVER[CORE] . "/classes/sql.php";
-	$autoexecMain[] = $_SERVER[CORE] . "/classes/tokens.php";
-	$autoexecMain[] = $_SERVER[CORE] . "/classes/page.php";
+	//$autoexecMain[] = $_SERVER[CORE] . "/classes/tokens.php";
+	//$autoexecMain[] = $_SERVER[CORE] . "/classes/page.php";
 	//$autoexecMain[] = $_SERVER[CORE] . "/classes/typograf.php";
 	
 	$autoexecMain[] = $_SERVER[CORE] . "/autoexec/includes/encoding.php";
 	$autoexecMain[] = $_SERVER[CORE] . "/autoexec/includes/mysql_lang.php";
 	//$autoexecMain[] = $_SERVER[CORE] . "/autoexec/includes/console.php";
 	
+	// Контрибуты
+	if (count($_SERVER[contrib])) foreach ($_SERVER[contrib] as $path => $name) {
+		
+		$file = $_SERVER[DOCUMENT_ROOT] . "/lib/core/contrib/" . $path . "/".$path.".php";
+		if (file_exists($file)) 
+			$autoexecMain[] = $file;
+		
+	}
+
 	$autoexecMain = array_merge($autoexecMain, glob($_SERVER[CORE] . "/autoexec/*.php"));
-	
-	
 	
 	$autoexecStuff[] = $_SERVER[CORE] . "/autoexec/includes/mysql_shared.php";
 	
-	$autoexecStuff[] = $_SERVER[CORE] . "/classes/feed.php";
+	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/feed.php";
 	
 	// После обычного autoexec выполняем функции обратной совместимости
 	//$autoexecStuff[] = $_SERVER[CORE] . "/autoexec/includes/reverse.php";
 	
 	// И классы
-	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form/_class.php";
+	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/form/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_lang.php";
 	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/mail.php";
@@ -255,6 +261,7 @@
 		
 	}
 	
+
 	$autoexecStuff[] = $_SERVER[TEMPLATES] . "/_autoexec.php";
 	
 	//print "<pre>" . print_r($autoexecArray, true) . "</pre>";

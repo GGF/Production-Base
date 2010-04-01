@@ -1,0 +1,6 @@
+.sun {
+	display: none;
+	position: absolute;
+	right: 0px;
+	z-index: 10;
+}

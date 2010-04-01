@@ -10,50 +10,53 @@
 	$options[jquery][] = "maskedinput";
 	
 	$list = array(
-		"/core/js/browserdetect.js",
-		"/core/contrib/jquery/jquery.js",
+		"/lib/core/js/browserdetect.js",
+		"/lib/core/contrib/jquery/jquery.js",
 	);
 	
 	// jQuery and contributions
-	foreach ($options[contrib] as $v)	$list[] = "/core/contrib/{$v}/{$v}.js";
-	foreach ($options[jquery] as $v)	$list[] = "/core/contrib/jquery/jquery." . trim($v) . ".js";
+	foreach ($options[contrib] as $v)	$list[] = "/lib/core/contrib/{$v}/{$v}.js";
+	foreach ($options[jquery] as $v)	$list[] = "/lib/core/contrib/jquery/jquery." . trim($v) . ".js";
 	
 	// CMS
-	$list[] = "/core/js/autoexec.js";
+	$list[] = "/lib/core/js/autoexec.js";
 	
-	$list[] = "/core/classes/form/form.js";
-	$list[] = "/core/classes/form_ajax/form_ajax.js";
+	//$list[] = "/lib/core/classes/form/form.js";
+	$list[] = "/lib/core/classes/form_ajax/form_ajax.js";
 	
-	$list[] = "/core/js/ajax.js";
-	$list[] = "/core/js/alert.js";
-	$list[] = "/core/js/png.js";
-	$list[] = "/core/js/pos.js";
-	$list[] = "/core/js/print.js";
-	$list[] = "/core/js/calendar.js";
+	$list[] = "/lib/core/js/ajax.js";
+	$list[] = "/lib/core/js/alert.js";
+	$list[] = "/lib/core/js/png.js";
+	$list[] = "/lib/core/js/pos.js";
+	$list[] = "/lib/core/js/print.js";
+	$list[] = "/lib/core/js/calendar.js";
 
-	$list[] = "/core/js/console" . ($_SERVER[debug][report] ? "" : "Gag") . ".js";
+	$list[] = "/lib/core/js/console" . ($_SERVER[debug][report] ? "" : "Gag") . ".js";
 	
 	if ($options[admin]) {
 		
-		$list[] = "/core/js/admin.js";
+		$list[] = "/lib/core/js/admin.js";
 		
-		$list[] = "/core/js/calendar.js";
-		$list[] = "/core/js/save.js";
-		$list[] = "/core/js/node.js";
-		$list[] = "/core/js/position.js";
-		$list[] = "/core/js/status.js";
-		$list[] = "/core/js/tabs.js";
-		$list[] = "/core/js/tooltip.js";
+		$list[] = "/lib/core/js/calendar.js";
+		$list[] = "/lib/core/js/save.js";
+		$list[] = "/lib/core/js/node.js";
+		$list[] = "/lib/core/js/position.js";
+		$list[] = "/lib/core/js/status.js";
+		$list[] = "/lib/core/js/tabs.js";
+		$list[] = "/lib/core/js/tooltip.js";
 		
 	} else {
 		
-		if ($_SERVER[debug][report]) $list[] = "/core/js/tabs.js";
+		if ($_SERVER[debug][report]) $list[] = "/lib/core/js/tabs.js";
 		
 	}
 	
+	// contrib autoexec
+							foreach($_SERVER[contrib] as $mod => $name) $list[] = "/lib/core/contrib/" . $mod . "/".$mod.".js";
+	//if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/modules/" . $mod . "/includes/scripts.js";
 	// Modules autoexec
-												foreach($_SERVER[modules] as $mod => $name) $list[] = "/modules/" . $mod . "/includes/autoexec.js";
-	if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/modules/" . $mod . "/includes/scripts.js";
+							foreach($_SERVER[modules] as $mod => $name) $list[] = "/lib/modules/" . $mod . "/includes/autoexec.js";
+	if ($options[admin])	foreach($_SERVER[modules] as $mod => $name) $list[] = "/lib/modules/" . $mod . "/includes/scripts.js";
 	
 	// Exclude
 	if (is_array($options[exjs]) && count($options[exjs])) foreach ($options[exjs] as $f) {
