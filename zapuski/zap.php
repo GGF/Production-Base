@@ -30,11 +30,9 @@ elseif (isset($edit))
 	$r = getright();
 	if ($r["zap"]["edit"]) {
 		echo "<br>Дозапустить <input id=dozap type=text size=2 name=dozap> штук";
-		echo "<script>$('#dozap').keypress(function (e) {if (e.which==13) {
-			editrecord('nzap','print=sl&dozap='+$('#dozap').val() + '&posid=$posid');
-		}});</script>";
+		echo "<script>$('#dozap').keyboard('enter',function () {editrecord('nzap','print=sl&dozap='+$(this).val() + '&posid=$posid')});</script>";
 	}
-	echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
+	//echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
 }
 elseif (isset($print)) 
 {

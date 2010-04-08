@@ -1,5 +1,34 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно при добавлении так как не вызывается заголовк html
+/*
+ * Добавляет дополнительные данны к мастерплатам 
+ */
+// Парамтеры
+$customer=''; //Заказчик  тут обозначаю потому что при вызове движка будут переписаны из $_GET, а warnings будет меньше
+$board=''; // Плата
+$ndraw=
+$osob=
+$nstek=
+$dop=
+$nprokl=
+$tprokl=
+$dfrez=
+$mn1=
+$mn2=
+$mn3=
+$mn4=
+$mn5=
+$mn6=
+$mn7=
+$mn8=
+$m1=
+$m2=
+$m3=
+$m4=
+$m5=
+$m6=
+$m7=
+$m8=''; // параметры из ТЗ, но они не заполняются никем и судя по всему этот скрипт уже не нужен
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; 
 
 // заказчик 
 $sql="SELECT id FROM customers WHERE customer='$customer'";
@@ -14,7 +43,6 @@ if (!empty($rs)) {
 
 // изменение платы
 $sql="SELECT id FROM blocks WHERE customer_id='$customer_id' AND blockname='$board'";
-debug($sql);
 $rs = sql::fetchOne($sql);
 if (empty($rs)) {
 	exit;

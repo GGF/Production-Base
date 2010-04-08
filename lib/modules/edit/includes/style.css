@@ -74,18 +74,4 @@
 	background-color: lightgreen;
 }
 
-.blockform {
-	width: 40%;
-	float: left;
-	height: 100%; /*min-height:100%;*/
-	background-color: lightgray;
-	border: solid -1px red;
-}
 
-.platepool {
-	height: 100%; /*min-height:100%;*/
-	float: left;
-	width: 60%;
-	background-color: gray;
-	border: solid -1px red;
-}

@@ -1,4 +1,5 @@
 <?
+// TODO : Архивация не доработана до AJAX
 // годовая архивация
 	// перенести движения
 	$sql = "INSERT INTO sk_".$sklad."_dvizh_arc (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh.type,sk_".$sklad."_dvizh.numd,sk_".$sklad."_dvizh.numdf,sk_".$sklad."_dvizh.docyr,sk_".$sklad."_dvizh.spr_id,sk_".$sklad."_dvizh.quant,sk_".$sklad."_dvizh.ddate,sk_".$sklad."_dvizh.post_id,sk_".$sklad."_dvizh.comment_id,sk_".$sklad."_dvizh.price FROM sk_".$sklad."_dvizh";

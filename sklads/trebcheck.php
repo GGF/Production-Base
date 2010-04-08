@@ -1,10 +1,14 @@
 <?
-// Отображает отчет
-$db = '`zaomppsklads`.';
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
+
+
+$db = '`zaomppsklads`.';
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
+$order=(string)$order;
+$find=(string)$find;
+
 
 $cols[check]="<input type=checkbox id='ucuc' onclick=\"if ($('#ucuc').attr('checked')) $('.check-me').attr({checked:true}); else $('.check-me').attr({checked:false});\">";
 $cols[nazv]="Наименование";
@@ -14,6 +18,7 @@ $cols[edizm]="Ед.Изм.";
 
 
 $table = new Table($processing_type,"","",$cols,false);
+
 $table->del= false;
 $table->edit= false;
 
@@ -21,12 +26,8 @@ if (empty($_GET[ddate]))
 	$ddate='';
 else 
 	$ddate=$_GET[ddate];
-//echo $ddate;
-//print_r($_GET);
-//print_r($_POST);
 
 $sql="SELECT ddate FROM (".$db."sk_".$sklad."_dvizh) WHERE type='0' AND numd<>'9999' GROUP BY ddate ORDER BY ddate DESC";
-//echo $sql."<br>";
 
 $title="Требования за:";
 $title.="<select onchange=\"updatetable('trebform','$processing_type','ddate='+$('#ddate').val())\" id=ddate name=ddate>";
@@ -118,12 +119,9 @@ $title.= "
 ";
 
 $title.="<input type=button value='Печать' onclick=\"window.open('treball.php?'+$('#trebform').serialize(),'_blanck')\">";
-//$title.="<input type=button onclick=\"alert($('#treb').serialize())\">";
 $table->title=$title;
 
 $sql="SELECT CONCAT('<input type=checkbox value=',sk_".$sklad."_spr.id,' name=id[',sk_".$sklad."_spr.id,'] class=check-me >') AS `check`,nazv,FORMAT(SUM(quant),3) as rashod,ost,ddate,edizm,".$db."sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_spr JOIN (".$db."sk_".$sklad."_dvizh,".$db."sk_".$sklad."_ost) ON (sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id AND sk_".$sklad."_dvizh.spr_id=sk_".$sklad."_spr.id) WHERE type='0' AND ddate='".$ddate."' AND numd<>'9999' ".(isset($find)?"AND nazv LIKE '%$find%' ":"")." GROUP BY nazv ".(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ");
-
-//echo $sql;
 
 $table->sql=$sql;
 $table->idstr='&ddate='.$ddate;

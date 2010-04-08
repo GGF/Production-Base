@@ -1,6 +1,6 @@
 <?
 $dbname = 'zaomppsklads';
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
+require $_SERVER[DOCUMENT_ROOT]."/lib/engine.php";
 authorize();
 
 
@@ -33,7 +33,7 @@ $menuitems=array(
 			);
 
 $sql = "SELECT YEAR(NOW())>(YEAR(sk_".$sklad."_dvizh_arc.ddate)+1) FROM zaomppsklads.sk_".$sklad."_dvizh_arc ORDER BY ddate DESC LIMIT 1";
-$rs = sqlShared::fetchOne($sql);
+$rs = sql::fetchOne($sql);
 if ($rs==1 || isset($year)) {
 	array_push($menuitems,array(
 						type	=>	"year",
@@ -45,7 +45,7 @@ if ($rs==1 || isset($year)) {
 array_push($menuitems,array(
 					type	=>	"back",
 					text	=>	"Назад",
-					link	=>	"/",
+					link	=>	"/sklads/",
 					picture	=>	"backsclads.gif",
 				));
 $menu->adds($menuitems);

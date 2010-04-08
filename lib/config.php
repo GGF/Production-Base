@@ -83,23 +83,29 @@
 		"edit"			=> "Окно редактирования",
 		"table"			=> "Таблица",
 		"menu"			=> "Меню",
-		"fileserver"	=> "функции для файлов",
-		"bazafunc"		=> "функции для конкретной базы",
 	);
 	
 	// МОДУЛИ ПРОЕКТА
 	
 	$_SERVER[contrib] = array(
-		"jquery"			=> array(),
-		"jquery.ui.core"	=>	array(),
-		"jquery.ui.datepicker"	=>	array(),
-		"jquery.ui.datepicker-ru1251"	=> array(),
-		"jquery.contextmenu"			=> array(),
-		"jquery.cookie"			=> array(),
-		"jquery.keyboard"	=> array(),
-		"jquery.wysiwyg"		=> array(),
-		"tabs"			=> array(),
-		"console"		=> array(),
+		"jquery"						=>	array(),
+		"jquery.ui.core"				=>	array(),
+		"jquery-ui-i18n"				=> 	array(),
+		"jquery.ui.widget"				=>	array(),
+		"jquery.ui.position" 			=>	array(),
+		"jquery.ui.mouse"	 			=>	array(),
+		"jquery.ui.autocomplete"		=>	array(),
+		"jquery.ui.button"				=>	array(),
+		"jquery.ui.combobox"			=>	array(),	
+		"jquery.ui.datepicker"			=>	array(),
+		"jquery.ui.draggable"			=>	array(),
+		"jquery.ui.droppable"			=>	array(),
+		"jquery.ui.resizable"			=>	array(),
+		"jquery.ui.dialog"				=>	array(),
+		"jquery.contextmenu"			=>	array(),
+		"jquery.cookie"					=>	array(),
+		"jquery.keyboard"				=>	array(),
+		"jquery.wysiwyg"				=>	array(),
 	);
 
 // КОНФИГУРАЦИЯ МОДУЛЕЙ

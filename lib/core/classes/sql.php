@@ -1,4 +1,7 @@
 <?
+/*
+ * cmsSQL класс используется далее для lang и shared (c) Osmio
+ */
 
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
@@ -671,7 +674,7 @@ class cmsSQL {
 			
 			$SQL[0] = $SQLbase;
 			foreach ($values as $SQLrow) {
-				
+// TODO : Откуда взялась $c				
 				if (mb_strlen($SQL . $SQLrow . ", ") > $this->maxPacket()) { $SQLn++; $SQL[$SQLn] = $SQLbase; $this->log("insert(): Новый подзапрос №{$c}", CMSSQL_TYPE_WARNING); }
 				$SQL[$SQLn] .= $SQLrow . ", ";
 				

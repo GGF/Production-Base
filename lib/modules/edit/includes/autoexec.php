@@ -1,4 +1,9 @@
 <?
+/*
+ * Класс Edit (c) GGF
+ * для форм 
+ * Собственно создает форму из осмио и вставляет скрыты поля для работы. ну и кнопки
+ */
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 	
 class Field {
@@ -61,7 +66,8 @@ class Edit {
 	}
 	
 	function show() {
-		$this->form->addFields(array(
+		/* закоментировал, потому что они делаются JS
+		 $this->form->addFields(array(
 			array(
 				"type"		=> CMSFORM_TYPE_BUTTON,
 				"name"		=> "save",
@@ -81,6 +87,7 @@ class Edit {
 				"options"		=> array ( "html" => " onclick=\"alert($('form[name=".$this->form->name."]').serialize())\" "),
 			),
 			));
+		*/
 		$this->form->init();
 		$this->form->form();
 		echo $this->form->add("tid");
@@ -88,15 +95,18 @@ class Edit {
 		echo $this->form->add("accept");
 		echo "<table>";
 		foreach($this->fields as $field) {
-			echo "<tr><td><label>$field->label</label><td>";
-			echo $this->form->add($field->name);
+			echo "<tr><td><label>$field->label</label>";
+			echo "<td>".$this->form->add($field->name)."";
 		}
+		/* закоментировал, потому что они делаются JS
 		echo "<tr><td colspan=3>";
 		echo $this->form->add("save");
 		echo $this->form->add("close");
 		echo $this->form->add("serialize");
 		echo "</table>";
+		*/
 		$this->form->end();
+		echo "<script>$('select').combobox();</script>";
 	}
 }
 

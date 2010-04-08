@@ -1,5 +1,7 @@
 <?
-
+/*
+ * AJAX форма (c) Osmio
+ */
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
 define("CMSFORM_TYPE_CODE",					"code");
@@ -639,7 +641,7 @@ class cmsForm_ajax {
 			"В" => "8",
 		);
 		
-		return mb_strToUpper(cmsReplace($replaces, $var, true));
+		return mb_strToUpper(cmsReplace($replaces, $var, true)); 
 		
 	}
 	

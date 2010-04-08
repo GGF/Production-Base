@@ -39,6 +39,7 @@ class Menu {
 	
 	function show() {
 		$this->start();
+		$fkey=0;
 		foreach($this->items as $item)
 		{
 			$text=$type=$link=$picture=$right='';
@@ -48,10 +49,14 @@ class Menu {
 				echo "</tr><tr>";
 			} else {
 				echo "<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div ".(empty($picture)?"":"style='background-image: URL(\"/picture/".$picture."\");'").">".(is_callable("addhypher")?addhypher($text):$text)."</div></a></div>";
+				if ($fkey++<10)
+					echo "<script>$.keyboard('ctrl+f".($fkey)."',function(){selectmenu('$type','".(empty($link)?"":$link)."')});</script>";
 			}
 		}
 		$this->end();
 	}
+	
+	
 }
 
 ?>

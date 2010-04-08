@@ -29,7 +29,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 				"label"		=>	"Заказчик:",
 				"values"	=>	$customers,
 				"value"		=> $zd["cusid"],
-				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
+				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat); \" customer ", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_SELECT,

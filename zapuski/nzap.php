@@ -82,7 +82,7 @@ if (isset($edit))
 			}
 		}
 	}
-	echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
+	//echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
 }
 elseif (isset($delete)) 
 {

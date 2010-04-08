@@ -44,7 +44,7 @@ if (isset($dr)) echo $mes;
 }
 
 // цитаты баша
-//echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
+echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
 }
 
 
@@ -56,7 +56,6 @@ function showfooter($buffer='')
 	else 
 		echo $buffer;
 	echo "</div>";
-	echo "<div class='loading' id='loading'>Загрузка...</div>";
 	echo "</body></html>";
 	printpage();
 }
