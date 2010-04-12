@@ -27,24 +27,26 @@ echo '
 </title>
 </head>
 <body >';
-echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
+if (!empty($subtitle)) {
+	echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
 
-//дни рождения
+	//дни рождения
 
-{
-$mes = "<div class='soob'>";
-$sql = "SELECT fio,dr, (YEAR(NOW())-YEAR(dr)) as let FROM workers WHERE DAYOFYEAR(dr)>= DAYOFYEAR(CURRENT_DATE()) AND DAYOFYEAR(dr)<= (DAYOFYEAR(CURRENT_DATE())+4) ORDER BY DAYOFYEAR(dr)";
-$res = sql::fetchAll($sql);
-foreach($res as $rs) {
-	$dr = true;
-	$mes .= "<div>День рождения - ".$rs["fio"]." - ".$rs["dr"]." - ".$rs["let"]." лет</div>";
+	{
+	$mes = "<div class='soob'>";
+	$sql = "SELECT fio,dr, (YEAR(NOW())-YEAR(dr)) as let FROM workers WHERE DAYOFYEAR(dr)>= DAYOFYEAR(CURRENT_DATE()) AND DAYOFYEAR(dr)<= (DAYOFYEAR(CURRENT_DATE())+4) ORDER BY DAYOFYEAR(dr)";
+	$res = sql::fetchAll($sql);
+	foreach($res as $rs) {
+		$dr = true;
+		$mes .= "<div>День рождения - ".$rs["fio"]." - ".$rs["dr"]." - ".$rs["let"]." лет</div>";
+	}
+	$mes .= "</div>";
+	if (isset($dr)) echo $mes;
+	}
+
+	// цитаты баша
+	echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
 }
-$mes .= "</div>";
-if (isset($dr)) echo $mes;
-}
-
-// цитаты баша
-echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
 }
 
 

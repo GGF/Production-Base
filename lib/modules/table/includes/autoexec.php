@@ -71,7 +71,7 @@ class Table {
 		if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Добавить' id=addbutton>";
 		
 		echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
-		//echo "<script>$('#findtext".$this->tid."').keyboard('enter',function(){updatetable($(this).attr('tid'),$(this).attr('ttype'),'find='+$(this).val()+$(this).attr('tall')+$(this).attr('idstr'));});</script>";
+		echo "<script>$('#findtext".$this->tid."').keyboard('enter',function(){updatetable($(this).attr('tid'),$(this).attr('ttype'),'find='+$(this).val()+$(this).attr('tall')+$(this).attr('idstr'));});</script>";
 	}
 	
 	function show() {
@@ -134,7 +134,7 @@ class Table {
 			curtr = firsttr;
 			lasttr = '$lasttrid';
 			$('#'+curtr).toggleClass('yellow');
-			table_set_keyboard();// привжем клавиши к таблице
+			//table_set_keyboard();// привжем клавиши к таблице
 			</script>";
 		}
 		echo "</table>"; 
