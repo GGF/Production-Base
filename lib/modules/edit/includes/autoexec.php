@@ -20,11 +20,13 @@ class Edit {
 	var $type;
 	var $fields;
 	var $form;
+	var $unids;
 	
 	
 	function Edit($type) {
 		
 		$this->type=$type;
+		$this->unids=array();
 	}
 	
 	function init() {
@@ -58,11 +60,17 @@ class Edit {
 	}
 	
 	function addFields($fields) {
+		$lfields = array();
+		$first=$unid = uniqid('fld');
 		foreach($fields as $field) {
 			$this->addfield($field["label"],$field["name"]);
+			$nunid = uniqid('fld');
+			$field["options"]["html"] .= " fieldid='".$unid."' fieldnext='".$nunid."'";
+			array_push($this->unids,$unid);
+			$unid=$nunid;
+			array_push($lfields,$field);
 		}
-		reset($fields);
-		$this->form->addFields($fields);
+		$this->form->addFields($lfields);
 	}
 	
 	function show() {
@@ -106,7 +114,10 @@ class Edit {
 		echo "</table>";
 		*/
 		$this->form->end();
-		echo "<script>$('select').combobox();</script>";
+		echo "<script>\$('select').combobox();</script>";
+		foreach($this->unids as $unid) {
+			echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid='+\$(this).attr('fieldnext')+']').focus();});</script>";
+		}
 	}
 }
 

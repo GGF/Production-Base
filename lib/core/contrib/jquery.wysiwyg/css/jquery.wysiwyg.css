@@ -36,7 +36,7 @@ div.wysiwyg ul.panel li a {
 	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('jquery.wysiwyg.gif') no-repeat -64px -80px;
+	background: url('/lib/core/contrib/jquery.wysiwyg/css/jquery.wysiwyg.gif') no-repeat -64px -80px;
 	overflow: hidden;
 	border: 0;
 	cursor: pointer;

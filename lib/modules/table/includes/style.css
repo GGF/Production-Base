@@ -32,17 +32,17 @@
 	border: solid black 1px;
 }
 
-td {
+.listtable td {
 	vertical-align: middle;
 }
 
-thead {
+.listtable thead {
 	font-weight: bold;
 	text-align: center;
 	padding: 5px;
 }
 
-th {
+.listtable th {
 	font-weight: bold;
 	text-align: center;
 	padding: 5px;

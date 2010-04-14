@@ -55,15 +55,15 @@
 }
 
 .jquery-tree-checked-partial {
-	background-image: url('checkbox-partial.png');
+	background-image: url('/lib/core/contrib/jquery.tree/css/checkbox-partial.png');
 }
 
 .jquery-tree-checked {
-	background-image: url('checkbox-checked.png');
+	background-image: url('/lib/core/contrib/jquery.tree/css/checkbox-checked.png');
 }
 
 .jquery-tree-unchecked {
-	background-image: url('checkbox-unchecked.png');
+	background-image: url('/lib/core/contrib/jquery.tree/css/checkbox-unchecked.png');
 }
 
 .jquery-tree-node label,.jquery-tree-handle {
