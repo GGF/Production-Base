@@ -134,7 +134,6 @@ class Table {
 			curtr = firsttr;
 			lasttr = '$lasttrid';
 			$('#'+curtr).toggleClass('yellow');
-			//table_set_keyboard();// привжем клавиши к таблице
 			</script>";
 		}
 		echo "</table>"; 

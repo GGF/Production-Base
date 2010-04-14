@@ -9,10 +9,12 @@ defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 class Field {
 	var $name;
 	var $label;
+	var $type;
 	
-	function Field($label,$name) {
+	function Field($label,$name,$type) {
 		$this->label=$label;
 		$this->name=$name;
+		$this->type=$type;
 	}
 }
 
@@ -21,6 +23,7 @@ class Edit {
 	var $fields;
 	var $form;
 	var $unids;
+	var $unidfirst;
 	
 	
 	function Edit($type) {
@@ -53,71 +56,55 @@ class Edit {
 		
 	}
 	
-	function addfield($label,$name)
+	function addfield($label,$name,$type)
 	{
-		$this->fields[$name]=new Field($label,$name);
+		$this->fields[$name]=new Field($label,$name,$type);
 		return $this;
 	}
 	
 	function addFields($fields) {
 		$lfields = array();
-		$first=$unid = uniqid('fld');
+		$this->unidfirst=$first=$unid = uniqid('fld');
 		foreach($fields as $field) {
-			$this->addfield($field["label"],$field["name"]);
-			$nunid = uniqid('fld');
-			$field["options"]["html"] .= " fieldid='".$unid."' fieldnext='".$nunid."'";
-			array_push($this->unids,$unid);
-			$unid=$nunid;
-			array_push($lfields,$field);
+			$this->addfield($field["label"],$field["name"],$field["type"]);
+			if ($field["type"] == CMSFORM_TYPE_TEXT or $field["type"] == CMSFORM_TYPE_SELECT) {
+				$nunid = uniqid('fld');
+				$field["options"]["html"] .= " ".$field["type"]." fieldid='".$unid."' fieldnext='".$nunid."'";
+				array_push($this->unids,$unid);
+				$unid=$nunid;
+			}
+			$last=array_push($lfields,$field);
 		}
 		$this->form->addFields($lfields);
 	}
 	
 	function show() {
-		/* закоментировал, потому что они делаются JS
-		 $this->form->addFields(array(
-			array(
-				"type"		=> CMSFORM_TYPE_BUTTON,
-				"name"		=> "save",
-				"value"		=> "Сохранить",
-				"options"		=> array ( "html" => " onclick=\"editrecord('".$this->type."',$('form[name=".$this->form->name."]').serialize())\" "),
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_BUTTON,
-				"name"		=> "close",
-				"value"		=> "Отмена",
-				"options"		=> array ( "html" => " onclick='closeedit()' "),
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_BUTTON,
-				"name"		=> "serialize",
-				"value"		=> "",
-				"options"		=> array ( "html" => " onclick=\"alert($('form[name=".$this->form->name."]').serialize())\" "),
-			),
-			));
-		*/
 		$this->form->init();
 		$this->form->form();
 		echo $this->form->add("tid");
 		echo $this->form->add("edit");
 		echo $this->form->add("accept");
+		// скрытые в начало
+		foreach($this->fields as $field) {
+			if ($field->type == CMSFORM_TYPE_HIDDEN) {
+				echo "".$this->form->add($field->name)."";
+			}
+		}
+		// остальные в таблице
 		echo "<table>";
 		foreach($this->fields as $field) {
-			echo "<tr><td><label>$field->label</label>";
-			echo "<td>".$this->form->add($field->name)."";
+			if ($field->type != CMSFORM_TYPE_HIDDEN) {
+				echo "<tr><td><label>$field->label</label>";
+				echo "<td>".$this->form->add($field->name)."";
+			}
 		}
-		/* закоментировал, потому что они делаются JS
-		echo "<tr><td colspan=3>";
-		echo $this->form->add("save");
-		echo $this->form->add("close");
-		echo $this->form->add("serialize");
 		echo "</table>";
-		*/
 		$this->form->end();
 		echo "<script>\$('select').combobox();</script>";
 		foreach($this->unids as $unid) {
 			echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid='+\$(this).attr('fieldnext')+']').focus();});</script>";
 		}
+		echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid=".$this->unidfirst."]').focus();});</script>";
 	}
 }
 
