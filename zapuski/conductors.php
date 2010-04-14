@@ -10,7 +10,7 @@ ob_start();
 if (isset($delete)) 
 {
 	// удаление
-	$sql = "UPDATE conductor-s SET ts=NOW(), user_id='".$_SESSION[userid]."', ready='1' WHERE id='$delete'";
+	$sql = "UPDATE conductors SET ts=NOW(), user_id='".$_SESSION[userid]."', ready='1' WHERE id='$delete'";
 	sql::query($sql);
 	echo "ok";
 }

@@ -50,7 +50,7 @@ class Menu {
 			} else {
 				echo "<td><div class='menuitemcp' id='$type'><a onclick=\"selectmenu('$type','".(empty($link)?"":$link)."')\"><div ".(empty($picture)?"":"style='background-image: URL(\"/picture/".$picture."\");'").">".(is_callable("addhypher")?addhypher($text):$text)."</div></a></div>";
 				if ($fkey++<10)
-					echo "<script>$.keyboard('ctrl+f".($fkey)."',function(){selectmenu('$type','".(empty($link)?"":$link)."')});</script>";
+					echo "<script>$.keyboard('ctrl+f".($fkey)."',function(){if(\$('#dialog').is(':hidden')) {selectmenu('$type','".(empty($link)?"":$link)."');}});</script>";
 			}
 		}
 		$this->end();
