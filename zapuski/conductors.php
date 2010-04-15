@@ -4,6 +4,8 @@
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
 ob_start();
 
@@ -14,13 +16,8 @@ if (isset($delete))
 	sql::query($sql);
 	echo "ok";
 }
-elseif (isset($edit)|| isset(${'form_'.$processing_type})) 
+elseif (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
-	}
-	
 	if (!isset($accept) ) {
 		$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
 		//echo $sql;

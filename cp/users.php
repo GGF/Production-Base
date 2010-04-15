@@ -4,15 +4,13 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
+
 ob_start();
 
-if (isset($edit) || isset(${'form_'.$processing_type})) 
+if (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
-	}
-	
 	if (!isset($accept)) {
 		$sql = "SELECT * FROM users WHERE id='".$edit."'";
 		$rs=sql::fetchOne($sql);

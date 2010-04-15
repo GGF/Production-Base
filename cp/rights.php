@@ -4,14 +4,13 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
+ob_start();
 
-if (isset($edit) || isset(${'form_'.$processing_type})) 
+if (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
-	}
-	
+	// todo: d массив должно преобразовать чеквоксы
 	if (!isset($accept)) {
 		$sql = "SELECT * FROM rights WHERE id='".$edit."'";
 		$rs=sql::fetchOne($sql);
@@ -19,15 +18,14 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 		
 		$form = new Edit($processing_type);
 		$form->init();
-		/*$form->addFields(array(
-		);*/
+
 		$sql="SELECT * FROM rtypes";
 		$res=sql::fetchAll($sql);
 		$sql = "SELECT * FROM rrtypes";
 		$res1=sql::fetchAll($sql);
 		foreach($res as $rs) 
 		{
-			$label = sprintf("[%-10s]:",$rs["type"]);
+			$label = sprintf("<span id='rrr' rtype='".$rs["type"]."'>[%-10s]</span>:",$rs["type"]);
 			$name = "r|".$rs["id"]."";//sprintf("[%-10s]:",$rs["type"]);
 			//echo $name."<br>";
 			foreach($res1 as $rs1) 
@@ -46,7 +44,7 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 						"label"		=>	$label,
 						"value"		=>	$value,
 						"values"	=>	$values,
-						"options"	=>	array( "nobr"=>true, ),
+						"options"	=>	array( "nobr"=>true, "html" => " rtype=".$rs["type"]." " ),
 					),
 				));
 				unset($values);unset($value);
@@ -59,15 +57,21 @@ if (isset($edit) || isset(${'form_'.$processing_type}))
 			),
 		));
 		$form->show();
-	} else {
+		echo "<script>\$('#rrr').live('click',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',true);});</script>";
+		echo "<script>\$('#rrr').live('dblclick',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',false);});</script>";
+	}
+	else 
+	{
 		// сохрнение
 		$sql="DELETE FROM rights WHERE u_id='$userid'";
-		sql::query($sql) or die(sql::error(true));
-			if (!empty($r)) {
+		sql::query($sql);
+		// сложный случай чекбоксов
+		array_walk(${'form_'.$processing_type},'checkbox2array');
+		if (!empty($r)) {
 			foreach ($r as $key=>$val) {
 				foreach($val as $k=>$V) {
 					$sql="INSERT INTO rights (u_id,type_id,rtype_id,rights.right) VALUES ('$userid','$key','$k','1')";
-					sql::query($sql) or die(sql::error(true));
+					sql::query($sql);
 				}
 			}
 		}
@@ -98,4 +102,6 @@ else
 	$table->addbutton=true;
 	$table->show();
 }
+
+printpage();
 ?>

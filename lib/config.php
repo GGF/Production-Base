@@ -40,7 +40,7 @@
 		"showNotices"		=> true,
 		"checkReverse"	=> false,
 	);
-	$_SERVER[debug] = false;
+	//$_SERVER[debug] = false;
 	
 	// НАСТРОЙКА MYSQL
 	
@@ -51,7 +51,7 @@
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
-				//"query" 	=> true,
+				"query" 	=> true,
 				"notice"	=> true,
 				"warning"	=> true,
 				"error"		=> true,
@@ -65,7 +65,7 @@
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
-				"query" 	=> true,
+				//"query" 	=> true,
 				"notice"	=> true,
 				"warning"	=> true,
 				"error"		=> true,
@@ -74,6 +74,12 @@
 			"persistent"	=> true,
 		),
 	);
+	
+	// настройки файлового сервера
+	define("SERVERFILECODEPAGE",$_SERVER[HTTP_HOST]=="bazawork1"?"UTF-8":"KOI8R"); // в каком виде файловая система
+	define("NETBIOS_SERVERNAME",$_SERVER[HTTP_HOST]=="bazawork1"?"server4":"servermpp"); // на каком сервере файлы шарятся
+	define("SHARE_ROOT_DIR","/home/common/"); // коренвой катлог  для share [z] и [t]
+
 	
 	// МОДУЛИ ПРОЕКТА
 	
@@ -128,6 +134,8 @@
 		),
 	);
 	
+	
+	// баловался, на деле ручками в локальном файле проще
 	$_SERVER[tableaction] = array(
 		"users"		=>	array( "next" => "rights" ),
 		"rights"	=>	array( "next" => "openrights" ),

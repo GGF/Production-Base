@@ -4,6 +4,9 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
+
 ob_start();
 
 if(isset($id)) $spr_id=$id;
@@ -20,13 +23,8 @@ if (isset($delete))
 	sql::error(true);
 	echo "ok";
 } 
-elseif (isset($edit) || isset(${'form_'.$processing_type})) 
+elseif (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
-	}
-	
 	if (isset($accept)) 
 	{
 		// отредактировано

@@ -3,19 +3,12 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
-if (isset($edit) || isset(${'form_'.$processing_type})) 
+
+if (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		foreach(${'form_'.$processing_type} as $key => $val) {
-			if (mb_detect_encoding($val)=="UTF-8") 
-				${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
-			else 
-				${$key}=$val;
-		}
-	}
-	
 	if (!isset($accept)) 
 	{
 		$sql = "SELECT * FROM todo WHERE id='".$edit."'";

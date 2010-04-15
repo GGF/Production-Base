@@ -1,13 +1,17 @@
 <?
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
+/*
+* Перекодирует файловые ссылки в нужные 
+* $filelink имеет вид z:\dir\file.ext
+*/
+
 function sharefilelink($filelink) {
-	return "file://servermpp/".str_replace("\\","/",str_replace(":","",$filelink))."";
+	return "file://".NETBIOS_SERVERNAME."/".str_replace(":","",str_replace("\\","/",$filelink))."";
 }
 
-define("SERVERFILECODEPAGE",$_SERVER[HTTP_HOST]=="bazawork1"?"UTF-8":"KOI8R");
 function serverfilelink($filelink) {
-	return mb_convert_encoding("/home/common/".str_replace("заказчики","Заказчики",str_replace("\\","/",str_replace(":","",$filelink))),SERVERFILECODEPAGE,"cp1251");
+	return iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],SHARE_ROOT_DIR.str_replace(":","",str_replace("\\","/",str_replace("заказчики","Заказчики",$filelink))));
 }
 
 function removeOSsimbols($filename) {
@@ -18,7 +22,7 @@ function removeOSsimbols($filename) {
 
 function createdironserver($filelink) {
 	list($disk,$path) = explode(":",$filelink);
-	$serpath = "/home/common/".strtolower($disk)."/";
+	$serpath = SHARE_ROOT_DIR.strtolower($disk)."/";
 	$path=str_replace("\\\\","\\",$path);
 	$dirs = explode("\\",$path);
 	$filename = $dirs[count($dirs)-1];
@@ -28,14 +32,14 @@ function createdironserver($filelink) {
 	foreach($dirs as $cat) {
 		if (!empty($cat)) {
 			$cats .= str_replace("заказчики","Заказчики",$cat)."/";
-			$dir = mb_convert_encoding($serpath.$cats,SERVERFILECODEPAGE,"cp1251");
+			$dir = iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],$serpath.$cats);
 			if (!is_dir($dir)) {
 				mkdir ($dir);
 				chmod ($dir,0777);
 			} 
 		}
 	}
-return $dir.mb_convert_encoding($filename,SERVERFILECODEPAGE,"cp1251");
+return $dir.iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],$filename);
 
 }
 

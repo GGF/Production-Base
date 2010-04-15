@@ -4,13 +4,11 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
 
-if (isset($edit) || isset(${'form_'.$processing_type})) 
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
+
+if (isset($edit)) 
 {
-	// serialize form
-	if(!empty(${'form_'.$processing_type})){
-		serializeform(${'form_'.$processing_type});
-	}
-	
 	if (!isset($accept) ) 
 	{
 		$sql="SELECT *, customers.id AS cusid, plates.id AS plid FROM zadel JOIN (customers,plates) ON (zadel.board_id=plates.id AND plates.customer_id=customers.id) WHERE zadel.id='$edit'";

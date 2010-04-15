@@ -104,12 +104,13 @@ class Edit {
 		foreach($this->unids as $unid) {
 			echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid='+\$(this).attr('fieldnext')+']').focus();});</script>";
 		}
-		echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid=".$this->unidfirst."]').focus();});</script>";
+		if (isset($unid)) echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid=".$this->unidfirst."]').focus();});</script>";
 	}
 }
 
 
 //функция для преобразования из формы в глобальные
+/*
 function serializeform($form) {
 		foreach($form as $key => $val) {
 			if (!is_array($val) and mb_detect_encoding($val)=="UTF-8") 
@@ -137,7 +138,26 @@ function serializeform($form) {
 			}
 		}
 }
+*/
 
+function checkbox2array($val,$key) {
+	if (strstr($key,"|")) {
+		$tmp=preg_match_all("/([^|]+)/",$key,$matches);//$key=substr($key,0,$pos)."[";
+		$matches=$matches[0];
+		$key=$matches[0];
+		global ${$key};
+		switch (count($matches)){
+			case 2:
+				${$key}[$matches[1]] = $val;
+				break;
+			case 3:
+				${$key}[$matches[1]][$matches[2]] = $val;
+				break;
+			default:
+				break;
+		}
+	}
+}
 
 // 2 функции преобразования даты для пикера и базы
 function date2datepicker($date) {

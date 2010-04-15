@@ -1,9 +1,11 @@
 <?
 // отображает логи
-
+// TODO: Переделать логи - сейчас показывает старые, и соответственно не работает вообще - не ведуться
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
-
+$processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
 if (isset($edit) || isset($add) ) {
 	echo "<script>window.close();</script>";
@@ -29,7 +31,7 @@ else
 	$cols[sqltext]="SQL";
 
 	
-	$table = new Table("logs","",$sql,$cols);
+	$table = new Table($processing_type,"",$sql,$cols);
 	$table->show();
 	
 }

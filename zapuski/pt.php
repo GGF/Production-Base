@@ -4,9 +4,11 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
+// serialize form
+if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
-if (isset($edit) || isset($add) ) {
-
+if (isset($edit)) {
+	// ничего
 } elseif (isset($delete)) {
 	// удаление
 	$sql = "DELETE FROM phototemplates WHERE id='$delete'";
