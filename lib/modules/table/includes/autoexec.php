@@ -54,31 +54,39 @@ class Table {
 	
 	
 	
-	function show_header() {
+	function show_header($buttons=true) {
 		echo "<table class='listtable' style='background-color:".$this->bgcolor.";' cellspacing=0 cellpadding=0 id='".$this->tid."'".(!empty($this->find)?" find='$this->find' ":"").(!empty($this->idstr)?" idstr='$this->idstr' ":"").(!$this->all?" tall='$this->all' ":"").(!empty($this->order)?" order='$this->order' ":"").">";
 		echo "<thead>";
 		if (!empty($this->title)) {echo "<tr><th colspan=100 align=center>".$this->title;}
 		echo "<tr>";
 		reset($this->cols);
 		while (list($key, $val) = each($this->cols)) {
-			echo "<th>".(($key=='check' or $key=="№")?"":"<a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">").$val.(($key=='check' or $key=="№")?"":($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>");
+			if ($buttons) {
+				echo "<th>".(($key=='check' or $key=="№")?"":"<a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">").$val.(($key=='check' or $key=="№")?"":($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>");
+			} 
+			else
+			{
+				echo "<th>".$val;
+			}
 		}
 		if ($this->edit) {echo "<th>&nbsp;";}
 		if ($this->del)  {echo "<th>&nbsp;";}
 		echo "<tbody>";
-		echo "<tr><td colspan=100 width=100%><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"Последние 20":"Все")."' id=allbutton>";
-		
-		if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Добавить' id=addbutton>";
-		
-		echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
-		//echo "<script>$('#findtext".$this->tid."').keyboard('enter',function(){updatetable($(this).attr('tid'),$(this).attr('ttype'),'find='+$(this).val()+$(this).attr('tall')+$(this).attr('idstr'));});</script>";
-		//echo "<script>$('#findtext".$this->tid."').keyboard('esc',function(){\$(this).blur();});</script>";
+		if ($buttons) {
+			echo "<tr><td colspan=100 width=100%><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"Последние 20":"Все")."' id=allbutton>";
+			
+			if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Добавить' id=addbutton>";
+			
+			echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
+			//echo "<script>$('#findtext".$this->tid."').keyboard('enter',function(){updatetable($(this).attr('tid'),$(this).attr('ttype'),'find='+$(this).val()+$(this).attr('tall')+$(this).attr('idstr'));});</script>";
+			//echo "<script>$('#findtext".$this->tid."').keyboard('esc',function(){\$(this).blur();});</script>";
+		}
 	}
 	
-	function show() {
+	function show($showheader=true) {
 		global $user;
 
-		$this->show_header();
+		$this->show_header($showheader);
 
 		$res = sql::fetchAll($this->sql);
 		

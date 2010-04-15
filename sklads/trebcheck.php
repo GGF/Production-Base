@@ -118,7 +118,7 @@ $title.= "
 </table>
 ";
 
-$title.="<input type=button value='Печать' onclick=\"window.open('treball.php?'+$('#trebform').serialize(),'_blanck')\">";
+$title.="<input type=submit value='Печать' >";
 $table->title=$title;
 
 $sql="SELECT CONCAT('<input type=checkbox value=',sk_".$sklad."_spr.id,' name=id[',sk_".$sklad."_spr.id,'] class=check-me >') AS `check`,nazv,FORMAT(SUM(quant),3) as rashod,ost,ddate,edizm,".$db."sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_spr JOIN (".$db."sk_".$sklad."_dvizh,".$db."sk_".$sklad."_ost) ON (sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id AND sk_".$sklad."_dvizh.spr_id=sk_".$sklad."_spr.id) WHERE type='0' AND ddate='".$ddate."' AND numd<>'9999' ".(isset($find)?"AND nazv LIKE '%$find%' ":"")." GROUP BY nazv ".(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ");
@@ -126,7 +126,7 @@ $sql="SELECT CONCAT('<input type=checkbox value=',sk_".$sklad."_spr.id,' name=id
 $table->sql=$sql;
 $table->idstr='&ddate='.$ddate;
 
-echo "<form method=post onsubmit=\"return false;\" name=trebform id=trebform>";
+echo "<form method=post action='treball.php' target=_blank name=trebform id=trebform>";
 
 $table->show();
 

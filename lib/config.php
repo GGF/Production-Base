@@ -40,7 +40,7 @@
 		"showNotices"		=> true,
 		"checkReverse"	=> false,
 	);
-	//$_SERVER[debug] = false;
+	$_SERVER[debug] = false;
 	
 	// ÍÀÑÒĞÎÉÊÀ MYSQL
 	
@@ -65,7 +65,7 @@
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
-				//"query" 	=> true,
+				"query" 	=> true,
 				"notice"	=> true,
 				"warning"	=> true,
 				"error"		=> true,

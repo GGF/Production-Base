@@ -9,18 +9,16 @@ require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
 foreach ($_GET as $key => $val) {
 	${$key}=$val;
 	if (!is_array($val)) {
-		if (mb_detect_encoding($val,"UTF-8, cp1251")=="UTF-8") 
-			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+		if (is_utf($val)) 
+			${$key}=cmsUTF_decode($val);
 	}
-	//echo mb_detect_encoding($val)."=".$key."=>".$val."==>".${$key};
 }
 foreach ($_POST as $key => $val) {
 	${$key}=$val;
 	if (!is_array($val)) {
-		if (mb_detect_encoding($val,"UTF-8, cp1251")=="UTF-8") 
-			${$key}=mb_convert_encoding($val,"cp1251","UTF-8");
+		if (is_utf($val)) 
+			${$key}=cmsUTF_decode($val);
 	}
-	//echo mb_detect_encoding($val)."=".$key."=>".$val."==>".${$key};
 }
 
 define("MODAUTH_ADMIN", false);

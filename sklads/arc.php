@@ -18,12 +18,14 @@ $db = '`zaomppsklads`.';
 require $_SERVER[DOCUMENT_ROOT]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
-$find=(string)$find; //забавно, не показалось предупреждение о неопределенности переменной
+$processing_type=basename (__FILE__,".php");
+ob_start();
 
-if (empty($_GET[delete])) {
+
+if (isset($delete)) {
 	// не удалется
 } 
-elseif (isset($_GET[edit]))
+elseif (isset($edit))
 {
 	include 'arcdvizh.php';
 } 
@@ -32,7 +34,7 @@ else
 // вывести таблицу
 	
 
-	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_arc_".$sklad."_spr.id FROM ".$db."`sk_arc_".$sklad."_spr` JOIN ".$db."sk_arc_".$sklad."_ost ON sk_arc_".$sklad."_ost.spr_id=sk_arc_".$sklad."_spr.id WHERE nazv!='' ".(!empty($find)?"AND nazv LIKE '%".$find."%' ":"").(!empty($_GET[order])?"ORDER BY ".$_GET[order]." ":"ORDER BY nazv ").(isset($_GET[all])?"":"LIMIT 20");
+	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_arc_".$sklad."_spr.id FROM ".$db."`sk_arc_".$sklad."_spr` JOIN ".$db."sk_arc_".$sklad."_ost ON sk_arc_".$sklad."_ost.spr_id=sk_arc_".$sklad."_spr.id WHERE nazv!='' ".(!empty($find)?"AND nazv LIKE '%".$find."%' ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
 	
 	$cols[nazv]="Название";
@@ -48,4 +50,5 @@ else
 	$table->show();
 }
 
+printpage();
 ?>

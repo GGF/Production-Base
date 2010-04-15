@@ -17,13 +17,15 @@ $bot = file_get_contents ("bottom.tpl");
 	echo $buffer;
 	$sql = "SELECT *,sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_dvizh JOIN ".$db."sk_".$sklad."_spr ON sk_".$sklad."_dvizh.spr_id=sk_".$sklad."_spr.id WHERE ddate='$ddate'";
 	$res = sql::fetchAll($sql);
-	foreach ($res as $rs) {
-		if(array_key_exists($rs["id"], $id)) {
-			$buffer = $middle;
-			$buffer=str_replace("_nazv_",$rs["nazv"],$buffer);
-			$buffer=str_replace("_edizm_",$rs["edizm"],$buffer);
-			$buffer=str_replace("_otp_",$rs["quant"],$buffer);
-			echo $buffer;
+	if (is_array($id)) {
+		foreach ($res as $rs) {
+			if(array_key_exists($rs["id"], $id)) {
+				$buffer = $middle;
+				$buffer=str_replace("_nazv_",$rs["nazv"],$buffer);
+				$buffer=str_replace("_edizm_",$rs["edizm"],$buffer);
+				$buffer=str_replace("_otp_",$rs["quant"],$buffer);
+				echo $buffer;
+			}
 		}
 	}
 	$buffer = $bot;

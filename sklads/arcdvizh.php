@@ -22,14 +22,11 @@ authorize();
 $db = '`zaomppsklads`.';
 $sklad = $_COOKIE["sklad"];
 
-$id=(int)$id;
-$delete = (int)$delete;
-$order=(string)$order;
-$find=(string)$find;
+ob_start();
 
 if(!empty($id)) $spr_id=$id;
 
-if (!empty($delete)) {
+if (isset($delete)) {
 	// из архива не удаляем
 } 
 elseif (isset($_GET[edit])) {
@@ -58,4 +55,5 @@ else
 	$table->show();
 	
 }
+printpage();
 ?>

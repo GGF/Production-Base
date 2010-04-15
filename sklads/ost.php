@@ -4,7 +4,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");
-
+ob_start();
 
 if (isset($delete))
 {
@@ -109,4 +109,5 @@ if (isset($delete))
 	$table->show();
 }
 
+printpage();
 ?>
