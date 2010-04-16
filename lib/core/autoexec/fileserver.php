@@ -11,7 +11,7 @@ function sharefilelink($filelink) {
 }
 
 function serverfilelink($filelink) {
-	return iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],SHARE_ROOT_DIR.str_replace(":","",str_replace("\\","/",str_replace("заказчики","Заказчики",$filelink))));
+	return cmsUTF_encode(SHARE_ROOT_DIR.str_replace(":","",str_replace("\\","/",$filelink)));
 }
 
 function removeOSsimbols($filename) {
@@ -31,15 +31,15 @@ function createdironserver($filelink) {
 	$cats='';
 	foreach($dirs as $cat) {
 		if (!empty($cat)) {
-			$cats .= str_replace("заказчики","Заказчики",$cat)."/";
-			$dir = iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],$serpath.$cats);
+			$cats .= $cat."/";
+			$dir = cmsUTF_encode($serpath.$cats);
 			if (!is_dir($dir)) {
 				mkdir ($dir);
 				chmod ($dir,0777);
 			} 
 		}
 	}
-return $dir.iconv(SERVERFILECODEPAGE,$_SERVER[cmsEncodingCP],$filename);
+return $dir.cmsUTF_encode($filename);
 
 }
 

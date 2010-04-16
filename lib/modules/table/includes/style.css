@@ -48,3 +48,8 @@
 	padding: 5px;
 	border: solid black 2px;
 }
+
+.listtable th a {
+	text-decoration:none;
+	color:black;
+}

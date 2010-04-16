@@ -24,7 +24,7 @@ if (isset($edit))
 	else 
 	{
 		// только просмотр
-		echo "<a href='#' onclick=\"window.open('nzap.php?print=tz&posid=$posid');void(0);\">".$rs["file_link"]."</a><br>";
+		echo "<a href='#' class='filelink' onclick=\"window.open('nzap.php?print=tz&posid=$posid');void(0);\">".$rs["file_link"]."</a><br>";
 	}
 	echo "&nbsp;".$rs["blockname"]."&nbsp;&nbsp;&nbsp;".$rs["numbers"]."шт.&nbsp;&nbsp;&nbsp;".ceil($rs["bsizex"])."x".ceil($rs["bsizey"])." ".$rs["mask"]." ".$rs["mark"]." ".($rs["template_make"]=='0'?$rs["template_check"]:$rs["template_make"])."шаб. <br>";
 
@@ -495,7 +495,7 @@ elseif (isset($print))
 			header('Content-type: text/html; charset=windows-1251'); // потому что в для принта не посылается
 			$sql="SELECT file_link FROM lanch JOIN (filelinks) ON (file_link_id=filelinks.id) WHERE lanch.id='$lanch_id'";
 			$rs=sql::fetchOne($sql);
-			echo "<a href='".sharefilelink($rs[file_link])."'>СЛ-$lanch_id</a><br>";
+			echo "<a class=filelink href='".sharefilelink($rs[file_link])."'>СЛ-$lanch_id</a><br>";
 		} else {
 			//echo mb_convert_encoding($filename,"cp1251","UTF-8");
 			echo "Не удалось создать файл";

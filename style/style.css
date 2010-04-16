@@ -1,18 +1,4 @@
-a, a:hover { 
-	text-decoration: none;
-}
-A:link {
-	color: black;
-	text-decoration: none;
-}  /* unvisited link */
-A:visited {
-	color: black;
-	text-decoration: none;
-}  /* visited links */
-A:active {
-	color: black;
-	text-decoration: none;
-}  /* active links */
+
 A img {
 	border: 0;
 }
