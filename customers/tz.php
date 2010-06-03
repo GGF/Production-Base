@@ -122,12 +122,11 @@ if (isset($edit))
 		}
 		else
 		{
-			// пока ничего
-			$sql = "SELECT file_link FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
+			$sql = "SELECT file_link,file_link_id FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
 			//echo $sql;
 			$rs=sql::fetchOne($sql);
 			echo "<div style='margin:10px'>";
-			echo "<a href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
+			echo "<a href='".sharefilelink($rs[file_link])."' class='filelink' onclick=\"window.open('tz.php?print=file&flink=".$rs[file_link_id]."');void(0);\">TZ-$edit</a>";
 			echo "</div>";
 		}
 	}
@@ -150,7 +149,11 @@ elseif (isset($delete))
 } 
 elseif (isset($print)) 
 {
-
+	$sql="SELECT file_link FROM filelinks WHERE id='$flink'";
+	$rs=sql::fetchOne($sql);
+	$filelink =  serverfilelink($rs[file_link]);
+	header("Content-type: application/vnd.ms-excel");
+	@readfile($filelink);
 } 
 else 
 {

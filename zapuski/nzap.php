@@ -11,21 +11,14 @@ if(!isset($print)) ob_start();
 
 if (isset($edit)) 
 {
-	$r = getright();
 
 	$posid=isset($show)?$id:(isset($edit)?$edit:$add);
 	$sql="SELECT *,tz.id AS tzid, blocks.sizex AS bsizex, blocks.sizey AS bsizey, blocks.id AS bid FROM posintz JOIN (tz,filelinks) ON (tz.id=posintz.tz_id AND tz.file_link_id=filelinks.id) LEFT JOIN (blocks) ON (blocks.id=block_id) WHERE posintz.id='$posid'";
 	//echo $sql;
 	$rs=sql::fetchOne($sql);
-	if ($r["nzap"]["edit"]) 
-	{
-		echo "<a class='filelink' href='".sharefilelink($rs["file_link"])."'>".$rs["file_link"]."</a><br>";
-	} 
-	else 
-	{
-		// только просмотр
-		echo "<a href='#' class='filelink' onclick=\"window.open('nzap.php?print=tz&posid=$posid');void(0);\">".$rs["file_link"]."</a><br>";
-	}
+	// только просмотр
+	// файлы запуска храняться в папке с конструкторскими документами и открыть всё равно могут только те у кого есть доступ поэтому можно копировать ссылку в буффер и открыть, а по клику получить копию
+	echo "<a href='".sharefilelink($rs["file_link"])."' class='filelink' onclick=\"window.open('nzap.php?print=file&flink=".$rs[file_link_id]."');void(0);\">".$rs["file_link"]."</a><br>";
 	echo "&nbsp;".$rs["blockname"]."&nbsp;&nbsp;&nbsp;".$rs["numbers"]."шт.&nbsp;&nbsp;&nbsp;".ceil($rs["bsizex"])."x".ceil($rs["bsizey"])." ".$rs["mask"]." ".$rs["mark"]." ".($rs["template_make"]=='0'?$rs["template_check"]:$rs["template_make"])."шаб. <br>";
 
 	$sql="SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, boards.id AS bid FROM blockpos JOIN (customers,blocks,boards) ON (customers.id=boards.customer_id AND blocks.id=block_id AND boards.id=board_id) WHERE block_id='".$rs["bid"]."'";
@@ -48,7 +41,7 @@ if (isset($edit))
 	//echo $nz." ".$nl."<br>";
 
 
-	if ($r["nzap"]["edit"]) 
+	if ($_SESSION[rights][nzap][edit]) 
 	{
 		if ($nl>2) 
 		{
@@ -85,7 +78,6 @@ if (isset($edit))
 			}
 		}
 	}
-	//echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
 }
 elseif (isset($delete)) 
 {
@@ -121,7 +113,7 @@ elseif (isset($print))
 		$sizey=$rs[sizey];
 		$drlname=$rs[drlname];
 		$date = date("d-m-Y");
-		$filename = createdironserver("z:/Заказчики/".$customer."/".$blockname."/Мастерплаты/МП-".date("Y-m-d")."-".$mp_id.".xml");
+		$filename = createdironserver("z:\\\\Заказчики\\\\".$customer."\\\\".$blockname."\\\\Мастерплаты\\\\МП-".date("Y-m-d")."-".$mp_id.".xml");
 		//echo $filename;
 		$excel = file_get_contents("mp.xml");
 		$excel = str_replace("_number_",sprintf("%08d",$mp_id),$excel);
@@ -212,13 +204,21 @@ elseif (isset($print))
 				$cl = max($cl,$rs["class"]);
 				$piz += $rs["nib"];
 				$customer=$rs["customer"];
+				$customer_id =$rs["customer_id"];
 				$blockname=$rs["blockname"];
 			}
 			
-			if ($customer == 'Радар') // радар
-				$zip = 1;
+			if (isset($mpp)) 
+			{
+				if ($customer_id == '8') // радар
+					$zip = 1;
+				else
+					$zip = 5;
+			}
 			else
-				$zip = 5;
+			{
+				$zip=25;
+			}
 			
 			$numbz = $nz<=$zip?$nz:(isset($last)?($nz-($party-1)*$zip):$zip);
 			$numbp = $nz<=$zip?$numbers:(isset($last)?($numbers-($party-1)*$zip*$piz):$zip*$piz);
@@ -242,20 +242,7 @@ elseif (isset($print))
 		$date = date("d-m-Y");
 		// Определим идентификатор коментария
 		$comment_id =1;//пустой
-		/*
-		{
-		if(empty($comment)) $comment='';
-		$sql="SELECT id FROM coments WHERE comment='$comment'";
-		if ($rs=sql::fetchOne($sql)){
-			$comment_id = $rs["id"];
-		} else {
-			$sql="INSERT INTO coments (comment) VALUES ('$comment')";
-			sql::query($sql);
-			sql::error(true);
-			$comment_id = sql::lastId();
-		}
-		}
-		*/
+
 		// Определим идентификатор файловой ссылки
 		{
 		$file_link = 'z:\\\\Заказчики\\\\'.$customer.'\\\\'.$blockname.'\\\\запуски\\\\СЛ-'.date("Y-m-d").'-'.$lanch_id.'.xml';
@@ -323,7 +310,7 @@ elseif (isset($print))
 				WHERE posintz.id='$posid'";
 			$rs = sql::fetchOne($sql);
 			foreach ($rs as $key => $val) {
-				${$key}=mb_convert_encoding($val,"UTF-8","cp1251");
+				${$key}=cmsUTF_encode($val);
 			}
 			// сделать тсобственно сопроводительный
 			if (isset($dozap)) 
@@ -342,7 +329,7 @@ elseif (isset($print))
 			}
 			$excel = '';
 			$excel .= file_get_contents("sl.xml");
-			$excel = str_replace("_type_",($layers=='1'?mb_convert_encoding("ОПП","UTF-8","cp1251"):mb_convert_encoding("ДПП","UTF-8","cp1251")),$excel);
+			$excel = str_replace("_type_",($layers=='1'?cmsUTF_encode("ОПП"):cmsUTF_encode("ДПП")),$excel);
 			$excel = str_replace("_letter_",$letter,$excel);
 			$excel = str_replace("_ldate_",$ldate,$excel);
 			$excel = str_replace("_number_",sprintf("%08d",$lanch_id),$excel);
@@ -360,7 +347,7 @@ elseif (isset($print))
 			$mater = ($pmater==''?$mater:$pmater);
 			$excel = str_replace("_mater_",$mater."-".$tolsh,$excel);
 			$excel = str_replace("_mask_",$mask,$excel);
-			$excel = str_replace("_pokr_",($immer=='1'?mb_convert_encoding("Иммерсионное золото","UTF-8","cp1251"):mb_convert_encoding("ПОС61","UTF-8","cp1251")),$excel);
+			$excel = str_replace("_pokr_",($immer=='1'?cmsUTF_encode("Иммерсионное золото"):cmsUTF_encode("ПОС61")),$excel);
 			$excel = str_replace("_priem_",$priem,$excel);
 			$scomp = sprintf("%3.2f",$scomp/10000);
 			$excel = str_replace("_scomp_",$scomp,$excel);
@@ -368,8 +355,8 @@ elseif (isset($print))
 			$excel = str_replace("_ssold_",$ssold,$excel);
 			$psimat = ($ppsimat==''?$psimat:$ppsimat);
 			$excel = str_replace("_psimat_",$psimat."-".$tolsh,$excel);
-			$excel = str_replace("_aurum_",($aurum=='1'?mb_convert_encoding("Золочение контактов","UTF-8","cp1251"):""),$excel);
-			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("ДОЗАПУСК","UTF-8","cp1251"):""),$excel);
+			$excel = str_replace("_aurum_",($aurum=='1'?cmsUTF_encode("Золочение контактов"):""),$excel);
+			$excel = str_replace("_dozap_",(isset($dozap)?cmsUTF_encode("ДОЗАПУСК"):""),$excel);
 		} 
 		elseif (isset($mpp))
 		{
@@ -411,7 +398,7 @@ elseif (isset($print))
 			WHERE posintz.id='$posid'";
 			$rs = sql::fetchOne($sql);
 			foreach ($rs as $key => $val) {
-				${$key}=mb_convert_encoding($val,"UTF-8","cp1251");
+				${$key}=cmsUTF_encode($val);
 			}
 			if (isset($dozap)) 
 			{
@@ -422,7 +409,7 @@ elseif (isset($print))
 			}
 			else
 			{
-				$nz = ceil($numbers/$piz*1.15); // общее количество заготовок + 15%
+				$nz = ceil($numbers/$piz*1.15); // общее количество заготовок + 15%// а может не надо?
 				$zag = ($party*$zip>=$nz)?($nz-($party-1)*$zip):$zip;
 				$ppart = (ceil($nz/$zip)>1)?(isset($last)?($numbers-(ceil($numbers/$piz/$zip)-1)*$piz*$zip)."($numbers)":$zag*$piz."($numbers)"):$numbers;
 			}
@@ -476,40 +463,39 @@ elseif (isset($print))
 			$ssold = sprintf("%3.2f",$ssold/10000);
 			$excel = str_replace("_ssold_",$ssold,$excel);
 			$excel = str_replace("_etest_",$etest,$excel);
-			$excel = str_replace("_priemo_",(strstr($priem,mb_convert_encoding("ОТК","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_priemp_",(strstr($priem,mb_convert_encoding("ПЗ","UTF-8","cp1251"))?"+":"-"),$excel);
+			$excel = str_replace("_priemo_",(strpos($priem,cmsUTF_encode("ОТК"))?"+":"-"),$excel);
+			$excel = str_replace("_priemp_",(strpos($priem,cmsUTF_encode("ПЗ"))?"+":"-"),$excel);
 			$excel = str_replace("_impokr_",($immer=='1'?"+":"-"),$excel);
 			$excel = str_replace("_lamel_",($aurum=='1'?$lamel:"-"),$excel);
 			$excel = str_replace("_mark_",$mark,$excel);
 			$excel = str_replace("_rmark_",($rmark=='1'?"+":"-"),$excel);
-			$excel = str_replace("_maskz_",(strstr($mask,mb_convert_encoding("Ж","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_masks_",(strstr($mask,mb_convert_encoding("К","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("ДОЗАПУСК","UTF-8","cp1251"):""),$excel);
+			$excel = str_replace("_maskz_",(strpos($mask,cmsUTF_encode("Ж"))?"+":"-"),$excel);
+			$excel = str_replace("_masks_",(strpos($mask,cmsUTF_encode("К"))?"+":"-"),$excel);
+			$excel = str_replace("_dozap_",(isset($dozap)?cmsUTF_encode("ДОЗАПУСК"):""),$excel);
 		}
 		// записать файл
-		//echo $filename."<br>";
 		if ($file = @fopen($filename,"w")) {
 			fwrite($file,$excel);
 			fclose($file);
 			chmod($filename,0777);
 			header('Content-type: text/html; charset=windows-1251'); // потому что в для принта не посылается
-			$sql="SELECT file_link FROM lanch JOIN (filelinks) ON (file_link_id=filelinks.id) WHERE lanch.id='$lanch_id'";
+			$sql="SELECT file_link,file_link_id FROM lanch JOIN (filelinks) ON (file_link_id=filelinks.id) WHERE lanch.id='$lanch_id'";
 			$rs=sql::fetchOne($sql);
-			echo "<a class=filelink href='".sharefilelink($rs[file_link])."'>СЛ-$lanch_id</a><br>";
+			//echo $zip."-".$numbz."-".$numbp;
+			echo "<a href='".sharefilelink($rs["file_link"])."' class='filelink' onclick=\"window.open('nzap.php?print=file&flink=".$rs["file_link_id"]."');void(0);\">СЛ-$lanch_id</a><br>";
 		} else {
 			//echo mb_convert_encoding($filename,"cp1251","UTF-8");
 			echo "Не удалось создать файл";
 		}
 
 	} 
-	elseif ($print="tz") 
+	elseif ($print="file") 
 	{
-		$sql="SELECT file_link FROM posintz JOIN (filelinks,tz) ON (posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id) WHERE posintz.id='$posid'";
+		$sql="SELECT file_link FROM filelinks WHERE id='$flink'";
 		$rs=sql::fetchOne($sql);
-		$filelink =  serverfilelink($rs[0]);
-		$file = file_get_contents($filelink);
+		$filelink =  serverfilelink($rs[file_link]);
 		header("Content-type: application/vnd.ms-excel");
-		echo $file;
+		@readfile($filelink);
 	}
 }
 else
