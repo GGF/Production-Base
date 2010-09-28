@@ -11,8 +11,8 @@ $menu->add("customers","Заказчики");
 $menu->add("orders","Заказы");
 $menu->add("tz","ТЗ");
 $menu->add("posintz","Позиции ТЗ");
-$menu->add("boards","Платы");
-$menu->add("blocks","Блоки");
+$menu->add("blocks","Блоки",false);
+$menu->add("boards","Платы",false);
 $menu->add("back","Назад",false,'/');
 
 $menu->show();

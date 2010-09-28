@@ -40,13 +40,13 @@
 		"showNotices"		=> true,
 		"checkReverse"	=> false,
 	);
-	//$_SERVER[debug] = false;
+	$_SERVER[debug] = false;
 	
 	// ÍÀÑÒÐÎÉÊÀ MYSQL
 	
 	$_SERVER[mysql] = array(
 		"lang"	=> array(
-			"host"	=> "localhost",
+			"host"	=> "servermpp.mpp",
 			"base"	=> "zaomppsklads",
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
@@ -60,7 +60,7 @@
 			"persistent"	=> true,
 		),
 		"shared"	=> array(
-			"host"	=> "localhost",
+			"host"	=> "servermpp.mpp",
 			"base"	=> "zaompp",
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
