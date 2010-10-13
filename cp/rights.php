@@ -1,8 +1,8 @@
 <?
-// управление правами доступа
+// СѓРїСЂР°РІР»РµРЅРёРµ РїСЂР°РІР°РјРё РґРѕСЃС‚СѓРїР°
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -10,7 +10,7 @@ ob_start();
 
 if (isset($edit)) 
 {
-	// todo: d массив должно преобразовать чеквоксы
+	// todo: d РјР°СЃСЃРёРІ РґРѕР»Р¶РЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ С‡РµРєРІРѕРєСЃС‹
 	if (!isset($accept)) {
 		$sql = "SELECT * FROM rights WHERE id='".$edit."'";
 		$rs=sql::fetchOne($sql);
@@ -62,10 +62,10 @@ if (isset($edit))
 	}
 	else 
 	{
-		// сохрнение
+		// СЃРѕС…СЂРЅРµРЅРёРµ
 		$sql="DELETE FROM rights WHERE u_id='$userid'";
 		sql::query($sql);
-		// сложный случай чекбоксов
+		// СЃР»РѕР¶РЅС‹Р№ СЃР»СѓС‡Р°Р№ С‡РµРєР±РѕРєСЃРѕРІ
 		array_walk(${'form_'.$processing_type},'checkbox2array');
 		if (!empty($r)) {
 			foreach ($r as $key=>$val) {
@@ -79,14 +79,14 @@ if (isset($edit))
 	}
 
 } elseif (isset($delete)) {
-	// удаление
+	// СѓРґР°Р»РµРЅРёРµ
 	$sql = "DELETE FROM rights WHERE id='$delete'";
 	sql::query($sql) or die(sql::error(true));
 	echo "ok";
 }
 else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 	if (isset($id)) $uid=$id;
 	// sql
 	$sql="SELECT *,rights.id AS rid,rights.right AS enable,rights.id FROM rights JOIN (users,rtypes,rrtypes) ON (users.id=rights.u_id AND rtypes.id=rights.type_id AND rrtypes.id=rights.rtype_id) ".(isset($find)?"WHERE (type LIKE '%$find%' OR rtype LIKE '%$find%') ":"").(isset($uid)?(isset($find)?"AND u_id='$uid' ":"WHERE u_id='$uid' "):"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY type ").(isset($all)?"":"LIMIT 20");

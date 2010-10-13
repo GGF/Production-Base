@@ -15,7 +15,7 @@
 				$_SERVER[mysql][shared]
 			);
 			
-			profiler::add("Autoexec", "MySQL: Ïîäêëþ÷åíèå îáùåé ÁÄ");
+			profiler::add("Autoexec", "MySQL: ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð¾Ð±Ñ‰ÐµÐ¹ Ð‘Ð”");
 			
 			
 			self::$errors			= &sql::$shared->_errors;

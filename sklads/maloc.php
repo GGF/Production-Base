@@ -1,5 +1,5 @@
 <?
 $sklad='maloc_';
-$skladname = "Ìàëîöåíêà";
+$skladname = "ÐœÐ°Ð»Ð¾Ñ†ÐµÐ½ÐºÐ°";
 include "common.php";
 ?>

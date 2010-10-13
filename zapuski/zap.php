@@ -1,21 +1,21 @@
 <?
-// Отображает запущенные платы
+// РћС‚РѕР±СЂР°Р¶Р°РµС‚ Р·Р°РїСѓС‰РµРЅРЅС‹Рµ РїР»Р°С‚С‹
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
 if (isset($delete)) 
 {
-	// уберем признак запуска
+	// СѓР±РµСЂРµРј РїСЂРёР·РЅР°Рє Р·Р°РїСѓСЃРєР°
 	$sql="SELECT pos_in_tz_id FROM lanch WHERE id='$delete'";
 	$rs=sql::fetchOne($sql);
 	$sql="UPDATE posintz SET ldate='0000-00-00' WHERE id='".$rs["pos_in_tz_id"]."'";
 	sql::query($sql);
 	sql::error(true);
-	// удаление
+	// СѓРґР°Р»РµРЅРёРµ
 	$sql = "DELETE FROM lanch WHERE id='$delete'";
 	sql::query($sql);
 	sql::error(true);
@@ -24,17 +24,17 @@ if (isset($delete))
 elseif (isset($edit))
 {
 	$posid=isset($show)?$id:(isset($edit)?$edit:$add);
-	echo "<a class=filelink href=zap.php?print=sl&id=$posid title='Открыть СЛ (локальную копию)'>СЛ - $posid</a><br>";
+	echo "<a class=filelink href=zap.php?print=sl&id=$posid title='РћС‚РєСЂС‹С‚СЊ РЎР› (Р»РѕРєР°Р»СЊРЅСѓСЋ РєРѕРїРёСЋ)'>РЎР› - $posid</a><br>";
 	$sql="SELECT tz.id FROM posintz JOIN (lanch,tz) ON (lanch.pos_in_tz_id=posintz.id AND tz.id=posintz.tz_id ) WHERE lanch.id='$posid'";
 	//echo $sql;
 	$rs=sql::fetchOne($sql);
-	echo "<a class=filelink href=zap.php?print=tz&id=".$rs[id]." title='Открыть ТЗ (локальную копию)'>ТЗ - $rs[id]</a>";
+	echo "<a class=filelink href=zap.php?print=tz&id=".$rs[id]." title='РћС‚РєСЂС‹С‚СЊ РўР— (Р»РѕРєР°Р»СЊРЅСѓСЋ РєРѕРїРёСЋ)'>РўР— - $rs[id]</a>";
 	$r = getright();
 	if ($r["zap"]["edit"]) {
-		echo "<br>Дозапустить <input id=dozap type=text size=2 name=dozap> штук";
+		echo "<br>Р”РѕР·Р°РїСѓСЃС‚РёС‚СЊ <input id=dozap type=text size=2 name=dozap> С€С‚СѓРє";
 		echo "<script>$('#dozap').keyboard('enter',function () {editrecord('nzap','print=sl&dozap='+$(this).val() + '&posid=$posid')});</script>";
 	}
-	//echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
+	//echo "<br><input type=button onclick='closeedit()' value='Р—Р°РєСЂС‹С‚СЊ'>";
 }
 elseif (isset($print)) 
 {
@@ -61,23 +61,24 @@ elseif (isset($print))
 }
 else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 
 	// sql
-	$sql="SELECT *,lanch.id AS lanchid,lanch.id FROM lanch JOIN (users,filelinks,coments,plates,customers,tz,orders) ON (lanch.user_id=users.id AND lanch.file_link_id=filelinks.id AND lanch.comment_id=coments.id AND lanch.board_id=plates.id AND plates.customer_id=customers.id AND lanch.tz_id=tz.id AND orders.id=tz.order_id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR file_link LIKE '%$find%' OR orders.number LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY lanch.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+	$sql="SELECT *,IF(instr(fltz.file_link,'РњРџРџ')>0, 'РњРџРџ', 'Р”РџРџ') AS type, lanch.id AS lanchid,lanch.id FROM lanch JOIN (users,filelinks,coments,plates,customers,tz,orders,filelinks as fltz) ON (lanch.user_id=users.id AND lanch.file_link_id=filelinks.id AND lanch.comment_id=coments.id AND lanch.board_id=plates.id AND plates.customer_id=customers.id AND lanch.tz_id=tz.id AND orders.id=tz.order_id AND tz.file_link_id=fltz.id) ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR fltz.file_link LIKE '%$find%' OR orders.number LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY lanch.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 	//echo $sql; exit;
 
 	
-	$cols["№"]="№";
-	$cols[ldate]="Дата";
+	$cols["в„–"]="в„–";
+	$cols[ldate]="Р”Р°С‚Р°";
 	$cols[lanchid]="ID";
-	$cols[nik]="Запустил";
-	$cols[customer]="Заказчик";
-	$cols[number]="Заказ";
-	$cols[plate]="Плата";
-	$cols[part]="Партия";
-	$cols[numbz]="Заг.";
-	$cols[numbp]="Плат";
+	$cols[type]="РўРёРї";
+	$cols[nik]="Р—Р°РїСѓСЃС‚РёР»";
+	$cols[customer]="Р—Р°РєР°Р·С‡РёРє";
+	$cols[number]="Р—Р°РєР°Р·";
+	$cols[plate]="РџР»Р°С‚Р°";
+	$cols[part]="РџР°СЂС‚РёСЏ";
+	$cols[numbz]="Р—Р°Рі.";
+	$cols[numbp]="РџР»Р°С‚";
 	
 
 	$table = new Table($processing_type,$processing_type,$sql,$cols);

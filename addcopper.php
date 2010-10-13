@@ -1,14 +1,14 @@
 <?
 /*
- *  Çàíîñèò ïëîùàäü è ðàçìåðû çàãîòîâêè â áàçó
+ *  Ð—Ð°Ð½Ð¾ÑÐ¸Ñ‚ Ð¿Ð»Ð¾Ñ‰Ð°Ð´ÑŒ Ð¸ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñ‹ Ð·Ð°Ð³Ð¾Ñ‚Ð¾Ð²ÐºÐ¸ Ð² Ð±Ð°Ð·Ñƒ
  */
-// Ïàðàìòåðû
-$customer=''; //Çàêàç÷èê  òóò îáîçíà÷àþ ïîòîìó ÷òî ïðè âûçîâå äâèæêà áóäóò ïåðåïèñàíû èç $_GET, à warnings áóäåò ìåíüøå
-$board=''; // Ïëàòà
+// ÐŸÐ°Ñ€Ð°Ð¼Ñ‚ÐµÑ€Ñ‹
+$customer=''; //Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº  Ñ‚ÑƒÑ‚ Ð¾Ð±Ð¾Ð·Ð½Ð°Ñ‡Ð°ÑŽ Ð¿Ð¾Ñ‚Ð¾Ð¼Ñƒ Ñ‡Ñ‚Ð¾ Ð¿Ñ€Ð¸ Ð²Ñ‹Ð·Ð¾Ð²Ðµ Ð´Ð²Ð¸Ð¶ÐºÐ° Ð±ÑƒÐ´ÑƒÑ‚ Ð¿ÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ð½Ñ‹ Ð¸Ð· $_GET, Ð° warnings Ð±ÑƒÐ´ÐµÑ‚ Ð¼ÐµÐ½ÑŒÑˆÐµ
+$board=''; // ÐŸÐ»Ð°Ñ‚Ð°
 $comp=$solder=$drillname=$sizex=$sizey='';
-// ñîîòâåòñòâåííî
-// ïëîùàäü, ïëîùàäü, èìÿ ñâåðëîâêè, ðàçìåð, ðàçìåð 
-require $_SERVER [DOCUMENT_ROOT] . "/lib/engine.php"; // ýòî íóæíî ïðè äîáàâëåíèè òàê êàê íå âûçûâàåòñÿ çàãîëîâê html
+// ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾
+// Ð¿Ð»Ð¾Ñ‰Ð°Ð´ÑŒ, Ð¿Ð»Ð¾Ñ‰Ð°Ð´ÑŒ, Ð¸Ð¼Ñ ÑÐ²ÐµÑ€Ð»Ð¾Ð²ÐºÐ¸, Ñ€Ð°Ð·Ð¼ÐµÑ€, Ñ€Ð°Ð·Ð¼ÐµÑ€ 
+require $_SERVER [DOCUMENT_ROOT] . "/lib/engine.php"; // ÑÑ‚Ð¾ Ð½ÑƒÐ¶Ð½Ð¾ Ð¿Ñ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð½Ðµ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ðº html
 
 
 if (empty ( $customer ))
@@ -42,7 +42,7 @@ if (empty($rs)) {
 	$sql = "UPDATE coppers SET scomp='$comp', ssolder='$solder', drlname='$drillname', sizex='$sizex', sizey='$sizey' WHERE customer_id='$customer_id' AND plate_id='$plate_id'";
 	sql::query ($sql) or die(sql::error(true));
 }
-// èçìåíåíèÿ â áëîêè
+// Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð² Ð±Ð»Ð¾ÐºÐ¸
 $sql = "SELECT id FROM blocks WHERE customer_id='$customer_id' AND blockname='$board'";
 $rs = sql::fetchOne($sql);
 if (empty($rs)) {
@@ -54,11 +54,11 @@ if (empty($rs)) {
 	sql::query ($sql) or die(sql::error(true));
 }
 
-// à òåïðåðü ñîçàäèäèì ôàë êîïèðîâàíèÿ ñâåðëîâîê
+// Ð° Ñ‚ÐµÐ¿Ñ€ÐµÑ€ÑŒ ÑÐ¾Ð·Ð°Ð´Ð¸Ð´Ð¸Ð¼ Ñ„Ð°Ð» ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ ÑÐ²ÐµÑ€Ð»Ð¾Ð²Ð¾Ðº
 $sql = "SELECT kdir FROM customers WHERE id='$customer_id'";
 $rs = sql::fetchOne($sql);
 if (empty($rs)) {
-	if ($customer == "Èìïóëüñ") {
+	if ($customer == "Ð˜Ð¼Ð¿ÑƒÐ»ÑŒÑ") {
 		$rs [kdir] .= "\\$drillname";
 		$mpp = -1;
 	}

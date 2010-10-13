@@ -1,7 +1,7 @@
 <?
-// управление заделом
+// СѓРїСЂР°РІР»РµРЅРёРµ Р·Р°РґРµР»РѕРј
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 
 // serialize form
@@ -24,7 +24,7 @@ if (isset($edit))
 			array(
 				"type"		=> CMSFORM_TYPE_SELECT,
 				"name"		=> "customer_id",
-				"label"		=>	"Заказчик:",
+				"label"		=>	"Р—Р°РєР°Р·С‡РёРє:",
 				"values"	=>	$customers,
 				"value"		=> $zd["cusid"],
 				"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat); \" customer ", ),
@@ -32,7 +32,7 @@ if (isset($edit))
 			array(
 				"type"		=> CMSFORM_TYPE_SELECT,
 				"name"		=> "plate_id",
-				"label"		=>	"Плата:",
+				"label"		=>	"РџР»Р°С‚Р°:",
 				"values"	=>	$plates,
 				"value"		=> $zd["plid"],
 				"options"	=>	array( "html" => " plates ", ),
@@ -40,21 +40,21 @@ if (isset($edit))
 			array(
 				"type"		=>	CMSFORM_TYPE_TEXT,
 				"name"		=>	"number",
-				"label"		=>	'Количество:',
+				"label"		=>	'РљРѕР»РёС‡РµСЃС‚РІРѕ:',
 				"value"		=>	$zd["number"],
 				//"options"	=>	array( "html" => "size=10", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "niz",
-				"label"			=>'№ извещения:',
+				"label"			=>'в„– РёР·РІРµС‰РµРЅРёСЏ:',
 				"value"		=> $zd["niz"],
 				//"options"	=>	array( "html" => "size=10", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "ldate",
-				"label"			=>'Дата:',
+				"label"			=>'Р”Р°С‚Р°:',
 				"value"		=> date2datepicker($zd[ldate]),
 				"options"		=> array( "html" => ' datepicker=1 '),
 			),
@@ -63,7 +63,7 @@ if (isset($edit))
 	} 
 	else 
 	{
-		// сохранение
+		// СЃРѕС…СЂР°РЅРµРЅРёРµ
 		$ldate=datepicker2date($ldate);
 		if (!empty($edit)) {
 			$sql = "UPDATE zadel SET number = '$number', ldate='$ldate', board_id='$plate_id', niz='$niz' WHERE id='$edit'";
@@ -93,13 +93,13 @@ else
 	//print $sql;
 	
 	$cols = array (
-		"№"		=>		"№",
+		"в„–"		=>		"в„–",
 		"zid"	=>		"ID",
-		"customer"	=>	"Заказчик",
-		"plate"		=>	"Плата",
-		"niz"		=>	"№ изв.",
-		"ldate"		=>	"Дата запуска",
-		"number"	=>	"Кол-во",
+		"customer"	=>	"Р—Р°РєР°Р·С‡РёРє",
+		"plate"		=>	"РџР»Р°С‚Р°",
+		"niz"		=>	"в„– РёР·РІ.",
+		"ldate"		=>	"Р”Р°С‚Р° Р·Р°РїСѓСЃРєР°",
+		"number"	=>	"РљРѕР»-РІРѕ",
 	);
 
 	$table = new Table("zd","zd",$sql,$cols);

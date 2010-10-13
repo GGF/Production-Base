@@ -1,13 +1,13 @@
 <?
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
-// Ïîäêëþ÷åíèå áèáëèîòåêè.
+// ÐŸÐ¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ðµ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ¸.
 require_once $_SERVER[DOCUMENT_ROOT] . "/lib/modules/hypher/includes/hypher.php";
 
-// Çàãðóçêà ôàéëà îïèñàíèÿ è íàáîðà ïðàâèë.
+// Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ñ„Ð°Ð¹Ð»Ð° Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ñ Ð¸ Ð½Ð°Ð±Ð¾Ñ€Ð° Ð¿Ñ€Ð°Ð²Ð¸Ð».
 $hy_ru = hypher_load($_SERVER[DOCUMENT_ROOT] . '/lib/modules/hypher/includes/hyph_ru_RU.conf');
 
-// "ïåðåãðóçêà" ÿ ñîáèðàþñü âûçûâàòü òîëüêî ñ îäíèì ñëîâàð¸ì. çà÷åì ÿêàæäûé ðàç ó÷èòûâàò áóäó
+// "Ð¿ÐµÑ€ÐµÐ³Ñ€ÑƒÐ·ÐºÐ°" Ñ ÑÐ¾Ð±Ð¸Ñ€Ð°ÑŽÑÑŒ Ð²Ñ‹Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ Ð¾Ð´Ð½Ð¸Ð¼ ÑÐ»Ð¾Ð²Ð°Ñ€Ñ‘Ð¼. Ð·Ð°Ñ‡ÐµÐ¼ ÑÐºÐ°Ð¶Ð´Ñ‹Ð¹ Ñ€Ð°Ð· ÑƒÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°Ñ‚ Ð±ÑƒÐ´Ñƒ
 function addhypher($text) {
 	global $hy_ru;
 	return hypher($hy_ru, $text);

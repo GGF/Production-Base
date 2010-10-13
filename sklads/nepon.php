@@ -1,5 +1,5 @@
 <?
 $sklad='nepon_';
-$skladname = "Ñâåðëà 3.175";
+$skladname = "Ð¡Ð²ÐµÑ€Ð»Ð° 3.175";
 include "common.php";
 ?>

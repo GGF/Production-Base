@@ -1,7 +1,7 @@
 <?
-// ñîçäàíèå è ðåäàêòèðîâàíèå Òåõ çàäàíèé
+// ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¸ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¢ÐµÑ… Ð·Ð°Ð´Ð°Ð½Ð¸Ð¹
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -9,22 +9,22 @@ if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 ob_start();
 
 if (isset($edit)) {
-	// íå ðåäàêòèðóåì, ïîêà
+	// Ð½Ðµ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼, Ð¿Ð¾ÐºÐ°
 } elseif (isset($delete)) 
 {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM posintz WHERE id='$delete'";
 	sql::query($sql);
-	// óäàëåíèå ñâÿçåé
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 	echo "ok";
 } else 
 {
-	// ñïèñîê
+	// ÑÐ¿Ð¸ÑÐ¾Ðº
 	if (!empty($_SESSION[tz_id]))
 	{
 		$tzid = $_SESSION[tz_id];
 		$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (plates) ON ( posintz.plate_id = plates.id ) ".(isset($find)?"WHERE (plates.plate LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
-		$title = "Ïîçèöèè â ÒÇ ".$_SESSION[customer]." - ".$_SESSION[order]." îò ".$_SESSION[orderdate]." - #".$_SESSION[tz_id]."";
+		$title = "ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¸ Ð² Ð¢Ð— ".$_SESSION[customer]." - ".$_SESSION[order]." Ð¾Ñ‚ ".$_SESSION[orderdate]." - #".$_SESSION[tz_id]."";
 	} 
 	elseif (true)
 	{
@@ -33,8 +33,8 @@ if (isset($edit)) {
 	{
 	}
 	$cols[posid]="ID";
-	$cols[plate]="Ïëàòà";
-	$cols[numbers]="Êîëè÷åñòâî";
+	$cols[plate]="ÐŸÐ»Ð°Ñ‚Ð°";
+	$cols[numbers]="ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾";
 
 	$table = new Table($processing_type,$processing_type,$sql,$cols);
 	$table->title=$title;

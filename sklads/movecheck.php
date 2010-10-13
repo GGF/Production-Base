@@ -1,18 +1,18 @@
 <?
-// Отображает отчет
+// РћС‚РѕР±СЂР°Р¶Р°РµС‚ РѕС‚С‡РµС‚
 $db = '`zaomppsklads`.';
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
 
-if (!empty($find) && $find=='Искать...') unset($find); // костыль
+if (!empty($find) && $find=='РСЃРєР°С‚СЊ...') unset($find); // РєРѕСЃС‚С‹Р»СЊ
 
-$cols[nazv]="Наименование";
-$cols[prihod]="Приход";
-$cols[rashod]="Расход";
-$cols[ost]="Остаток на сегодня";
-$cols[edizm]="Ед.Изм.";
+$cols[nazv]="РќР°РёРјРµРЅРѕРІР°РЅРёРµ";
+$cols[prihod]="РџСЂРёС…РѕРґ";
+$cols[rashod]="Р Р°СЃС…РѕРґ";
+$cols[ost]="РћСЃС‚Р°С‚РѕРє РЅР° СЃРµРіРѕРґРЅСЏ";
+$cols[edizm]="Р•Рґ.РР·Рј.";
 
 
 $table = new Table("movecheck","","",$cols,false);
@@ -27,17 +27,17 @@ $sql="(SELECT MONTH(ddate) as dmonth, YEAR(ddate) as dyear FROM (".$db."sk_".$sk
 
 if (isset($o1)) 
 {
-	$title = "Движения за ".date("F",mktime(0,0,0,$month/10000))." ".($month%10000);
+	$title = "Р”РІРёР¶РµРЅРёСЏ Р·Р° ".date("F",mktime(0,0,0,$month/10000))." ".($month%10000);
 }
 else
 {
-	$title="Отчет за месяц:";
+	$title="РћС‚С‡РµС‚ Р·Р° РјРµСЃСЏС†:";
 	$title.="<select onchange=\"updatetable('".$table->tid."','movecheck','?o1&month='+$('#month').val())\" id=month name=month>";
 	$res = sql::fetchAll($sql);
 	foreach($res as $rs) {
 		$title.="<option value=".($rs["dmonth"]*10000+$rs["dyear"])." ".((floor($month/10000)==$rs["dmonth"] && ($month%10000)==$rs["dyear"])?"SELECTED":"").">".sprintf("%02d",$rs["dmonth"])."-".$rs["dyear"]."</option>";
 	}
-	$title.="</select><input type=hidden name=o1><input type=submit value='Печать'>";
+	$title.="</select><input type=hidden name=o1><input type=submit value='РџРµС‡Р°С‚СЊ'>";
 
 }
 
@@ -51,7 +51,7 @@ $table->sql=$sql;
 $table->idstr='&month='.$month;
 echo isset($o1)?"":"<form method=post target=_blank action='".$processing_type.".php'>";
 $table->show(!isset($o1));
-echo isset($o1)?"":"<input type=hidden name=find value=''></form>";// пустой файнд для правильной печати
+echo isset($o1)?"":"<input type=hidden name=find value=''></form>";// РїСѓСЃС‚РѕР№ С„Р°Р№РЅРґ РґР»СЏ РїСЂР°РІРёР»СЊРЅРѕР№ РїРµС‡Р°С‚Рё
 
 
 

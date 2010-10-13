@@ -1,8 +1,8 @@
 <?
 /*
- * Класс Edit (c) GGF
- * для форм 
- * Собственно создает форму из осмио и вставляет скрыты поля для работы. ну и кнопки
+ * РљР»Р°СЃСЃ Edit (c) GGF
+ * РґР»СЏ С„РѕСЂРј 
+ * РЎРѕР±СЃС‚РІРµРЅРЅРѕ СЃРѕР·РґР°РµС‚ С„РѕСЂРјСѓ РёР· РѕСЃРјРёРѕ Рё РІСЃС‚Р°РІР»СЏРµС‚ СЃРєСЂС‹С‚С‹ РїРѕР»СЏ РґР»СЏ СЂР°Р±РѕС‚С‹. РЅСѓ Рё РєРЅРѕРїРєРё
  */
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 	
@@ -84,13 +84,13 @@ class Edit {
 		echo $this->form->add("tid");
 		echo $this->form->add("edit");
 		echo $this->form->add("accept");
-		// скрытые в начало
+		// СЃРєСЂС‹С‚С‹Рµ РІ РЅР°С‡Р°Р»Рѕ
 		foreach($this->fields as $field) {
 			if ($field->type == CMSFORM_TYPE_HIDDEN) {
 				echo "".$this->form->add($field->name)."";
 			}
 		}
-		// остальные в таблице
+		// РѕСЃС‚Р°Р»СЊРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ
 		echo "<table>";
 		foreach($this->fields as $field) {
 			if ($field->type != CMSFORM_TYPE_HIDDEN) {
@@ -109,7 +109,7 @@ class Edit {
 }
 
 
-//функция для преобразования из формы в глобальные
+//С„СѓРЅРєС†РёСЏ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РёР· С„РѕСЂРјС‹ РІ РіР»РѕР±Р°Р»СЊРЅС‹Рµ
 /*
 function serializeform($form) {
 		foreach($form as $key => $val) {
@@ -159,7 +159,7 @@ function checkbox2array($val,$key) {
 	}
 }
 
-// 2 функции преобразования даты для пикера и базы
+// 2 С„СѓРЅРєС†РёРё РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РґР°С‚С‹ РґР»СЏ РїРёРєРµСЂР° Рё Р±Р°Р·С‹
 function date2datepicker($date) {
 	return !empty($date)?date("d.m.Y",mktime(0,0,0,ceil(substr($date,5,2)),ceil(substr($date,8,2)),ceil(substr($date,1,4)))):date("d.m.Y");
 }

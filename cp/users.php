@@ -1,8 +1,8 @@
 <?
-// управление ползователями
+// СѓРїСЂР°РІР»РµРЅРёРµ РїРѕР»Р·РѕРІР°С‚РµР»СЏРјРё
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -21,31 +21,31 @@ if (isset($edit))
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "nik",
-				"label"		=>	"Ник:",
+				"label"		=>	"РќРёРє:",
 				"value"		=> $rs["nik"],
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "fullname",
-				"label"		=>	"Полное имя:",
+				"label"		=>	"РџРѕР»РЅРѕРµ РёРјСЏ:",
 				"value"		=> $rs["fullname"],
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "position",
-				"label"		=>	"Должность:",
+				"label"		=>	"Р”РѕР»Р¶РЅРѕСЃС‚СЊ:",
 				"value"		=> $rs["position"],
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "password1",
-				"label"		=>	"Пароль:",
+				"label"		=>	"РџР°СЂРѕР»СЊ:",
 				"value"		=> $rs["password"],
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "password2",
-				"label"		=>	"Повтор пароля",
+				"label"		=>	"РџРѕРІС‚РѕСЂ РїР°СЂРѕР»СЏ",
 				"value"		=> $rs["password"],
 			),
 		));
@@ -53,19 +53,19 @@ if (isset($edit))
 	} 
 	else 
 	{
-		// сохрнение
+		// СЃРѕС…СЂРЅРµРЅРёРµ
 		if ($password1!=$password2)
 		{
-			echo ("Пароли не совпадают!"); exit;
+			echo ("РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚!"); exit;
 		}
 		if (!empty($edit)) 
 		{
-			// редактирование
+			// СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ
 			$sql = "UPDATE users SET nik='$nik', fullname='$fullname', position='$position', password='$password1' WHERE id='$edit'";
 		}
 		else 
 		{
-			// добавление
+			// РґРѕР±Р°РІР»РµРЅРёРµ
 			$sql = "INSERT INTO users (nik,fullname,position,password) VALUES ('$nik','$fullname','$position','$password1')";
 		}
 		sql::query($sql);
@@ -73,7 +73,7 @@ if (isset($edit))
 	}
 
 } elseif (isset($delete)) {
-	// удаление
+	// СѓРґР°Р»РµРЅРёРµ
 	$sql = "DELETE FROM users WHERE id='$delete'";
 	sql::query($sql);
 	sql::error(true);
@@ -81,7 +81,7 @@ if (isset($edit))
 }
 else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 	// sql	
 	$sql="SELECT * FROM users ".(isset($find)?"WHERE (nik LIKE '%$find%' OR fullname LIKE '%$find%' OR position LIKE '%$find%') ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nik ").(isset($all)?"":"LIMIT 20");
 	//print $sql;

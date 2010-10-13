@@ -2,8 +2,8 @@
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
 /*
-* Перекодирует файловые ссылки в нужные 
-* $filelink имеет вид z:\dir\file.ext
+* РџРµСЂРµРєРѕРґРёСЂСѓРµС‚ С„Р°Р№Р»РѕРІС‹Рµ СЃСЃС‹Р»РєРё РІ РЅСѓР¶РЅС‹Рµ 
+* $filelink РёРјРµРµС‚ РІРёРґ z:\dir\file.ext
 */
 
 function sharefilelink($filelink) {
@@ -15,7 +15,7 @@ function serverfilelink($filelink) {
 }
 
 function removeOSsimbols($filename) {
-	// для удаления из имен заказов спецсимволов ОС
+	// РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РёР· РёРјРµРЅ Р·Р°РєР°Р·РѕРІ СЃРїРµС†СЃРёРјРІРѕР»РѕРІ РћРЎ
 	return 	str_replace("'","-",str_replace("`","-",str_replace("?","-",str_replace(":","-",str_replace("\'","-",str_replace("\"","-",str_replace("*","-",str_replace("/","-",str_replace("\\","-",$filename)))))))));
 
 }

@@ -1,6 +1,6 @@
 <?
 $db = '`zaomppsklads`.';
-require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ýòî íóæíî òàê êàê íå âûçûâàåòñÿ çàãîëîâê html
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ÑÑ‚Ð¾ Ð½ÑƒÐ¶Ð½Ð¾ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð½Ðµ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ðº html
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
 

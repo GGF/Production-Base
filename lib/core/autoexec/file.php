@@ -1,6 +1,6 @@
 <?
 /*
- * ‘‡ÈÎÓ‚˚Â ÙÛÌÍˆËË CMS
+ * –§–∞–π–ª–æ–≤—ã–µ —Ñ—É–Ω–∫—Ü–∏–∏ CMS
  */
 
 defined ( "CMS" ) or die ( "Restricted usage: " . basename ( __FILE__ ) );
@@ -30,12 +30,12 @@ function cmsFile_temp($text, $prefix = 'tmp') {
 		$_SERVER [tempFiles] [] = $path;
 	
 	} else {
-		print cmsError ( "ÕÂ‚ÓÁÏÓÊÌÓ Á‡ÔËÒ‡Ú¸ ‚ÂÏÂÌÌ˚È Ù‡ÈÎ ´{$path}ª." );
+		print cmsError ( "–ù–µ–≤–æ–∑–º–æ–∂–Ω–æ –∑–∞–ø–∏—Å–∞—Ç—å –≤—Ä–µ–º–µ–Ω–Ω—ã–π —Ñ–∞–π–ª ¬´{$path}¬ª." );
 		exit ();
 	}
 	
 	if (! touch ( $path )) {
-		print cmsError ( "ÕÂ‚ÓÁÏÓÊÌÓ Á‡ÔËÒ‡Ú¸ ‚ÂÏÂÌÌ˚È Ù‡ÈÎ ´{$path}ª." );
+		print cmsError ( "–ù–µ–≤–æ–∑–º–æ–∂–Ω–æ –∑–∞–ø–∏—Å–∞—Ç—å –≤—Ä–µ–º–µ–Ω–Ω—ã–π —Ñ–∞–π–ª ¬´{$path}¬ª." );
 		exit ();
 	}
 	
@@ -100,11 +100,11 @@ function cmsFile_search($path) {
 		
 		if (@cmsFile_touch ( $pathAbs )) {
 			
-			return "<a href='{$path}' title='‘‡ÈÎ Á‡„ÛÊÂÌ: {$path}' target='_blank'>{$_SERVER[pic]}</a>";
+			return "<a href='{$path}' title='–§–∞–π–ª –∑–∞–≥—Ä—É–∂–µ–Ω: {$path}' target='_blank'>{$_SERVER[pic]}</a>";
 		
 		} else {
 			
-			return "<span title='‘‡ÈÎ ÌÂ Ì‡È‰ÂÌ: {$path}'>{$_SERVER[pic_dis]}</span>";
+			return "<span title='–§–∞–π–ª –Ω–µ –Ω–∞–π–¥–µ–Ω: {$path}'>{$_SERVER[pic_dis]}</span>";
 		
 		}
 	
@@ -299,13 +299,13 @@ function cmsFile_size($file, $size = 'KB') { // no matter
 
 	if ($size == 'KB') {
 		$q = 1024;
-		$size = ' ¡';
+		$size = '–ö–ë';
 	} elseif ($size == 'MB') {
 		$q = 1024 * 1024;
-		$size = 'Ã¡';
+		$size = '–ú–ë';
 	} else {
 		$q = 1;
-		$size = '¡';
+		$size = '–ë';
 	}
 	
 	return number_format ( @filesize ( cmsFile_path ( $file ) ) / $q, 2, ".", " " ) . " " . $size;
@@ -348,7 +348,7 @@ function cmsFile_ext($file) { // just synonym to cmsFile_name with EXT parameter
 
 function getKBSize($str) {
 	
-	return number_format ( mb_strlen ( $str ) / 1024, 2, ".", " " ) . "  ¡";
+	return number_format ( mb_strlen ( $str ) / 1024, 2, ".", " " ) . " –ö–ë";
 
 }
 

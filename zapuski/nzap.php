@@ -1,7 +1,7 @@
 <?
-// Отображает запущенные платы
+// РћС‚РѕР±СЂР°Р¶Р°РµС‚ Р·Р°РїСѓС‰РµРЅРЅС‹Рµ РїР»Р°С‚С‹
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -23,20 +23,20 @@ if (isset($edit))
 	} 
 	else 
 	{
-		// только просмотр
+		// С‚РѕР»СЊРєРѕ РїСЂРѕСЃРјРѕС‚СЂ
 		echo "<a href='#' class='filelink' onclick=\"window.open('nzap.php?print=tz&posid=$posid');void(0);\">".$rs["file_link"]."</a><br>";
 	}
-	echo "&nbsp;".$rs["blockname"]."&nbsp;&nbsp;&nbsp;".$rs["numbers"]."шт.&nbsp;&nbsp;&nbsp;".ceil($rs["bsizex"])."x".ceil($rs["bsizey"])." ".$rs["mask"]." ".$rs["mark"]." ".($rs["template_make"]=='0'?$rs["template_check"]:$rs["template_make"])."шаб. <br>";
+	echo "&nbsp;".$rs["blockname"]."&nbsp;&nbsp;&nbsp;".$rs["numbers"]."С€С‚.&nbsp;&nbsp;&nbsp;".ceil($rs["bsizex"])."x".ceil($rs["bsizey"])." ".$rs["mask"]." ".$rs["mark"]." ".($rs["template_make"]=='0'?$rs["template_check"]:$rs["template_make"])."С€Р°Р±. <br>";
 
 	$sql="SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, boards.id AS bid FROM blockpos JOIN (customers,blocks,boards) ON (customers.id=boards.customer_id AND blocks.id=block_id AND boards.id=board_id) WHERE block_id='".$rs["bid"]."'";
 	//echo $sql;
 	$res=sql::fetchAll($sql);
-	$nz = 0; // максимальное количество заготовок по количеству плат в блоке
-	$nl = 0; // максимальное количество слоев на плате в блоке, хотя бред
-	$cl = 0; // класс платы, наибольший по позициям
-	$piz = 0; // число плат на заготовке (сумма по блоку)
+	$nz = 0; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіРѕС‚РѕРІРѕРє РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїР»Р°С‚ РІ Р±Р»РѕРєРµ
+	$nl = 0; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРµРІ РЅР° РїР»Р°С‚Рµ РІ Р±Р»РѕРєРµ, С…РѕС‚СЏ Р±СЂРµРґ
+	$cl = 0; // РєР»Р°СЃСЃ РїР»Р°С‚С‹, РЅР°РёР±РѕР»СЊС€РёР№ РїРѕ РїРѕР·РёС†РёСЏРј
+	$piz = 0; // С‡РёСЃР»Рѕ РїР»Р°С‚ РЅР° Р·Р°РіРѕС‚РѕРІРєРµ (СЃСѓРјРјР° РїРѕ Р±Р»РѕРєСѓ)
 	foreach ($res as $rs1) {
-		echo "&nbsp&nbsp&nbsp;".$rs1["board_name"]."&nbsp;&nbsp;".$rs1["psizex"]."x".$rs1["psizey"]."&nbsp;".$rs1["nib"]."-".$rs1["nx"]."x".$rs1["ny"]."&nbsp;".$rs1["layers"]."сл [".$rs1["mask"]."] [".$rs1["mark"]."] <br>";
+		echo "&nbsp&nbsp&nbsp;".$rs1["board_name"]."&nbsp;&nbsp;".$rs1["psizex"]."x".$rs1["psizey"]."&nbsp;".$rs1["nib"]."-".$rs1["nx"]."x".$rs1["ny"]."&nbsp;".$rs1["layers"]."СЃР» [".$rs1["mask"]."] [".$rs1["mark"]."] <br>";
 		$sql="SELECT numbers FROM posintz WHERE tz_id='".$rs["tzid"]."' AND board_id='".$rs1["bid"]."'";
 		$rs2=sql::fetchOne($sql);
 		$nz = max($nz,ceil($rs2["numbers"]/$rs1["nib"]));
@@ -52,26 +52,26 @@ if (isset($edit))
 	{
 		if ($nl>2) 
 		{
-			// многослойкау радара партии по одной
-			if ($rs["customer_id"] == '8') // радар
+			// РјРЅРѕРіРѕСЃР»РѕР№РєР°Сѓ СЂР°РґР°СЂР° РїР°СЂС‚РёРё РїРѕ РѕРґРЅРѕР№
+			if ($rs["customer_id"] == '8') // СЂР°РґР°СЂ
 				$zip = 1;
 			else
 				$zip = 5;
-			// если первичный запуск - мастерплата
+			// РµСЃР»Рё РїРµСЂРІРёС‡РЅС‹Р№ Р·Р°РїСѓСЃРє - РјР°СЃС‚РµСЂРїР»Р°С‚Р°
 			if ($rs["first"]=='1' || $rs["template_make"]>0) 
 			{
 				$sql="SELECT * FROM masterplate WHERE posid='$posid'";
 				$mp=sql::fetchOne($sql);
 				if (empty($mp)) {
-					echo "<input type=button id=maspl value='Мастерплата' onclick=\"$('#maspl').hide();window.open('nzap.php?print=mp&posid=$posid')\"><br>";
+					echo "<input type=button id=maspl value='РњР°СЃС‚РµСЂРїР»Р°С‚Р°' onclick=\"$('#maspl').hide();window.open('nzap.php?print=mp&posid=$posid')\"><br>";
 				}
 			}
 			$mpp = 1;
 		} else {
-			// одно-двухстороняя
+			// РѕРґРЅРѕ-РґРІСѓС…СЃС‚РѕСЂРѕРЅСЏСЏ
 			$zip =25;
 			$dpp = 1;
-			// если больше пяти заготовок - мастерплата, хотя обойдутся без соповодительного листа
+			// РµСЃР»Рё Р±РѕР»СЊС€Рµ РїСЏС‚Рё Р·Р°РіРѕС‚РѕРІРѕРє - РјР°СЃС‚РµСЂРїР»Р°С‚Р°, С…РѕС‚СЏ РѕР±РѕР№РґСѓС‚СЃСЏ Р±РµР· СЃРѕРїРѕРІРѕРґРёС‚РµР»СЊРЅРѕРіРѕ Р»РёСЃС‚Р°
 		}
 		for ($i=1;$i<=ceil($nz/$zip);$i++) {
 			$sql = "SELECT lanch.id,file_link FROM lanch JOIN filelinks ON (file_link_id=filelinks.id) WHERE tz_id='".$rs["tz_id"]."' AND pos_in_tz='".$rs["posintz"]."' AND part='$i'";
@@ -79,13 +79,13 @@ if (isset($edit))
 			echo $i%5==0?"<br>":"";
 			$rs3=sql::fetchOne($sql);
 			if (!empty($rs3)) {
-				echo "<a class='filelink' href='".sharefilelink($rs3[file_link])."'>СЛ-".$rs3[id]."</a>&nbsp;";
+				echo "<a class='filelink' href='".sharefilelink($rs3[file_link])."'>РЎР›-".$rs3[id]."</a>&nbsp;";
 			} else {
-				echo "<input type=button id=sl$i value='$i партия' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&party=$i&posid=$posid".($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
+				echo "<input type=button id=sl$i value='$i РїР°СЂС‚РёСЏ' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&party=$i&posid=$posid".($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
 			}
 		}
 	}
-	//echo "<br><input type=button onclick='closeedit()' value='Закрыть'>";
+	//echo "<br><input type=button onclick='closeedit()' value='Р—Р°РєСЂС‹С‚СЊ'>";
 }
 elseif (isset($delete)) 
 {
@@ -121,7 +121,7 @@ elseif (isset($print))
 		$sizey=$rs[sizey];
 		$drlname=$rs[drlname];
 		$date = date("d-m-Y");
-		$filename = createdironserver("z:\\\\Заказчики\\\\".$customer."\\\\".$blockname."\\\\Мастерплаты\\\\МП-".date("Y-m-d")."-".$mp_id.".xml");
+		$filename = createdironserver("z:\\\\Р—Р°РєР°Р·С‡РёРєРё\\\\".$customer."\\\\".$blockname."\\\\РњР°СЃС‚РµСЂРїР»Р°С‚С‹\\\\РњРџ-".date("Y-m-d")."-".$mp_id.".xml");
 		//echo $filename;
 		$excel = file_get_contents("mp.xml");
 		$excel = str_replace("_number_",sprintf("%08d",$mp_id),$excel);
@@ -133,7 +133,7 @@ elseif (isset($print))
 		$excel = str_replace("_sizex_",ceil($sizex),$excel);
 		$excel = str_replace("_sizey_",ceil($sizey),$excel);
 		$excel = str_replace("_drlname_",$drlname,$excel);
-		// записать файл
+		// Р·Р°РїРёСЃР°С‚СЊ С„Р°Р№Р»
 		if($file = @fopen($filename,"w")) 
 		{
 			fwrite($file,$excel);
@@ -144,7 +144,7 @@ elseif (isset($print))
 			echo $excel;
 			exit;
 		} else {
-			echo "Не удалось создать файл";
+			echo "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р»";
 			exit;
 		}
 	} 
@@ -171,7 +171,7 @@ elseif (isset($print))
 			$rs=sql::fetchOne($sql);
 			$piz = $rs[nib];
 			$numbz = ceil($dozap/$piz);
-			$comment = "Дозапуск";
+			$comment = "Р”РѕР·Р°РїСѓСЃРє";
 			$sql="SELECT customer,blockname FROM blocks JOIN customers ON customers.id=blocks.customer_id WHERE blocks.id='$blockid'";
 			$rs=sql::fetchOne($sql);
 			sql::error(true);
@@ -196,10 +196,10 @@ elseif (isset($print))
 			$block_id=$rs[block_id];
 			
 			
-			$nz = 0; // максимальное количество заготовок по количеству плат в блоке
-			$nl = 0; // максимальное количество слоев на плате в блоке, хотя бред
-			$cl = 0; // класс платы, наибольший по позициям
-			$piz = 0; // число плат на заготовке (сумма по блоку)
+			$nz = 0; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіРѕС‚РѕРІРѕРє РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїР»Р°С‚ РІ Р±Р»РѕРєРµ
+			$nl = 0; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРµРІ РЅР° РїР»Р°С‚Рµ РІ Р±Р»РѕРєРµ, С…РѕС‚СЏ Р±СЂРµРґ
+			$cl = 0; // РєР»Р°СЃСЃ РїР»Р°С‚С‹, РЅР°РёР±РѕР»СЊС€РёР№ РїРѕ РїРѕР·РёС†РёСЏРј
+			$piz = 0; // С‡РёСЃР»Рѕ РїР»Р°С‚ РЅР° Р·Р°РіРѕС‚РѕРІРєРµ (СЃСѓРјРјР° РїРѕ Р±Р»РѕРєСѓ)
 			//$sql="SELECT * FROM blockspos JOIN blocks ON blockpos.block_id=blocks.id WHERE blocks.id='$block_id'";
 			$sql="SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, boards.id AS bid FROM blockpos JOIN (customers,blocks,boards) ON (customers.id=boards.customer_id AND blocks.id=block_id AND boards.id=board_id) WHERE block_id='$block_id'";
 			$res=sql::fetchAll($sql);
@@ -218,7 +218,7 @@ elseif (isset($print))
 			
 			if (isset($mpp)) 
 			{
-				if ($customer_id == '8') // радар
+				if ($customer_id == '8') // СЂР°РґР°СЂ
 					$zip = 1;
 				else
 					$zip = 5;
@@ -248,12 +248,12 @@ elseif (isset($print))
 			sql::query($sql);
 		}
 		$date = date("d-m-Y");
-		// Определим идентификатор коментария
-		$comment_id =1;//пустой
+		// РћРїСЂРµРґРµР»РёРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєРѕРјРµРЅС‚Р°СЂРёСЏ
+		$comment_id =1;//РїСѓСЃС‚РѕР№
 
-		// Определим идентификатор файловой ссылки
+		// РћРїСЂРµРґРµР»РёРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ С„Р°Р№Р»РѕРІРѕР№ СЃСЃС‹Р»РєРё
 		{
-		$file_link = 'z:\\\\Заказчики\\\\'.$customer.'\\\\'.$blockname.'\\\\запуски\\\\СЛ-'.date("Y-m-d").'-'.$lanch_id.'.xml';
+		$file_link = 'z:\\\\Р—Р°РєР°Р·С‡РёРєРё\\\\'.$customer.'\\\\'.$blockname.'\\\\Р·Р°РїСѓСЃРєРё\\\\РЎР›-'.date("Y-m-d").'-'.$lanch_id.'.xml';
 		$sql="SELECT id FROM filelinks WHERE file_link='$file_link'";
 		if ($rs=sql::fetchOne($sql)){
 			$file_id = $rs["id"];
@@ -267,7 +267,7 @@ elseif (isset($print))
 		$sql="UPDATE lanch SET file_link_id='$file_id', comment_id='$comment_id' WHERE id='$lanch_id'";
 		sql::query($sql);
 
-		// обновим таблицу запусков
+		// РѕР±РЅРѕРІРёРј С‚Р°Р±Р»РёС†Сѓ Р·Р°РїСѓСЃРєРѕРІ
 		{
 			
 			$sql="DELETE FROM lanched WHERE board_id='$plate_id'";
@@ -275,7 +275,7 @@ elseif (isset($print))
 			$sql="INSERT INTO lanched (board_id,lastdate) VALUES ('$plate_id',NOW())";
 			sql::query($sql);
 		}
-		// если все запущены - исключить из запуска
+		// РµСЃР»Рё РІСЃРµ Р·Р°РїСѓС‰РµРЅС‹ - РёСЃРєР»СЋС‡РёС‚СЊ РёР· Р·Р°РїСѓСЃРєР°
 		if (!isset($dozap)){
 			$sql="SELECT SUM(numbp) AS snumbp FROM lanch WHERE pos_in_tz_id='$posid' GROUP BY pos_in_tz_id";
 			$rs=sql::fetchOne($sql);
@@ -284,12 +284,12 @@ elseif (isset($print))
 				sql::query($sql);
 			}
 		}
-		// создать каталог и имя файла для запуска
+		// СЃРѕР·РґР°С‚СЊ РєР°С‚Р°Р»РѕРі Рё РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїСѓСЃРєР°
 		$filename=createdironserver($file_link);
 
 		if (isset($dpp)) 
 		{
-			// получить данные в переменные
+			// РїРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ РІ РїРµСЂРµРјРµРЅРЅС‹Рµ
 			$sql = "SELECT 
 				orderdate AS ldate, 
 				orders.number AS letter,
@@ -303,7 +303,7 @@ elseif (isset($print))
 				boards.mask,
 				boards.mark,
 				boards.rmark,
-				texеolite AS mater,
+				texРµolite AS mater,
 				textolitepsi AS psimat,
 				pitz_mater AS pmater,
 				pitz_psimat AS ppsimat,
@@ -320,7 +320,7 @@ elseif (isset($print))
 			foreach ($rs as $key => $val) {
 				${$key}=mb_convert_encoding($val,"UTF-8","cp1251");
 			}
-			// сделать тсобственно сопроводительный
+			// СЃРґРµР»Р°С‚СЊ С‚СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃРѕРїСЂРѕРІРѕРґРёС‚РµР»СЊРЅС‹Р№
 			if (isset($dozap)) 
 			{
 				$nz=ceil($dozap/$piz);
@@ -330,14 +330,14 @@ elseif (isset($print))
 			}
 			else
 			{
-				$nz = ceil($numbers/$piz); // общее количество заготовок
+				$nz = ceil($numbers/$piz); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіРѕС‚РѕРІРѕРє
 				$zag = ($party*$zip>=$nz)?($nz-($party-1)*$zip):$zip;
 				$ppart = (ceil($nz/$zip)>1)?(isset($last)?($numbers-(ceil($nz/$zip)-1)*$piz*$zip)."($numbers)":$zag*$piz."($numbers)"):$numbers;
 				$part = (ceil($nz/$zip)>1)?$party."(".ceil($nz/$zip).")":$party;
 			}
 			$excel = '';
 			$excel .= file_get_contents("sl.xml");
-			$excel = str_replace("_type_",($layers=='1'?mb_convert_encoding("ОПП","UTF-8","cp1251"):mb_convert_encoding("ДПП","UTF-8","cp1251")),$excel);
+			$excel = str_replace("_type_",($layers=='1'?mb_convert_encoding("РћРџРџ","UTF-8","cp1251"):mb_convert_encoding("Р”РџРџ","UTF-8","cp1251")),$excel);
 			$excel = str_replace("_letter_",$letter,$excel);
 			$excel = str_replace("_ldate_",$ldate,$excel);
 			$excel = str_replace("_number_",sprintf("%08d",$lanch_id),$excel);
@@ -355,7 +355,7 @@ elseif (isset($print))
 			$mater = ($pmater==''?$mater:$pmater);
 			$excel = str_replace("_mater_",$mater."-".$tolsh,$excel);
 			$excel = str_replace("_mask_",$mask,$excel);
-			$excel = str_replace("_pokr_",($immer=='1'?mb_convert_encoding("Иммерсионное золото","UTF-8","cp1251"):mb_convert_encoding("ПОС61","UTF-8","cp1251")),$excel);
+			$excel = str_replace("_pokr_",($immer=='1'?mb_convert_encoding("РРјРјРµСЂСЃРёРѕРЅРЅРѕРµ Р·РѕР»РѕС‚Рѕ","UTF-8","cp1251"):mb_convert_encoding("РџРћРЎ61","UTF-8","cp1251")),$excel);
 			$excel = str_replace("_priem_",$priem,$excel);
 			$scomp = sprintf("%3.2f",$scomp/10000);
 			$excel = str_replace("_scomp_",$scomp,$excel);
@@ -363,13 +363,13 @@ elseif (isset($print))
 			$excel = str_replace("_ssold_",$ssold,$excel);
 			$psimat = ($ppsimat==''?$psimat:$ppsimat);
 			$excel = str_replace("_psimat_",$psimat."-".$tolsh,$excel);
-			$excel = str_replace("_aurum_",($aurum=='1'?mb_convert_encoding("Золочение контактов","UTF-8","cp1251"):""),$excel);
-			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("ДОЗАПУСК","UTF-8","cp1251"):""),$excel);
+			$excel = str_replace("_aurum_",($aurum=='1'?mb_convert_encoding("Р—РѕР»РѕС‡РµРЅРёРµ РєРѕРЅС‚Р°РєС‚РѕРІ","UTF-8","cp1251"):""),$excel);
+			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("Р”РћР—РђРџРЈРЎРљ","UTF-8","cp1251"):""),$excel);
 		} 
 		elseif (isset($mpp))
 		{
 			$liststkan=$raspstkan=$rtolsh=$bmat1=$bmat2=$bmat3=$bmat4=$bmat5=$bmat6=$bmat7=$bmat8=$bmat9=$sloi1=$sloi2=$sloi3=$sloi4=$sloi5=$sloi6=$sloi7=$sloi8=$sloi9=$osuk="";
-			// получить данные в переменные
+			// РїРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ РІ РїРµСЂРµРјРµРЅРЅС‹Рµ
 			$sql = "SELECT 
 			orderdate AS ldate, 
 			orders.number AS letter, 
@@ -385,7 +385,7 @@ elseif (isset($print))
 			boards.mask,
 			boards.mark,
 			boards.rmark,
-			texеolite AS mater,
+			texРµolite AS mater,
 			textolitepsi AS psimat,
 			pitz_mater AS pmater,
 			pitz_psimat AS ppsimat,
@@ -417,11 +417,11 @@ elseif (isset($print))
 			}
 			else
 			{
-				$nz = ceil($numbers/$piz*1.15); // общее количество заготовок + 15%
+				$nz = ceil($numbers/$piz*1.15); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РіРѕС‚РѕРІРѕРє + 15%
 				$zag = ($party*$zip>=$nz)?($nz-($party-1)*$zip):$zip;
 				$ppart = (ceil($nz/$zip)>1)?(isset($last)?($numbers-(ceil($numbers/$piz/$zip)-1)*$piz*$zip)."($numbers)":$zag*$piz."($numbers)"):$numbers;
 			}
-			// сделать собственно сопроводительный
+			// СЃРґРµР»Р°С‚СЊ СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃРѕРїСЂРѕРІРѕРґРёС‚РµР»СЊРЅС‹Р№
 			$excel = "";
 			$excel .= file_get_contents("slmpp.xml");
 			$excel = str_replace("_number_",sprintf("%08d",$lanch_id),$excel);
@@ -471,30 +471,30 @@ elseif (isset($print))
 			$ssold = sprintf("%3.2f",$ssold/10000);
 			$excel = str_replace("_ssold_",$ssold,$excel);
 			$excel = str_replace("_etest_",$etest,$excel);
-			$excel = str_replace("_priemo_",(strstr($priem,mb_convert_encoding("ОТК","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_priemp_",(strstr($priem,mb_convert_encoding("ПЗ","UTF-8","cp1251"))?"+":"-"),$excel);
+			$excel = str_replace("_priemo_",(strstr($priem,mb_convert_encoding("РћРўРљ","UTF-8","cp1251"))?"+":"-"),$excel);
+			$excel = str_replace("_priemp_",(strstr($priem,mb_convert_encoding("РџР—","UTF-8","cp1251"))?"+":"-"),$excel);
 			$excel = str_replace("_impokr_",($immer=='1'?"+":"-"),$excel);
 			$excel = str_replace("_lamel_",($aurum=='1'?$lamel:"-"),$excel);
 			$excel = str_replace("_mark_",$mark,$excel);
 			$excel = str_replace("_rmark_",($rmark=='1'?"+":"-"),$excel);
-			$excel = str_replace("_maskz_",(strstr($mask,mb_convert_encoding("Ж","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_masks_",(strstr($mask,mb_convert_encoding("К","UTF-8","cp1251"))?"+":"-"),$excel);
-			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("ДОЗАПУСК","UTF-8","cp1251"):""),$excel);
+			$excel = str_replace("_maskz_",(strstr($mask,mb_convert_encoding("Р–","UTF-8","cp1251"))?"+":"-"),$excel);
+			$excel = str_replace("_masks_",(strstr($mask,mb_convert_encoding("Рљ","UTF-8","cp1251"))?"+":"-"),$excel);
+			$excel = str_replace("_dozap_",(isset($dozap)?mb_convert_encoding("Р”РћР—РђРџРЈРЎРљ","UTF-8","cp1251"):""),$excel);
 		}
-		// записать файл
+		// Р·Р°РїРёСЃР°С‚СЊ С„Р°Р№Р»
 		//echo $filename."<br>";
 		if ($file = @fopen($filename,"w")) {
 			fwrite($file,$excel);
 			fclose($file);
 			chmod($filename,0777);
-			header('Content-type: text/html; charset=windows-1251'); // потому что в для принта не посылается
+			header('Content-type: text/html; charset=windows-1251'); // РїРѕС‚РѕРјСѓ С‡С‚Рѕ РІ РґР»СЏ РїСЂРёРЅС‚Р° РЅРµ РїРѕСЃС‹Р»Р°РµС‚СЃСЏ
 			$sql="SELECT file_link FROM lanch JOIN (filelinks) ON (file_link_id=filelinks.id) WHERE lanch.id='$lanch_id'";
 			$rs=sql::fetchOne($sql);
 			//echo $zip."-".$numbz."-".$numbp;
-			echo "<a class=filelink href='".sharefilelink($rs[file_link])."'>СЛ-$lanch_id</a><br>";
+			echo "<a class=filelink href='".sharefilelink($rs[file_link])."'>РЎР›-$lanch_id</a><br>";
 		} else {
 			//echo mb_convert_encoding($filename,"cp1251","UTF-8");
-			echo "Не удалось создать файл";
+			echo "РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р»";
 		}
 
 	} 
@@ -510,20 +510,20 @@ elseif (isset($print))
 }
 else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 
 	// sql
 
 	$sql="SELECT *,posintz.id AS nzid,posintz.id FROM posintz LEFT JOIN (lanched) ON (posintz.plate_id=lanched.board_id) JOIN (plates,tz,filelinks,customers,orders) ON (tz.order_id=orders.id AND plates.id=posintz.plate_id  AND posintz.tz_id=tz.id AND tz.file_link_id=filelinks.id AND plates.customer_id=customers.id) WHERE posintz.ldate = '0000-00-00' ".(isset($find)?"AND (plates.plate LIKE '%$find%' OR filelinks.file_link LIKE '%$find%' OR orders.number LIKE '%$find%') ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY customers.customer,tz.id,posintz.id ").(isset($all)?"":"LIMIT 20");
+	//echo $sql;
 
-
-	$cols["№"]="№";
+	$cols["в„–"]="в„–";
 	$cols[nzid]="ID";
-	$cols[customer]="Заказчик";
-	$cols[number]="Заказ";
-	$cols[plate]="Плата";
-	$cols[numbers]="Кол-во";
-	$cols[lastdate]="Посл. зап";
+	$cols[customer]="Р—Р°РєР°Р·С‡РёРє";
+	$cols[number]="Р—Р°РєР°Р·";
+	$cols[plate]="РџР»Р°С‚Р°";
+	$cols[numbers]="РљРѕР»-РІРѕ";
+	$cols[lastdate]="РџРѕСЃР». Р·Р°Рї";
 	
 	
 	$table = new Table($processing_type,$processing_type,$sql,$cols);

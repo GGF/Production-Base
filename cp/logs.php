@@ -1,8 +1,8 @@
 <?
-// îòîáðàæàåò ëîãè
-// TODO: Ïåðåäåëàòü ëîãè - ñåé÷àñ ïîêàçûâàåò ñòàðûå, è ñîîòâåòñòâåííî íå ðàáîòàåò âîîáùå - íå âåäóòüñÿ
+// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°ÐµÑ‚ Ð»Ð¾Ð³Ð¸
+// TODO: ÐŸÐµÑ€ÐµÐ´ÐµÐ»Ð°Ñ‚ÑŒ Ð»Ð¾Ð³Ð¸ - ÑÐµÐ¹Ñ‡Ð°Ñ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ ÑÑ‚Ð°Ñ€Ñ‹Ðµ, Ð¸ ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ Ð½Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ Ð²Ð¾Ð¾Ð±Ñ‰Ðµ - Ð½Ðµ Ð²ÐµÐ´ÑƒÑ‚ÑŒÑÑ
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -12,14 +12,14 @@ if (isset($edit) || isset($add) ) {
 } 
 elseif (isset($delete)) 
 {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM logs WHERE id='$delete'";
 	mysql_query($sql);
 	echo "ok";
 }
 else
 {
-// âûâåñòè òàáëèöó
+// Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
 	// sql
 	$sql="SELECT *,logs.id as logid FROM logs JOIN (users) ON (users.id=logs.user_id) ".(isset($find)?"WHERE (logs.sqltext LIKE '%$find%') ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY logs.logdate DESC ").(isset($all)?"":"LIMIT 20");
 	//print $sql;

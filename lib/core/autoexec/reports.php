@@ -1,6 +1,6 @@
 <?
 /*
- * Фунции вывода ошибок и репортов CMS (c) Osmio
+ * Р¤СѓРЅС†РёРё РІС‹РІРѕРґР° РѕС€РёР±РѕРє Рё СЂРµРїРѕСЂС‚РѕРІ CMS (c) Osmio
  */
 	
 	defined("CMS") or die("Restricted usage: " . basename(__FILE__));
@@ -15,7 +15,7 @@
 			
 			print "\n	<div class='cmsError'{$style}>{$text}</div>\n";
 			
-		} else { print "/!\ Ошибка\n\n{$text}"; }
+		} else { print "/!\ РћС€РёР±РєР°\n\n{$text}"; }
 		
 	}
 	
@@ -29,7 +29,7 @@
 			
 			print "\n	<div class='cmsWarning'{$style}>{$text}</div>\n";
 			
-		} else { print "/!\ Предупреждение\n\n{$text}"; }
+		} else { print "/!\ РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ\n\n{$text}"; }
 		
 	}
 	
@@ -43,7 +43,7 @@
 			
 			print "\n	<div class='cmsNotice'{$style}>{$text}</div>\n";
 			
-		} else { print "/!\ Сообщение системы\n\n{$text}"; }
+		} else { print "/!\ РЎРѕРѕР±С‰РµРЅРёРµ СЃРёСЃС‚РµРјС‹\n\n{$text}"; }
 		
 	}
 	
@@ -51,8 +51,8 @@
 	
 	function cmsAlert_html($content, $title = "", $return = false) {
 		
-		if (!$title)		$title		= "Сообщение сайта";
-		if (!$content)	$content	= "Сообщение сайта";
+		if (!$title)		$title		= "РЎРѕРѕР±С‰РµРЅРёРµ СЃР°Р№С‚Р°";
+		if (!$content)	$content	= "РЎРѕРѕР±С‰РµРЅРёРµ СЃР°Р№С‚Р°";
 		
 		$id = md5(cmsTime());
 		
@@ -74,7 +74,7 @@
 							<form action='<?=$_SERVER[REQUEST_URI]?>' method='get'>
 								
 								<p id='cmsAlert_<?=$id?>_text'><?=nl2br($content)?></p>
-								<center><input type='submit' class='submit' value='ОК' onclick='$("#cmsAlert_<?=$id?>").hide(); return false'></center>
+								<center><input type='submit' class='submit' value='РћРљ' onclick='$("#cmsAlert_<?=$id?>").hide(); return false'></center>
 								
 							</form>
 							
@@ -99,10 +99,10 @@
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	/**
-	 * Выводится страница со стандартной критической ошибкой.
+	 * Р’С‹РІРѕРґРёС‚СЃСЏ СЃС‚СЂР°РЅРёС†Р° СЃРѕ СЃС‚Р°РЅРґР°СЂС‚РЅРѕР№ РєСЂРёС‚РёС‡РµСЃРєРѕР№ РѕС€РёР±РєРѕР№.
 	 * 
-	 * @param string $title Заголовок страницы
-	 * @param string $error Текст ошибки
+	 * @param string $title Р—Р°РіРѕР»РѕРІРѕРє СЃС‚СЂР°РЅРёС†С‹
+	 * @param string $error РўРµРєСЃС‚ РѕС€РёР±РєРё
 	 */
 	
 	function cmsDie($pageName = false, $pageContents = false) {
@@ -114,7 +114,7 @@
 	
 	function cmsExit($error) {
 		
-		exit("КРИТИЧЕСКАЯ ОШИБКА: {$error}");
+		exit("РљР РРўРР§Р•РЎРљРђРЇ РћРЁРР‘РљРђ: {$error}");
 		
 	}
 	

@@ -1,9 +1,9 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ýòî íóæíî òàê êàê ïðè notop íå âûçûâàåòñÿ çàãîëîâê html
-authorize(); // âûçîâ àâòîðèçàöèè
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ÑÑ‚Ð¾ Ð½ÑƒÐ¶Ð½Ð¾ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð¿Ñ€Ð¸ notop Ð½Ðµ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ðº html
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 
 
-showheader("Óïðàâëåíèå");
+showheader("Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ");
 
 $menu = new Menu();
 
@@ -11,7 +11,7 @@ $menu->add("todo","ToDo");
 $menu->add("logs","Logs");
 $menu->add("users","Users");
 $menu->add("backup","Backup",false,'/lib/modules/backup/admin_dumper.php');
-$menu->add("back","Íàçàä",false,'/');
+$menu->add("back","ÐÐ°Ð·Ð°Ð´",false,'/');
 
 $menu->show();
 

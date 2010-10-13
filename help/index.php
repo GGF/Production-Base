@@ -1,33 +1,33 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно так как при notop не вызывается заголовк html
-authorize(); // вызов авторизации
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // СЌС‚Рѕ РЅСѓР¶РЅРѕ С‚Р°Рє РєР°Рє РїСЂРё notop РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ Р·Р°РіРѕР»РѕРІРє html
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 
 
-showheader("Помощь");
+showheader("РџРѕРјРѕС‰СЊ");
 
 $menu = new Menu();
 
-$menu->add("back","Назад",false,'/');
+$menu->add("back","РќР°Р·Р°Рґ",false,'/');
 
 $menu->show();
 
 ob_start();
 ?>
-Для того чтобы запускать файлы эксель по ссылкам нужно установить программу <a href=nncron193b3.exe> nncron.</a>
-Создать в ней задачу c именем OpenInExcel
-и текстом
+Р”Р»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ Р·Р°РїСѓСЃРєР°С‚СЊ С„Р°Р№Р»С‹ СЌРєСЃРµР»СЊ РїРѕ СЃСЃС‹Р»РєР°Рј РЅСѓР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ <a href=nncron193b3.exe> nncron.</a>
+РЎРѕР·РґР°С‚СЊ РІ РЅРµР№ Р·Р°РґР°С‡Сѓ c РёРјРµРЅРµРј OpenInExcel
+Рё С‚РµРєСЃС‚РѕРј
 <pre>
 WatchClipboard: "*"
 : wget1-mask S" /file:\/\/.+\.(xls)|(xml)/i" ;
-Rule: WIN-ACTIVE: "База данных ЗАО МПП*" RE-MATCH: %CLIPBOARD% %wget1-mask% AND
+Rule: WIN-ACTIVE: "Р‘Р°Р·Р° РґР°РЅРЅС‹С… Р—РђРћ РњРџРџ*" RE-MATCH: %CLIPBOARD% %wget1-mask% AND
 Action:
-QUERY: "Открыть в Excel?"
+QUERY: "РћС‚РєСЂС‹С‚СЊ РІ Excel?"
 IF
 ShowNormal   NormalPriority
 START-APP: explorer %CLIPBOARD%
 THEN
 </pre>
-после этого можно копировать ссылку в буффер и она откроется!!!
+РїРѕСЃР»Рµ СЌС‚РѕРіРѕ РјРѕР¶РЅРѕ РєРѕРїРёСЂРѕРІР°С‚СЊ СЃСЃС‹Р»РєСѓ РІ Р±СѓС„С„РµСЂ Рё РѕРЅР° РѕС‚РєСЂРѕРµС‚СЃСЏ!!!
 <?
 showfooter(ob_get_clean());
 

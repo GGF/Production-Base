@@ -1,7 +1,7 @@
 <?
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize();
-showheader( "Ñêëàäû");
+showheader( "Ð¡ÐºÐ»Ð°Ð´Ñ‹");
 
 $menu = new Menu();
 
@@ -9,37 +9,37 @@ $menu = new Menu();
 $menuitems=array(
 				array(
 					type	=>	"himiya",
-					text	=>	"Ìàòåðèàëû",
+					text	=>	"ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ñ‹",
 					link	=>	"himiya.php",
 					picture	=>	"him.gif",
 				),
 				array(
 					type	=>	"materials",
-					text	=>	"Òåêñòîëèò",
+					text	=>	"Ð¢ÐµÐºÑÑ‚Ð¾Ð»Ð¸Ñ‚",
 					link	=>	"materials.php",
 					picture	=>	"mater.gif",
 				),
 				array(
 					type	=>	"himiya2",
-					text	=>	"Ëàáîðàòîðèÿ",
+					text	=>	"Ð›Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸Ñ",
 					link	=>	"himiya2.php",
 					picture	=>	"him2.gif",
 				),
 				array(
 					type	=>	"sverla",
-					text	=>	"Ñâåðëà 3.0",
+					text	=>	"Ð¡Ð²ÐµÑ€Ð»Ð° 3.0",
 					link	=>	"sverla.php",
 					picture	=>	"sver.gif",
 				),
 				array(
 					type	=>	"halaty",
-					text	=>	"Ñïåöîäåæäà",
+					text	=>	"Ð¡Ð¿ÐµÑ†Ð¾Ð´ÐµÐ¶Ð´Ð°",
 					link	=>	"halaty.php",
 					picture	=>	"halat.gif",
 				),
 				array(
 					type	=>	"back",
-					text	=>	"Íàçàä",
+					text	=>	"ÐÐ°Ð·Ð°Ð´",
 					link	=>	"/",
 					picture	=>	"backsclads.gif",
 				),
@@ -49,37 +49,37 @@ $menu->add_newline();
 $menuitems=array(
 				array(
 					type	=>	"instr",
-					text	=>	"Îñí. ñðåäñòâà",
+					text	=>	"ÐžÑÐ½. ÑÑ€ÐµÐ´ÑÑ‚Ð²Ð°",
 					link	=>	"instr.php",
 					picture	=>	"instr.gif",
 				),
 				array(
 					type	=>	"nepon",
-					text	=>	"Ñâåðëà 3.175",
+					text	=>	"Ð¡Ð²ÐµÑ€Ð»Ð° 3.175",
 					link	=>	"nepon.php",
 					picture	=>	"sver.gif",
 				),
 				array(
 					type	=>	"maloc",
-					text	=>	"Ìàëîöåíêà",
+					text	=>	"ÐœÐ°Ð»Ð¾Ñ†ÐµÐ½ÐºÐ°",
 					link	=>	"maloc.php",
 					picture	=>	"none.gif",
 				),
 				array(
 					type	=>	"stroy",
-					text	=>	"Ñòðîéìàòåðèàëû",
+					text	=>	"Ð¡Ñ‚Ñ€Ð¾Ð¹Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ñ‹",
 					link	=>	"stroy.php",
 					picture	=>	"stroy.gif",
 				),
 				array(
 					type	=>	"zap",
-					text	=>	"Çàï÷àñòè",
+					text	=>	"Ð—Ð°Ð¿Ñ‡Ð°ÑÑ‚Ð¸",
 					link	=>	"zap.php",
 					picture	=>	"none.gif",
 				),
 				array(
 					type	=>	"back",
-					text	=>	"Íàçàä",
+					text	=>	"ÐÐ°Ð·Ð°Ð´",
 					link	=>	"/",
 					picture	=>	"backsclads.gif",
 				),

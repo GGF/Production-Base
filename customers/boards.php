@@ -1,10 +1,10 @@
 <?
 /*
-* Ïëàòû (÷àñòè áëîêîâ, òîåñòü ñîáñòâåííî ïëàòà)
+* ÐŸÐ»Ð°Ñ‚Ñ‹ (Ñ‡Ð°ÑÑ‚Ð¸ Ð±Ð»Ð¾ÐºÐ¾Ð², Ñ‚Ð¾ÐµÑÑ‚ÑŒ ÑÐ¾Ð±ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ Ð¿Ð»Ð°Ñ‚Ð°)
 */
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});

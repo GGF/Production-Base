@@ -5,29 +5,29 @@ authorize();
 
 
 setcookie('sklad',$sklad);
-showheader("Ñêëàä - $skladname");
+showheader("Ð¡ÐºÐ»Ð°Ð´ - $skladname");
 
 $menu = new Menu();
 
 $menuitems=array(
 				array(
 					type	=>	"ost",
-					text	=>	"Ñêëàä",
+					text	=>	"Ð¡ÐºÐ»Ð°Ð´",
 					picture	=>	"sclads.gif",
 				),
 				array(
 					type	=>	"arc",
-					text	=>	"Àðõèâ",
+					text	=>	"ÐÑ€Ñ…Ð¸Ð²",
 					picture	=>	"slads_arc.gif",
 				),
 				array(
 					type	=>	"movecheck",
-					text	=>	"Äâèæåíèå îò÷åò",
+					text	=>	"Ð”Ð²Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð¾Ñ‚Ñ‡ÐµÑ‚",
 					picture	=>	"otch.gif",
 				),
 				array(
 					type	=>	"trebcheck",
-					text	=>	"Òðåáîâàíèÿ",
+					text	=>	"Ð¢Ñ€ÐµÐ±Ð¾Ð²Ð°Ð½Ð¸Ñ",
 					picture	=>	"otch.gif",
 				),
 			);
@@ -37,14 +37,14 @@ $rs = sql::fetchOne($sql);
 if ($rs==1 || isset($year)) {
 	array_push($menuitems,array(
 						type	=>	"year",
-						text	=>	"Ñæàòü",
+						text	=>	"Ð¡Ð¶Ð°Ñ‚ÑŒ",
 						picture	=>	"slads_arc.gif",
 					));
 }
 
 array_push($menuitems,array(
 					type	=>	"back",
-					text	=>	"Íàçàä",
+					text	=>	"ÐÐ°Ð·Ð°Ð´",
 					link	=>	"/sklads/",
 					picture	=>	"backsclads.gif",
 				));

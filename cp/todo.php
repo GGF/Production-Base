@@ -1,7 +1,7 @@
 <?
-// îòîáðàæàåò çàäà÷è ïî óñîâåðøåíñòâîâàíèþ
+// Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶Ð°ÐµÑ‚ Ð·Ð°Ð´Ð°Ñ‡Ð¸ Ð¿Ð¾ ÑƒÑÐ¾Ð²ÐµÑ€ÑˆÐµÐ½ÑÑ‚Ð²Ð¾Ð²Ð°Ð½Ð¸ÑŽ
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -29,7 +29,7 @@ if (isset($edit))
 	} 
 	else 
 	{
-		// ñîõðàíåíèå
+		// ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ
 
 		if ($edit!=0) {
 			$sql="UPDATE todo SET what='".addslashes($what)."', cts=NOW(), rts='0', u_id='".$_SERVER[userid]."' WHERE id='$edit'";
@@ -56,10 +56,10 @@ else
 	// echo $sql;
 
 	$cols[id]="ID";
-	$cols[nik]="Êòî";
-	$cols[cts]="Çàäàí";
-	$cols[rts]="Çàêîí÷åí";
-	$cols[what]="×òî ñäåëàòü";
+	$cols[nik]="ÐšÑ‚Ð¾";
+	$cols[cts]="Ð—Ð°Ð´Ð°Ð½";
+	$cols[rts]="Ð—Ð°ÐºÐ¾Ð½Ñ‡ÐµÐ½";
+	$cols[what]="Ð§Ñ‚Ð¾ ÑÐ´ÐµÐ»Ð°Ñ‚ÑŒ";
 	
 
 	$table = new Table("todo","todo",$sql,$cols);

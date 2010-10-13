@@ -1,5 +1,5 @@
 <?
 $sklad='stroy_';
-$skladname = "Ñòðîéìàòåðèàëû";
+$skladname = "Ð¡Ñ‚Ñ€Ð¾Ð¹Ð¼Ð°Ñ‚ÐµÑ€Ð¸Ð°Ð»Ñ‹";
 include "common.php";
 ?>

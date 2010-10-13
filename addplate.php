@@ -1,7 +1,7 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ýòî íóæíî ïðè äîáàâëåíèè òàê êàê íå âûçûâàåòñÿ çàãîëîâê html
+include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // ÑÑ‚Ð¾ Ð½ÑƒÐ¶Ð½Ð¾ Ð¿Ñ€Ð¸ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð½Ðµ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²Ðº html
 
-// çàêàç÷èê 
+// Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº 
 $sql="SELECT id FROM customers WHERE customer='$customer'";
 $rs = sql::fetchOne($sql);
 if (!empty($rs)) {
@@ -12,22 +12,22 @@ if (!empty($rs)) {
 	$customer_id = sql::lastId();
 }
 
-// èçìåíåíèå ïëàòû
+// Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð¿Ð»Ð°Ñ‚Ñ‹
 $sql="SELECT id FROM boards WHERE customer_id='$customer_id' AND board_name='$board'";
 $rs = sql::fetchOne($sql);
 if (empty($rs)) {
-	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texåolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES (NULL , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
+	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texÐµolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES (NULL , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
 	sql::query ($sql) or die(sql::error(true));
 	$plate_id  = sql::lastId();
 } else {
 	$plate_id = $rs["id"];
 	$sql="DELETE FROM boards WHERE id='$plate_id'";
 	sql::query ($sql) or die(sql::error(true));
-	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texåolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES ('$plate_id' , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
+	$sql="INSERT INTO boards (id,board_name,customer_id,sizex,sizey,thickness,drawing_id,texÐµolite,textolitepsi,thick_tol,rmark,frezcorner,layers,razr,pallad,immer,aurum,numlam,lsizex,lsizey,mask,mark,glasscloth,class,complexity_factor,frez_factor) VALUES ('$plate_id' , '$board' ,'$customer_id' ,'$sizex' ,'$sizey' ,'$thickness' ,'$drawing_id' ,'$textolite' ,'$textolitepsi' ,'$thick_tol' ,'$rmark' ,'$frezcorner' ,'$layers' ,'$razr' ,'$pallad' ,'$immer' ,'$aurum' ,'$numlam' ,'$lsizex' ,'$lsizey' ,'$mask' ,'$mark' ,'$glasscloth' ,'$class' ,'$complexity_factor' ,'$frez_factor')";
 	sql::query ($sql) or die(sql::error(true));
 }
 
-// äîáàâëåíèå áëîêà
+// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð±Ð»Ð¾ÐºÐ°
 $sql="SELECT id,block_id FROM blockpos WHERE board_id='$plate_id'";
 $rs = sql::fetchOne($sql);
 if (!empty($rs)) {

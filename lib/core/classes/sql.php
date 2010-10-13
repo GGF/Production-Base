@@ -1,6 +1,6 @@
 <?
 /*
- * cmsSQL класс используется далее для lang и shared (c) Osmio
+ * cmsSQL РєР»Р°СЃСЃ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РґР°Р»РµРµ РґР»СЏ lang Рё shared (c) Osmio
  */
 
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
@@ -23,12 +23,12 @@ define(CMSSQL_TYPE_WARNING,	"warning");
 define(CMSSQL_TYPE_NOTICE,	"notice");
 
 /**
- *	Раньше было block — null, log - true, nolog - false
- *	Теперь block — блокирует совсем, log — по-умолчанию, force — логгит в любом случае
+ *	Р Р°РЅСЊС€Рµ Р±С‹Р»Рѕ block вЂ” null, log - true, nolog - false
+ *	РўРµРїРµСЂСЊ block вЂ” Р±Р»РѕРєРёСЂСѓРµС‚ СЃРѕРІСЃРµРј, log вЂ”В РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ, force вЂ”В Р»РѕРіРіРёС‚ РІ Р»СЋР±РѕРј СЃР»СѓС‡Р°Рµ
  */
-define(CMSSQL_LOG,					false);				// default — log, but not display
-define(CMSSQL_LOG_DEFAULT,	CMSSQL_LOG);	// synonym — DEPRECATED
-define(CMSSQL_NOLOG,				CMSSQL_LOG);	// synonym — DEPRECATED
+define(CMSSQL_LOG,					false);				// default вЂ” log, but not display
+define(CMSSQL_LOG_DEFAULT,	CMSSQL_LOG);	// synonym вЂ” DEPRECATED
+define(CMSSQL_NOLOG,				CMSSQL_LOG);	// synonym вЂ” DEPRECATED
 define(CMSSQL_LOG_BLOCK,		null);				// block
 define(CMSSQL_LOG_FORCE,		true);				// force
 
@@ -93,7 +93,7 @@ class cmsSQL {
 		$connect = $array[persistent] ? "mysql_pconnect" : "mysql_connect";
 		$this->_persistent = $array[persistent] ? true : false;
 		
-		$this->_connection = $connect($array[host], $array[name], $array[pass], true) or die("Ошибка подключения: " . mysql_error());
+		$this->_connection = $connect($array[host], $array[name], $array[pass], true) or die("РћС€РёР±РєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ: " . mysql_error());
 		
 		if (@mysql_select_db($array[base], $this->_connection)) {
 			
@@ -102,15 +102,15 @@ class cmsSQL {
 			
 			if (!$array[noCollation]) {
 				
-				// Установка кодировки подключения
-				$this->query("SET names '{$encoding}'");
-				$this->query("SET character_set_client='{$encoding}', character_set_results='{$encoding}', collation_connection='{$encoding}_GENERAL_CI'");
+				// РЈСЃС‚Р°РЅРѕРІРєР° РєРѕРґРёСЂРѕРІРєРё РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+				//$this->query("SET names '{$encoding}'");
+				//$this->query("SET character_set_client='{$encoding}', character_set_results='{$encoding}', collation_connection='{$encoding}_GENERAL_CI'");
 				
 			}
 			
 			$this->_encoding = $encoding;
 			
-		} else die("Ошибка выбора бд: " . $this->error());
+		} else die("РћС€РёР±РєР° РІС‹Р±РѕСЂР° Р±Рґ: " . $this->error());
 		
 	}
 	
@@ -119,7 +119,7 @@ class cmsSQL {
 		
 		if (!$this->_maxPacket) {
 			
-			// Определение максимальной длины пакета
+			// РћРїСЂРµРґРµР»РµРЅРёРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅС‹ РїР°РєРµС‚Р°
 			$r = $this->fetch("SHOW GLOBAL VARIABLES LIKE 'max_allowed_packet';");
 			$this->_maxPacket = $r['Value'];
 			
@@ -130,7 +130,7 @@ class cmsSQL {
 	}
 	
 	/**
-	 *	Возвращает UNIX TIMESTAMP с учетом микросекунд
+	 *	Р’РѕР·РІСЂР°С‰Р°РµС‚ UNIX TIMESTAMP СЃ СѓС‡РµС‚РѕРј РјРёРєСЂРѕСЃРµРєСѓРЅРґ
 	 *	@return		float
 	 */
 	function time() {
@@ -141,35 +141,35 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Возвращает форматированное время в миллисекундах
+	 *	Р’РѕР·РІСЂР°С‰Р°РµС‚ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅРѕРµ РІСЂРµРјСЏ РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С…
 	 *	@return		float
 	 */
 	function timeFormat($time) {
 		
-		return number_format($time * 1000, 0, ".", " ") . " мс";
+		return number_format($time * 1000, 0, ".", " ") . " РјСЃ";
 		
 	}
 	
 	
 	/**
-	 *	Включает/выключает принудительный немедленный вывод ошибок
-	 *	@param		string	$message			Сообщение
-	 *	@param		string	$type					Тип сообщения (CMSSQL_TYPE_[NORMAL|QUERY|ERROR|WARNING|NOTICE])
-	 *	@param		bool		$logOverride	Выводить ли сообщение при выключенном режиме отображения сообщений этого типа
+	 *	Р’РєР»СЋС‡Р°РµС‚/РІС‹РєР»СЋС‡Р°РµС‚ РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅС‹Р№ РЅРµРјРµРґР»РµРЅРЅС‹Р№ РІС‹РІРѕРґ РѕС€РёР±РѕРє
+	 *	@param		string	$message			РЎРѕРѕР±С‰РµРЅРёРµ
+	 *	@param		string	$type					РўРёРї СЃРѕРѕР±С‰РµРЅРёСЏ (CMSSQL_TYPE_[NORMAL|QUERY|ERROR|WARNING|NOTICE])
+	 *	@param		bool		$logOverride	Р’С‹РІРѕРґРёС‚СЊ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РїСЂРё РІС‹РєР»СЋС‡РµРЅРЅРѕРј СЂРµР¶РёРјРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёР№ СЌС‚РѕРіРѕ С‚РёРїР°
 	 */
 	function logForce($force = true) {
 		
 		$this->_logForce = $force;
-		return ($force) ? "<b>{$this->_type}:</b> Включен режим вывода ошибок MySQL." : "<b>{$this->_type}:</b> Выключен режим вывода ошибок MySQL.</b>";
+		return ($force) ? "<b>{$this->_type}:</b> Р’РєР»СЋС‡РµРЅ СЂРµР¶РёРј РІС‹РІРѕРґР° РѕС€РёР±РѕРє MySQL." : "<b>{$this->_type}:</b> Р’С‹РєР»СЋС‡РµРЅ СЂРµР¶РёРј РІС‹РІРѕРґР° РѕС€РёР±РѕРє MySQL.</b>";
 		
 	}
 	
 	
 	/**
-	 *	Записывает новый элемент в массив отчета
-	 *	@param		string	$message				Сообщение
-	 *	@param		string	$type						Тип сообщения (CMSSQL_TYPE_[NORMAL|QUERY|ERROR|WARNING|NOTICE])
-	 *	@param		bool		$logOverride		Выводить ли сообщение при выключенном режиме отображения сообщений этого типа
+	 *	Р—Р°РїРёСЃС‹РІР°РµС‚ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІ РѕС‚С‡РµС‚Р°
+	 *	@param		string	$message				РЎРѕРѕР±С‰РµРЅРёРµ
+	 *	@param		string	$type						РўРёРї СЃРѕРѕР±С‰РµРЅРёСЏ (CMSSQL_TYPE_[NORMAL|QUERY|ERROR|WARNING|NOTICE])
+	 *	@param		bool		$logOverride		Р’С‹РІРѕРґРёС‚СЊ Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ РїСЂРё РІС‹РєР»СЋС‡РµРЅРЅРѕРј СЂРµР¶РёРјРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёР№ СЌС‚РѕРіРѕ С‚РёРїР°
 	 */
 	function log($message, $type = CMSSQL_TYPE_NORMAL, $logOverride = false) {
 		
@@ -183,15 +183,15 @@ class cmsSQL {
 		
 		$this->_log[$this->_queries][] = array($type, $message, $logOverride);
 		
-		// Если стоит форсированный режим вывода ошибок — выврдим сразу
+		// Р•СЃР»Рё СЃС‚РѕРёС‚ С„РѕСЂСЃРёСЂРѕРІР°РЅРЅС‹Р№ СЂРµР¶РёРј РІС‹РІРѕРґР° РѕС€РёР±РѕРє вЂ” РІС‹РІСЂРґРёРј СЃСЂР°Р·Сѓ
 		if ($type == "error" && $this->_logForce) $this->error(true);
 		
 	}
 	
 	
 	/**
-	 *	Возвращает отформатированный запрос
-	 *	@param		string	$query	Запрос
+	 *	Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕС‚С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ
+	 *	@param		string	$query	Р—Р°РїСЂРѕСЃ
 	 *	@return		string
 	 */
 	function format($query) {
@@ -217,9 +217,9 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Выводит лог
-	 *	@param	bool	$html		Выводить в виде html (иначе в виде массива) [CMSSQL_REPORT_ARRAY|CMSSQL_REPORT_HTML]
-	 *	@param	bool	$clean	Очищать ли лог после вывода [CMSSQL_REPORT_CLEAN]
+	 *	Р’С‹РІРѕРґРёС‚ Р»РѕРі
+	 *	@param	bool	$html		Р’С‹РІРѕРґРёС‚СЊ РІ РІРёРґРµ html (РёРЅР°С‡Рµ РІ РІРёРґРµ РјР°СЃСЃРёРІР°) [CMSSQL_REPORT_ARRAY|CMSSQL_REPORT_HTML]
+	 *	@param	bool	$clean	РћС‡РёС‰Р°С‚СЊ Р»Рё Р»РѕРі РїРѕСЃР»Рµ РІС‹РІРѕРґР° [CMSSQL_REPORT_CLEAN]
 	 *	@return	mixed
 	 */
 	function logOut($html = CMSSQL_REPORT_HTML, $clean = false) {
@@ -227,9 +227,9 @@ class cmsSQL {
 		$k = 0;
 		$array = array();
 		
-		$array[] = array("<b>Отчет для MySQL соединения «{$this->_type}».</b>", CMSCONSOLE_NOTICE);
-		$array[] = array("Успешное " . ($this->_persistent ? "постоянное" : "обычное") . " подключение к <b>{$this->_base}@{$this->_host}</b>,  кодировка соединения: <b>{$this->_encoding}</b>.", CMSCONSOLE_NOTICE);
-		//$array[] = array("Максимальный размер пакета <small>(max_allowed_packet)</small>: <b>{$this->_maxPacket} байт</b>.", CMSCONSOLE_NOTICE);
+		$array[] = array("<b>РћС‚С‡РµС‚ РґР»СЏ MySQL СЃРѕРµРґРёРЅРµРЅРёСЏ В«{$this->_type}В».</b>", CMSCONSOLE_NOTICE);
+		$array[] = array("РЈСЃРїРµС€РЅРѕРµ " . ($this->_persistent ? "РїРѕСЃС‚РѕСЏРЅРЅРѕРµ" : "РѕР±С‹С‡РЅРѕРµ") . " РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє <b>{$this->_base}@{$this->_host}</b>,  РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ: <b>{$this->_encoding}</b>.", CMSCONSOLE_NOTICE);
+		//$array[] = array("РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РїР°РєРµС‚Р° <small>(max_allowed_packet)</small>: <b>{$this->_maxPacket} Р±Р°Р№С‚</b>.", CMSCONSOLE_NOTICE);
 		
 		$array[] = array("<img src='/images/free.gif'>", "");
 		
@@ -238,13 +238,13 @@ class cmsSQL {
 		//for ($i = 0, $im = count($this->_log); $i < $im; $i++) { 
 		foreach ($this->_log as $i => $logLine) {
 			
-			// По-умолчанию считаем, что все ок :)
+			// РџРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ СЃС‡РёС‚Р°РµРј, С‡С‚Рѕ РІСЃРµ РѕРє :)
 			$hasErrors		= false;
 			$hasWarnings	= false;
 			$hasNotices		= false;
 			$hasOverrides	= false;
 			
-			// Первый цикл, выясняем, что внутри
+			// РџРµСЂРІС‹Р№ С†РёРєР», РІС‹СЏСЃРЅСЏРµРј, С‡С‚Рѕ РІРЅСѓС‚СЂРё
 			//if (count($this->_log[$i])) foreach ($this->_log[$i] as $l) {
 			if (count($logLine)) {
 				
@@ -261,7 +261,7 @@ class cmsSQL {
 				
 				$out = false;
 				
-				// Второй цикл и контроль вывода
+				// Р’С‚РѕСЂРѕР№ С†РёРєР» Рё РєРѕРЅС‚СЂРѕР»СЊ РІС‹РІРѕРґР°
 				//if (count($this->_log[$i])) foreach ($this->_log[$i] as $l) {
 				foreach ($logLine as $l) {
 					
@@ -270,20 +270,20 @@ class cmsSQL {
 					
 					$consoleType = ($type == CMSSQL_TYPE_WARNING || $type == CMSSQL_TYPE_ERROR || $type == CMSSQL_TYPE_NOTICE) ? $type : "";
 					
-					// ошибки с CMSSQL_LOG_BLOCK до сюда даже не дойдут
+					// РѕС€РёР±РєРё СЃ CMSSQL_LOG_BLOCK РґРѕ СЃСЋРґР° РґР°Р¶Рµ РЅРµ РґРѕР№РґСѓС‚
 					if (
-						// Есть оверрайд
+						// Р•СЃС‚СЊ РѕРІРµСЂСЂР°Р№Рґ
 						$hasOverrides ||
-						// Нормальный вывод
+						// РќРѕСЂРјР°Р»СЊРЅС‹Р№ РІС‹РІРѕРґ
 						$type == CMSSQL_TYPE_NORMAL ||
-						// Является запросом и их можно логгить, или внутри есть ошибки/предупреждения и их можно логгить
+						// РЇРІР»СЏРµС‚СЃСЏ Р·Р°РїСЂРѕСЃРѕРј Рё РёС… РјРѕР¶РЅРѕ Р»РѕРіРіРёС‚СЊ, РёР»Рё РІРЅСѓС‚СЂРё РµСЃС‚СЊ РѕС€РёР±РєРё/РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёСЏ Рё РёС… РјРѕР¶РЅРѕ Р»РѕРіРіРёС‚СЊ
 						(
 							($type == CMSSQL_TYPE_QUERY && array_key_exists(CMSSQL_TYPE_QUERY, $this->_logLevel)) || (
 								($hasErrors		&& array_key_exists(CMSSQL_TYPE_ERROR,		$this->_logLevel)) ||
 								($hasWarnings	&& array_key_exists(CMSSQL_TYPE_WARNING,	$this->_logLevel))
 							)
 						) ||
-						// Является ошибкой/предупреждением/напоминанием и его можно логгить
+						// РЇРІР»СЏРµС‚СЃСЏ РѕС€РёР±РєРѕР№/РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµРј/РЅР°РїРѕРјРёРЅР°РЅРёРµРј Рё РµРіРѕ РјРѕР¶РЅРѕ Р»РѕРіРіРёС‚СЊ
 						($type == CMSSQL_TYPE_ERROR		&& array_key_exists(CMSSQL_TYPE_ERROR,		$this->_logLevel)) ||
 						($type == CMSSQL_TYPE_WARNING	&& array_key_exists(CMSSQL_TYPE_WARNING,	$this->_logLevel)) ||
 						($type == CMSSQL_TYPE_NOTICE	&& array_key_exists(CMSSQL_TYPE_NOTICE,		$this->_logLevel))
@@ -312,8 +312,8 @@ class cmsSQL {
 		}
 		
 		$array[] = array(print_r($this->_logLevel, 1), CMSCONSOLE_NOTICE);
-		$array[] = array("Запросов: <b>{$this->_queries}</b>, Предупреждений: <b>{$this->_warnings}</b>, Ошибок: <b>{$this->_errors}</b>.", CMSCONSOLE_NOTICE);
-		$array[] = array("<b>Полное время выполнения: <u>" . $this->timeFormat($this->_execTime) . "</u>, запросов:  <u>" . $this->timeFormat($this->_queryTime) . "</u>, разбора данных: <u>" . $this->timeFormat($this->_fetchTime) . "</u>.</b>", CMSCONSOLE_NOTICE);
+		$array[] = array("Р—Р°РїСЂРѕСЃРѕРІ: <b>{$this->_queries}</b>, РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёР№: <b>{$this->_warnings}</b>, РћС€РёР±РѕРє: <b>{$this->_errors}</b>.", CMSCONSOLE_NOTICE);
+		$array[] = array("<b>РџРѕР»РЅРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: <u>" . $this->timeFormat($this->_execTime) . "</u>, Р·Р°РїСЂРѕСЃРѕРІ:  <u>" . $this->timeFormat($this->_queryTime) . "</u>, СЂР°Р·Р±РѕСЂР° РґР°РЅРЅС‹С…: <u>" . $this->timeFormat($this->_fetchTime) . "</u>.</b>", CMSCONSOLE_NOTICE);
 		
 		if ($clean) $this->_log = array();
 		
@@ -329,8 +329,8 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция возвращает или выводит отчет о ПОСЛЕДНЕЙ ошибке
-	 *	@param	bool	$print	Печатать или возвращать
+	 *	Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РёР»Рё РІС‹РІРѕРґРёС‚ РѕС‚С‡РµС‚ Рѕ РџРћРЎР›Р•Р”РќР•Р™ РѕС€РёР±РєРµ
+	 *	@param	bool	$print	РџРµС‡Р°С‚Р°С‚СЊ РёР»Рё РІРѕР·РІСЂР°С‰Р°С‚СЊ
 	 *	@return	mixed[string|void]
 	 */
 	function error($print = false) {
@@ -349,8 +349,8 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция производит escape переменной
-	 *	@param	string	$text		Строка
+	 *	Р¤СѓРЅРєС†РёСЏ РїСЂРѕРёР·РІРѕРґРёС‚ escape РїРµСЂРµРјРµРЅРЅРѕР№
+	 *	@param	string	$text		РЎС‚СЂРѕРєР°
 	 *	@return	string
 	 */
 	function check($text) {
@@ -371,7 +371,7 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция возвращает будущий ID — поле c AUTO_INCREMENT, функция не безопасна, т.к. сразу после возврата другой процесс может что-либо вставить и изменить поле
+	 *	Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ Р±СѓРґСѓС‰РёР№ ID вЂ”В РїРѕР»Рµ c AUTO_INCREMENT, С„СѓРЅРєС†РёСЏ РЅРµ Р±РµР·РѕРїР°СЃРЅР°, С‚.Рє. СЃСЂР°Р·Сѓ РїРѕСЃР»Рµ РІРѕР·РІСЂР°С‚Р° РґСЂСѓРіРѕР№ РїСЂРѕС†РµСЃСЃ РјРѕР¶РµС‚ С‡С‚Рѕ-Р»РёР±Рѕ РІСЃС‚Р°РІРёС‚СЊ Рё РёР·РјРµРЅРёС‚СЊ РїРѕР»Рµ
 	 *	@return	int
 	 */
 	function nextId($table) {
@@ -383,7 +383,7 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция возвращает последний вставленный ID — поле c AUTO_INCREMENT
+	 *	Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕСЃР»РµРґРЅРёР№ РІСЃС‚Р°РІР»РµРЅРЅС‹Р№ ID вЂ”В РїРѕР»Рµ c AUTO_INCREMENT
 	 *	@return	int
 	 */
 	function lastId() {
@@ -395,7 +395,7 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция возвращает кол-во строк, которые были затронуты последним действием
+	 *	Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»-РІРѕ СЃС‚СЂРѕРє, РєРѕС‚РѕСЂС‹Рµ Р±С‹Р»Рё Р·Р°С‚СЂРѕРЅСѓС‚С‹ РїРѕСЃР»РµРґРЅРёРј РґРµР№СЃС‚РІРёРµРј
 	 *	@return	int
 	 */
 	function affected() {
@@ -406,9 +406,9 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция производит замену токенов %ххх% на переменные массива
-	 *	@param	string	$SQL		Запрос
-	 *	@param	array		$array	Массив для подстановки
+	 *	Р¤СѓРЅРєС†РёСЏ РїСЂРѕРёР·РІРѕРґРёС‚ Р·Р°РјРµРЅСѓ С‚РѕРєРµРЅРѕРІ %С…С…С…% РЅР° РїРµСЂРµРјРµРЅРЅС‹Рµ РјР°СЃСЃРёРІР°
+	 *	@param	string	$SQL		Р—Р°РїСЂРѕСЃ
+	 *	@param	array		$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё
 	 */
 	function prepare($SQL, $array) {
 		
@@ -424,10 +424,10 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция осуществляет разбор массива подстановки и выполняет запрос
-	 *	@param	string			$SQL		Запрос
-	 *	@param	array|bool	$array	Массив для постановки, для совместимости может принять сразу лог
-	 *	@param	bool				$log		Режим лога: CMSSQL_LOG — пишем, но не выводим, _FORCE — пишем и выводим всегда, _BLOCK — блокируем запись, но если будет ошибка — все равно выведется в консоль, но вместо запроса будет фраза о блокировке
+	 *	Р¤СѓРЅРєС†РёСЏ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ СЂР°Р·Р±РѕСЂ РјР°СЃСЃРёРІР° РїРѕРґСЃС‚Р°РЅРѕРІРєРё Рё РІС‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ
+	 *	@param	string			$SQL		Р—Р°РїСЂРѕСЃ
+	 *	@param	array|bool	$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕСЃС‚Р°РЅРѕРІРєРё, РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё РјРѕР¶РµС‚ РїСЂРёРЅСЏС‚СЊ СЃСЂР°Р·Сѓ Р»РѕРі
+	 *	@param	bool				$log		Р РµР¶РёРј Р»РѕРіР°: CMSSQL_LOG вЂ” РїРёС€РµРј, РЅРѕ РЅРµ РІС‹РІРѕРґРёРј, _FORCE вЂ”В РїРёС€РµРј Рё РІС‹РІРѕРґРёРј РІСЃРµРіРґР°, _BLOCK вЂ”В Р±Р»РѕРєРёСЂСѓРµРј Р·Р°РїРёСЃСЊ, РЅРѕ РµСЃР»Рё Р±СѓРґРµС‚ РѕС€РёР±РєР° вЂ” РІСЃРµ СЂР°РІРЅРѕ РІС‹РІРµРґРµС‚СЃСЏ РІ РєРѕРЅСЃРѕР»СЊ, РЅРѕ РІРјРµСЃС‚Рѕ Р·Р°РїСЂРѕСЃР° Р±СѓРґРµС‚ С„СЂР°Р·Р° Рѕ Р±Р»РѕРєРёСЂРѕРІРєРµ
 	 */
 	function query($SQL, $array = array(), $log = CMSSQL_LOG) {
 		
@@ -435,10 +435,10 @@ class cmsSQL {
 		
 		$deprecated = false;
 		
-		$stack = is_callable("cmsBacktrace") ? "\n" . cmsBacktrace(CMSBACKTRACE_RAW) : "Функция cmsBacktrace еще не зарегистрирована.";
+		$stack = is_callable("cmsBacktrace") ? "\n" . cmsBacktrace(CMSBACKTRACE_RAW) : "Р¤СѓРЅРєС†РёСЏ cmsBacktrace РµС‰Рµ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅР°.";
 		
-		// Раньше не было массивов, поэтому сейчас для обратной совместимости массив можно не указывать
-		// backward compatibility — DEPRECATED!!!
+		// Р Р°РЅСЊС€Рµ РЅРµ Р±С‹Р»Рѕ РјР°СЃСЃРёРІРѕРІ, РїРѕСЌС‚РѕРјСѓ СЃРµР№С‡Р°СЃ РґР»СЏ РѕР±СЂР°С‚РЅРѕР№ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё РјР°СЃСЃРёРІ РјРѕР¶РЅРѕ РЅРµ СѓРєР°Р·С‹РІР°С‚СЊ
+		// backward compatibility вЂ”В DEPRECATED!!!
 		if (!is_array($array)) {
 			
 			$deprecated = true;
@@ -450,7 +450,7 @@ class cmsSQL {
 		
 		$SQL = $this->prepare($SQL, $array);
 		
-		$SQLlog = ($log !== CMSSQL_LOG_BLOCK) ? $SQL : "Запись запроса заблокирована через LOG_BLOCK.";
+		$SQLlog = ($log !== CMSSQL_LOG_BLOCK) ? $SQL : "Р—Р°РїРёСЃСЊ Р·Р°РїСЂРѕСЃР° Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅР° С‡РµСЂРµР· LOG_BLOCK.";
 		
 		// exec
 		$r = @mysql_query($SQL, $this->_connection); // suppress or not suppress ;)
@@ -459,11 +459,11 @@ class cmsSQL {
 		
 		$this->log($SQLlog, CMSSQL_TYPE_QUERY, $log);
 		
-		if ($deprecated) $this->log("Функция была вызвана со старым набором параметров (без массива).{$stack}", CMSSQL_TYPE_WARNING, CMSSQL_LOG_FORCE); // этот ворнинг полюбому идет в лог
+		if ($deprecated) $this->log("Р¤СѓРЅРєС†РёСЏ Р±С‹Р»Р° РІС‹Р·РІР°РЅР° СЃРѕ СЃС‚Р°СЂС‹Рј РЅР°Р±РѕСЂРѕРј РїР°СЂР°РјРµС‚СЂРѕРІ (Р±РµР· РјР°СЃСЃРёРІР°).{$stack}", CMSSQL_TYPE_WARNING, CMSSQL_LOG_FORCE); // СЌС‚РѕС‚ РІРѕСЂРЅРёРЅРі РїРѕР»СЋР±РѕРјСѓ РёРґРµС‚ РІ Р»РѕРі
 		
 		if ($this->error()) {
 			$r = false;
-			$this->log($this->error() . $stack, CMSSQL_TYPE_ERROR, CMSSQL_LOG_FORCE); // ошибки в лог идут вне зависимости от параметра
+			$this->log($this->error() . $stack, CMSSQL_TYPE_ERROR, CMSSQL_LOG_FORCE); // РѕС€РёР±РєРё РІ Р»РѕРі РёРґСѓС‚ РІРЅРµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РїР°СЂР°РјРµС‚СЂР°
 		}
 		
 		$time = $this->time() - $time;
@@ -476,11 +476,11 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция выполняет result() либо как обычный result(), либо делает запрос и возвращает первую строку ответа
-	 *	@param	resource|string		$res		Если передана строка — делает запрос, если передан ресурс — использует его, если не передано ничего — берет последний записанный ресурс — небезопасно
-	 *	@param	array							$array	Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	int								$i			Номер поля для возврата
-	 *	@param	bool							$log		Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅСЏРµС‚ result() Р»РёР±Рѕ РєР°Рє РѕР±С‹С‡РЅС‹Р№ result(), Р»РёР±Рѕ РґРµР»Р°РµС‚ Р·Р°РїСЂРѕСЃ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ РѕС‚РІРµС‚Р°
+	 *	@param	resource|string		$res		Р•СЃР»Рё РїРµСЂРµРґР°РЅР° СЃС‚СЂРѕРєР° вЂ” РґРµР»Р°РµС‚ Р·Р°РїСЂРѕСЃ, РµСЃР»Рё РїРµСЂРµРґР°РЅ СЂРµСЃСѓСЂСЃ вЂ” РёСЃРїРѕР»СЊР·СѓРµС‚ РµРіРѕ, РµСЃР»Рё РЅРµ РїРµСЂРµРґР°РЅРѕ РЅРёС‡РµРіРѕ вЂ” Р±РµСЂРµС‚ РїРѕСЃР»РµРґРЅРёР№ Р·Р°РїРёСЃР°РЅРЅС‹Р№ СЂРµСЃСѓСЂСЃ вЂ” РЅРµР±РµР·РѕРїР°СЃРЅРѕ
+	 *	@param	array							$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	int								$i			РќРѕРјРµСЂ РїРѕР»СЏ РґР»СЏ РІРѕР·РІСЂР°С‚Р°
+	 *	@param	bool							$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	array
 	 */
 	function result($res, $array = array(), $i = 0, $log = CMSSQL_LOG) {
@@ -500,11 +500,11 @@ class cmsSQL {
 			
 		} else {
 			
-			$return = @mysql_result($res, $i); // $i — обязательный параметр!
+			$return = @mysql_result($res, $i); // $i вЂ”В РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ!
 			
 		}
 		
-		//if ($return == false) $this->log("result(): Пустой ответ БД", CMSSQL_TYPE_WARNING);
+		//if ($return == false) $this->log("result(): РџСѓСЃС‚РѕР№ РѕС‚РІРµС‚ Р‘Р”", CMSSQL_TYPE_WARNING);
 		
 		$time = $this->time() - $time;
 		$this->_execTime += $time;
@@ -515,11 +515,11 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция выполняет запрос и возвращает первую строку
-	 *	@param	string		$query	Запрос
-	 *	@param	array			$array	Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	int				$i			Номер поля для возврата
-	 *	@param	bool			$log		Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ
+	 *	@param	string		$query	Р—Р°РїСЂРѕСЃ
+	 *	@param	array			$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	int				$i			РќРѕРјРµСЂ РїРѕР»СЏ РґР»СЏ РІРѕР·РІСЂР°С‚Р°
+	 *	@param	bool			$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	array
 	 */
 	function resultOne($query, $array = array(), $i = 0, $log = CMSSQL_LOG) {
@@ -530,10 +530,10 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция выполняет фетч либо как обычный fetch_assoc(), либо делает запрос и возвращает первую строку ответа
-	 *	@param	resource|string		$res		Если передана строка — делает запрос, если передан ресурс — использует его, если не передано ничего — берет последний записанный ресурс — небезопасно
-	 *	@param	array							$array	Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	bool							$log		Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅСЏРµС‚ С„РµС‚С‡ Р»РёР±Рѕ РєР°Рє РѕР±С‹С‡РЅС‹Р№ fetch_assoc(), Р»РёР±Рѕ РґРµР»Р°РµС‚ Р·Р°РїСЂРѕСЃ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ РѕС‚РІРµС‚Р°
+	 *	@param	resource|string		$res		Р•СЃР»Рё РїРµСЂРµРґР°РЅР° СЃС‚СЂРѕРєР° вЂ” РґРµР»Р°РµС‚ Р·Р°РїСЂРѕСЃ, РµСЃР»Рё РїРµСЂРµРґР°РЅ СЂРµСЃСѓСЂСЃ вЂ” РёСЃРїРѕР»СЊР·СѓРµС‚ РµРіРѕ, РµСЃР»Рё РЅРµ РїРµСЂРµРґР°РЅРѕ РЅРёС‡РµРіРѕ вЂ” Р±РµСЂРµС‚ РїРѕСЃР»РµРґРЅРёР№ Р·Р°РїРёСЃР°РЅРЅС‹Р№ СЂРµСЃСѓСЂСЃ вЂ” РЅРµР±РµР·РѕРїР°СЃРЅРѕ
+	 *	@param	array							$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	bool							$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	array
 	 */
 	function fetch($res, $array = array(), $log = CMSSQL_LOG) {
@@ -550,7 +550,7 @@ class cmsSQL {
 			
 		}
 		
-		//if (!count($return) || !$return) $this->log("fetch(): Пустой ответ БД", CMSSQL_TYPE_WARNING);
+		//if (!count($return) || !$return) $this->log("fetch(): РџСѓСЃС‚РѕР№ РѕС‚РІРµС‚ Р‘Р”", CMSSQL_TYPE_WARNING);
 		
 		$time = $this->time() - $time;
 		$this->_fetchTime += $time;
@@ -562,16 +562,16 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция выполняет запрос и возвращает все строки
-	 *	@param	string		$query	Запрос
-	 *	@param	array			$array	Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	bool			$log		Тип лога, см. функцию query()
-	 *	@param	bool			$id			Если передана константа CMSSQL_FETCH_ID — вернет ассоциативный массив с полем ID из строки ответа в качестве ключей [CMSSQL_FETCH|CMSSQL_FETCH_ID]
+	 *	Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РІСЃРµ СЃС‚СЂРѕРєРё
+	 *	@param	string		$query	Р—Р°РїСЂРѕСЃ
+	 *	@param	array			$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	bool			$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
+	 *	@param	bool			$id			Р•СЃР»Рё РїРµСЂРµРґР°РЅР° РєРѕРЅСЃС‚Р°РЅС‚Р° CMSSQL_FETCH_ID вЂ”В РІРµСЂРЅРµС‚ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ СЃ РїРѕР»РµРј ID РёР· СЃС‚СЂРѕРєРё РѕС‚РІРµС‚Р° РІ РєР°С‡РµСЃС‚РІРµ РєР»СЋС‡РµР№ [CMSSQL_FETCH|CMSSQL_FETCH_ID]
 	 *	@return	array
 	 */
 	function fetchAll($SQL, $array = array(), $log = CMSSQL_LOG, $id = CMSSQL_FETCH) {
 		
-		// Для краткости таки можно вызывать сначала вставляя FETCHID, а потом уже LOG, т.к. в большинстве случаев лог остается дефолтным, а меняется только фетч
+		// Р”Р»СЏ РєСЂР°С‚РєРѕСЃС‚Рё С‚Р°РєРё РјРѕР¶РЅРѕ РІС‹Р·С‹РІР°С‚СЊ СЃРЅР°С‡Р°Р»Р° РІСЃС‚Р°РІР»СЏСЏ FETCHID, Р° РїРѕС‚РѕРј СѓР¶Рµ LOG, С‚.Рє. РІ Р±РѕР»СЊС€РёРЅСЃС‚РІРµ СЃР»СѓС‡Р°РµРІ Р»РѕРі РѕСЃС‚Р°РµС‚СЃСЏ РґРµС„РѕР»С‚РЅС‹Рј, Р° РјРµРЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ С„РµС‚С‡
 		if ($log === CMSSQL_FETCH_ID) {
 			
 			$log = ($id != CMSSQL_FETCH) ? $id : CMSSQL_LOG;
@@ -594,7 +594,7 @@ class cmsSQL {
 			
 		}
 		
-		//if (count($output) == 0) $this->log("fetchAll(): Пустой ответ БД", CMSSQL_TYPE_WARNING);
+		//if (count($output) == 0) $this->log("fetchAll(): РџСѓСЃС‚РѕР№ РѕС‚РІРµС‚ Р‘Р”", CMSSQL_TYPE_WARNING);
 		
 		$time = $this->time() - $time;
 		$this->_execTime += $time;
@@ -605,10 +605,10 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция выполняет запрос и возвращает первую строку
-	 *	@param	string		$query	Запрос
-	 *	@param	array			$array	Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	bool			$log		Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РІС‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ
+	 *	@param	string		$query	Р—Р°РїСЂРѕСЃ
+	 *	@param	array			$array	РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	bool			$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	array
 	 */
 	function fetchOne($query, $array = array(), $log = CMSSQL_LOG) {
@@ -619,9 +619,9 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция возвращает имена полей на основе массива для вставки, делает она это по первому подмассиву
-	 *	@param	array		$data					Массив для вставки, сделан ссылкой для экономии памяти
-	 *	@param	bool		$returnArray	Возвращать массив или сразу делать implode
+	 *	Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РёРјРµРЅР° РїРѕР»РµР№ РЅР° РѕСЃРЅРѕРІРµ РјР°СЃСЃРёРІР° РґР»СЏ РІСЃС‚Р°РІРєРё, РґРµР»Р°РµС‚ РѕРЅР° СЌС‚Рѕ РїРѕ РїРµСЂРІРѕРјСѓ РїРѕРґРјР°СЃСЃРёРІСѓ
+	 *	@param	array		$data					РњР°СЃСЃРёРІ РґР»СЏ РІСЃС‚Р°РІРєРё, СЃРґРµР»Р°РЅ СЃСЃС‹Р»РєРѕР№ РґР»СЏ СЌРєРѕРЅРѕРјРёРё РїР°РјСЏС‚Рё
+	 *	@param	bool		$returnArray	Р’РѕР·РІСЂР°С‰Р°С‚СЊ РјР°СЃСЃРёРІ РёР»Рё СЃСЂР°Р·Сѓ РґРµР»Р°С‚СЊ implode
 	 *	@return mixed[array|bool]
 	 */
 	function insert_getFields(&$data, $returnArray = false) {
@@ -635,8 +635,8 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция подготавливает входной массив для вставки
-	 *	@param	array		$data		Массив для вставки, сделан ссылкой для экономии памяти
+	 *	Р¤СѓРЅРєС†РёСЏ РїРѕРґРіРѕС‚Р°РІР»РёРІР°РµС‚ РІС…РѕРґРЅРѕР№ РјР°СЃСЃРёРІ РґР»СЏ РІСЃС‚Р°РІРєРё
+	 *	@param	array		$data		РњР°СЃСЃРёРІ РґР»СЏ РІСЃС‚Р°РІРєРё, СЃРґРµР»Р°РЅ СЃСЃС‹Р»РєРѕР№ РґР»СЏ СЌРєРѕРЅРѕРјРёРё РїР°РјСЏС‚Рё
 	 *	@return array
 	 */
 	function insert_prepare(&$data) {
@@ -650,19 +650,19 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция разбирает и подготавливает массив для вставки, и производит непосредственно вставку в таблицу, с последующей оптимизацией, возвращает affected rows
-	 *	@param	string	$table	Имя таблицы
-	 *	@param	array		$data		Массив для вставки. Формат может быть одним из следующих: сразу массив элементов, массив из массивов элементов — либо линейный, без ключей, либо с ключами (ключи — имена полей, в таком случае может быть неполная вставка, в произвольном порядке). Порядок следования элементов должен быть один на все подмассивы.
-	 *	@param	bool		$log		Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ СЂР°Р·Р±РёСЂР°РµС‚ Рё РїРѕРґРіРѕС‚Р°РІР»РёРІР°РµС‚ РјР°СЃСЃРёРІ РґР»СЏ РІСЃС‚Р°РІРєРё, Рё РїСЂРѕРёР·РІРѕРґРёС‚ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РІСЃС‚Р°РІРєСѓ РІ С‚Р°Р±Р»РёС†Сѓ, СЃ РїРѕСЃР»РµРґСѓСЋС‰РµР№ РѕРїС‚РёРјРёР·Р°С†РёРµР№, РІРѕР·РІСЂР°С‰Р°РµС‚ affected rows
+	 *	@param	string	$table	РРјСЏ С‚Р°Р±Р»РёС†С‹
+	 *	@param	array		$data		РњР°СЃСЃРёРІ РґР»СЏ РІСЃС‚Р°РІРєРё. Р¤РѕСЂРјР°С‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕРґРЅРёРј РёР· СЃР»РµРґСѓСЋС‰РёС…: СЃСЂР°Р·Сѓ РјР°СЃСЃРёРІ СЌР»РµРјРµРЅС‚РѕРІ, РјР°СЃСЃРёРІ РёР· РјР°СЃСЃРёРІРѕРІ СЌР»РµРјРµРЅС‚РѕРІ вЂ” Р»РёР±Рѕ Р»РёРЅРµР№РЅС‹Р№, Р±РµР· РєР»СЋС‡РµР№, Р»РёР±Рѕ СЃ РєР»СЋС‡Р°РјРё (РєР»СЋС‡Рё вЂ” РёРјРµРЅР° РїРѕР»РµР№, РІ С‚Р°РєРѕРј СЃР»СѓС‡Р°Рµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРµРїРѕР»РЅР°СЏ РІСЃС‚Р°РІРєР°, РІ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРј РїРѕСЂСЏРґРєРµ). РџРѕСЂСЏРґРѕРє СЃР»РµРґРѕРІР°РЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕРґРёРЅ РЅР° РІСЃРµ РїРѕРґРјР°СЃСЃРёРІС‹.
+	 *	@param	bool		$log		РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	int
 	 */
 	function insert($table, $data, $log = CMSSQL_LOG) {
 		
-		if (isset($data[0]) && is_array($data[0])) { // Множественная вставка
+		if (isset($data[0]) && is_array($data[0])) { // РњРЅРѕР¶РµСЃС‚РІРµРЅРЅР°СЏ РІСЃС‚Р°РІРєР°
 			
 			$time = $this->time();
 			
-			// Определяем, является ли вставка «именованной»
+			// РћРїСЂРµРґРµР»СЏРµРј, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РІСЃС‚Р°РІРєР°В В«РёРјРµРЅРѕРІР°РЅРЅРѕР№В»
 			$fields = isset($data[0][0]) ? "" : "(" . $this->insert_getFields($data[0]) . ") ";
 			$values = array();
 			
@@ -674,8 +674,8 @@ class cmsSQL {
 			
 			$SQL[0] = $SQLbase;
 			foreach ($values as $SQLrow) {
-// TODO : Откуда взялась $c				
-				if (mb_strlen($SQL . $SQLrow . ", ") > $this->maxPacket()) { $SQLn++; $SQL[$SQLn] = $SQLbase; $this->log("insert(): Новый подзапрос №{$c}", CMSSQL_TYPE_WARNING); }
+// TODO : РћС‚РєСѓРґР° РІР·СЏР»Р°СЃСЊ $c				
+				if (mb_strlen($SQL . $SQLrow . ", ") > $this->maxPacket()) { $SQLn++; $SQL[$SQLn] = $SQLbase; $this->log("insert(): РќРѕРІС‹Р№ РїРѕРґР·Р°РїСЂРѕСЃ в„–{$c}", CMSSQL_TYPE_WARNING); }
 				$SQL[$SQLn] .= $SQLrow . ", ";
 				
 			}
@@ -714,11 +714,11 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция обновляет с вставкой таблицу, можно использовать для массового update, возвращает affected rows
-	 *	@param	string	$table		Таблица для обновления
-	 *	@param	array		$data			Массив из массивов с данными, важно заметить, что имена полей для запроса берутся из первого подмассива
-	 *	@param	array		$exclude	Список полей, не участвующих в обновлении (обычно ID — те поля, по которым будет контролироваться уникальность записей, как-то так)
-	 *	@param	bool		$log			Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РѕР±РЅРѕРІР»СЏРµС‚ СЃ РІСЃС‚Р°РІРєРѕР№ С‚Р°Р±Р»РёС†Сѓ, РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РјР°СЃСЃРѕРІРѕРіРѕ update, РІРѕР·РІСЂР°С‰Р°РµС‚ affected rows
+	 *	@param	string	$table		РўР°Р±Р»РёС†Р° РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ
+	 *	@param	array		$data			РњР°СЃСЃРёРІ РёР· РјР°СЃСЃРёРІРѕРІ СЃ РґР°РЅРЅС‹РјРё, РІР°Р¶РЅРѕ Р·Р°РјРµС‚РёС‚СЊ, С‡С‚Рѕ РёРјРµРЅР° РїРѕР»РµР№ РґР»СЏ Р·Р°РїСЂРѕСЃР° Р±РµСЂСѓС‚СЃСЏ РёР· РїРµСЂРІРѕРіРѕ РїРѕРґРјР°СЃСЃРёРІР°
+	 *	@param	array		$exclude	РЎРїРёСЃРѕРє РїРѕР»РµР№, РЅРµ СѓС‡Р°СЃС‚РІСѓСЋС‰РёС… РІ РѕР±РЅРѕРІР»РµРЅРёРё (РѕР±С‹С‡РЅРѕ ID вЂ” С‚Рµ РїРѕР»СЏ, РїРѕ РєРѕС‚РѕСЂС‹Рј Р±СѓРґРµС‚ РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊСЃСЏ СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚СЊ Р·Р°РїРёСЃРµР№, РєР°Рє-С‚Рѕ С‚Р°Рє)
+	 *	@param	bool		$log			РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	int
 	 */
 	function insertUpdate($table, $data, $exclude = array("id"), $log = CMSSQL_LOG) {
@@ -740,7 +740,7 @@ class cmsSQL {
 		
 		foreach ($values as $value) {
 			
-			if (mb_strlen($sql) + mb_strlen($SQLs[$n] . $value . ", ") + mb_strlen($upd) > $this->maxPacket()) { $n++; $this->log("insertUpdate(): Новый подзапрос №{$n}", CMSSQL_TYPE_WARNING); }
+			if (mb_strlen($sql) + mb_strlen($SQLs[$n] . $value . ", ") + mb_strlen($upd) > $this->maxPacket()) { $n++; $this->log("insertUpdate(): РќРѕРІС‹Р№ РїРѕРґР·Р°РїСЂРѕСЃ в„–{$n}", CMSSQL_TYPE_WARNING); }
 			
 			$SQLs[$n] .= $value . ", ";
 			
@@ -748,7 +748,7 @@ class cmsSQL {
 		
 		foreach ($SQLs as $SQLn) $this->query($sql . substr($SQLn, 0, -2) . $upd, array(), $log);
 		
-		// Оптимизируем, если нет ошибок
+		// РћРїС‚РёРјРёР·РёСЂСѓРµРј, РµСЃР»Рё РЅРµС‚ РѕС€РёР±РѕРє
 		//if (!$this->error()) $this->query("OPTIMIZE TABLE {$table}", array(), CMSSQL_LOG_BLOCK);
 		
 		// Cleanup
@@ -762,18 +762,18 @@ class cmsSQL {
 	
 	
 	/**
-	 *	Функция обновляет таблицу — обычный update по условию, возвращает affected rows
-	 *	@param	string	$table		Таблица для обновления
-	 *	@param	array		$where		Подстрока запроса для WHERE, может содержать токены %xxx%
-	 *	@param	array		$array		Массив для подстановки в запрос (также тут может быть и сразу тип лога, см. функцию query() — это DEPRECATED!)
-	 *	@param	array		$data			Массив из массивов с данными, важно заметить, что имена полей для запроса берутся из первого подмассива
-	 *	@param	bool		$log			Тип лога, см. функцию query()
+	 *	Р¤СѓРЅРєС†РёСЏ РѕР±РЅРѕРІР»СЏРµС‚ С‚Р°Р±Р»РёС†Сѓ вЂ”В РѕР±С‹С‡РЅС‹Р№ update РїРѕ СѓСЃР»РѕРІРёСЋ, РІРѕР·РІСЂР°С‰Р°РµС‚ affected rows
+	 *	@param	string	$table		РўР°Р±Р»РёС†Р° РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ
+	 *	@param	array		$where		РџРѕРґСЃС‚СЂРѕРєР° Р·Р°РїСЂРѕСЃР° РґР»СЏ WHERE, РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕРєРµРЅС‹ %xxx%
+	 *	@param	array		$array		РњР°СЃСЃРёРІ РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РІ Р·Р°РїСЂРѕСЃ (С‚Р°РєР¶Рµ С‚СѓС‚ РјРѕР¶РµС‚ Р±С‹С‚СЊ Рё СЃСЂР°Р·Сѓ С‚РёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query() вЂ” СЌС‚Рѕ DEPRECATED!)
+	 *	@param	array		$data			РњР°СЃСЃРёРІ РёР· РјР°СЃСЃРёРІРѕРІ СЃ РґР°РЅРЅС‹РјРё, РІР°Р¶РЅРѕ Р·Р°РјРµС‚РёС‚СЊ, С‡С‚Рѕ РёРјРµРЅР° РїРѕР»РµР№ РґР»СЏ Р·Р°РїСЂРѕСЃР° Р±РµСЂСѓС‚СЃСЏ РёР· РїРµСЂРІРѕРіРѕ РїРѕРґРјР°СЃСЃРёРІР°
+	 *	@param	bool		$log			РўРёРї Р»РѕРіР°, СЃРј. С„СѓРЅРєС†РёСЋ query()
 	 *	@return	int
 	 */
 	function update($table, $where, $array, $data = false, $log = CMSSQL_LOG) {
 		
-		// Раньше не было массивов, поэтому сейчас для обратной совместимости массив можно не указывать
-		// backward compatibility — DEPRECATED!!!
+		// Р Р°РЅСЊС€Рµ РЅРµ Р±С‹Р»Рѕ РјР°СЃСЃРёРІРѕРІ, РїРѕСЌС‚РѕРјСѓ СЃРµР№С‡Р°СЃ РґР»СЏ РѕР±СЂР°С‚РЅРѕР№ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё РјР°СЃСЃРёРІ РјРѕР¶РЅРѕ РЅРµ СѓРєР°Р·С‹РІР°С‚СЊ
+		// backward compatibility вЂ”В DEPRECATED!!!
 		if (!$data) {
 			
 			$data = $array;
@@ -787,7 +787,7 @@ class cmsSQL {
 		foreach ($data as $k => $v) $sql[] = $this->check($k) . " = '" . $this->check($v) . "'";
 		$this->query("UPDATE `{$table}` SET " . implode(", ", $sql) . " WHERE {$where}", $array, $log);
 		
-		// Оптимизируем, если нет ошибок
+		// РћРїС‚РёРјРёР·РёСЂСѓРµРј, РµСЃР»Рё РЅРµС‚ РѕС€РёР±РѕРє
 		//if (!$this->error()) $this->query("OPTIMIZE TABLE {$table}", array(), CMSSQL_LOG_BLOCK);
 		
 		return $this->affected();

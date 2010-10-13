@@ -1,6 +1,6 @@
 <?
 
-// функция авторизации
+// С„СѓРЅРєС†РёСЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 function authorize()
 {
 	$sessionid = $_COOKIE[session_name()];
@@ -17,10 +17,10 @@ function authorize()
 				$_SERVER[user]=$rs["nik"];
 				$_SERVER[userid]=$rs["id"];
 			} else {
-				$mes = "Не могу найти пользователя по сессии. Обратитесь к разработчику!";
+				$mes = "РќРµ РјРѕРіСѓ РЅР°Р№С‚Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕ СЃРµСЃСЃРёРё. РћР±СЂР°С‚РёС‚РµСЃСЊ Рє СЂР°Р·СЂР°Р±РѕС‚С‡РёРєСѓ!";
 			}
 		} else {
-			$mes = "Сессия не верна или устарела!";
+			$mes = "РЎРµСЃСЃРёСЏ РЅРµ РІРµСЂРЅР° РёР»Рё СѓСЃС‚Р°СЂРµР»Р°!";
 		}
 	}
 
@@ -42,7 +42,7 @@ function authorize()
 			}
 			cmsRedirect('/index.php');//header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'');
 		}else{
-			$mes = "Логин или пароль указаны не верно. Авторизация не удалась. Попробуйте ещё раз.";
+			$mes = "Р›РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ СѓРєР°Р·Р°РЅС‹ РЅРµ РІРµСЂРЅРѕ. РђРІС‚РѕСЂРёР·Р°С†РёСЏ РЅРµ СѓРґР°Р»Р°СЃСЊ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰С‘ СЂР°Р·.";
 		}
 	}
 	
@@ -51,10 +51,10 @@ function authorize()
 		//print_r($_SERVER);
 		if ($_SERVER['SCRIPT_NAME']!='/index.php')
 		{
-			cmsRedirect('/index.php'); // показать начало чтоб не под меню показывать
+			cmsRedirect('/index.php'); // РїРѕРєР°Р·Р°С‚СЊ РЅР°С‡Р°Р»Рѕ С‡С‚РѕР± РЅРµ РїРѕРґ РјРµРЅСЋ РїРѕРєР°Р·С‹РІР°С‚СЊ
 		}
 		showheader();	
-		echo "<html><head>	<title>База данных ЗАО МПП. Вход.</title>";
+		echo "<html><head>	<title>Р‘Р°Р·Р° РґР°РЅРЅС‹С… Р—РђРћ РњРџРџ. Р’С…РѕРґ.</title>";
 		echo "<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=windows-1251>";
 		echo "</head>";
 		echo "<body bgcolor=#FFFFFF><div align=center> <p>&nbsp;</p>";
@@ -62,9 +62,9 @@ function authorize()
 		echo "<table width=500 border=0 cellspacing=0 cellpadding=0 bgcolor='#FFFFFF'>";
 		echo "<tr>  <td rowspan=6 width=3>&nbsp;</td>";
 		echo "<td colspan=2 class=zag align=center>&nbsp;</td><td>&nbsp;</td>";
-		echo "</tr> <tr><td colspan=2 class=zag align=center>Необходимо авторизоваться для работы с базой</td><td>&nbsp;</td> </tr>";
+		echo "</tr> <tr><td colspan=2 class=zag align=center>РќРµРѕР±С…РѕРґРёРјРѕ Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№</td><td>&nbsp;</td> </tr>";
 		echo "<tr><td colspan=2 class=zag align=center>$mes &nbsp;</td> <td>&nbsp;</td> </tr>";
-		echo "<tr><td class=tekst align=right>Пароль <span class=podtekst>(именно пароль и только пароль)</td>";
+		echo "<tr><td class=tekst align=right>РџР°СЂРѕР»СЊ <span class=podtekst>(РёРјРµРЅРЅРѕ РїР°СЂРѕР»СЊ Рё С‚РѕР»СЊРєРѕ РїР°СЂРѕР»СЊ)</td>";
 		echo "<td align=center><input type=password name='password' id=password></td>";
 		echo "<td width=40><input type=image src='/picture/sl_enter.gif' width=26 height=25/></td>";
 		echo "</tr><tr><td width='10'>&nbsp;</td><td class=tekst>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
@@ -86,7 +86,7 @@ function logout() {
 	$sql="DELETE FROM session WHERE session='".session_id()."'";
 	sql::query($sql);
 	$_SESSION=false;
-	setCookie(session_name(), session_id(), time() - 60 * 60 * 24, "/"); // 1 день
+	setCookie(session_name(), session_id(), time() - 60 * 60 * 24, "/"); // 1 РґРµРЅСЊ
 	print_r($_SESSION);
 	echo "<script>window.location='http://".$_SERVER['HTTP_HOST']."'</script>";
 }

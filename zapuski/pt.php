@@ -1,16 +1,16 @@
 <?
-// óïðàâëåíèå øàáëîíàìè
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑˆÐ°Ð±Ð»Ð¾Ð½Ð°Ð¼Ð¸
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
 if (isset($edit)) {
-	// íè÷åãî
+	// Ð½Ð¸Ñ‡ÐµÐ³Ð¾
 } elseif (isset($delete)) {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM phototemplates WHERE id='$delete'";
 	sql::query($sql);
 	sql::error(true);
@@ -18,14 +18,14 @@ if (isset($edit)) {
 }
 else
 {
-// âûâåñòè òàáëèöó
+// Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
 	// sql
 	$sql="SELECT *,unix_timestamp(ts) AS uts,phototemplates.id AS ptid,phototemplates.id FROM phototemplates JOIN users ON phototemplates.user_id=users.id ".(isset($find)?"WHERE filenames LIKE '%$find%'":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY ts DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 	//echo $sql;
 	$cols[ptid]="ID";
-	$cols[ts]="Äàòà";
-	$cols[nik]="Êòî çàïóñòèë";
-	$cols[filenames]="Êîëâî è Êàòàëîã";
+	$cols[ts]="Ð”Ð°Ñ‚Ð°";
+	$cols[nik]="ÐšÑ‚Ð¾ Ð·Ð°Ð¿ÑƒÑÑ‚Ð¸Ð»";
+	$cols[filenames]="ÐšÐ¾Ð»Ð²Ð¾ Ð¸ ÐšÐ°Ñ‚Ð°Ð»Ð¾Ð³";
 	
 	$table = new Table($processing_type,$processing_type,$sql,$cols);
 	$table->show();

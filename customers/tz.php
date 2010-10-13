@@ -1,8 +1,8 @@
 <?
-// ñîçäàíèå è ðåäàêòèðîâàíèå Òåõ çàäàíèé
+// ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¸ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¢ÐµÑ… Ð·Ð°Ð´Ð°Ð½Ð¸Ð¹
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -28,21 +28,21 @@ if (isset($edit))
 	{
 		if (empty($edit)){
 			if(empty($_SESSION[order_id])) {
-				echo "Íå èçâåñòíî êóäà äîáàâëÿòü. Âûáåðè çàêàç!";
+				echo "ÐÐµ Ð¸Ð·Ð²ÐµÑÑ‚Ð½Ð¾ ÐºÑƒÐ´Ð° Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ‚ÑŒ. Ð’Ñ‹Ð±ÐµÑ€Ð¸ Ð·Ð°ÐºÐ°Ð·!";
 			}
 			else
 			{
 				if (isset($typetz)) 
 				{
-					// np íå íàäî ðåäàêòèðîâàòü - òîëüêî äîáàâëÿòü ñ òåêóùåé äàòîé è ïîëüçîâàòåëåì
-					// îïðåäåëèì ïîçèöèþ â ïèñüìå
+					// np Ð½Ðµ Ð½Ð°Ð´Ð¾ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ - Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ‚ÑŒ Ñ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¹ Ð´Ð°Ñ‚Ð¾Ð¹ Ð¸ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¼
+					// Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ð¼ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ Ð² Ð¿Ð¸ÑÑŒÐ¼Ðµ
 					$sql="SELECT COUNT(*)+1 AS next FROM tz WHERE order_id='$orderid'";
 					$rs=sql::fetchOne($sql);
 					$pos_in_order = $rs[next];
 
-					// äîáàâëåíèå
-					// ñîçäàòü ôàéë ñ òàáëè÷êîé
-					// îïðåäåëèì çàêàç÷èêà
+					// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ
+					// ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ‡ÐºÐ¾Ð¹
+					// Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ð¼ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°
 					$sql="SELECT number,orderdate,customer, fullname FROM orders JOIN customers ON customers.id=customer_id WHERE orders.id='$orderid'";
 					//echo $sql;
 					$rs=sql::fetchOne($sql);
@@ -54,12 +54,12 @@ if (isset($edit))
 					
 					do 
 					{
-						$file_link = "t:\\\\Ðàñ÷åò ñòîèìîñòè ïëàò\\\\ÒåõÇàä\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." îò ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"ÌÏÏ":"ÄÏÏ").".xls";
+						$file_link = "t:\\\\Ð Ð°ÑÑ‡ÐµÑ‚ ÑÑ‚Ð¾Ð¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¿Ð»Ð°Ñ‚\\\\Ð¢ÐµÑ…Ð—Ð°Ð´\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." Ð¾Ñ‚ ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"ÐœÐŸÐŸ":"Ð”ÐŸÐŸ").".xls";
 						$filename = createdironserver($file_link);
 						$fe = file_exists($filename);
 						if ($fe) $pos_in_order++;
 					} while ($fe);
-					// Îïðåäåëèì èäåíòèôèêàòîð ôàéëîâîé ññûëêè
+					// ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ð¼ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€ Ñ„Ð°Ð¹Ð»Ð¾Ð²Ð¾Ð¹ ÑÑÑ‹Ð»ÐºÐ¸
 					$sql="SELECT id FROM filelinks WHERE file_link='$file_link'";
 					$rs=sql::fetchOne($sql);
 					if (!empty($rs[id]))
@@ -100,29 +100,29 @@ if (isset($edit))
 						} 
 						else 
 						{
-							echo "Íå óäàëîñü ñîçäàòü ôàéë txt";
+							echo "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» txt";
 						}
 					}
 					else
 					{
-						echo "Íå óäàëîñü ñîçäàòü ôàéë xls";
+						echo "ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð» xls";
 					}
 				}
 				else
 				{
-					//íå èçâåñòåí òèï çàäàíèÿ - ñïðîñèì
+					//Ð½Ðµ Ð¸Ð·Ð²ÐµÑÑ‚ÐµÐ½ Ñ‚Ð¸Ð¿ Ð·Ð°Ð´Ð°Ð½Ð¸Ñ - ÑÐ¿Ñ€Ð¾ÑÐ¸Ð¼
 					$orderid = $_SESSION[order_id];
 					
 					echo "<div style='margin:10px'>";
-					echo "<input type=button onclick=\"editrecord('tz','typetz=mpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ÌÏÏ'>";
-					echo "<input type=button onclick=\"editrecord('tz','typetz=dpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ÄÏÏ'>";
+					echo "<input type=button onclick=\"editrecord('tz','typetz=mpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ÐœÐŸÐŸ'>";
+					echo "<input type=button onclick=\"editrecord('tz','typetz=dpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='Ð”ÐŸÐŸ'>";
 					echo "</div>";
 				}
 			}
 		}
 		else
 		{
-			// ïîêà íè÷åãî
+			// Ð¿Ð¾ÐºÐ° Ð½Ð¸Ñ‡ÐµÐ³Ð¾
 			$sql = "SELECT file_link FROM tz JOIN filelinks ON filelinks.id=tz.file_link_id WHERE tz.id='$edit'";
 			//echo $sql;
 			$rs=sql::fetchOne($sql);
@@ -134,10 +134,10 @@ if (isset($edit))
 }
 elseif (isset($delete)) 
 {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM tz WHERE id='$delete'";
 	sql::query($sql);
-	// óäàëåíèå ñâÿçåé
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 	$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
 	$res = sql::fetchAll($sql);
 	foreach ($res as $rs) 
@@ -154,33 +154,34 @@ elseif (isset($print))
 } 
 else 
 {
-	// ñïèñîê
+	// ÑÐ¿Ð¸ÑÐ¾Ðº
 	if(isset($all)) $_SESSION[tz_id]='';
 	if (!empty($_SESSION[customer_id])) 
 	{
 		if(empty($_SESSION[order_id])){
-			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
-			$ordername="Çàêàç÷èê - ".$_SESSION[customer]." - Òåõçàäàíèÿ";
-			$cols[number]="Çàêàç";
+			$sql="SELECT *,IF(instr(file_link,'ÐœÐŸÐŸ')>0, 'ÐœÐŸÐŸ', 'Ð”ÐŸÐŸ') AS type,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+			$ordername="Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº - ".$_SESSION[customer]." - Ð¢ÐµÑ…Ð·Ð°Ð´Ð°Ð½Ð¸Ñ";
+			$cols[number]="Ð—Ð°ÐºÐ°Ð·";
 		}
 		else
 		{
 			$orderid=$_SESSION[order_id];
-			$ordername = "Çàêàç÷èê - ".$_SESSION[customer]." - ÒÇ - ".$_SESSION[order]." îò ".$_SESSION[orderdate];
-			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
+			$ordername = "Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº - ".$_SESSION[customer]." - Ð¢Ð— - ".$_SESSION[order]." Ð¾Ñ‚ ".$_SESSION[orderdate];
+			$sql="SELECT *,IF(instr(file_link,'ÐœÐŸÐŸ')>0, 'ÐœÐŸÐŸ', 'Ð”ÐŸÐŸ') AS type,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
 		}
 	} 
 	else
 	{
-		$ordername='Òåõçàäàíèÿ';
-		$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
-		$cols[customer]="Çàêàç÷èê";
-		$cols[number]="Çàêàç";
+		$ordername='Ð¢ÐµÑ…Ð·Ð°Ð´Ð°Ð½Ð¸Ñ';
+		$sql="SELECT *,IF(instr(file_link,'ÐœÐŸÐŸ')>0, 'ÐœÐŸÐŸ', 'Ð”ÐŸÐŸ') AS type, tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+		$cols[customer]="Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº";
+		$cols[number]="Ð—Ð°ÐºÐ°Ð·";
 	}
 	
 	$cols[tzid]="ID";
-	$cols[tz_date]="Äàòà";
-	$cols[nik]="Êòî çàïîëíèë";
+	$cols[type]="Ð¢Ð¸Ð¿";
+	$cols[tz_date]="Ð”Ð°Ñ‚Ð°";
+	$cols[nik]="ÐšÑ‚Ð¾ Ð·Ð°Ð¿Ð¾Ð»Ð½Ð¸Ð»";
 
 	$table = new Table($processing_type,$processing_type,$sql,$cols);
 	$table->title=$ordername;

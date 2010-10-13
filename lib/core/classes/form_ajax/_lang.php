@@ -7,12 +7,12 @@ cmsLang_add(array("cmsForm" => array(
 	"captcha" => array(
 		
 		"reload" => array(
-			"ru" => "Обновить код", 
+			"ru" => "РћР±РЅРѕРІРёС‚СЊ РєРѕРґ", 
 			"en" => "Reload captcha",
 		),
 		
 		"title" => array(
-			"ru" => "Код содержит только цифры", 
+			"ru" => "РљРѕРґ СЃРѕРґРµСЂР¶РёС‚ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹", 
 			"en" => "Code contains only digits",
 		),
 		
@@ -21,44 +21,44 @@ cmsLang_add(array("cmsForm" => array(
 	"error" => array(
 		
 		"length" => array(
-			"ru" => "Максимальное количество символов", //"Это поле обязательно для заполнения", 
+			"ru" => "РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ", //"Р­С‚Рѕ РїРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ", 
 			"en" => "Maximum length", //"The field is obligatory",
 		),
 		
 		"obligatory" => array(
 			
 			"empty" => array(
-				"ru" => "", //"Это поле обязательно для заполнения", 
+				"ru" => "", //"Р­С‚Рѕ РїРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ", 
 				"en" => "", //"The field is obligatory",
 			),
 			
 			"not-found" => array(
-				"ru" => "Значение не найдено в массиве", 
+				"ru" => "Р—РЅР°С‡РµРЅРёРµ РЅРµ РЅР°Р№РґРµРЅРѕ РІ РјР°СЃСЃРёРІРµ", 
 				"en" => "Value has not been found in array",
 			),
 			
 			CMSFORM_TYPE_CHECKBOX => array(
-				"ru" => "Поле должно быть отмечено", 
+				"ru" => "РџРѕР»Рµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РѕС‚РјРµС‡РµРЅРѕ", 
 				"en" => "This field has to be checked",
 			),
 			
 			CMSFORM_TYPE_SELECT => array(
-				"ru" => "Значение должно быть выбрано", 
+				"ru" => "Р—РЅР°С‡РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹Р±СЂР°РЅРѕ", 
 				"en" => "Value has to be selected",
 			),
 			
 			CMSFORM_TYPE_RADIO => array(
-				"ru" => "Значение должно быть выбрано", 
+				"ru" => "Р—РЅР°С‡РµРЅРёРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІС‹Р±СЂР°РЅРѕ", 
 				"en" => "Value has to be selected",
 			),
 			
 			CMSFORM_TYPE_FILE => array(
-				"ru" => "Необходимо указать файл", 
+				"ru" => "РќРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·Р°С‚СЊ С„Р°Р№Р»", 
 				"en" => "File has to be selected",
 			),
 			
 			CMSFORM_TYPE_DATE => array(
-				"ru" => "Необходимо выбрать дату", 
+				"ru" => "РќРµРѕР±С…РѕРґРёРјРѕ РІС‹Р±СЂР°С‚СЊ РґР°С‚Сѓ", 
 				"en" => "Date has to be selected",
 			),
 			
@@ -67,7 +67,7 @@ cmsLang_add(array("cmsForm" => array(
 		"checker" => array(
 			
 			"illegal" => array(
-				"ru" => "Поле содержит запрещенные символы", 
+				"ru" => "РџРѕР»Рµ СЃРѕРґРµСЂР¶РёС‚ Р·Р°РїСЂРµС‰РµРЅРЅС‹Рµ СЃРёРјРІРѕР»С‹", 
 				"en" => "The field is contains illegal characters",
 			),
 			
@@ -82,7 +82,7 @@ cmsLang_add(array("cmsForm" => array(
 			),
 			
 			CMSFORM_CHECK_NUMERIC => array(
-				"ru" => "Это поле может содержать только цифры", 
+				"ru" => "Р­С‚Рѕ РїРѕР»Рµ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹", 
 				"en" => "Allowed characters: digits only",
 			),
 			
@@ -116,34 +116,34 @@ cmsLang_add(array("cmsForm" => array(
 		"format" => array(
 			
 			CMSFORM_FORMAT_PHONE => array(
-				"ru" => strip_tags("Телефон должен соответствовать <a href='http://www.artlebedev.ru/kovodstvo/sections/91/#54' target='_blank'>формату</a> +7 123 456-78-90"),
-				"en" => strip_tags("Phone should correspond to the <a href='http://en.wikipedia.org/wiki/Phone_number' target='_blank'>format</a> +7 123 456-78-90»"),
+				"ru" => strip_tags("РўРµР»РµС„РѕРЅ РґРѕР»Р¶РµРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ <a href='http://www.artlebedev.ru/kovodstvo/sections/91/#54' target='_blank'>С„РѕСЂРјР°С‚Сѓ</a>В +7В 123В 456-78-90"),
+				"en" => strip_tags("Phone should correspond to the <a href='http://en.wikipedia.org/wiki/Phone_number' target='_blank'>format</a>В +7В 123В 456-78-90В»"),
 			),
 			
 			CMSFORM_FORMAT_MAIL => array(
-				"ru" => strip_tags("Адрес должен соответствовать <a href='http://ru.wikipedia.org/wiki/%D0%90%D0%B4%D1%80%D0%B5%D1%81_%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D0%B9_%D0%BF%D0%BE%D1%87%D1%82%D1%8B' target='_blank'>формату</a> name@site.ru"), 
+				"ru" => strip_tags("РђРґСЂРµСЃ РґРѕР»Р¶РµРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ <a href='http://ru.wikipedia.org/wiki/%D0%90%D0%B4%D1%80%D0%B5%D1%81_%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D0%B9_%D0%BF%D0%BE%D1%87%D1%82%D1%8B' target='_blank'>С„РѕСЂРјР°С‚Сѓ</a>В name@site.ru"), 
 				"en" => strip_tags("Mail address should correspond to the <a href='http://en.wikipedia.org/wiki/E-mail_address' target='_blank'>format</a> name@site.com"),
 			),
 			
 			CMSFORM_FORMAT_URL => array(
-				"ru" => strip_tags("URL должен соответствовать <a href='http://ru.wikipedia.org/wiki/URL#.D0.A1.D1.82.D1.80.D1.83.D0.BA.D1.82.D1.83.D1.80.D0.B0_URL' target='_blank'>формату</a> и начинаться на «http://» или «www.»"), 
-				"en" => strip_tags("URL should correspond to the <a href='http://en.wikipedia.org/wiki/Url' target='_blank'>format</a> and start with «http://» or «www.»"),
+				"ru" => strip_tags("URL РґРѕР»Р¶РµРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ <a href='http://ru.wikipedia.org/wiki/URL#.D0.A1.D1.82.D1.80.D1.83.D0.BA.D1.82.D1.83.D1.80.D0.B0_URL' target='_blank'>С„РѕСЂРјР°С‚Сѓ</a> Рё РЅР°С‡РёРЅР°С‚СЊСЃСЏ РЅР° В«http://В» РёР»Рё В«www.В»"), 
+				"en" => strip_tags("URL should correspond to the <a href='http://en.wikipedia.org/wiki/Url' target='_blank'>format</a> and start with В«http://В» or В«www.В»"),
 			),
 			
 			CMSFORM_FORMAT_LOGIN => array(
-				"ru" => "Разрешенные символы: 0…9, a…z, «-», «_», не менее трех символов",
-				"en" => "Allowed characters: 0…9, a…z, «-», «_», three symbols minimum",
+				"ru" => "Р Р°Р·СЂРµС€РµРЅРЅС‹Рµ СЃРёРјРІРѕР»С‹: 0вЂ¦9, aвЂ¦z, В«-В», В«_В», РЅРµ РјРµРЅРµРµ С‚СЂРµС… СЃРёРјРІРѕР»РѕРІ",
+				"en" => "Allowed characters: 0вЂ¦9, aвЂ¦z, В«-В», В«_В», three symbols minimum",
 			),
 			
 			CMSFORM_FORMAT_CUSTOM => array(
-				"ru" => "Поле заполнено не по формату",
+				"ru" => "РџРѕР»Рµ Р·Р°РїРѕР»РЅРµРЅРѕ РЅРµ РїРѕ С„РѕСЂРјР°С‚Сѓ",
 				"en" => "Field not corresponds to the format",
 			),
 			
 		),
 		
 		"code" => array(
-			"ru" => "Неверный код подтверждения",
+			"ru" => "РќРµРІРµСЂРЅС‹Р№ РєРѕРґ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ",
 			"en" => "Wrong confirmation code",
 		),
 		

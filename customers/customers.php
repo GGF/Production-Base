@@ -1,8 +1,8 @@
 <?
-// óïðàâëåíèå çàêàç÷èêàìè
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°Ð¼Ð¸
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; 
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -32,21 +32,21 @@ if (isset($edit))
 				array(
 					"type"		=>	CMSFORM_TYPE_TEXT,
 					"name"		=>	"customer",
-					"label"		=>	"Êðàòêîå íàçâàíèå (èìÿ êàòàëîãà):",
+					"label"		=>	"ÐšÑ€Ð°Ñ‚ÐºÐ¾Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ (Ð¸Ð¼Ñ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°):",
 					"value"		=>	$cust["customer"],
 					//"options"	=>	array( "html" => "size=10", ),
 				),
 				array(
 					"type"		=>	CMSFORM_TYPE_TEXT,
 					"name"		=>	"fullname",
-					"label"		=>	"Ïîëíîå íàçâàíèå (äëÿ òåççàäàíèé):",
+					"label"		=>	"ÐŸÐ¾Ð»Ð½Ð¾Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ (Ð´Ð»Ñ Ñ‚ÐµÐ·Ð·Ð°Ð´Ð°Ð½Ð¸Ð¹):",
 					"value"		=>	$cust["fullname"],
 					"options"	=>	array( "html" => "size=60", ),
 				),
 				array(
 					"type"		=>	CMSFORM_TYPE_TEXT,
 					"name"		=>	"kdir",
-					"label"		=>	"Êàòàëîã íà äèñêå Ê (äëÿ ñâåðëîâîê):",
+					"label"		=>	"ÐšÐ°Ñ‚Ð°Ð»Ð¾Ð³ Ð½Ð° Ð´Ð¸ÑÐºÐµ Ðš (Ð´Ð»Ñ ÑÐ²ÐµÑ€Ð»Ð¾Ð²Ð¾Ðº):",
 					"value"		=>	$cust["kdir"],
 				),
 			));
@@ -54,12 +54,12 @@ if (isset($edit))
 		} 
 		else 
 		{
-			// ñîõðíåíèå
+			// ÑÐ¾Ñ…Ñ€Ð½ÐµÐ½Ð¸Ðµ
 			if (!empty($edit)) {
-				// ðåäàêòèðîâàíèå
+				// Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ
 				$sql = "UPDATE customers SET customer='$customer', fullname='$fullname', kdir='$kdir' WHERE id='$edit'";
 			} else {
-				// äîáàâëåíèå
+				// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ
 				$sql = "INSERT INTO customers (customer,fullname,kdir) VALUES ('$customer','$fullname','$kdir')";
 			}
 			sql::query($sql);
@@ -69,12 +69,12 @@ if (isset($edit))
 } 
 elseif (isset($delete)) 
 {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM customers WHERE id='$delete'";
 	sql::query($sql);
 	sql::error(true);
-	// óäàëåíèå ñâÿçåé
-	// óäàëèòü è ïëàòû çàêàç÷èêà
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
+	// ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¸ Ð¿Ð»Ð°Ñ‚Ñ‹ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°
 	$sql = "SELECT * FROM plates WHERE customer_id='$delete'";
 	$res = sql::fetchAll($sql);
 	foreach ($res as $rs) 
@@ -82,28 +82,28 @@ elseif (isset($delete))
 		$sql = "DELETE FROM plates WHERE id='".$rs["id"]."'";
 		sql::query($sql);
 		sql::error(true);
-		// íàäî áû óäàëèòü è áëîêè ò.ï.
+		// Ð½Ð°Ð´Ð¾ Ð±Ñ‹ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¸ Ð±Ð»Ð¾ÐºÐ¸ Ñ‚.Ð¿.
 	}
-	// óäàëèòü âÿçàííûå çàêàçû è òç
+	// ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°ÐºÐ°Ð·Ñ‹ Ð¸ Ñ‚Ð·
 	$sql = "SELECT * FROM orders WHERE customer_id='$delete'";
 	$res = sql::fetchAll($sql);
 	foreach ($res as $rs) 
 	{
-		// óäàëåíèå
+		// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 		$delete = $rs["id"];
 		$sql = "DELETE FROM orders WHERE id='$delete'";
 		sql::query($sql);
 		sql::error(true);
-		// óäàëåíèå ñâÿçåé
+		// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 		$sql = "SELECT * FROM tz WHERE order_id='$delete'";
 		$res1 =  sql::fetchAll($sql);
 		foreach($res1 as $rs1) {
-			// óäàëåíèå
+			// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 			$delete = $rs1["id"];
 			$sql = "DELETE FROM tz WHERE id='$delete'";
 			sql::query($sql);
 			sql::error(true);
-			// óäàëåíèå ñâÿçåé
+			// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 			$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
 			$res2 =  sql::fetchAll($sql);
 			foreach($res2 as $rs2)
@@ -117,21 +117,21 @@ elseif (isset($delete))
 }
 else
 {
-// âûâåñòè òàáëèöó
+// Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
 	if(isset($all)) $_SESSION[customer_id]='';
 	// sql
 	$sql="SELECT * FROM customers ".(isset($find)?"WHERE (customers.customer LIKE '%$find%' OR customers.fullname LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY customers.customer ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
 	$cols[id]="ID";
-	$cols[customer]="Çàêàç÷èê";
-	$cols[fullname]="Ïîëíîå íàçâàíèå";
-	$cols[kdir]="Ñâåðëîâêè";
+	$cols[customer]="Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº";
+	$cols[fullname]="ÐŸÐ¾Ð»Ð½Ð¾Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ";
+	$cols[kdir]="Ð¡Ð²ÐµÑ€Ð»Ð¾Ð²ÐºÐ¸";
 
 	$openfunc = "opencustr";
 
 	
 	$table = new Table($processing_type,$processing_type,$sql,$cols);
-	//$table->title='Çàêàç÷èêè';
+	//$table->title='Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ¸';
 	$table->addbutton=true;
 	$table->show();
 

@@ -42,11 +42,11 @@ if (isset($delete))
 {
 	if (isset($accept)) 
 	{
-		// отредактировано
+		// РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРѕ
 		$fields = array("nazv"=>$nazv, "edizm"=>$edizm, "krost"=>$krost);
 		
 		if (empty($edit)) {
-			//добавление нового
+			//РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ
 			if (sql::insert('zaomppsklads`.`sk_'.$sklad.'_spr',$fields)>0) {
 				$spr_id = sql::lastId();
 				sql::insert("zaomppsklads`.`sk_".$sklad."_ost",array("spr_id"=>$spr_id,"ost"=>"0"));
@@ -67,21 +67,21 @@ if (isset($delete))
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "nazv",
-				"label"			=>'Наименование:',
+				"label"			=>'РќР°РёРјРµРЅРѕРІР°РЅРёРµ:',
 				"value"		=> $rs["nazv"],
 				"options"	=>	array( "html" => "size=70", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "edizm",
-				"label"			=>'Единица измерения:',
+				"label"			=>'Р•РґРёРЅРёС†Р° РёР·РјРµСЂРµРЅРёСЏ:',
 				"value"		=> $rs["edizm"],
 				"options"	=>	array( "html" => "size=10", ),
 			),
 			array(
 				"type"		=> CMSFORM_TYPE_TEXT,
 				"name"		=> "krost",
-				"label"			=>'Критический остаток:',
+				"label"			=>'РљСЂРёС‚РёС‡РµСЃРєРёР№ РѕСЃС‚Р°С‚РѕРє:',
 				"value"		=> $rs["krost"],
 				"options"	=>	array( "html" => "size=10", ),
 			),
@@ -90,16 +90,16 @@ if (isset($delete))
 	}
 } else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 
-	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>мало</b></span>','') as malo,sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_spr JOIN ".$db."sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id WHERE nazv!='' ".(isset($find)?"AND nazv LIKE '%$find%' ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
+	$sql="SELECT *,if((krost>ost),'<span style=\'color:red\'><b>РјР°Р»Рѕ</b></span>','') as malo,sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_spr JOIN ".$db."sk_".$sklad."_ost ON sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id WHERE nazv!='' ".(isset($find)?"AND nazv LIKE '%$find%' ":"").(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ").(isset($all)?"":"LIMIT 20");
 	//echo $sql;
 	
-	$cols[nazv]="Название";
-	$cols[edizm]="Ед.Изм.";
-	$cols[ost]="Остаток на складе";
-	$cols[krost]="Крит. кол-во";
-	$cols[malo]="Внимание";
+	$cols[nazv]="РќР°Р·РІР°РЅРёРµ";
+	$cols[edizm]="Р•Рґ.РР·Рј.";
+	$cols[ost]="РћСЃС‚Р°С‚РѕРє РЅР° СЃРєР»Р°РґРµ";
+	$cols[krost]="РљСЂРёС‚. РєРѕР»-РІРѕ";
+	$cols[malo]="Р’РЅРёРјР°РЅРёРµ";
 
 	
 	$table = new Table($processing_type,"dvizh",$sql,$cols,false);

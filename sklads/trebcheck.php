@@ -11,10 +11,10 @@ $find=(string)$find;
 
 
 $cols[check]="<input type=checkbox id='ucuc' onclick=\"if ($('#ucuc').attr('checked')) $('.check-me').attr({checked:true}); else $('.check-me').attr({checked:false});\">";
-$cols[nazv]="Наименование";
-$cols[rashod]="Расход";
-$cols[ost]="Остаток на сегодня";
-$cols[edizm]="Ед.Изм.";
+$cols[nazv]="РќР°РёРјРµРЅРѕРІР°РЅРёРµ";
+$cols[rashod]="Р Р°СЃС…РѕРґ";
+$cols[ost]="РћСЃС‚Р°С‚РѕРє РЅР° СЃРµРіРѕРґРЅСЏ";
+$cols[edizm]="Р•Рґ.РР·Рј.";
 
 
 $table = new Table($processing_type,"","",$cols,false);
@@ -29,7 +29,7 @@ else
 
 $sql="SELECT ddate FROM (".$db."sk_".$sklad."_dvizh) WHERE type='0' AND numd<>'9999' GROUP BY ddate ORDER BY ddate DESC";
 
-$title="Требования за:";
+$title="РўСЂРµР±РѕРІР°РЅРёСЏ Р·Р°:";
 $title.="<select onchange=\"updatetable('trebform','$processing_type','ddate='+$('#ddate').val())\" id=ddate name=ddate>";
 $res = sql::fetchAll($sql);
 foreach($res as $rs) {
@@ -47,78 +47,78 @@ foreach($res as $rs) {
 $title.="</select>";
 
 $title.= "
-<table width=100%><tr><td style='border:0'>Через кого:<td style='border:0'>
+<table width=100%><tr><td style='border:0'>Р§РµСЂРµР· РєРѕРіРѕ:<td style='border:0'>
 <select name=cherezkogo>
 <option value=''></option>
-<optgroup label='Красная группа'>
-<option value='Балуков А.Н.' style='color:red;'>Балуков А.Н.</option>
-<option value='Куренков Л.Е.' style='color:red;'>Куренков Л.Е.</option>
-<option value='Тимофеев В.В.' style='color:red;'>Тимофеев В.В.</option>
+<optgroup label='РљСЂР°СЃРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='Р‘Р°Р»СѓРєРѕРІ Рђ.Рќ.' style='color:red;'>Р‘Р°Р»СѓРєРѕРІ Рђ.Рќ.</option>
+<option value='РљСѓСЂРµРЅРєРѕРІ Р›.Р•.' style='color:red;'>РљСѓСЂРµРЅРєРѕРІ Р›.Р•.</option>
+<option value='РўРёРјРѕС„РµРµРІ Р’.Р’.' style='color:red;'>РўРёРјРѕС„РµРµРІ Р’.Р’.</option>
 </optgroup>
-<optgroup label='Синяя группа'>
-<option value='Грималовская Г.А.' style='color:blue;'>Грималовская Г.А.</option>
-<option value='Егорычева Т.В.' style='color:blue;'>Егорычева Т.В.</option>
-<option value='Курочкина М.А.' style='color:blue;'>Курочкина М.А.</option>
-<option value='Левитская Н.П.' style='color:blue;'>Левитская Н.П.</option>
-<option value='Разина Е.П.' style='color:blue;'>Разина Е.П.</option>
-<option value='Угдыжекова И.В.' style='color:blue;'>Угдыжекова И.В.</option>
-<option value='Ходина Е.А.' style='color:blue;'>Ходина Е.А.</option>
-<option value='Чистякова И.Н.' style='color:blue;'>Чистякова И.Н.</option>
-<option value='Шамарина В.В.' style='color:blue;'>Шамарина В.В.</option>
+<optgroup label='РЎРёРЅСЏСЏ РіСЂСѓРїРїР°'>
+<option value='Р“СЂРёРјР°Р»РѕРІСЃРєР°СЏ Р“.Рђ.' style='color:blue;'>Р“СЂРёРјР°Р»РѕРІСЃРєР°СЏ Р“.Рђ.</option>
+<option value='Р•РіРѕСЂС‹С‡РµРІР° Рў.Р’.' style='color:blue;'>Р•РіРѕСЂС‹С‡РµРІР° Рў.Р’.</option>
+<option value='РљСѓСЂРѕС‡РєРёРЅР° Рњ.Рђ.' style='color:blue;'>РљСѓСЂРѕС‡РєРёРЅР° Рњ.Рђ.</option>
+<option value='Р›РµРІРёС‚СЃРєР°СЏ Рќ.Рџ.' style='color:blue;'>Р›РµРІРёС‚СЃРєР°СЏ Рќ.Рџ.</option>
+<option value='Р Р°Р·РёРЅР° Р•.Рџ.' style='color:blue;'>Р Р°Р·РёРЅР° Р•.Рџ.</option>
+<option value='РЈРіРґС‹Р¶РµРєРѕРІР° Р.Р’.' style='color:blue;'>РЈРіРґС‹Р¶РµРєРѕРІР° Р.Р’.</option>
+<option value='РҐРѕРґРёРЅР° Р•.Рђ.' style='color:blue;'>РҐРѕРґРёРЅР° Р•.Рђ.</option>
+<option value='Р§РёСЃС‚СЏРєРѕРІР° Р.Рќ.' style='color:blue;'>Р§РёСЃС‚СЏРєРѕРІР° Р.Рќ.</option>
+<option value='РЁР°РјР°СЂРёРЅР° Р’.Р’.' style='color:blue;'>РЁР°РјР°СЂРёРЅР° Р’.Р’.</option>
 </optgroup>
-<optgroup label='Зеленая группа'>
-<option value='Власова Т.В.' style='color:green;'>Власова Т.В.</option>
-<option value='Полушкин В.Ю.' style='color:green;'>Полушкин В.Ю.</option>
-<option value='Фёдоров И.Ю.' style='color:green;'>Фёдоров И.Ю.</option>
+<optgroup label='Р—РµР»РµРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='Р’Р»Р°СЃРѕРІР° Рў.Р’.' style='color:green;'>Р’Р»Р°СЃРѕРІР° Рў.Р’.</option>
+<option value='РџРѕР»СѓС€РєРёРЅ Р’.Р®.' style='color:green;'>РџРѕР»СѓС€РєРёРЅ Р’.Р®.</option>
+<option value='Р¤С‘РґРѕСЂРѕРІ Р.Р®.' style='color:green;'>Р¤С‘РґРѕСЂРѕРІ Р.Р®.</option>
 </optgroup>
-<optgroup label='Черная группа'>
-<option value='Большакова А.В.' style='color:black;'>Большакова А.В.</option>
-<option value='Васильев С.Б.' style='color:black;'>Васильев С.Б.</option>
-<option value='Владимирова Н.В.' style='color:black;'>Владимирова Н.В.</option>
-<option value='Власова И.Ф.' style='color:black;'>Власова И.Ф.</option>
-<option value='Евдокимов Д.А.' style='color:black;'>Евдокимов Д.А.</option>
-<option value='Игнатьев С.Н.' style='color:black;'>Игнатьев С.Н.</option>
-<option value='Китуничев Д.С.' style='color:black;'>Китуничев Д.С.</option>
-<option value='Легоньков В.А.' style='color:black;'>Легоньков В.А.</option>
-<option value='Орлова Н.Н.' style='color:black;'>Орлова Н.Н.</option>
-<option value='Потапова Л.В.' style='color:black;'>Потапова Л.В.</option>
-<option value='Салангина И.Г.' style='color:black;'>Салангина И.Г.</option>
-<option value='Соковнин С.А.' style='color:black;'>Соковнин С.А.</option>
+<optgroup label='Р§РµСЂРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='Р‘РѕР»СЊС€Р°РєРѕРІР° Рђ.Р’.' style='color:black;'>Р‘РѕР»СЊС€Р°РєРѕРІР° Рђ.Р’.</option>
+<option value='Р’Р°СЃРёР»СЊРµРІ РЎ.Р‘.' style='color:black;'>Р’Р°СЃРёР»СЊРµРІ РЎ.Р‘.</option>
+<option value='Р’Р»Р°РґРёРјРёСЂРѕРІР° Рќ.Р’.' style='color:black;'>Р’Р»Р°РґРёРјРёСЂРѕРІР° Рќ.Р’.</option>
+<option value='Р’Р»Р°СЃРѕРІР° Р.Р¤.' style='color:black;'>Р’Р»Р°СЃРѕРІР° Р.Р¤.</option>
+<option value='Р•РІРґРѕРєРёРјРѕРІ Р”.Рђ.' style='color:black;'>Р•РІРґРѕРєРёРјРѕРІ Р”.Рђ.</option>
+<option value='РРіРЅР°С‚СЊРµРІ РЎ.Рќ.' style='color:black;'>РРіРЅР°С‚СЊРµРІ РЎ.Рќ.</option>
+<option value='РљРёС‚СѓРЅРёС‡РµРІ Р”.РЎ.' style='color:black;'>РљРёС‚СѓРЅРёС‡РµРІ Р”.РЎ.</option>
+<option value='Р›РµРіРѕРЅСЊРєРѕРІ Р’.Рђ.' style='color:black;'>Р›РµРіРѕРЅСЊРєРѕРІ Р’.Рђ.</option>
+<option value='РћСЂР»РѕРІР° Рќ.Рќ.' style='color:black;'>РћСЂР»РѕРІР° Рќ.Рќ.</option>
+<option value='РџРѕС‚Р°РїРѕРІР° Р›.Р’.' style='color:black;'>РџРѕС‚Р°РїРѕРІР° Р›.Р’.</option>
+<option value='РЎР°Р»Р°РЅРіРёРЅР° Р.Р“.' style='color:black;'>РЎР°Р»Р°РЅРіРёРЅР° Р.Р“.</option>
+<option value='РЎРѕРєРѕРІРЅРёРЅ РЎ.Рђ.' style='color:black;'>РЎРѕРєРѕРІРЅРёРЅ РЎ.Рђ.</option>
 </optgroup>
-<optgroup label='Светлозеленая группа'>
-<option value='Жинкин А.И.' style='color:lightgreen;'>Жинкин А.И.</option>
+<optgroup label='РЎРІРµС‚Р»РѕР·РµР»РµРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='Р–РёРЅРєРёРЅ Рђ.Р.' style='color:lightgreen;'>Р–РёРЅРєРёРЅ Рђ.Р.</option>
 </optgroup>
 </select>
-<td style='border:0'>Разрешил:<td style='border:0'>
+<td style='border:0'>Р Р°Р·СЂРµС€РёР»:<td style='border:0'>
 <select name=razresh>
-<option value='Китуничев Д.С.' style='color:black;'>Китуничев Д.С.</option>
-<option value='Николайчук И.И.' style='color:black;'>Николайчук И.И.</option>
+<option value='РљРёС‚СѓРЅРёС‡РµРІ Р”.РЎ.' style='color:black;'>РљРёС‚СѓРЅРёС‡РµРІ Р”.РЎ.</option>
+<option value='РќРёРєРѕР»Р°Р№С‡СѓРє Р.Р.' style='color:black;'>РќРёРєРѕР»Р°Р№С‡СѓРє Р.Р.</option>
 <option value='' style='color:black;'></option>
 </select>
-<td style='border:0'>Затребовал:<td style='border:0'>
+<td style='border:0'>Р—Р°С‚СЂРµР±РѕРІР°Р»:<td style='border:0'>
 <select name=zatreb>
 <option value=''></option>
-<optgroup label='Красная группа'>
-<option value='Мещанинов В.Ф.' style='color:red;'>Мещанинов В.Ф.</option>
-<option value='Тимофеев В.В.' style='color:red;'>Тимофеев В.В.</option>
+<optgroup label='РљСЂР°СЃРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='РњРµС‰Р°РЅРёРЅРѕРІ Р’.Р¤.' style='color:red;'>РњРµС‰Р°РЅРёРЅРѕРІ Р’.Р¤.</option>
+<option value='РўРёРјРѕС„РµРµРІ Р’.Р’.' style='color:red;'>РўРёРјРѕС„РµРµРІ Р’.Р’.</option>
 </optgroup>
-<optgroup label='Синяя группа'>
-<option value='Соколова В.М.' style='color:blue;'>Соколова В.М.</option>
-<option value='Угдыжекова И.В.' style='color:blue;'>Угдыжекова И.В.</option>
+<optgroup label='РЎРёРЅСЏСЏ РіСЂСѓРїРїР°'>
+<option value='РЎРѕРєРѕР»РѕРІР° Р’.Рњ.' style='color:blue;'>РЎРѕРєРѕР»РѕРІР° Р’.Рњ.</option>
+<option value='РЈРіРґС‹Р¶РµРєРѕРІР° Р.Р’.' style='color:blue;'>РЈРіРґС‹Р¶РµРєРѕРІР° Р.Р’.</option>
 </optgroup>
-<optgroup label='Зеленая группа'>
-<option value='Смирнов В.А.' style='color:green;'>Смирнов В.А.</option>
-<option value='Фёдоров И.Ю.' style='color:green;'>Фёдоров И.Ю.</option>
+<optgroup label='Р—РµР»РµРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='РЎРјРёСЂРЅРѕРІ Р’.Рђ.' style='color:green;'>РЎРјРёСЂРЅРѕРІ Р’.Рђ.</option>
+<option value='Р¤С‘РґРѕСЂРѕРІ Р.Р®.' style='color:green;'>Р¤С‘РґРѕСЂРѕРІ Р.Р®.</option>
 </optgroup>
-<optgroup label='Черная группа'>
-<option value='Михайлов В.Н.' style='color:black;'>Михайлов В.Н.</option>
-<option value='Макарова Т.Л.' style='color:black;'>Макарова Т.Л.</option>
+<optgroup label='Р§РµСЂРЅР°СЏ РіСЂСѓРїРїР°'>
+<option value='РњРёС…Р°Р№Р»РѕРІ Р’.Рќ.' style='color:black;'>РњРёС…Р°Р№Р»РѕРІ Р’.Рќ.</option>
+<option value='РњР°РєР°СЂРѕРІР° Рў.Р›.' style='color:black;'>РњР°РєР°СЂРѕРІР° Рў.Р›.</option>
 </optgroup>
 </select>
 </table>
 ";
 
-$title.="<input type=submit value='Печать' >";
+$title.="<input type=submit value='РџРµС‡Р°С‚СЊ' >";
 $table->title=$title;
 
 $sql="SELECT CONCAT('<input type=checkbox value=',sk_".$sklad."_spr.id,' name=id[',sk_".$sklad."_spr.id,'] class=check-me >') AS `check`,nazv,FORMAT(SUM(quant),3) as rashod,ost,ddate,edizm,".$db."sk_".$sklad."_spr.id FROM ".$db."sk_".$sklad."_spr JOIN (".$db."sk_".$sklad."_dvizh,".$db."sk_".$sklad."_ost) ON (sk_".$sklad."_ost.spr_id=sk_".$sklad."_spr.id AND sk_".$sklad."_dvizh.spr_id=sk_".$sklad."_spr.id) WHERE type='0' AND ddate='".$ddate."' AND numd<>'9999' ".(isset($find)?"AND nazv LIKE '%$find%' ":"")." GROUP BY nazv ".(!empty($order)?"ORDER BY ".$order." ":"ORDER BY nazv ");

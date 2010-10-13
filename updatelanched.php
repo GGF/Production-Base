@@ -1,5 +1,5 @@
-<?
-include_once $_SERVER[DOCUMENT_ROOT]."/lib/engine.php"; // ��� ����� ��� ��� �� ���������� �������� html
+п»ї<?
+include_once $_SERVER[DOCUMENT_ROOT]."/lib/engine.php"; // СЌС‚Рѕ РЅСѓР¶РЅРѕ С‚Р°Рє РєР°Рє РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ Р·Р°РіРѕР»РѕРІРє html
 
 $sql="TRUNCATE TABLE `lanched`";
 sql::query ($sql) or die(sql::error(true));

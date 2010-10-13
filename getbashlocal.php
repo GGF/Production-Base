@@ -1,6 +1,6 @@
 <?
 if(!headers_sent()) {
-	header('Content-type: text/html; charset=windows-1251');
+	header('Content-type: text/html; charset=UTF-8');
 }
 if (isset($_GET[plus])) {
 	$text=file_get_contents('http://computers.mpp/getbashlocal.php?showbash&nohead&plus=$plus');
@@ -13,5 +13,5 @@ if (isset($_GET[plus])) {
 	setcookie("bash","hidebash");
 	$text=file_get_contents('http://computers.mpp/getbashlocal.php?hidebash&nohead');
 }
-echo $text;
+echo mb_convert_encoding($text,"UTF-8","windows-1251");
 ?>

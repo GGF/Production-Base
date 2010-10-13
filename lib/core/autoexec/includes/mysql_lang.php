@@ -23,7 +23,7 @@
 		
 		static function init() {
 			
-			profiler::add("Autoexec", "MySQL: Выполнение скриптов до подключения");
+			profiler::add("Autoexec", "MySQL: Р’С‹РїРѕР»РЅРµРЅРёРµ СЃРєСЂРёРїС‚РѕРІ РґРѕ РїРѕРґРєР»СЋС‡РµРЅРёСЏ");
 			
 			self::$db = &self::$lang;
 			self::$sh = &self::$shared;
@@ -35,7 +35,7 @@
 				$_SERVER[mysql][lang]
 			);
 			
-			profiler::add("Autoexec", "MySQL: Подключение языковой БД");
+			profiler::add("Autoexec", "MySQL: РџРѕРґРєР»СЋС‡РµРЅРёРµ СЏР·С‹РєРѕРІРѕР№ Р‘Р”");
 			
 			// REVERSE
 			

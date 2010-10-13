@@ -16,7 +16,7 @@
 		
 	}
 	
-	function cmsCache_write(&$var, $file) { // Возможно ампресанд надо вернуть для $var
+	function cmsCache_write(&$var, $file) { // Р’РѕР·РјРѕР¶РЅРѕ Р°РјРїСЂРµСЃР°РЅРґ РЅР°РґРѕ РІРµСЂРЅСѓС‚СЊ РґР»СЏ $var
 		
 		$var[cached] = true;
 		$var[date] = time();
@@ -35,7 +35,7 @@
 			
 		} else {
 			
-			trigger_error("Система не может залочить файл «{$_SERVER[CACHE]}/{$file}.php»", E_USER_WARNING);
+			trigger_error("РЎРёСЃС‚РµРјР° РЅРµ РјРѕР¶РµС‚ Р·Р°Р»РѕС‡РёС‚СЊ С„Р°Р№Р» В«{$_SERVER[CACHE]}/{$file}.phpВ»", E_USER_WARNING);
 			
 		}
 		

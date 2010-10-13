@@ -1,8 +1,8 @@
 <?
-// óïðàâëåíèå çàêàç÷èêàìè
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°Ð¼Ð¸
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -40,7 +40,7 @@ if (isset($edit))
 					array(
 						"type"		=> CMSFORM_TYPE_SELECT,
 						"name"		=> "customerid",
-						"label"		=>	"Çàêàç÷èê:",
+						"label"		=>	"Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº:",
 						"values"	=>	$customers,
 					),
 				));
@@ -60,14 +60,14 @@ if (isset($edit))
 				array(
 					"type"		=> CMSFORM_TYPE_TEXT,
 					"name"		=> "orderdate",
-					"label"			=>'Äàòà:',
+					"label"			=>'Ð”Ð°Ñ‚Ð°:',
 					"value"		=> date2datepicker($ord[orderdate]),
 					"options"		=> array( "html" => ' datepicker=1 '),
 				),
 				array(
 					"type"		=>	CMSFORM_TYPE_TEXT,
 					"name"		=>	"number",
-					"label"		=>	"Íîìåð ïèñüìà:",
+					"label"		=>	"ÐÐ¾Ð¼ÐµÑ€ Ð¿Ð¸ÑÑŒÐ¼Ð°:",
 					"value"		=>	$ord["number"],
 					"options"	=>	array( "html" => "size=30", ),
 				),
@@ -76,12 +76,12 @@ if (isset($edit))
 		} 
 		else 
 		{
-			// ñîõðíåíèå
+			// ÑÐ¾Ñ…Ñ€Ð½ÐµÐ½Ð¸Ðµ
 			if ($edit) {
-				// ðåäàêòèðîâàíèå
+				// Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ
 				$sql = "UPDATE orders SET customer_id='$customerid', orderdate='".datepicker2date($orderdate)."', number='".addslashes($number)."' WHERE id='$edit'";
 			} else {
-				// äîáàâëåíèå
+				// Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ
 				$sql = "INSERT INTO orders (customer_id,orderdate,number) VALUES ('$customerid','".datepicker2date($orderdate)."','".addslashes($number)."')";
 			}
 			sql::query($sql);
@@ -91,19 +91,19 @@ if (isset($edit))
 } 
 elseif (isset($delete)) 
 {
-	// óäàëåíèå
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 	$sql = "DELETE FROM orders WHERE id='$delete'";
 	sql::query($sql);
-	// óäàëåíèå ñâÿçåé
+	// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 	$sql = "SELECT * FROM tz WHERE order_id='$delete'";
 	$res = sql::fetchAll($sql);
 	foreach ($res as $rs) 
 	{
-		// óäàëåíèå
+		// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ
 		$delete = $rs["id"];
 		$sql = "DELETE FROM tz WHERE id='$delete'";
 		sql::query($sql);
-		// óäàëåíèå ñâÿçåé
+		// ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ²ÑÐ·ÐµÐ¹
 		$sql = "SELECT * FROM posintz WHERE tz_id='$delete'";
 		$res1 = sql::fetchAll($sql);
 		foreach ($res1 as $rs1) 
@@ -117,13 +117,13 @@ elseif (isset($delete))
 }
 else
 {
-// âûâåñòè òàáëèöó
+// Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñƒ
 	if(isset($all)) $_SESSION[order_id]='';
 	if (empty($_SESSION[customer_id])) 
 	{
-		$customer = "Âûáåðèòå çàêàç÷èêà!!!";
+		$customer = "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð·Ð°ÐºÐ°Ð·Ñ‡Ð¸ÐºÐ°!!!";
 		$sql="SELECT *,orders.id FROM orders JOIN customers ON customers.id=customer_id ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"LIMIT 50":"LIMIT 20");
-		$cols[customer]="Çàêàç÷èê";
+		$cols[customer]="Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº";
 	} 
 	else 
 	{
@@ -135,11 +135,11 @@ else
 	}
 
 		$cols[id]="ID";
-		$cols[number]="Íîìåð çàêàçà";
-		$cols[orderdate]="Äàòà çàêàçà";
+		$cols[number]="ÐÐ¾Ð¼ÐµÑ€ Ð·Ð°ÐºÐ°Ð·Ð°";
+		$cols[orderdate]="Ð”Ð°Ñ‚Ð° Ð·Ð°ÐºÐ°Ð·Ð°";
 
 		$table = new Table($processing_type,$processing_type,$sql,$cols);
-		$table->title="Çàêàç÷èê - $customer ";;
+		$table->title="Ð—Ð°ÐºÐ°Ð·Ñ‡Ð¸Ðº - $customer ";;
 		$table->addbutton=true;
 		$table->show();
 

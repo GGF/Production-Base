@@ -1,6 +1,6 @@
 <?
 /*
- * Äàòà äëÿ äðóãèõ ôóíêöèè CMS (c) Osmio
+ * Ð”Ð°Ñ‚Ð° Ð´Ð»Ñ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ CMS (c) Osmio
  */
 defined ( "CMS" ) or die ( "Restricted usage: " . basename ( __FILE__ ) );
 
@@ -12,7 +12,7 @@ define ( "CMSDATE_MOD_CUT", "cut" );
 define ( "CMSDATE_MOD_WORD", "word" );
 define ( "CMSDATE_ADDTIME", true );
 
-$_SERVER [months] = array ("ru" => array (CMSDATE_MOD_DEFAULT => array ("", "ßíâàðÿ", "Ôåâðàëÿ", "Ìàðòà", "Àïðåëÿ", "Ìàÿ", "Èþíÿ", "Èþëÿ", "Àâãóñòà", "Ñåíòÿáðÿ", "Îêòÿáðÿ", "Íîÿáðÿ", "Äåêàáðÿ" ), CMSDATE_MOD_WORD => array ("", "ßíâàðü", "Ôåâðàëü", "Ìàðò", "Àïðåëü", "Ìàé", "Èþíü", "Èþëü", "Àâãóñò", "Ñåíòÿáðü", "Îêòÿáðü", "Íîÿáðü", "Äåêàáðü" ), CMSDATE_MOD_CUT => array ("", "ßíâ", "Ôåâ", "Ìàð", "Àïð", "Ìàÿ", "Èþí", "Èþë", "Àâã", "Ñåí", "Îêò", "Íîÿ", "Äåê" ) ), "en" => array (CMSDATE_MOD_DEFAULT => array ("", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ), CMSDATE_MOD_WORD => array ("", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ), CMSDATE_MOD_CUT => array ("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ) ) );
+$_SERVER [months] = array ("ru" => array (CMSDATE_MOD_DEFAULT => array ("", "Ð¯Ð½Ð²Ð°Ñ€Ñ", "Ð¤ÐµÐ²Ñ€Ð°Ð»Ñ", "ÐœÐ°Ñ€Ñ‚Ð°", "ÐÐ¿Ñ€ÐµÐ»Ñ", "ÐœÐ°Ñ", "Ð˜ÑŽÐ½Ñ", "Ð˜ÑŽÐ»Ñ", "ÐÐ²Ð³ÑƒÑÑ‚Ð°", "Ð¡ÐµÐ½Ñ‚ÑÐ±Ñ€Ñ", "ÐžÐºÑ‚ÑÐ±Ñ€Ñ", "ÐÐ¾ÑÐ±Ñ€Ñ", "Ð”ÐµÐºÐ°Ð±Ñ€Ñ" ), CMSDATE_MOD_WORD => array ("", "Ð¯Ð½Ð²Ð°Ñ€ÑŒ", "Ð¤ÐµÐ²Ñ€Ð°Ð»ÑŒ", "ÐœÐ°Ñ€Ñ‚", "ÐÐ¿Ñ€ÐµÐ»ÑŒ", "ÐœÐ°Ð¹", "Ð˜ÑŽÐ½ÑŒ", "Ð˜ÑŽÐ»ÑŒ", "ÐÐ²Ð³ÑƒÑÑ‚", "Ð¡ÐµÐ½Ñ‚ÑÐ±Ñ€ÑŒ", "ÐžÐºÑ‚ÑÐ±Ñ€ÑŒ", "ÐÐ¾ÑÐ±Ñ€ÑŒ", "Ð”ÐµÐºÐ°Ð±Ñ€ÑŒ" ), CMSDATE_MOD_CUT => array ("", "Ð¯Ð½Ð²", "Ð¤ÐµÐ²", "ÐœÐ°Ñ€", "ÐÐ¿Ñ€", "ÐœÐ°Ñ", "Ð˜ÑŽÐ½", "Ð˜ÑŽÐ»", "ÐÐ²Ð³", "Ð¡ÐµÐ½", "ÐžÐºÑ‚", "ÐÐ¾Ñ", "Ð”ÐµÐº" ) ), "en" => array (CMSDATE_MOD_DEFAULT => array ("", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ), CMSDATE_MOD_WORD => array ("", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ), CMSDATE_MOD_CUT => array ("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ) ) );
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 

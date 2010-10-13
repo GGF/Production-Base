@@ -3,7 +3,7 @@
 	cmsLang_add(array("modBlank" => array(
 		
 		"var" => array(
-			"ru" => "Ïåğåìåííàÿ", 
+			"ru" => "ĞŸĞµÑ€ĞµĞ¼ĞµĞ½Ğ½Ğ°Ñ", 
 			"en" => "Variable",
 		),
 		

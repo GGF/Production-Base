@@ -1,11 +1,11 @@
 <?
-// TODO : Архивация не доработана до AJAX
-// годовая архивация
-	// перенести движения
+// TODO : РђСЂС…РёРІР°С†РёСЏ РЅРµ РґРѕСЂР°Р±РѕС‚Р°РЅР° РґРѕ AJAX
+// РіРѕРґРѕРІР°СЏ Р°СЂС…РёРІР°С†РёСЏ
+	// РїРµСЂРµРЅРµСЃС‚Рё РґРІРёР¶РµРЅРёСЏ
 	$sql = "INSERT INTO sk_".$sklad."_dvizh_arc (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) SELECT sk_".$sklad."_dvizh.type,sk_".$sklad."_dvizh.numd,sk_".$sklad."_dvizh.numdf,sk_".$sklad."_dvizh.docyr,sk_".$sklad."_dvizh.spr_id,sk_".$sklad."_dvizh.quant,sk_".$sklad."_dvizh.ddate,sk_".$sklad."_dvizh.post_id,sk_".$sklad."_dvizh.comment_id,sk_".$sklad."_dvizh.price FROM sk_".$sklad."_dvizh";
 	//$sql = "INSERT INTO sk_".$sklad."_dvizh_arc SELECT * FROM sk_".$sklad."_dvizh";
 	sql::query($sql) or die(sql::error(true));
-	// очистить движения
+	// РѕС‡РёСЃС‚РёС‚СЊ РґРІРёР¶РµРЅРёСЏ
 	$sql="TRUNCATE TABLE sk_".$sklad."_dvizh";
 	sql::query($sql) or die(sql::error(true));
 
@@ -14,13 +14,13 @@ $sql = "SELECT * FROM sk_".$sklad."_spr";
 $res= sql::fetchAll($sql);
 foreach ($res as $rs){
 	$id = $rs["id"];
-	// получить остатки
+	// РїРѕР»СѓС‡РёС‚СЊ РѕСЃС‚Р°С‚РєРё
 	$sql="SELECT * FROM sk_".$sklad."_ost WHERE sk_".$sklad."_ost.spr_id='$id'";
 	echo $sql."<br>";
 	$ost = mysql_fetch_array(mysql_query($sql));
 	$ost = $ost["ost"];
-	// создать архивное движение
-	// поставщик
+	// СЃРѕР·РґР°С‚СЊ Р°СЂС…РёРІРЅРѕРµ РґРІРёР¶РµРЅРёРµ
+	// РїРѕСЃС‚Р°РІС‰РёРє
 	$sql="SELECT id FROM sk_".$sklad."_postav WHERE supply=''";
 	echo$sql."<br>";
 	$rs1 = sql::fetchOne($sql);
@@ -28,14 +28,14 @@ foreach ($res as $rs){
 	{
 		$post_id = $rs1["id"];
 	}
-	// коментарий
-	$sql="SELECT id FROM coments WHERE comment='Передача остатка'";
+	// РєРѕРјРµРЅС‚Р°СЂРёР№
+	$sql="SELECT id FROM coments WHERE comment='РџРµСЂРµРґР°С‡Р° РѕСЃС‚Р°С‚РєР°'";
 	echo$sql."<br>";
 	$rs1 = sql::fetchOne($sql);
 	if (!empty($rs1)){
 		$comment_id = $rs1["id"];
 	} else {
-		$sql="INSERT INTO coments (comment) VALUES ('Передача остатка')";
+		$sql="INSERT INTO coments (comment) VALUES ('РџРµСЂРµРґР°С‡Р° РѕСЃС‚Р°С‚РєР°')";
 		sql::query($sql) or die(sql::error(true));
 		$comment_id = sql::lastId();
 	}
@@ -46,15 +46,15 @@ foreach ($res as $rs){
 	$sql="INSERT INTO sk_".$sklad."_dvizh_arc (type,numd,numdf,docyr,spr_id,quant,ddate,post_id,comment_id,price) VALUES ('0','$numd','$numdf','$docyr','$id','$ost','$ddate','$post_id','$comment_id','0')" ;
 	echo $sql."<br>";
 	sql::query($sql) or die(sql::error(true));	
-	// создадим первое движение года
-	// коментарий
-	$sql="SELECT id FROM coments WHERE comment='Остаток на 31.12.$docyr'";
+	// СЃРѕР·РґР°РґРёРј РїРµСЂРІРѕРµ РґРІРёР¶РµРЅРёРµ РіРѕРґР°
+	// РєРѕРјРµРЅС‚Р°СЂРёР№
+	$sql="SELECT id FROM coments WHERE comment='РћСЃС‚Р°С‚РѕРє РЅР° 31.12.$docyr'";
 	echo $sql."<br>";
 	$rs1 = sql::fetchOne($sql);
 	if (!empty($rs1)){
 		$comment_id = $rs1["id"];
 	} else {
-		$sql="INSERT INTO coments (comment) VALUES ('Остаток на 31.12.$docyr')";
+		$sql="INSERT INTO coments (comment) VALUES ('РћСЃС‚Р°С‚РѕРє РЅР° 31.12.$docyr')";
 		sql::query($sql) or die(sql::error(true));	
 		$comment_id = sql::lastId();
 	}

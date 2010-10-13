@@ -1,7 +1,7 @@
 <?
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
-// функции для хидера и футера
+// С„СѓРЅРєС†РёРё РґР»СЏ С…РёРґРµСЂР° Рё С„СѓС‚РµСЂР°
 function showheader($subtitle='') 
 {
 	if (isadminhere()) {
@@ -9,28 +9,28 @@ function showheader($subtitle='')
 	} else {
 		setcookie("adminhere","",time()-3*60,"/");
 	}
-	ob_start(); //включаем буферизацию вывода - потом в футуре соберем
+	ob_start(); //РІРєР»СЋС‡Р°РµРј Р±СѓС„РµСЂРёР·Р°С†РёСЋ РІС‹РІРѕРґР° - РїРѕС‚РѕРј РІ С„СѓС‚СѓСЂРµ СЃРѕР±РµСЂРµРј
 	echo '
 <!--   Copyright 2010 Igor Fedoroff   |  g_g_f@mail.ru  -->
 <html>
 <head>
-	<meta name="Author" content="Игорь Федоров">
-	<meta name="Description" content="ЗАО МПП">
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
-	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=windows-1251">
+	<meta name="Author" content="РРіРѕСЂСЊ Р¤РµРґРѕСЂРѕРІ">
+	<meta name="Description" content="Р—РђРћ РњРџРџ">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript; charset=UTF-8">
 ';
 echo cmsHeader_get("css");
 echo cmsHeader_get("js");
 echo '
 <title>
-База данных ЗАО МПП - '.$subtitle.'
+Р‘Р°Р·Р° РґР°РЅРЅС‹С… Р—РђРћ РњРџРџ - '.$subtitle.'
 </title>
 </head>
 <body >';
 if (!empty($subtitle)) {
-	echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Главное меню</div>';
+	echo '<div class="glavmenu" onclick="window.location=\'http://'.$_SERVER['HTTP_HOST'].'/\';">Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ</div>';
 
-	//дни рождения
+	//РґРЅРё СЂРѕР¶РґРµРЅРёСЏ
 
 	{
 	$mes = "<div class='soob'>";
@@ -38,14 +38,14 @@ if (!empty($subtitle)) {
 	$res = sql::fetchAll($sql);
 	foreach($res as $rs) {
 		$dr = true;
-		$mes .= "<div>День рождения - ".$rs["fio"]." - ".$rs["dr"]." - ".$rs["let"]." лет</div>";
+		$mes .= "<div>Р”РµРЅСЊ СЂРѕР¶РґРµРЅРёСЏ - ".$rs["fio"]." - ".$rs["dr"]." - ".$rs["let"]." Р»РµС‚</div>";
 	}
 	$mes .= "</div>";
 	if (isset($dr)) echo $mes;
 	}
 
-	// цитаты баша
-	echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
+	// С†РёС‚Р°С‚С‹ Р±Р°С€Р°
+	echo "<div id=quote >".file_get_contents("http://baza2.mpp/getbashlocal.php?".$_COOKIE["bash"])."</div>";
 }
 }
 
@@ -54,7 +54,7 @@ function showfooter($buffer='')
 	{
 	echo "<div class='maindiv' id=maindiv>";
 	if (empty($buffer)) 
-		echo "Выбери чтонить!!!";
+		echo "Р’С‹Р±РµСЂРё С‡С‚РѕРЅРёС‚СЊ!!!";
 	else 
 		echo $buffer;
 	echo "</div>";
@@ -64,7 +64,7 @@ function showfooter($buffer='')
 
 function printpage() {
 	
-		$pageContents = ob_get_clean(); // закрываем буферизацию
+		$pageContents = ob_get_clean(); // Р·Р°РєСЂС‹РІР°РµРј Р±СѓС„РµСЂРёР·Р°С†РёСЋ
 		$console = "";//<script>cmsConsole_clear()</script>";
 		
 		if ($_SERVER[debug][report] || $_SERVER[local]) {
@@ -73,7 +73,7 @@ function printpage() {
 			$console .= cmsConsole_out("", "mysql");
 			foreach (sql::$shared->logOut(	CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
 			
-			profiler::add("Завершение", "Вывод логов SQL");
+			profiler::add("Р—Р°РІРµСЂС€РµРЅРёРµ", "Р’С‹РІРѕРґ Р»РѕРіРѕРІ SQL");
 			
 			$console .= profiler::export();
 			
@@ -86,42 +86,42 @@ function printpage() {
 			
 			if ($_SERVER[cmsGZIP][algorythm] == 'deflate') {
 				header("Content-Encoding: deflate");
-				$pageContentsGZIP = gzdeflate($pageContents, 9); //первоначальный ГЗИП для отчета
+				$pageContentsGZIP = gzdeflate($pageContents, 9); //РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ Р“Р—РРџ РґР»СЏ РѕС‚С‡РµС‚Р°
 			} else {	
 				header("Content-Encoding: gzip");
-				$pageContentsGZIP = gzencode($pageContents, 9); //первоначальный ГЗИП для отчета
+				$pageContentsGZIP = gzencode($pageContents, 9); //РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ Р“Р—РРџ РґР»СЏ РѕС‚С‡РµС‚Р°
 			}
 			
-			if ($_SERVER[debug][report] || $_SERVER[local]) { // Если надо генерить отчет
+			if ($_SERVER[debug][report] || $_SERVER[local]) { // Р•СЃР»Рё РЅР°РґРѕ РіРµРЅРµСЂРёС‚СЊ РѕС‚С‡РµС‚
 				
 				$unCompressed    = getKBSize($pageContents);
 				$gzCompressed    = getKBSize($pageContentsGZIP);
 				$compRatio       = 100 - floor(($gzCompressed/$unCompressed)*1000)/10;
 				
 				$reportGZIP      = $console;
-				$reportGZIP      .= cmsConsole_out("Сжатие <b>" . mb_strtoupper($_SERVER[cmsGZIP][algorythm]) . "</b>: <b>{$unCompressed}</b> &rarr; <b>{$gzCompressed}</b> ({$compRatio}%).", "", "notice");
-				$reportGZIP      .= cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
+				$reportGZIP      .= cmsConsole_out("РЎР¶Р°С‚РёРµ <b>" . mb_strtoupper($_SERVER[cmsGZIP][algorythm]) . "</b>: <b>{$unCompressed}</b> &rarr; <b>{$gzCompressed}</b> ({$compRatio}%).", "", "notice");
+				$reportGZIP      .= cmsConsole_out("<b>РџРѕР»РЅРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
 				$reportGZIP      .= cmsConsole_out("");
 				
 				if ($_SERVER[cmsGZIP][algorythm] == 'deflate') {
-					$pageContentsGZIP = gzdeflate($pageContents . $reportGZIP, 9); //первоначальный ГЗИП для отчета
+					$pageContentsGZIP = gzdeflate($pageContents . $reportGZIP, 9); //РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ Р“Р—РРџ РґР»СЏ РѕС‚С‡РµС‚Р°
 				} else {	
-					$pageContentsGZIP = gzencode($pageContents . $reportGZIP, 9); //первоначальный ГЗИП для отчета
+					$pageContentsGZIP = gzencode($pageContents . $reportGZIP, 9); //РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ Р“Р—РРџ РґР»СЏ РѕС‚С‡РµС‚Р°
 				}
 				
 			}
 			
-			echo $pageContentsGZIP; // окончательно выплевываем содержимое в браузер
+			echo $pageContentsGZIP; // РѕРєРѕРЅС‡Р°С‚РµР»СЊРЅРѕ РІС‹РїР»РµРІС‹РІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РІ Р±СЂР°СѓР·РµСЂ
 			
 		} else {
 			
-			echo $pageContents; // окончательно выплевываем содержимое в браузер
+			echo $pageContents; // РѕРєРѕРЅС‡Р°С‚РµР»СЊРЅРѕ РІС‹РїР»РµРІС‹РІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РІ Р±СЂР°СѓР·РµСЂ
 			
 			if ($_SERVER[debug][report] || $_SERVER[local]) {
 				
 				echo $console;
-				echo cmsConsole_out("Сжатие <b>отключено</b>.", "", "notice");
-				echo cmsConsole_out("<b>Полное время выполнения: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
+				echo cmsConsole_out("РЎР¶Р°С‚РёРµ <b>РѕС‚РєР»СЋС‡РµРЅРѕ</b>.", "", "notice");
+				echo cmsConsole_out("<b>РџРѕР»РЅРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: <u>" . cmsTime_format(profiler::$full) . "</u>.</b>", "", "notice");
 				echo cmsConsole_out("");
 				
 			}

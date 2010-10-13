@@ -1,19 +1,20 @@
 <?
-require $_SERVER[DOCUMENT_ROOT]."/lib/engine.php";
+require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 
 authorize();
-showheader( "Ãëàâíîå ìåíþ");
+
+showheader( "Ð“Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ");
 
 $menu = new Menu();
 
-$menu->add("lanch","Çàïóñêè",false,"/zapuski/");
-$menu->add("orders","Çàêàçû",false,"/customers/");
-$menu->add("storage","Ñêëàäû",false,"/sklads/");
-$menu->add("cp","Óïðàâëåíèå",true,"/cp/");
-$menu->add("wiki","Áàçà çíàíèé",false,"http://mppwiki");
-$menu->add("docsearch","Äîêóìåíòû",false,"http://igor");
-$menu->add("help","Ïîìîùü",false,"/help/");
-$menu->add("logout","Âûõîä",false,'/logout.php');
+$menu->add("lanch","Ð—Ð°Ð¿ÑƒÑÐºÐ¸",false,"/zapuski/");
+$menu->add("orders","Ð—Ð°ÐºÐ°Ð·Ñ‹",false,"/customers/");
+$menu->add("storage","Ð¡ÐºÐ»Ð°Ð´Ñ‹",false,"/sklads/");
+$menu->add("cp","Ð£Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ",true,"/cp/");
+$menu->add("wiki","Ð‘Ð°Ð·Ð° Ð·Ð½Ð°Ð½Ð¸Ð¹",false,"http://mppwiki");
+$menu->add("docsearch","Ð”Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ñ‹",false,"http://igor");
+$menu->add("help","ÐŸÐ¾Ð¼Ð¾Ñ‰ÑŒ",false,"/help/");
+$menu->add("logout","Ð’Ñ‹Ñ…Ð¾Ð´",false,'/logout.php');
 
 $menu->show();
 

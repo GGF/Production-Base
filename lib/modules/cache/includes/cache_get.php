@@ -37,7 +37,7 @@
 		
 	}
 	
-	// Если мы не в админке
+	// Р•СЃР»Рё РјС‹ РЅРµ РІ Р°РґРјРёРЅРєРµ
 	if ((!defined("MODAUTH_ADMIN") || !MODAUTH_ADMIN) && $_SERVER['modCache']['pages']['cache']) {
 		
 		
@@ -53,7 +53,7 @@
 			
 			if ($_SERVER[debug][report]) {
 				
-				profiler::add("Завершение", "Вывод кешированной страницы");
+				profiler::add("Р—Р°РІРµСЂС€РµРЅРёРµ", "Р’С‹РІРѕРґ РєРµС€РёСЂРѕРІР°РЅРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹");
 				
 				$console = "";
 				
@@ -61,8 +61,8 @@
 				
 				foreach (sql::$lang->logOut(		CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
 				
-				$console .= cmsConsole_out("Сжатие <b>отключено</b>.", "", "notice");
-				$console .= cmsConsole_out("<b>Полное время выполнения: <u>" . floor(profiler::$full * 1000) . " мс</u>.</b>", "", "notice");
+				$console .= cmsConsole_out("РЎР¶Р°С‚РёРµ <b>РѕС‚РєР»СЋС‡РµРЅРѕ</b>.", "", "notice");
+				$console .= cmsConsole_out("<b>РџРѕР»РЅРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ: <u>" . floor(profiler::$full * 1000) . " РјСЃ</u>.</b>", "", "notice");
 				$console .= cmsConsole_out("");
 				
 				print $console;

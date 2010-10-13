@@ -4,7 +4,7 @@ defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 class Menu {
 	var $items;
 	
-	function Menu() { // êîíñòğóêòîğ
+	function Menu() { // ĞºĞ¾Ğ½ÑÑ‚Ñ€ÑƒĞºÑ‚Ğ¾Ñ€
 		$this->items = array();
 	}
 	

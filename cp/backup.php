@@ -1,8 +1,8 @@
 <?
-// óïðàâëåíèå ïðàâàìè äîñòóïà
+// ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð°Ð²Ð°Ð¼Ð¸ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
 
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // âûçîâ àâòîðèçàöèè
+authorize(); // Ð²Ñ‹Ð·Ð¾Ð² Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸
 $processing_type=basename (__FILE__,".php");
 
 include $_SERVER["DOCUMENT_ROOT"]."/lib/modules/backup/admin_dumper.php"

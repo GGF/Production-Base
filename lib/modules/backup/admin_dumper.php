@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; 
 //	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/login.php";
 	
-	header("Expires: Tue, 1 Jul 2003 05:00:00 GMT");
+	header("Expires: Tue, 1 Jul 2030 05:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 	header("Cache-Control: no-store, no-cache, must-revalidate");
 	header("Pragma: no-cache");
@@ -35,39 +35,39 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 	
 	$dbs = array_unique($dbs);
 	
-	// Путь и URL к файлам бекапа
+	// РџСѓС‚СЊ Рё URL Рє С„Р°Р№Р»Р°Рј Р±РµРєР°РїР°
 	define('PATH', $_SERVER[BACKUPS] . "/");
 	define('URL',  cmsFile_pathRel($_SERVER[BACKUPS]) . "/");
-	// Максимальное время выполнения скрипта в секундах
-	// 0 - без ограничений
+	// РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЃРєСЂРёРїС‚Р° РІ СЃРµРєСѓРЅРґР°С…
+	// 0 - Р±РµР· РѕРіСЂР°РЅРёС‡РµРЅРёР№
 	define('TIME_LIMIT', 0);
-	// Ограничение размера данных доставаемых за одно обращения к БД (в мегабайтах)
-	// Нужно для ограничения количества памяти пожираемой сервером при дампе очень объемных таблиц
+	// РћРіСЂР°РЅРёС‡РµРЅРёРµ СЂР°Р·РјРµСЂР° РґР°РЅРЅС‹С… РґРѕСЃС‚Р°РІР°РµРјС‹С… Р·Р° РѕРґРЅРѕ РѕР±СЂР°С‰РµРЅРёСЏ Рє Р‘Р” (РІ РјРµРіР°Р±Р°Р№С‚Р°С…)
+	// РќСѓР¶РЅРѕ РґР»СЏ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РїР°РјСЏС‚Рё РїРѕР¶РёСЂР°РµРјРѕР№ СЃРµСЂРІРµСЂРѕРј РїСЂРё РґР°РјРїРµ РѕС‡РµРЅСЊ РѕР±СЉРµРјРЅС‹С… С‚Р°Р±Р»РёС†
 	define('LIMIT', 1);
-	// mysql сервер
+	// mysql СЃРµСЂРІРµСЂ
 	define('DBHOST', $_SERVER[mysql][lang][host]);
-	// Базы данных, если сервер не разрешает просматривать список баз данных,
-	// и ничего не показывается после авторизации. Перечислите названия через запятую
+	// Р‘Р°Р·С‹ РґР°РЅРЅС‹С…, РµСЃР»Рё СЃРµСЂРІРµСЂ РЅРµ СЂР°Р·СЂРµС€Р°РµС‚ РїСЂРѕСЃРјР°С‚СЂРёРІР°С‚СЊ СЃРїРёСЃРѕРє Р±Р°Р· РґР°РЅРЅС‹С…,
+	// Рё РЅРёС‡РµРіРѕ РЅРµ РїРѕРєР°Р·С‹РІР°РµС‚СЃСЏ РїРѕСЃР»Рµ Р°РІС‚РѕСЂРёР·Р°С†РёРё. РџРµСЂРµС‡РёСЃР»РёС‚Рµ РЅР°Р·РІР°РЅРёСЏ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ
 	define('DBNAMES',  implode(",", $dbs));
 	//define('DBNAMES',  '');
-	// Кодировка соединения с MySQL
-	// auto - автоматический выбор (устанавливается кодировка таблицы), cp1251 - windows-1251, и т.п.
+	// РљРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ MySQL
+	// auto - Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ РІС‹Р±РѕСЂ (СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ РєРѕРґРёСЂРѕРІРєР° С‚Р°Р±Р»РёС†С‹), cp1251 - windows-1251, Рё С‚.Рї.
 	define('CHARSET', 'auto');
-	// Кодировка соединения с MySQL при восстановлении
-	// На случай переноса со старых версий MySQL (до 4.1), у которых не указана кодировка таблиц в дампе
-	// При добавлении 'forced->', к примеру 'forced->cp1251', кодировка таблиц при восстановлении будет принудительно заменена на cp1251
-	// Можно также указывать сравнение нужное к примеру 'cp1251_ukrainian_ci' или 'forced->cp1251_ukrainian_ci'
+	// РљРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ СЃ MySQL РїСЂРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРё
+	// РќР° СЃР»СѓС‡Р°Р№ РїРµСЂРµРЅРѕСЃР° СЃРѕ СЃС‚Р°СЂС‹С… РІРµСЂСЃРёР№ MySQL (РґРѕ 4.1), Сѓ РєРѕС‚РѕСЂС‹С… РЅРµ СѓРєР°Р·Р°РЅР° РєРѕРґРёСЂРѕРІРєР° С‚Р°Р±Р»РёС† РІ РґР°РјРїРµ
+	// РџСЂРё РґРѕР±Р°РІР»РµРЅРёРё 'forced->', Рє РїСЂРёРјРµСЂСѓ 'forced->cp1251', РєРѕРґРёСЂРѕРІРєР° С‚Р°Р±Р»РёС† РїСЂРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРё Р±СѓРґРµС‚ РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ Р·Р°РјРµРЅРµРЅР° РЅР° cp1251
+	// РњРѕР¶РЅРѕ С‚Р°РєР¶Рµ СѓРєР°Р·С‹РІР°С‚СЊ СЃСЂР°РІРЅРµРЅРёРµ РЅСѓР¶РЅРѕРµ Рє РїСЂРёРјРµСЂСѓ 'cp1251_ukrainian_ci' РёР»Рё 'forced->cp1251_ukrainian_ci'
 	define('RESTORE_CHARSET', 'forced->cp1251');//$_SERVER[cmsEncodingSQL]);
-	// Включить сохранение настроек и последних действий
-	// Для отключения установить значение 0
+	// Р’РєР»СЋС‡РёС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє Рё РїРѕСЃР»РµРґРЅРёС… РґРµР№СЃС‚РІРёР№
+	// Р”Р»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ 0
 	define('SC', 1);
-	// Типы таблиц у которых сохраняется только структура, разделенные запятой
+	// РўРёРїС‹ С‚Р°Р±Р»РёС† Сѓ РєРѕС‚РѕСЂС‹С… СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ СЃС‚СЂСѓРєС‚СѓСЂР°, СЂР°Р·РґРµР»РµРЅРЅС‹Рµ Р·Р°РїСЏС‚РѕР№
 	define('ONLY_CREATE', 'MRG_MyISAM,MERGE,HEAP,MEMORY');
-	// Глобальная статистика
-	// Для отключения установить значение 0
+	// Р“Р»РѕР±Р°Р»СЊРЅР°СЏ СЃС‚Р°С‚РёСЃС‚РёРєР°
+	// Р”Р»СЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ 0
 	define('GS', 0);
 
-	// Дальше ничего редактировать не нужно
+	// Р”Р°Р»СЊС€Рµ РЅРёС‡РµРіРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ
 
 	$is_safe_mode = ini_get('safe_mode') == '1' ? 1 : 0;
 	if (!$is_safe_mode && function_exists('set_time_limit')) set_time_limit(TIME_LIMIT);
@@ -131,14 +131,14 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 		//REQUIRE $_SERVER[DOCUMENT_ROOT] . "/admin/blank.php";
 		showheader();
 		$buffer = tpl_page(tpl_auth($error ? tpl_error($error) : ''));
-		$buffer .= "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " сек.'</SCRIPT>";
+		$buffer .= "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " СЃРµРє.'</SCRIPT>";
 		showfooter($buffer);
 		exit;
 		
 	}
 	
 	if (!file_exists(PATH) && !$is_safe_mode) {
-		@mkdir(PATH, 0777) || trigger_error("Не удалось создать каталог для бекапа", E_USER_ERROR);
+		@mkdir(PATH, 0777) || trigger_error("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ РєР°С‚Р°Р»РѕРі РґР»СЏ Р±РµРєР°РїР°", E_USER_ERROR);
 	}
 	
 	$SK = new dumper();
@@ -153,7 +153,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 	
 	if (isset($_REQUEST[advMode]))		$_SESSION[cmsDumper][advMode] = true;
 	if (isset($_REQUEST[normalMode]))	$_SESSION[cmsDumper][advMode] = false;
-	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='?normalMode=false'>Переключить на обычный режим</a>" : "<a href='?advMode=true'>Переключить на расширенный режим</a>";
+	$_SERVER[cmsDumper][advMode] = $_SESSION[cmsDumper][advMode] ? "<a href='?normalMode=false'>РџРµСЂРµРєР»СЋС‡РёС‚СЊ РЅР° РѕР±С‹С‡РЅС‹Р№ СЂРµР¶РёРј</a>" : "<a href='?advMode=true'>РџРµСЂРµРєР»СЋС‡РёС‚СЊ РЅР° СЂР°СЃС€РёСЂРµРЅРЅС‹Р№ СЂРµР¶РёРј</a>";
 	
 	$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 	switch($action){
@@ -169,7 +169,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 	
 	mysql_close();
 	
-	echo "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " сек.'</SCRIPT>";
+	echo "<SCRIPT>document.getElementById('timer').innerHTML = '" . round(array_sum(explode(' ', microtime())) - $timer, 4) . " СЃРµРє.'</SCRIPT>";
 	showfooter(ob_get_clean());
 	// ----------------------------------------------------------------------------------------------------------------------------------------- //
 
@@ -197,7 +197,7 @@ class dumper {
 		$this->size = 0;
 		$this->comp = 0;
 		
-		// Версия MySQL вида 40101
+		// Р’РµСЂСЃРёСЏ MySQL РІРёРґР° 40101
 		preg_match("/^(\d+)\.(\d+)\.(\d+)/", mysql_get_server_info(), $m);
 		
 		$this->mysql_version = sprintf("%d%02d%02d", $m[1], $m[2], $m[3]);
@@ -225,7 +225,7 @@ class dumper {
 		
 		//set_error_handler("SXD_errorHandler");
 		
-		echo tpl_page(tpl_process("Создается резервная копия БД"));
+		echo tpl_page(tpl_process("РЎРѕР·РґР°РµС‚СЃСЏ СЂРµР·РµСЂРІРЅР°СЏ РєРѕРїРёСЏ Р‘Р”"));
 		
 		if (!$_SESSION[cmsDumper][advMode]) $_POST['db_backup'] = $_SERVER[mysql][lang][base];
 		
@@ -254,17 +254,17 @@ class dumper {
 		$db = $this->SET['last_db_backup'];
 		
 		if (!$db) {
-			echo tpl_l("ОШИБКА! Не указана база данных!", C_ERROR);
+			echo tpl_l("РћРЁРР‘РљРђ! РќРµ СѓРєР°Р·Р°РЅР° Р±Р°Р·Р° РґР°РЅРЅС‹С…!", C_ERROR);
 			echo tpl_enableBack();
 			exit;
 		}
 		
-		echo tpl_l("Подключение к БД «{$db}».", C_RESULT);
+		echo tpl_l("РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” В«{$db}В».", C_RESULT);
 		
-		mysql_select_db($db) or trigger_error("Не удается выбрать базу данных.<BR>" . mysql_error(), E_USER_ERROR);
+		mysql_select_db($db) or trigger_error("РќРµ СѓРґР°РµС‚СЃСЏ РІС‹Р±СЂР°С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С….<BR>" . mysql_error(), E_USER_ERROR);
 		
 		//
-		// ПОЛУЧЕНИЕ ТАБЛИЦ
+		// РџРћР›РЈР§Р•РќРР• РўРђР‘Р›РР¦
 		//
 		
 		$tables = array();
@@ -302,7 +302,7 @@ class dumper {
 		$tabs = count($tables);
 		
 		//
-		// ПОЛУЧЕНИЕ РАЗМЕРОВ ТАБЛИЦ
+		// РџРћР›РЈР§Р•РќРР• Р РђР—РњР•Р РћР’ РўРђР‘Р›РР¦
 		//
 		
 		$result = mysql_query("SHOW TABLE STATUS");
@@ -344,40 +344,40 @@ class dumper {
 		
 		$fp = $this->fn_open($name, "w");
 		
-		echo tpl_l("Запись файла: «{$this->filename}».", C_RESULT);
+		echo tpl_l("Р—Р°РїРёСЃСЊ С„Р°Р№Р»Р°: В«{$this->filename}В».", C_RESULT);
 		
-		// САМЫЙ ПЕРВЫЙ КОМЕНТ
+		// РЎРђРњР«Р™ РџР•Р Р’Р«Р™ РљРћРњР•РќРў
 		$this->fn_write($fp, "#SKD101|{$db}|{$tabs}|" . date("Y.m.d H:i:s") ."|{$info}\n\n");
 		
 		$t = 0;
 		echo tpl_l(str_repeat("&mdash;", 40));
 		
 		$result = mysql_query("SET SQL_QUOTE_SHOW_CREATE = 1");
-		// Кодировка соединения по умолчанию
+		// РљРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		if ($this->mysql_version > 40101 && CHARSET != 'auto') {
-			mysql_query("SET NAMES '" . CHARSET . "'") or trigger_error ("Неудается изменить кодировку соединения.<BR>" . mysql_error(), E_USER_ERROR);
+			mysql_query("SET NAMES '" . CHARSET . "'") or trigger_error ("РќРµСѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>" . mysql_error(), E_USER_ERROR);
 			$last_charset = CHARSET;
 		} else $last_charset = '';
 		
 		foreach ($tables AS $table){
 			
-			// Выставляем кодировку соединения соответствующую кодировке таблицы
+			// Р’С‹СЃС‚Р°РІР»СЏРµРј РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰СѓСЋ РєРѕРґРёСЂРѕРІРєРµ С‚Р°Р±Р»РёС†С‹
 			if ($this->mysql_version > 40101 && $tab_charset[$table] != $last_charset) {
 				
 				if (CHARSET == 'auto') {
-					mysql_query("SET NAMES '" . $tab_charset[$table] . "'") or trigger_error ("Не удается изменить кодировку соединения.<BR>" . mysql_error(), E_USER_ERROR);
-					echo tpl_l("Установлена кодировка соединения «" . $tab_charset[$table] . "».", C_WARNING);
+					mysql_query("SET NAMES '" . $tab_charset[$table] . "'") or trigger_error ("РќРµ СѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>" . mysql_error(), E_USER_ERROR);
+					echo tpl_l("РЈСЃС‚Р°РЅРѕРІР»РµРЅР° РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ В«" . $tab_charset[$table] . "В».", C_WARNING);
 					$last_charset = $tab_charset[$table];
 				} else {
-					echo tpl_l('Кодировка соединения и таблицы не совпадает:', C_ERROR);
-					echo tpl_l('Таблица «'. $table .'» -> ' . $tab_charset[$table] . ' (соединение '  . CHARSET . ').', C_ERROR);
+					echo tpl_l('РљРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ Рё С‚Р°Р±Р»РёС†С‹ РЅРµ СЃРѕРІРїР°РґР°РµС‚:', C_ERROR);
+					echo tpl_l('РўР°Р±Р»РёС†Р° В«'. $table .'В» -> ' . $tab_charset[$table] . ' (СЃРѕРµРґРёРЅРµРЅРёРµ '  . CHARSET . ').', C_ERROR);
 				}
 				
 			}
 			
-			echo tpl_l("Обработка таблицы «{$table}» [" . fn_int($tabinfo[$table]) . "].");
+			echo tpl_l("РћР±СЂР°Р±РѕС‚РєР° С‚Р°Р±Р»РёС†С‹ В«{$table}В» [" . fn_int($tabinfo[$table]) . "].");
 			
-			// Создание таблицы
+			// РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 			$result = mysql_query("SHOW CREATE TABLE `{$table}`");
 			
 			$tab = mysql_fetch_array($result);
@@ -385,10 +385,10 @@ class dumper {
 			
 			$this->fn_write($fp, "DROP TABLE IF EXISTS `{$table}`;\n{$tab[1]};\n\n");
 			
-			// Проверяем нужно ли дампить данные
+			// РџСЂРѕРІРµСЂСЏРµРј РЅСѓР¶РЅРѕ Р»Рё РґР°РјРїРёС‚СЊ РґР°РЅРЅС‹Рµ
       if (in_array($tab_type[$table], $this->only_create)) continue;
 			
-			// Опредеделяем типы столбцов
+			// РћРїСЂРµРґРµРґРµР»СЏРµРј С‚РёРїС‹ СЃС‚РѕР»Р±С†РѕРІ
 			$NumericColumn = array();
 			$result = mysql_query("SHOW COLUMNS FROM `{$table}`");
 			$field = 0;
@@ -439,14 +439,14 @@ class dumper {
 		echo tpl_s(1, 1);
 		echo tpl_l(str_repeat("&mdash;", 40));
 		$this->fn_close($fp);
-		echo tpl_l("Резервная копия БД «{$db}» создана.", C_RESULT);
-		echo tpl_l("Размер БД:       " . round($this->size / 1048576, 2) . " МБ", C_RESULT);
-		$filesize = round(filesize(PATH . $this->filename) / 1048576, 2) . " МБ";
-		echo tpl_l("Размер файла: {$filesize}", C_RESULT);
-		echo tpl_l("Таблиц обработано: {$tabs}", C_RESULT);
-		echo tpl_l("Строк обработано:   " . fn_int($tabinfo[0]), C_RESULT);
+		echo tpl_l("Р РµР·РµСЂРІРЅР°СЏ РєРѕРїРёСЏ Р‘Р” В«{$db}В» СЃРѕР·РґР°РЅР°.", C_RESULT);
+		echo tpl_l("Р Р°Р·РјРµСЂ Р‘Р”:       " . round($this->size / 1048576, 2) . " РњР‘", C_RESULT);
+		$filesize = round(filesize(PATH . $this->filename) / 1048576, 2) . " РњР‘";
+		echo tpl_l("Р Р°Р·РјРµСЂ С„Р°Р№Р»Р°: {$filesize}", C_RESULT);
+		echo tpl_l("РўР°Р±Р»РёС† РѕР±СЂР°Р±РѕС‚Р°РЅРѕ: {$tabs}", C_RESULT);
+		echo tpl_l("РЎС‚СЂРѕРє РѕР±СЂР°Р±РѕС‚Р°РЅРѕ:   " . fn_int($tabinfo[0]), C_RESULT);
 		echo "<SCRIPT>document.getElementById('back').disabled = 0;</SCRIPT>";
-		// Передача данных для глобальной статистики
+		// РџРµСЂРµРґР°С‡Р° РґР°РЅРЅС‹С… РґР»СЏ РіР»РѕР±Р°Р»СЊРЅРѕР№ СЃС‚Р°С‚РёСЃС‚РёРєРё
 		//if (GS) echo "<SCRIPT>document.getElementById('GS').src = 'http://sypex.net/gs.php?b={$this->tabs},{$this->records},{$this->size},{$this->comp},108';</SCRIPT>";
 		
 	}
@@ -459,7 +459,7 @@ class dumper {
 		
 		//set_error_handler("SXD_errorHandler");
 		
-		echo tpl_page(tpl_process("Восстановление БД из резервной копии"));
+		echo tpl_page(tpl_process("Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ Р‘Р” РёР· СЂРµР·РµСЂРІРЅРѕР№ РєРѕРїРёРё"));
 		
 		if (!$_SESSION[cmsDumper][advMode]) $_POST['db_restore'] = $_SERVER[mysql][lang][base];
 		
@@ -470,14 +470,14 @@ class dumper {
 		$db = $this->SET['last_db_restore'];
 
 		if (!$db) {
-			echo tpl_l("ОШИБКА! Не указана база данных!", C_ERROR);
+			echo tpl_l("РћРЁРР‘РљРђ! РќРµ СѓРєР°Р·Р°РЅР° Р±Р°Р·Р° РґР°РЅРЅС‹С…!", C_ERROR);
 			echo tpl_enableBack();
 		    exit;
 		}
-		echo tpl_l("Подключение к БД «{$db}».", C_RESULT);
-		mysql_select_db($db) or trigger_error ("Не удается выбрать базу данных.<BR>" . mysql_error(), E_USER_ERROR);
+		echo tpl_l("РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” В«{$db}В».", C_RESULT);
+		mysql_select_db($db) or trigger_error ("РќРµ СѓРґР°РµС‚СЃСЏ РІС‹Р±СЂР°С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С….<BR>" . mysql_error(), E_USER_ERROR);
 
-		// Определение формата файла
+		// РћРїСЂРµРґРµР»РµРЅРёРµ С„РѕСЂРјР°С‚Р° С„Р°Р№Р»Р°
 		if(preg_match("/^(.+?)\.sql(\.(bz2|gz))?$/", $file, $matches)) {
 			if (isset($matches[3]) && $matches[3] == 'bz2') {
 			    $this->SET['comp_method'] = 2;
@@ -490,15 +490,15 @@ class dumper {
 			}
 			$this->SET['comp_level'] = '';
 			if (!file_exists(PATH . "/{$file}")) {
-    		    echo tpl_l("ОШИБКА! Файл не найден!", C_ERROR);
+    		    echo tpl_l("РћРЁРР‘РљРђ! Р¤Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ!", C_ERROR);
 				echo tpl_enableBack();
     		    exit;
     		}
-			echo tpl_l("Чтение файла «{$file}».", C_RESULT);
+			echo tpl_l("Р§С‚РµРЅРёРµ С„Р°Р№Р»Р° В«{$file}В».", C_RESULT);
 			$file = $matches[1];
 		}
 		else{
-			echo tpl_l("ОШИБКА! Не выбран файл!", C_ERROR);
+			echo tpl_l("РћРЁРР‘РљРђ! РќРµ РІС‹Р±СЂР°РЅ С„Р°Р№Р»!", C_ERROR);
 			echo tpl_enableBack();
 		    exit;
 		}
@@ -512,10 +512,10 @@ class dumper {
 		$cache = '';
 		$info = array();
 
-		// Установка кодировки соединения
-		if ($this->mysql_version > 40101 && (CHARSET != 'auto' || $this->forced_charset)) { // Кодировка по умолчанию, если в дампе не указана кодировка
-			mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Неудается изменить кодировку соединения.<BR>" . mysql_error(), E_USER_ERROR);
-			echo tpl_l("Установлена кодировка соединения «" . $this->restore_charset . "».", C_WARNING);
+		// РЈСЃС‚Р°РЅРѕРІРєР° РєРѕРґРёСЂРѕРІРєРё СЃРѕРµРґРёРЅРµРЅРёСЏ
+		if ($this->mysql_version > 40101 && (CHARSET != 'auto' || $this->forced_charset)) { // РљРѕРґРёСЂРѕРІРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РµСЃР»Рё РІ РґР°РјРїРµ РЅРµ СѓРєР°Р·Р°РЅР° РєРѕРґРёСЂРѕРІРєР°
+			mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("РќРµСѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>" . mysql_error(), E_USER_ERROR);
+			echo tpl_l("РЈСЃС‚Р°РЅРѕРІР»РµРЅР° РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ В«" . $this->restore_charset . "В».", C_WARNING);
 			$last_charset = $this->restore_charset;
 		}
 		else {
@@ -537,7 +537,7 @@ class dumper {
 				if ($table != $m[2]) {
 				    $table = $m[2];
 					$tabs++;
-					$cache .= tpl_l("Таблица «{$table}».");
+					$cache .= tpl_l("РўР°Р±Р»РёС†Р° В«{$table}В».");
 					$last_showed = $table;
 					$i = 0;
 					if ($is_skd)
@@ -581,39 +581,39 @@ class dumper {
 				    		$sql = preg_replace("/ENGINE\s?=/", "TYPE=", $sql);
 						}
 						elseif (preg_match("/CREATE TABLE/i", $sql)){
-							// Выставляем кодировку соединения
+							// Р’С‹СЃС‚Р°РІР»СЏРµРј РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ
 							if (preg_match("/(CHARACTER SET|CHARSET)[=\s]+(\w+)/i", $sql, $charset)) {
 								if (!$this->forced_charset && $charset[2] != $last_charset) {
 									if (CHARSET == 'auto') {
-										mysql_query("SET NAMES '" . $charset[2] . "'") or trigger_error ("Неудается изменить кодировку соединения.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
-										$cache .= tpl_l("Установлена кодировка соединения «" . $charset[2] . "».", C_WARNING);
+										mysql_query("SET NAMES '" . $charset[2] . "'") or trigger_error ("РќРµСѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+										$cache .= tpl_l("РЈСЃС‚Р°РЅРѕРІР»РµРЅР° РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ В«" . $charset[2] . "В».", C_WARNING);
 										$last_charset = $charset[2];
 									}
 									else{
-										$cache .= tpl_l('Кодировка соединения и таблицы не совпадает:', C_ERROR);
-										$cache .= tpl_l('Таблица «'. $table .'» -> ' . $charset[2] . ' (соединение '  . $this->restore_charset . ').', C_ERROR);
+										$cache .= tpl_l('РљРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ Рё С‚Р°Р±Р»РёС†С‹ РЅРµ СЃРѕРІРїР°РґР°РµС‚:', C_ERROR);
+										$cache .= tpl_l('РўР°Р±Р»РёС†Р° В«'. $table .'В» -> ' . $charset[2] . ' (СЃРѕРµРґРёРЅРµРЅРёРµ '  . $this->restore_charset . ').', C_ERROR);
 									}
 								}
-								// Меняем кодировку если указано форсировать кодировку
+								// РњРµРЅСЏРµРј РєРѕРґРёСЂРѕРІРєСѓ РµСЃР»Рё СѓРєР°Р·Р°РЅРѕ С„РѕСЂСЃРёСЂРѕРІР°С‚СЊ РєРѕРґРёСЂРѕРІРєСѓ
 								if ($this->forced_charset) {
 									$sql = preg_replace("/(\/\*!\d+\s)?((COLLATE)[=\s]+)\w+(\s+\*\/)?/i", '', $sql);
 									$sql = preg_replace("/((CHARACTER SET|CHARSET)[=\s]+)\w+/i", "\\1" . $this->restore_charset . $this->restore_collate, $sql);
 								}
 							}
-							elseif(CHARSET == 'auto'){ // Вставляем кодировку для таблиц, если она не указана и установлена auto кодировка
+							elseif(CHARSET == 'auto'){ // Р’СЃС‚Р°РІР»СЏРµРј РєРѕРґРёСЂРѕРІРєСѓ РґР»СЏ С‚Р°Р±Р»РёС†, РµСЃР»Рё РѕРЅР° РЅРµ СѓРєР°Р·Р°РЅР° Рё СѓСЃС‚Р°РЅРѕРІР»РµРЅР° auto РєРѕРґРёСЂРѕРІРєР°
 								$sql .= ' DEFAULT CHARSET=' . $this->restore_charset . $this->restore_collate;
 								if ($this->restore_charset != $last_charset) {
-									mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("Неудается изменить кодировку соединения.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
-									$cache .= tpl_l("Установлена кодировка соединения «" . $this->restore_charset . "».", C_WARNING);
+									mysql_query("SET NAMES '" . $this->restore_charset . "'") or trigger_error ("РќРµСѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+									$cache .= tpl_l("РЈСЃС‚Р°РЅРѕРІР»РµРЅР° РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ В«" . $this->restore_charset . "В».", C_WARNING);
 									$last_charset = $this->restore_charset;
 								}
 							}
 						}
-						if ($last_showed != $table) {$cache .= tpl_l("Таблица «{$table}»."); $last_showed = $table;}
+						if ($last_showed != $table) {$cache .= tpl_l("РўР°Р±Р»РёС†Р° В«{$table}В»."); $last_showed = $table;}
 					}
-					elseif($this->mysql_version > 40101 && empty($last_charset)) { // Устанавливаем кодировку на случай если отсутствует CREATE TABLE
-						mysql_query("SET $this->restore_charset '" . $this->restore_charset . "'") or trigger_error ("Неудается изменить кодировку соединения.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
-						echo tpl_l("Установлена кодировка соединения «" . $this->restore_charset . "».", C_WARNING);
+					elseif($this->mysql_version > 40101 && empty($last_charset)) { // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєРѕРґРёСЂРѕРІРєСѓ РЅР° СЃР»СѓС‡Р°Р№ РµСЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ CREATE TABLE
+						mysql_query("SET $this->restore_charset '" . $this->restore_charset . "'") or trigger_error ("РќРµСѓРґР°РµС‚СЃСЏ РёР·РјРµРЅРёС‚СЊ РєРѕРґРёСЂРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ.<BR>{$sql}<BR>" . mysql_error(), E_USER_ERROR);
+						echo tpl_l("РЈСЃС‚Р°РЅРѕРІР»РµРЅР° РєРѕРґРёСЂРѕРІРєР° СЃРѕРµРґРёРЅРµРЅРёСЏ В«" . $this->restore_charset . "В».", C_WARNING);
 						$last_charset = $this->restore_charset;
 					}
             		$insert = '';
@@ -625,7 +625,7 @@ class dumper {
             	}
     			if ($execute) {
             		$q++;
-            		mysql_query($sql) or trigger_error ("Неправильный запрос.<BR>" . htmlEntities(mysql_error(), ENT_QUOTES), E_USER_ERROR);
+            		mysql_query($sql) or trigger_error ("РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ Р·Р°РїСЂРѕСЃ.<BR>" . htmlEntities(mysql_error(), ENT_QUOTES), E_USER_ERROR);
 					if (preg_match("/^insert/i", $sql)) {
             		    $aff_rows += mysql_affected_rows();
             		}
@@ -638,18 +638,18 @@ class dumper {
 		echo $cache;
 		echo tpl_s(1 , 1);
 		echo tpl_l(str_repeat("&mdash;", 40));
-		echo tpl_l("БД восстановлена из резервной копии.", C_RESULT);
-		if (isset($info[3])) echo tpl_l("Дата создания копии: {$info[3]}", C_RESULT);
-		echo tpl_l("Запросов к БД: {$q}", C_RESULT);
-		echo tpl_l("Таблиц создано: {$tabs}", C_RESULT);
-		echo tpl_l("Строк добавлено: {$aff_rows}", C_RESULT);
+		echo tpl_l("Р‘Р” РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅР° РёР· СЂРµР·РµСЂРІРЅРѕР№ РєРѕРїРёРё.", C_RESULT);
+		if (isset($info[3])) echo tpl_l("Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ РєРѕРїРёРё: {$info[3]}", C_RESULT);
+		echo tpl_l("Р—Р°РїСЂРѕСЃРѕРІ Рє Р‘Р”: {$q}", C_RESULT);
+		echo tpl_l("РўР°Р±Р»РёС† СЃРѕР·РґР°РЅРѕ: {$tabs}", C_RESULT);
+		echo tpl_l("РЎС‚СЂРѕРє РґРѕР±Р°РІР»РµРЅРѕ: {$aff_rows}", C_RESULT);
 
 		$this->tabs = $tabs;
 		$this->records = $aff_rows;
 		$this->size = filesize(PATH . $this->filename);
 		$this->comp = $this->SET['comp_method'] * 10 + $this->SET['comp_level'];
 		echo "<SCRIPT>document.getElementById('back').disabled = 0;</SCRIPT>";
-		// Передача данных для глобальной статистики
+		// РџРµСЂРµРґР°С‡Р° РґР°РЅРЅС‹С… РґР»СЏ РіР»РѕР±Р°Р»СЊРЅРѕР№ СЃС‚Р°С‚РёСЃС‚РёРєРё
 		//if (GS) echo "<SCRIPT>document.getElementById('GS').src = 'http://sypex.net/gs.php?r={$this->tabs},{$this->records},{$this->size},{$this->comp},108';</SCRIPT>";
 		
 		$this->fn_close($fp);
@@ -659,7 +659,7 @@ class dumper {
 	// ----------------------------------------------------------------------------------------------------------------------------------------- //
 	
 	function main(){
-		$this->comp_levels = array('9' => '9 (максимальная)', '8' => '8', '7' => '7', '6' => '6', '5' => '5 (средняя)', '4' => '4', '3' => '3', '2' => '2', '1' => '1 (минимальная)','0' => 'Без сжатия');
+		$this->comp_levels = array('9' => '9 (РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ)', '8' => '8', '7' => '7', '6' => '6', '5' => '5 (СЃСЂРµРґРЅСЏСЏ)', '4' => '4', '3' => '3', '2' => '2', '1' => '1 (РјРёРЅРёРјР°Р»СЊРЅР°СЏ)','0' => 'Р‘РµР· СЃР¶Р°С‚РёСЏ');
 
 		if (function_exists("bzopen")) {
 		    $this->comp_methods[2] = 'BZip2';
@@ -667,9 +667,9 @@ class dumper {
 		if (function_exists("gzopen")) {
 		    $this->comp_methods[1] = 'GZip';
 		}
-		$this->comp_methods[0] = 'Без сжатия';
+		$this->comp_methods[0] = 'Р‘РµР· СЃР¶Р°С‚РёСЏ';
 		if (count($this->comp_methods) == 1) {
-		    $this->comp_levels = array('0' =>'Без сжатия');
+		    $this->comp_levels = array('0' =>'Р‘РµР· СЃР¶Р°С‚РёСЏ');
 		}
 		
 		$db_backup	= $this->SET['last_db_backup']	? $this->SET['last_db_backup']	: $_SERVER[mysql][lang][base];
@@ -735,7 +735,7 @@ class dumper {
 	// ----------------------------------------------------------------------------------------------------------------------------------------- //
 	
 	function file_select(){
-		$files = array('' => 'Выберите файл дампа');
+		$files = array('' => 'Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР°РјРїР°');
 		if (is_dir(PATH) && $handle = opendir(PATH)) {
             while (false !== ($file = readdir($handle))) {
                 if (preg_match("/^.+?\.sql(\.(gz|bz2))?$/", $file)) {
@@ -945,22 +945,22 @@ return <<<HTML
 		<table class='editTable'>
 			
 			<tr>
-				<td class='editHeader' colspan='2'>Backup / Создание резервной копии БД</td>
+				<td class='editHeader' colspan='2'>Backup / РЎРѕР·РґР°РЅРёРµ СЂРµР·РµСЂРІРЅРѕР№ РєРѕРїРёРё Р‘Р”</td>
 			</tr>
 			
 			<tr>
-				<td class='editLabel' nowrap>БД:</td>
+				<td class='editLabel' nowrap>Р‘Р”:</td>
 				<td class='editValue' nowrap>{$bakTable}</td>
 			</tr>
 			<tr>
-				<td class='editLabel' nowrap>Фильтр таблиц:</td>
-				<td class='editValue' nowrap><input type='text' class='text' name='tables' value='{$SK->vars['tables']}' title='Специальные символы:<br>* — любое кол-во символов<br>? — один любой символ<br>^ — исключение из списка<br><br>Примеры:<br><br>^news - все кроме news<br>cms_* - все с префиксом cms<br>comment? - только comment(s?)'></td>
+				<td class='editLabel' nowrap>Р¤РёР»СЊС‚СЂ С‚Р°Р±Р»РёС†:</td>
+				<td class='editValue' nowrap><input type='text' class='text' name='tables' value='{$SK->vars['tables']}' title='РЎРїРµС†РёР°Р»СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹:<br>* вЂ” Р»СЋР±РѕРµ РєРѕР»-РІРѕ СЃРёРјРІРѕР»РѕРІ<br>? вЂ” РѕРґРёРЅ Р»СЋР±РѕР№ СЃРёРјРІРѕР»<br>^ вЂ” РёСЃРєР»СЋС‡РµРЅРёРµ РёР· СЃРїРёСЃРєР°<br><br>РџСЂРёРјРµСЂС‹:<br><br>^news - РІСЃРµ РєСЂРѕРјРµ news<br>cms_* - РІСЃРµ СЃ РїСЂРµС„РёРєСЃРѕРј cms<br>comment? - С‚РѕР»СЊРєРѕ comment(s?)'></td>
 			</tr>
 			<tr>
-				<td class='editLabel' nowrap>Комментарий:</TD>
-				<td class='editValue' nowrap><input name=comment type=text class=text value='' title='Краткий комментарий для удобства. Ни на что не влияет, кроме имени файла.'></td>
+				<td class='editLabel' nowrap>РљРѕРјРјРµРЅС‚Р°СЂРёР№:</TD>
+				<td class='editValue' nowrap><input name=comment type=text class=text value='' title='РљСЂР°С‚РєРёР№ РєРѕРјРјРµРЅС‚Р°СЂРёР№ РґР»СЏ СѓРґРѕР±СЃС‚РІР°. РќРё РЅР° С‡С‚Рѕ РЅРµ РІР»РёСЏРµС‚, РєСЂРѕРјРµ РёРјРµРЅРё С„Р°Р№Р»Р°.'></td>
 			</tr>
-			<tr><td width='100%' class='editButton' colspan='2'><input type='submit' class='submit' value='Создать'></td></tr>
+			<tr><td width='100%' class='editButton' colspan='2'><input type='submit' class='submit' value='РЎРѕР·РґР°С‚СЊ'></td></tr>
 		</table>
 		
 	</form>
@@ -972,23 +972,23 @@ return <<<HTML
 		<table class='editTable'>
 			
 			<tr>
-				<td class='editHeader' colspan='2'>Restore / Восстановление БД из резервной копии</td>
+				<td class='editHeader' colspan='2'>Restore / Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ Р‘Р” РёР· СЂРµР·РµСЂРІРЅРѕР№ РєРѕРїРёРё</td>
 			</tr>
 			
 			<tr>
-				<td class='editLabel' nowrap>БД:</TD>
+				<td class='editLabel' nowrap>Р‘Р”:</TD>
 				<td class='editValue' nowrap>{$resTable}</td>
 			</tr>
 			<tr>
-				<td class='editLabel' nowrap>Файл:</TD>
+				<td class='editLabel' nowrap>Р¤Р°Р№Р»:</TD>
 				<td class='editValue' nowrap><select name='file'>{$SK->vars['files']}</select></td>
 			</tr>
-			<tr><td width='100%' class='editbutton' colspan='2'><input type='submit' class='submit' value='Восстановить'></td></tr>
+			<tr><td width='100%' class='editbutton' colspan='2'><input type='submit' class='submit' value='Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ'></td></tr>
 		</table>
 		
 	</form>
 	
-	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
+	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>РЎРјРµРЅРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р‘Р”</a> | {$_SERVER[cmsDumper][advMode]} | Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ:</small> <small ID=timer></small></p>		
 
 HTML;
 }
@@ -1003,7 +1003,7 @@ return <<<HTML
 		<tr><td class='editHeader' colspan='2'>{$title}</td></tr>
 		<tr><td class='editValue' colspan='2'><div style='overflow: auto; height: 300px' id='logarea'></div></td></tr>
 		<tr>
-			<td class='editLabel' nowrap>Статус таблицы:</td>
+			<td class='editLabel' nowrap>РЎС‚Р°С‚СѓСЃ С‚Р°Р±Р»РёС†С‹:</td>
 			<td class='editValue' nowrap>
 				
 				<div class='progress'><div id='st_tab'></div></div>
@@ -1011,17 +1011,17 @@ return <<<HTML
 			</td>
 		</tr>
 		<tr>
-			<td class='editLabel' nowrap>Общий статус:</td>
+			<td class='editLabel' nowrap>РћР±С‰РёР№ СЃС‚Р°С‚СѓСЃ:</td>
 			<td class='editValue' nowrap>
 				
 				<div class='progress'><div id='so_tab'></div></div>
 				
 			</td>
 		</tr>
-		<tr><td width='100%' class='editButton' colspan='2'><input id='back' type='button' class='submit' value='Назад' disabled onClick="history.back();"></td></tr>
+		<tr><td width='100%' class='editButton' colspan='2'><input id='back' type='button' class='submit' value='РќР°Р·Р°Рґ' disabled onClick="history.back();"></td></tr>
 	</table>
 	
-	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>Сменить пользователя БД</a> | {$_SERVER[cmsDumper][advMode]} | Время выполнения:</small> <small ID=timer></small></p>		
+	<p align='right'><small><a href='/lib/modules/backup/admin_dumper.php?logout'>РЎРјРµРЅРёС‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р‘Р”</a> | {$_SERVER[cmsDumper][advMode]} | Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ:</small> <small ID=timer></small></p>		
 
 	<SCRIPT>
 	var WidthLocked = false;
@@ -1067,28 +1067,28 @@ return <<<HTML
 		<table class='editTable'>
 			
 			<tr>
-				<td class='editHeader' colspan='2'>Введите имя пользователя и пароль от БД</td>
+				<td class='editHeader' colspan='2'>Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїР°СЂРѕР»СЊ РѕС‚ Р‘Р”</td>
 			</tr>
 			
 			<TR>
-				<TD class='editLabel' nowrap>Имя пользователя:</TD>
+				<TD class='editLabel' nowrap>РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ:</TD>
 				<TD class='editValue' nowrap><input type='text' class='text' name='mysql_user' value='{$name}'></td>
 			</TR>
 			
 			<TR>
-				<TD class='editLabel' nowrap>Пароль:</TD>
+				<TD class='editLabel' nowrap>РџР°СЂРѕР»СЊ:</TD>
 				<TD class='editValue' nowrap><input type='password' class='text' name='mysql_pass' value='{$pass}'></td>
 			</TR>
-			<tr><td width='100%' class='editbutton' colspan='2'><input type='submit' class='submit' value='Войти'></td></tr>
+			<tr><td width='100%' class='editbutton' colspan='2'><input type='submit' class='submit' value='Р’РѕР№С‚Рё'></td></tr>
 		</table>
 		
 	</form>
 	
-	<p align='right'><small>Время выполнения:</small> <small ID=timer></small></p>		
+	<p align='right'><small>Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ:</small> <small ID=timer></small></p>		
 
 	<p class='error'>{$error}</p>
 	
-	<SPAN ID=error>Для работы Sypex Dumper Lite требуется:<BR> - Internet Explorer 5.5+, Mozilla либо Opera 8+ (<SPAN ID=sie>-</SPAN>)<BR> - включено выполнение JavaScript скриптов (<SPAN ID=sjs>-</SPAN>)</SPAN>
+	<SPAN ID=error>Р”Р»СЏ СЂР°Р±РѕС‚С‹ Sypex Dumper Lite С‚СЂРµР±СѓРµС‚СЃСЏ:<BR> - Internet Explorer 5.5+, Mozilla Р»РёР±Рѕ Opera 8+ (<SPAN ID=sie>-</SPAN>)<BR> - РІРєР»СЋС‡РµРЅРѕ РІС‹РїРѕР»РЅРµРЅРёРµ JavaScript СЃРєСЂРёРїС‚РѕРІ (<SPAN ID=sjs>-</SPAN>)</SPAN>
 
 	<SCRIPT>
 	document.getElementById('sjs').innerHTML = '+';
@@ -1135,7 +1135,7 @@ HTML;
 function tpl_backup_index(){
 return <<<HTML
 <CENTER>
-<H1>У вас нет прав для просмотра этого каталога</H1>
+<H1>РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР° СЌС‚РѕРіРѕ РєР°С‚Р°Р»РѕРіР°</H1>
 </CENTER>
 HTML;
 }
@@ -1164,7 +1164,7 @@ HTML;
 		$dt = date("Y.m.d H:i:s");
 		$errmsg = addslashes($errmsg);
 		
-		echo tpl_l("{$dt}<BR><B>Возникла ошибка!</B>", C_ERROR);
+		echo tpl_l("{$dt}<BR><B>Р’РѕР·РЅРёРєР»Р° РѕС€РёР±РєР°!</B>", C_ERROR);
 		echo tpl_l("{$errmsg} <b>{$filename}</b> {$linenum} ({$errno})", C_ERROR);
 		
 		echo tpl_enableBack();

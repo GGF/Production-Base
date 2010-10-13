@@ -1,6 +1,6 @@
 <?
 /*
- *  Класс Таблица для выводна данных из базы
+ *  РљР»Р°СЃСЃ РўР°Р±Р»РёС†Р° РґР»СЏ РІС‹РІРѕРґРЅР° РґР°РЅРЅС‹С… РёР· Р±Р°Р·С‹
  */
 
 	defined("CMS") or die("Restricted usage: " . basename(__FILE__));
@@ -23,7 +23,7 @@ class Table {
 	var $del;
 	var $edit;
 	
-	function Table($type='', $optype='', $sql='',$cols='',$checkrights=true) { //конструктор
+	function Table($type='', $optype='', $sql='',$cols='',$checkrights=true) { //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		global $find,$all,$order;
 		$this->type=$type;
 		if (file_exists($optype.".php"))
@@ -62,7 +62,7 @@ class Table {
 		reset($this->cols);
 		while (list($key, $val) = each($this->cols)) {
 			if ($buttons) {
-				echo "<th>".(($key=='check' or $key=="№")?"":"<a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">").$val.(($key=='check' or $key=="№")?"":($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>");
+				echo "<th>".(($key=='check' or $key=="в„–")?"":"<a href=\"javascript:sort('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&".($this->all?"all&":"").(!empty($this->find)?"find=".urlencode($this->find)."&":"")."order=".($this->order==$key?$key."%20DESC":$key).(!empty($this->idstr)?$this->idstr:"")."','".$this->tid."')\">").$val.(($key=='check' or $key=="в„–")?"":($this->order==$key?"&darr;":(($this->order==$key.' DESC')?"&uarr;":""))."</a>");
 			} 
 			else
 			{
@@ -73,11 +73,11 @@ class Table {
 		if ($this->del)  {echo "<th>&nbsp;";}
 		echo "<tbody>";
 		if ($buttons) {
-			echo "<tr><td colspan=100 width=100%><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"Последние 20":"Все")."' id=allbutton>";
+			echo "<tr><td colspan=100 width=100%><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"РџРѕСЃР»РµРґРЅРёРµ 20":"Р’СЃРµ")."' id=allbutton>";
 			
-			if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Добавить' id=addbutton>";
+			if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Р”РѕР±Р°РІРёС‚СЊ' id=addbutton>";
 			
-			echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
+			echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"РСЃРєР°С‚СЊ...")."' orgvalue='".(!empty($this->find)?$this->find:"РСЃРєР°С‚СЊ...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
 			//echo "<script>$('#findtext".$this->tid."').keyboard('enter',function(){updatetable($(this).attr('tid'),$(this).attr('ttype'),'find='+$(this).val()+$(this).attr('tall')+$(this).attr('idstr'));});</script>";
 			//echo "<script>$('#findtext".$this->tid."').keyboard('esc',function(){\$(this).blur();});</script>";
 		}
@@ -99,12 +99,12 @@ class Table {
 		foreach ($res as $rs) {
 			$curr++;
 			if ($curr==count($res)) {
-				// последний
+				// РїРѕСЃР»РµРґРЅРёР№
 				$prtrid = $trid;
 				$trid = $netrid;
 				//$netrid = $netrid;
 			} else {
-				// остальные проходы
+				// РѕСЃС‚Р°Р»СЊРЅС‹Рµ РїСЂРѕС…РѕРґС‹
 				$prtrid = $trid;
 				$trid = $netrid;
 				$netrid = uniqid('tr');
@@ -114,21 +114,22 @@ class Table {
 				echo "<tr class='chettr' parent='".$this->tid."' id='$trid' prev='$prtrid' next='$netrid'>";
 			else
 				echo "<tr class='nechettr' parent='".$this->tid."' id='$trid' prev='$prtrid' next='$netrid'>";
-			$rs["№"]=$i;
-			$link = "<a alt='раскрыть' title='Раскрыть' onclick=\"".(!empty($this->openfunc)?$this->openfunc."('".$rs["id"]."','$trid')":(!empty($this->opentype)?"opentr('".$rs["id"]."','$trid','".$this->opentype."'".(($this->type==$this->opentype)?",'show'":"").")":"openempty()"))."\" id=showlink><div class='fullwidth'>";
+			$rs["в„–"]=$i;
+			$link = "<a alt='СЂР°СЃРєСЂС‹С‚СЊ' title='Р Р°СЃРєСЂС‹С‚СЊ' onclick=\"".(!empty($this->openfunc)?$this->openfunc."('".$rs["id"]."','$trid')":(!empty($this->opentype)?"opentr('".$rs["id"]."','$trid','".$this->opentype."'".(($this->type==$this->opentype)?",'show'":"").")":"openempty()"))."\" id=showlink><div class='fullwidth'>";
 			$linkend = "</div></a>";
 			$rs["file_link"] = substr($rs["file_link"],strrpos($rs["file_link"],"\\")+1);
 			$delstr = '';
 			reset($this->cols);
 			while (list($key, $val) = each($this->cols)) {
-				echo "<td>".$link.(empty($rs["$key"])?"&nbsp;":$rs["$key"]).$linkend;
-				$delstr .= $rs["$key"].' - ';
+				$rskey = cmsUTF_encode($rs["$key"]);
+				echo "<td>".$link.(empty($rskey)?"&nbsp;":$rskey).$linkend;
+				$delstr .= $rskey.' - ';
 			}
 			if ($this->edit) {
-				echo "<td align=center valign=center><a title='Редактировать' onclick=\"editrecord('".$this->type."','edit=".$rs["id"]."&tid=".$this->tid."')\" id=editlink><img src=/picture/b_edit.png></a>";
+				echo "<td align=center valign=center><a title='Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ' onclick=\"editrecord('".$this->type."','edit=".$rs["id"]."&tid=".$this->tid."')\" id=editlink><img src=/picture/b_edit.png></a>";
 			}
 			if ($this->del) {
-				echo "<td align=center valign=center><a title='Удалить' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($delstr))."')\" id=dellink><img src=/picture/b_drop.png></a>";
+				echo "<td align=center valign=center><a title='РЈРґР°Р»РёС‚СЊ' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($delstr))."')\" id=dellink><img src=/picture/b_drop.png></a>";
 			}
 		}
 

@@ -1,4 +1,4 @@
-The files in this directory represent the default Minify setup designed to ease
+﻿The files in this directory represent the default Minify setup designed to ease
 integration with your site. This app will combine and minify your Javascript or
 CSS files and serve them with HTTP compression and cache headers.
 

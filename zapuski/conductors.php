@@ -1,8 +1,8 @@
 <?
-// Отображает запущенные платы
+// РћС‚РѕР±СЂР°Р¶Р°РµС‚ Р·Р°РїСѓС‰РµРЅРЅС‹Рµ РїР»Р°С‚С‹
 
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
-authorize(); // вызов авторизации
+authorize(); // РІС‹Р·РѕРІ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 $processing_type=basename (__FILE__,".php");
 // serialize form
 if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
@@ -11,7 +11,7 @@ ob_start();
 
 if (isset($delete)) 
 {
-	// удаление
+	// СѓРґР°Р»РµРЅРёРµ
 	$sql = "UPDATE conductors SET ts=NOW(), user_id='".$_SESSION[userid]."', ready='1' WHERE id='$delete'";
 	sql::query($sql);
 	echo "ok";
@@ -50,14 +50,14 @@ elseif (isset($edit))
 			array_push($fields,array(
 								"type"		=>	CMSFORM_TYPE_TEXT,
 								"name"		=>	"customer",
-								"label"		=>	"Заказчик:",
+								"label"		=>	"Р—Р°РєР°Р·С‡РёРє:",
 								"value"		=>	$cond["customer"],
 								"options"	=>	array( "html" => " readonly ", ),
 							));
 			array_push($fields,array(
 								"type"		=>	CMSFORM_TYPE_TEXT,
 								"name"		=>	"plate",
-								"label"		=>	"Плата:",
+								"label"		=>	"РџР»Р°С‚Р°:",
 								"value"		=>	$cond["plate"],
 								"options"	=>	array( "html" => " readonly ", ),
 							));
@@ -67,7 +67,7 @@ elseif (isset($edit))
 			array_push($fields,array(
 								"type"		=> CMSFORM_TYPE_SELECT,
 								"name"		=> "customer_id",
-								"label"		=>	"Заказчик:",
+								"label"		=>	"Р—Р°РєР°Р·С‡РёРє:",
 								"values"	=>	$customers,
 								"value"		=> $cond["cusid"],
 								"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
@@ -75,7 +75,7 @@ elseif (isset($edit))
 			array_push($fields,array(
 								"type"		=> CMSFORM_TYPE_SELECT,
 								"name"		=> "plate_id",
-								"label"		=>	"Плата:",
+								"label"		=>	"РџР»Р°С‚Р°:",
 								"values"	=>	$plates,
 								"value"		=> $cond["plid"],
 								"options"	=>	array( "html" => " plates ", ),
@@ -84,21 +84,21 @@ elseif (isset($edit))
 		array_push($fields,array(
 								"type"		=>	CMSFORM_TYPE_TEXT,
 								"name"		=>	"pib",
-								"label"		=>	"Плат в блоке",
+								"label"		=>	"РџР»Р°С‚ РІ Р±Р»РѕРєРµ",
 								"value"		=>	$cond["pib"],
 								//"options"	=>	array( "html" => "size=10", ),
 							));
 		array_push($fields,array(
 								"type"		=> CMSFORM_TYPE_TEXT,
 								"name"		=> "lays",
-								"label"		=>	"Пластин",
+								"label"		=>	"РџР»Р°СЃС‚РёРЅ",
 								"value"		=> $cond["lays"],
 								//"options"	=>	array( "html" => "size=10", ),
 							));
 		array_push($fields,array(
 								"type"		=> CMSFORM_TYPE_SELECT,
 								"name"		=> "side",
-								"label"		=>	"Сторона:",
+								"label"		=>	"РЎС‚РѕСЂРѕРЅР°:",
 								"values"	=>	array(
 														"TOP"	=>	"TOP",
 														"BOT"	=>	"BOT",
@@ -113,7 +113,7 @@ elseif (isset($edit))
 	} 
 	else 
 	{
-		// сохранение
+		// СЃРѕС…СЂР°РЅРµРЅРёРµ
 		if (!empty($edit)) {
 			$sql = "UPDATE conductors SET board_id='$plate_id', pib='$pib', side='$side', lays='$lays', user_id='".$_SERVER[userid]."', ts=NOW() WHERE id='$edit'";
 			
@@ -130,7 +130,7 @@ elseif (isset($print)) {
 }
 else
 {
-// вывести таблицу
+// РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ
 
 	// sql
 	$sql="SELECT *,conductors.id AS condid,conductors.id FROM conductors JOIN (plates,customers) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id ) WHERE ready='0' ".(isset($find)?"AND (plates.plate LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY conductors.id DESC ").(isset($all)?"":"LIMIT 20");
@@ -138,11 +138,11 @@ else
 	//echo $sql;
 	
 	$cols[condid]="ID";
-	$cols[customer]="Заказчик";
-	$cols[plate]="Плата";
-	$cols[side]="Сторона";
-	$cols[lays]="Пластин";
-	$cols[pib]="Плат в блоке";
+	$cols[customer]="Р—Р°РєР°Р·С‡РёРє";
+	$cols[plate]="РџР»Р°С‚Р°";
+	$cols[side]="РЎС‚РѕСЂРѕРЅР°";
+	$cols[lays]="РџР»Р°СЃС‚РёРЅ";
+	$cols[pib]="РџР»Р°С‚ РІ Р±Р»РѕРєРµ";
 
 
 	$table = new Table($processing_type,$processing_type,$sql,$cols);

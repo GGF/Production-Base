@@ -1,5 +1,5 @@
 <?
 $sklad='mat_';
-$skladname = "Òåêñòîëèò";
+$skladname = "Ð¢ÐµÐºÑÑ‚Ð¾Ð»Ð¸Ñ‚";
 include "common.php";
 ?>

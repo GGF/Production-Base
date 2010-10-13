@@ -1,10 +1,10 @@
 <?
 define ( "CMS", "CMS" );
 
-REQUIRE $_SERVER [DOCUMENT_ROOT] . "/lib/core/classes/profiler.php";
-REQUIRE $_SERVER [DOCUMENT_ROOT] . "/lib/core/classes/cache.php";
+REQUIRE $_SERVER ["DOCUMENT_ROOT"] . "/lib/core/classes/profiler.php";
+REQUIRE $_SERVER ["DOCUMENT_ROOT"] . "/lib/core/classes/cache.php";
 
-profiler::add ( "Подготовка", "Инициализация" );
+profiler::add ( "РџРѕРґРіРѕС‚РѕРІРєР°", "РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ" );
 
 date_Default_Timezone_Set ( date_default_timezone_get () ); //"Europe/Moscow");
 
@@ -126,8 +126,8 @@ function cmsErrorHandler($errno, $errmsg, $filename, $linenum, $vars) {
 		
 		$cls = ($type == "NOTICE") ? "cmsNotice" : "cmsError";
 		
-		// Гарантированный флаш буфера
-		// Его нельзя делать, иначе в случае AJAX бакенда он завалит обработчик
+		// Р“Р°СЂР°РЅС‚РёСЂРѕРІР°РЅРЅС‹Р№ С„Р»Р°С€ Р±СѓС„РµСЂР°
+		// Р•РіРѕ РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ, РёРЅР°С‡Рµ РІ СЃР»СѓС‡Р°Рµ AJAX Р±Р°РєРµРЅРґР° РѕРЅ Р·Р°РІР°Р»РёС‚ РѕР±СЂР°Р±РѕС‚С‡РёРє
 		//while (ob_get_level() > 0) { ob_end_flush(); }
 		
 
@@ -166,9 +166,9 @@ if (! set ( $_SERVER [errors] ))
 if (! set ( $_SERVER [lang] ))
 	$_SERVER [lang] = "ru";
 if (! set ( $_SERVER [project] [lang] ))
-	$_SERVER [project] [lang] = "Русский";
+	$_SERVER [project] [lang] = "Р СѓСЃСЃРєРёР№";
 
-$modules = array ("backup" => "Восстановление" );
+$modules = array ("backup" => "Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ" );
 
 if (is_array ( $_SERVER [modules] ))
 	$_SERVER [modules] = array_merge ( $modules, $_SERVER [modules] );
@@ -212,10 +212,10 @@ $_SERVER [tinyMCE] [code] = ($_SERVER [tinyMCE] [code]) ? $_SERVER [tinyMCE] [co
 GLOBAL $slash;
 DEFINE ( "index", $_SERVER [index] );
 DEFINE ( "slash", $slash );
-DEFINE ( "CMS_UNNAMED", "Без названия" );
-DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от места вызова
+DEFINE ( "CMS_UNNAMED", "Р‘РµР· РЅР°Р·РІР°РЅРёСЏ" );
+DEFINE ( "CMS_ADMIN", 1 ); // РґР»СЏ С„СѓРЅРєС†РёР№, РјРµРЅСЏСЋС‰РёС… ;РІРµРґРµРЅРёРµ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РјРµСЃС‚Р° РІС‹Р·РѕРІР°
 
-	profiler::add("Подготовка", "Переменные среды и константы");
+	profiler::add("РџРѕРґРіРѕС‚РѕРІРєР°", "РџРµСЂРµРјРµРЅРЅС‹Рµ СЃСЂРµРґС‹ Рё РєРѕРЅСЃС‚Р°РЅС‚С‹");
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 	//                                                                                                                                                                 //
@@ -238,18 +238,18 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 	}
 	*/
 	
-	profiler::add("Подготовка", "Завершение");
+	profiler::add("РџРѕРґРіРѕС‚РѕРІРєР°", "Р—Р°РІРµСЂС€РµРЅРёРµ");
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 	
-	profiler::add("Autoexec", "Инициализация");
+	profiler::add("Autoexec", "РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ");
 	
 	$autoexecMain		= array();
 	$autoexecStuff	= array();
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 	
-	// Токены выполняются перед autoexec — потому как они в нем используются
+	// РўРѕРєРµРЅС‹ РІС‹РїРѕР»РЅСЏСЋС‚СЃСЏ РїРµСЂРµРґ autoexec вЂ” РїРѕС‚РѕРјСѓ РєР°Рє РѕРЅРё РІ РЅРµРј РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ
 	$autoexecMain[] = $_SERVER[CORE] . "/classes/sql.php";
 	//$autoexecMain[] = $_SERVER[CORE] . "/classes/tokens.php";
 	//$autoexecMain[] = $_SERVER[CORE] . "/classes/page.php";
@@ -261,7 +261,7 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 	$autoexecMain[] = $_SERVER[CORE] . "/contrib/console/console.php";
 	$autoexecMain[] = $_SERVER[CORE] . "/contrib/tabs/tabs.php";
 	
-	// Контрибуты
+	// РљРѕРЅС‚СЂРёР±СѓС‚С‹
 	if (count($_SERVER[contrib])) foreach ($_SERVER[contrib] as $path => $name) {
 		
 		$file = $_SERVER[CORE] . "/contrib/" . $path . "/".$path.".php";
@@ -276,16 +276,16 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 	
 	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/feed.php";
 	
-	// После обычного autoexec выполняем функции обратной совместимости
+	// РџРѕСЃР»Рµ РѕР±С‹С‡РЅРѕРіРѕ autoexec РІС‹РїРѕР»РЅСЏРµРј С„СѓРЅРєС†РёРё РѕР±СЂР°С‚РЅРѕР№ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё
 	//$autoexecStuff[] = $_SERVER[CORE] . "/autoexec/includes/reverse.php";
 	
-	// И классы
+	// Р РєР»Р°СЃСЃС‹
 	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/form/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_class.php";
 	$autoexecStuff[] = $_SERVER[CORE] . "/classes/form_ajax/_lang.php";
 	//$autoexecStuff[] = $_SERVER[CORE] . "/classes/mail.php";
 	
-	// Модули
+	// РњРѕРґСѓР»Рё
 	if (count($_SERVER[modules])) foreach ($_SERVER[modules] as $path => $name) {
 		
 		$file = $_SERVER[DOCUMENT_ROOT] . "/lib/modules/" . $path . "/includes/autoexec.php";
@@ -303,7 +303,7 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 	
 	//print "<pre>" . print_r($autoexecArray, true) . "</pre>";
 	
-	profiler::add("Autoexec", "Построение списка для выполнения");
+	profiler::add("Autoexec", "РџРѕСЃС‚СЂРѕРµРЅРёРµ СЃРїРёСЃРєР° РґР»СЏ РІС‹РїРѕР»РЅРµРЅРёСЏ");
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 	
@@ -317,7 +317,7 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 		foreach ($autoexecMain as $e) {
 			
 			@include($e);
-			profiler::add("Autoexec", "Выполнение {$e}");
+			profiler::add("Autoexec", "Р’С‹РїРѕР»РЅРµРЅРёРµ {$e}");
 			
 		}
 		
@@ -326,7 +326,7 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 		foreach ($autoexecStuff as $e) {
 			
 			@include($e);
-			profiler::add("Autoexec", "Выполнение {$e}");
+			profiler::add("Autoexec", "Р’С‹РїРѕР»РЅРµРЅРёРµ {$e}");
 			
 		}
 		
@@ -335,19 +335,19 @@ DEFINE ( "CMS_ADMIN", 1 ); // для функций, меняющих ;ведение в зависимости от ме
 		cmsCache::buildPHP("main",	$autoexecMain);
 		cmsCache::buildPHP("stuff",	$autoexecStuff);
 		
-		profiler::add("Autoexec", "Начало выполнения кеша");
+		profiler::add("Autoexec", "РќР°С‡Р°Р»Рѕ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРµС€Р°");
 		
 		require($_SERVER[SYSCACHE] . "/autoexec_main.php");
-		profiler::add("Autoexec", "Выполнение основного кеша");
+		profiler::add("Autoexec", "Р’С‹РїРѕР»РЅРµРЅРёРµ РѕСЃРЅРѕРІРЅРѕРіРѕ РєРµС€Р°");
 		
 		if ($_SERVER[modules][cache]) require($_SERVER[DOCUMENT_ROOT] . "/lib/modules/cache/includes/cache_get.php");
 		
 		require($_SERVER[SYSCACHE] . "/autoexec_stuff.php");
-		profiler::add("Autoexec", "Выполнение вторичного кеша");
+		profiler::add("Autoexec", "Р’С‹РїРѕР»РЅРµРЅРёРµ РІС‚РѕСЂРёС‡РЅРѕРіРѕ РєРµС€Р°");
 		
 	}
 	
-	profiler::add("Autoexec", "Завершение");
+	profiler::add("Autoexec", "Р—Р°РІРµСЂС€РµРЅРёРµ");
 	
 	// --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
