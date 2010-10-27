@@ -36,7 +36,7 @@ if (isset($edit)) {
 	$cols[plate]="Плата";
 	$cols[numbers]="Количество";
 
-	$table = new Table($processing_type,$processing_type,$sql,$cols);
+	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 	$table->title=$title;
 	$table->show();
 }

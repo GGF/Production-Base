@@ -14,14 +14,14 @@
 	
 	// ÊÎÍÔÈÃÓÐÀÖÈß ÑÈÑÒÅÌÛ
 	
-	$_SERVER[lang]									= "ru";
-	$_SERVER[sites]									= array("ru" => "baza");
-	$_SERVER[plainEditor]						= false;
-	$_SERVER[delim]									= " › "; // ðàçäåëèòåëü â ïóòè
+	$_SERVER["lang"]									= "ru";
+	$_SERVER["sites"]									= array("ru" => "baza");
+	$_SERVER["plainEditor"]						= false;
+	$_SERVER["delim"]									= " › "; // ðàçäåëèòåëü â ïóòè
 	
 	// ÊÎÍÔÈÃÓÐÀÖÈß ÏÐÎÅÊÒÀ
 	
-	$_SERVER[project] = array(
+	$_SERVER["project"] = array(
 		"name"		=> "ZAOM_MPP",
 		"admin"		=> "georgeg.fedoroff@gmail.com",
 		"lang"		=> "Ðóññêèé",
@@ -30,7 +30,7 @@
 	
 	// ÊÎÍÔÈÃÓÐÀÖÈß DEBUG ÐÅÆÈÌÀ
 	
-	$_SERVER[debug] = array(
+	$_SERVER["debug"] = array(
 		"report"	=> true,
 		"noCache"	=> array(
 			"php"	=> true,
@@ -40,11 +40,11 @@
 		"showNotices"		=> true,
 		"checkReverse"	=> false,
 	);
-	$_SERVER[debug] = false;
+	//$_SERVER["debug"] = false;
 	
 	// ÍÀÑÒÐÎÉÊÀ MYSQL
 	
-	$_SERVER[mysql] = array(
+	$_SERVER["mysql"] = array(
 		"lang"	=> array(
 			"host"	=> "servermpp.mpp",
 			"base"	=> "zaomppsklads",
@@ -77,13 +77,13 @@
 	
 	// íàñòðîéêè ôàéëîâîãî ñåðâåðà
 //	define("SERVERFILECODEPAGE",$_SERVER[HTTP_HOST]=="bazawork1"?"UTF-8":"KOI8R"); // â êàêîì âèäå ôàéëîâàÿ ñèñòåìà
-	define("NETBIOS_SERVERNAME",$_SERVER[HTTP_HOST]=="bazawork1"?"server4":"servermpp"); // íà êàêîì ñåðâåðå ôàéëû øàðÿòñÿ
+	define("NETBIOS_SERVERNAME",$_SERVER["HTTP_HOST"]=="bazawork1"?"server4":"servermpp"); // íà êàêîì ñåðâåðå ôàéëû øàðÿòñÿ
 	define("SHARE_ROOT_DIR","/home/common/"); // êîðåíâîé êàòëîã  äëÿ share [z] è [t]
 
 	
 	// ÌÎÄÓËÈ ÏÐÎÅÊÒÀ
 	
-	$_SERVER[modules] = array(
+	$_SERVER["modules"] = array(
 		"hypher"		=> "Ïåðåíîñû",
 		"auth"			=> "Ïîëüçîâàòåëè",
 		"edit"			=> "Îêíî ðåäàêòèðîâàíèÿ",
@@ -93,7 +93,7 @@
 	
 	// ÌÎÄÓËÈ ÏÐÎÅÊÒÀ
 	
-	$_SERVER[contrib] = array(
+	$_SERVER["contrib"] = array(
 		"jquery"						=>	array(),
 		"jquery.ui.core"				=>	array(),
 		"jquery-ui-i18n"				=> 	array(),
@@ -112,6 +112,7 @@
 		"jquery.cookie"					=>	array(),
 		"jquery.keyboard"				=>	array(),
 		"jquery.wysiwyg"				=>	array(),
+		"jquery.iframe-post-form"		=>	array(),
 	);
 
 // ÊÎÍÔÈÃÓÐÀÖÈß ÌÎÄÓËÅÉ
@@ -124,7 +125,7 @@
 	);
 	*/
 	
-	$_SERVER[modCache] = array(
+	$_SERVER["modCache"] = array(
 		"pages"		=> array(
 			"cache"				=> false,
 			"lifetime"		=> 60 * 60 * 1, // one hour
@@ -136,7 +137,7 @@
 	
 	
 	// áàëîâàëñÿ, íà äåëå ðó÷êàìè â ëîêàëüíîì ôàéëå ïðîùå
-	$_SERVER[tableaction] = array(
+	$_SERVER["tableaction"] = array(
 		"users"		=>	array( "next" => "rights" ),
 		"rights"	=>	array( "next" => "openrights" ),
 	);

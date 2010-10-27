@@ -14,21 +14,25 @@ $menuitems=array(
 					type	=>	"ost",
 					text	=>	"Склад",
 					picture	=>	"sclads.gif",
+					right =>	true,
 				),
 				array(
 					type	=>	"arc",
 					text	=>	"Архив",
 					picture	=>	"slads_arc.gif",
+					right =>	true,
 				),
 				array(
 					type	=>	"movecheck",
 					text	=>	"Движение отчет",
 					picture	=>	"otch.gif",
+					right =>	true,
 				),
 				array(
 					type	=>	"trebcheck",
 					text	=>	"Требования",
 					picture	=>	"otch.gif",
+					right =>	true,
 				),
 			);
 
@@ -39,6 +43,7 @@ if ($rs==1 || isset($year)) {
 						type	=>	"year",
 						text	=>	"Сжать",
 						picture	=>	"slads_arc.gif",
+						right =>	true,
 					));
 }
 

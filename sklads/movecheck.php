@@ -15,7 +15,7 @@ $cols[ost]="Остаток на сегодня";
 $cols[edizm]="Ед.Изм.";
 
 
-$table = new Table("movecheck","","",$cols,false);
+$table = new SqlTable("movecheck","","",$cols);
 $table->del= false;
 $table->edit= false;
 

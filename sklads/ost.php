@@ -102,7 +102,7 @@ if (isset($delete))
 	$cols[malo]="Внимание";
 
 	
-	$table = new Table($processing_type,"dvizh",$sql,$cols,false);
+	$table = new SqlTable($processing_type,"dvizh",$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 }

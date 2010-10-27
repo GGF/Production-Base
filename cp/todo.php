@@ -62,7 +62,7 @@ else
 	$cols[what]="Что сделать";
 	
 
-	$table = new Table("todo","todo",$sql,$cols);
+	$table = new SqlTable("todo","todo",$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 }

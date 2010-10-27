@@ -6,8 +6,8 @@ authorize();
 $db = '`zaomppsklads`.';
 $sklad = $_COOKIE["sklad"];
 $processing_type=basename (__FILE__,".php");;
-$order=(string)$order;
-$find=(string)$find;
+//$order=(string)$order;
+//$find=(string)$find;
 
 
 $cols[check]="<input type=checkbox id='ucuc' onclick=\"if ($('#ucuc').attr('checked')) $('.check-me').attr({checked:true}); else $('.check-me').attr({checked:false});\">";
@@ -17,7 +17,7 @@ $cols[ost]="Остаток на сегодня";
 $cols[edizm]="Ед.Изм.";
 
 
-$table = new Table($processing_type,"","",$cols,false);
+$table = new SqlTable($processing_type,"","",$cols,false);
 
 $table->del= false;
 $table->edit= false;

@@ -1,15 +1,15 @@
 <?
 define ( "CMS", "CMS" );
 
-REQUIRE $_SERVER [DOCUMENT_ROOT] . "/lib/core/classes/profiler.php";
-REQUIRE $_SERVER [DOCUMENT_ROOT] . "/lib/core/classes/cache.php";
+REQUIRE $_SERVER ["DOCUMENT_ROOT"] . "/lib/core/classes/profiler.php";
+REQUIRE $_SERVER ["DOCUMENT_ROOT"] . "/lib/core/classes/cache.php";
 
 profiler::add ( "Подготовка", "Инициализация" );
 
-date_Default_Timezone_Set ( date_default_timezone_get () ); //"Europe/Moscow");
+date_default_timezone_set ( "Europe/Moscow");
 
 
-$_SERVER [cmsName] = "Osmio CMS v4.3";
+$_SERVER ["cmsName"] = "Osmio CMS v4.3";
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 

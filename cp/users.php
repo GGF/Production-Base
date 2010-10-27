@@ -91,7 +91,7 @@ else
 	$cols[fullname]="Fullname";
 	$cols[position]="Position";
 	
-	$table = new Table($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
+	$table = new SqlTable($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 }

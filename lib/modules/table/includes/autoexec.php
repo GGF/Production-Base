@@ -1,29 +1,32 @@
-<?
+<?php
 /*
- *  Класс Таблица для выводна данных из базы
+ *  Класс Таблица для вывода данных из базы
+ *  
+ *  Использует статический класс для обращений к базе данных (может нужен __autoload)
+ *  Использует Глобальные переменные $find,$all,$order (может лучще брать из $_GET)
  */
 
 	defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 	
-class Table {
-	var $type;
-	var $opentype;
-	var $openfunc;
-	var $sql;
-	var $cols;
-	var $tid;
-	var $find;
-	var $bgcolor;
-	var $order;
-	var $idstr;
-	var $addbutton;
-	var $all;
-	var $title;
-	var $checkrights;
-	var $del;
-	var $edit;
+class SqlTable {
+	public $type;
+	public $opentype;
+	public $openfunc;
+	public $sql;
+	public $cols;
+	public $tid;
+	public $find;
+	public $bgcolor;
+	public $order;
+	public $idstr;
+	public $addbutton;
+	public $all;
+	public $title;
+	public $checkrights;
+	public $del;
+	public $edit;
 	
-	function Table($type='', $optype='', $sql='',$cols='',$checkrights=true) { //конструктор
+	public function __construct($type='', $optype='', $sql='',$cols='',$checkrights=true) { //конструктор
 		global $find,$all,$order;
 		$this->type=$type;
 		if (file_exists($optype.".php"))
@@ -54,7 +57,7 @@ class Table {
 	
 	
 	
-	function show_header($buttons=true) {
+	private function show_header($buttons=true) {
 		echo "<table class='listtable' style='background-color:".$this->bgcolor.";' cellspacing=0 cellpadding=0 id='".$this->tid."'".(!empty($this->find)?" find='$this->find' ":"").(!empty($this->idstr)?" idstr='$this->idstr' ":"").(!$this->all?" tall='$this->all' ":"").(!empty($this->order)?" order='$this->order' ":"").">";
 		echo "<thead>";
 		if (!empty($this->title)) {echo "<tr><th colspan=100 align=center>".$this->title;}
@@ -83,8 +86,7 @@ class Table {
 		}
 	}
 	
-	function show($showheader=true) {
-		global $user;
+	public function show($showheader=true) {
 
 		$this->show_header($showheader);
 
@@ -115,7 +117,28 @@ class Table {
 			else
 				echo "<tr class='nechettr' parent='".$this->tid."' id='$trid' prev='$prtrid' next='$netrid'>";
 			$rs["№"]=$i;
-			$link = "<a alt='раскрыть' title='Раскрыть' onclick=\"".(!empty($this->openfunc)?$this->openfunc."('".$rs["id"]."','$trid')":(!empty($this->opentype)?"opentr('".$rs["id"]."','$trid','".$this->opentype."'".(($this->type==$this->opentype)?",'show'":"").")":"openempty()"))."\" id=showlink><div class='fullwidth'>";
+			// определим как раскрывать строку ojs - open java script
+			if (!empty($this->openfunc)) {
+				$ojs =$this->openfunc."('{$rs["id"]}','{$trid}')";
+			} else {
+				if (!empty($this->opentype)) {
+					// если есть права на просмотр открываемого типа
+					if ($_SESSION[rights][$this->opentype][view]) {
+						$ojs = "opentr('{$rs["id"]}','{$trid}','{$this->opentype}'";
+							if ($this->type==$this->opentype) {
+								$ojs .=",'show'";
+							} else {
+								$ojs .= "";
+							}
+						$ojs .= ")";
+					} else {
+						$ojs="openempty()";
+					}
+				} else {
+					$ojs="openempty()";
+				}
+			}
+			$link = "<a alt='раскрыть' title='Раскрыть' onclick=\"{$ojs}\" id='showlink'><div class='fullwidth'>";
 			$linkend = "</div></a>";
 			$rs["file_link"] = substr($rs["file_link"],strrpos($rs["file_link"],"\\")+1);
 			$delstr = '';
@@ -136,7 +159,7 @@ class Table {
 
 	}
 	
-	function showfooter($firsttrid,$lasttrid) {
+	private function showfooter($firsttrid,$lasttrid) {
 		if (!empty($firsttrid)) {
 			echo "<script>
 			firsttr = '$firsttrid';

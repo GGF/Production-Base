@@ -145,7 +145,7 @@ else
 	$cols[pib]="Плат в блоке";
 
 
-	$table = new Table($processing_type,$processing_type,$sql,$cols);
+	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 

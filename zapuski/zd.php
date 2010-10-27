@@ -102,7 +102,7 @@ else
 		"number"	=>	"Кол-во",
 	);
 
-	$table = new Table("zd","zd",$sql,$cols);
+	$table = new SqlTable("zd","zd",$sql,$cols);
 	$table->addbutton=true;
 	$table->show();
 }

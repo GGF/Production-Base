@@ -31,7 +31,7 @@ else
 	$cols[sqltext]="SQL";
 
 	
-	$table = new Table($processing_type,"",$sql,$cols);
+	$table = new SqlTable($processing_type,"",$sql,$cols);
 	$table->show();
 	
 }

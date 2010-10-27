@@ -1,7 +1,7 @@
 <?
 
-require  $_SERVER[DOCUMENT_ROOT]."/lib/config.php";
-require  $_SERVER[DOCUMENT_ROOT]."/lib/core.php";
+require  $_SERVER["DOCUMENT_ROOT"]."/lib/config.php";
+require  $_SERVER["DOCUMENT_ROOT"]."/lib/core.php";
 
 
 // перекодируем полученые данные (используются функции из multibyte.php, потому здесь а не в encoding.php вызываем)

@@ -193,7 +193,7 @@ else
 	$cols[price]="Цена";
 
 	
-	$table = new Table($processing_type,$processing_type,$sql,$cols,false);
+	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 	if (isset($spr_id)) $table->idstr = "&spr_id=$spr_id";
 	$table->addbutton=true;
 	$table->show();

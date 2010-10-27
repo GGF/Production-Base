@@ -7,11 +7,11 @@
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 	
 class Field {
-	var $name;
-	var $label;
-	var $type;
+	public $name;
+	public $label;
+	public $type;
 	
-	function Field($label,$name,$type) {
+	public function __construct($label,$name,$type) {
 		$this->label=$label;
 		$this->name=$name;
 		$this->type=$type;
@@ -19,14 +19,14 @@ class Field {
 }
 
 class Edit {
-	var $type;
-	var $fields;
-	var $form;
-	var $unids;
-	var $unidfirst;
+	public $type;
+	public $fields;
+	public $form;
+	public $unids;
+	public $unidfirst;
 	
 	
-	function Edit($type) {
+	public function __construct($type) {
 		
 		$this->type=$type;
 		$this->unids=array();
@@ -35,7 +35,7 @@ class Edit {
 	function init() {
 		global $tid,$edit;
 		
-		$this->form = new cmsForm_ajax($this->type,$this->type.'.php');
+		$this->form = new cmsForm_ajax($this->type, dirname($_SERVER[PHP_SELF]) . '/actions/' . $this->type . '.php');
 		$this->form->addFields(array(
 			array(
 				"type"		=> CMSFORM_TYPE_HIDDEN,
@@ -52,6 +52,12 @@ class Edit {
 				"name"		=> "tid",
 				"value"		=> $tid,
 			),
+			//array("type"		=> CMSFORM_TYPE_CODE,	),
+			array(
+				"type"		=> CMSFORM_TYPE_SUBMIT,
+				"name"		=> "submit",
+				"value"		=> "ѕослать",
+			),
 			));
 		
 	}
@@ -64,6 +70,10 @@ class Edit {
 	
 	function addFields($fields) {
 		$lfields = array();
+		$obligatory = array();
+		$formats = array();
+		$checkers = array();
+		
 		$this->unidfirst=$first=$unid = uniqid('fld');
 		foreach($fields as $field) {
 			$this->addfield($field["label"],$field["name"],$field["type"]);
@@ -74,11 +84,18 @@ class Edit {
 				$unid=$nunid;
 			}
 			$last=array_push($lfields,$field);
+			// проверка на облигаторы, форматы и чекеры
+			if ($field["obligatory"]) array_push($obligatory,$field["name"]);
+			if ($field["format"]) array_push($formats,array( "name" => $field["name"], "type" => $field["format"]["type"], "pregPattern" => $field["format"]["pregPattern"] ));
+			if ($field["check"]) array_push($checkers,array( "name" => $field["name"], "type" => $field["check"]["type"], "pregPattern" => $field["check"]["pregPattern"], "pregReplace" => $field["check"]["pregReplace"] ));
 		}
 		$this->form->addFields($lfields);
+		foreach ($obligatory as $name) $this->form->addObligatory($name);
+		foreach ($formats as $name) $this->form->addFormat($name["name"], $name["type"], $name["pregPattern"] );
+		foreach ($checkers as $name) $this->form->addChecker($name["name"], $name["type"], $name["pregPattern"],$name["pregReplace"]);
 	}
 	
-	function show() {
+	public function show() {
 		$this->form->init();
 		$this->form->form();
 		echo $this->form->add("tid");
@@ -99,7 +116,10 @@ class Edit {
 			}
 		}
 		echo "</table>";
+		//echo '<div >'.$this->form->add("confirm").'</div>';
+		echo '<div style="display:block" >'.$this->form->add("submit").'</div>';
 		$this->form->end();
+		$this->form->destroy();
 		echo "<script>\$('select').combobox();</script>";
 		foreach($this->unids as $unid) {
 			echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid='+\$(this).attr('fieldnext')+']').focus();});</script>";

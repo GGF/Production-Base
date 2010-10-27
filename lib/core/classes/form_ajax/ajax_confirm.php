@@ -1,6 +1,6 @@
 <? 
 
-	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/engine.php";
+	REQUIRE $_SERVER[DOCUMENT_ROOT] . "/lib/engine.php";
 	
 	$form = new cmsForm_ajax($_REQUEST[formName]);
 	

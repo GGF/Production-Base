@@ -48,7 +48,7 @@ else
 	$cols[price]="Öåíà";
 
 	
-	$table = new Table("arcdvizh","",$sql,$cols,false);
+	$table = new SqlTable("arcdvizh","",$sql,$cols,false);
 	$table->del= false;
 	$table->edit= false;
 	if (isset($spr_id)) $table->idstr = "&spr_id=$spr_id";

@@ -182,7 +182,7 @@ else
 	$cols[tz_date]="Дата";
 	$cols[nik]="Кто заполнил";
 
-	$table = new Table($processing_type,$processing_type,$sql,$cols);
+	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 	$table->title=$ordername;
 	$table->addbutton=true;
 	$table->show();

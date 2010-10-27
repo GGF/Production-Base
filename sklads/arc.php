@@ -44,7 +44,7 @@ else
 	$cols[malo]="Внимание";
 
 	
-	$table = new Table("arc","arcdvizh",$sql,$cols,false);
+	$table = new SqlTable("arc","arcdvizh",$sql,$cols);
 	$table->del= false;
 	$table->edit= false;
 	$table->show();

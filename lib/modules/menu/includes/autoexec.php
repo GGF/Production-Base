@@ -44,6 +44,7 @@ class Menu {
 		{
 			$text=$type=$link=$picture=$right='';
 			extract($item);
+			//echo $type."_".$right;
 			if ($right and !$_SESSION[rights][$type][view]) continue;
 			if ($type=="newline") {
 				echo "</tr><tr>";

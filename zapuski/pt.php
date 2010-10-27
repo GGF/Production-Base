@@ -27,7 +27,7 @@ else
 	$cols[nik]="Кто запустил";
 	$cols[filenames]="Колво и Каталог";
 	
-	$table = new Table($processing_type,$processing_type,$sql,$cols);
+	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 	$table->show();
 }
 ?>

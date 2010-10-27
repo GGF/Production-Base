@@ -97,7 +97,7 @@ else
 	$cols[rtype]="right";
 	$cols[enable]="on/off";
 
-	$table = new Table($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
+	$table = new SqlTable($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
 	if (isset($uid)) $table->idstr = "&uid=$uid";
 	$table->addbutton=true;
 	$table->show();

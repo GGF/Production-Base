@@ -103,8 +103,9 @@ class cmsSQL {
 			if (!$array[noCollation]) {
 				
 				// Установка кодировки подключения
-				$this->query("SET names '{$encoding}'");
-				$this->query("SET character_set_client='{$encoding}', character_set_results='{$encoding}', collation_connection='{$encoding}_GENERAL_CI'");
+				//$this->query("SET names '{$encoding}'");
+				//$this->query("SET character_set_client='{$encoding}', character_set_results='{$encoding}', collation_connection='{$encoding}_GENERAL_CI'");
+				//в новых версиях мускула нет таких команд :(
 				
 			}
 			

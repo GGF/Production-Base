@@ -1,7 +1,5 @@
 <?
-/*
- * AJAX форма (c) Osmio
- */
+
 defined("CMS") or die("Restricted usage: " . basename(__FILE__));
 
 define("CMSFORM_TYPE_CODE",					"code");
@@ -48,6 +46,17 @@ define("CMSFORM_SESSION_PARTIAL",		true);
 define("CMSFORM_TEMP",							"temp");
 define("CMSFORM_CACHE",							isset($_SERVER[modForm][cachePath])			? $_SERVER[modForm][cachePath] : $_SERVER[CACHE] . "/form_ajax");
 define("CMSFORM_CACHE_LIFETIME",		isset($_SERVER[modForm][cacheLifetime])	? $_SERVER[modForm][cacheLifetime] : 60 * 60 * 12); // half day
+
+function cmsAlert($text) {
+	
+	$text = addslashes($text);
+	$text = str_replace("\n", '\n', $text);
+	$text = str_replace("\r", "", $text);
+	
+	print "\n<script> alert(\"{$text}\"); </script>";
+	
+}
+
 
 class cmsForm_ajax {
 	
@@ -592,8 +601,22 @@ class cmsForm_ajax {
 		
 		// Для борьбы с SimpleModal и двойной отправкой — сначала unbind(), потом заново вешаем событие.
 		// Предполагается, что с событиями формы идет работа через коллбэки.
-		if ($this->options[ajax]) print "<script type='text/javascript'> $(\"#{$this->uid}\").unbind('submit').submit(function() { cmsForm_ajax.submit(this); return false; }); </script>";
-		
+		//if ($this->options[ajax])	print "<script type='text/javascript'> $(\"#{$this->uid}\").unbind('submit').submit(function() {cmsForm_ajax.submit(this); return false; }); </script>";
+		// заблокируем предыдущий для того чтобы использовать jquery.iframe-post-form и вставим
+			echo "<script>$(function ()
+								{
+								    $('form').iframePostForm
+								    ({
+								         post : function ()
+								        {
+								         	cmsForm_ajax.beforeSend(this);
+								        },
+								        complete : function (response)
+								        {
+								            cmsForm_ajax.afterSend($('#".$this->uid.",response);
+								        }
+								    });
+								});</script>";		
 		//$this->uid = null;
 		
 	}
@@ -641,7 +664,7 @@ class cmsForm_ajax {
 			"В" => "8",
 		);
 		
-		return mb_strToUpper(cmsReplace($replaces, $var, true)); 
+		return mb_strToUpper(cmsReplace($replaces, $var, true));
 		
 	}
 	
@@ -683,7 +706,7 @@ class cmsForm_ajax {
 			$s = ($xheight * 0.5) * (96 / 72); // 96 — res
 			$a = mt_rand(-20, 20);
 			
-			imageTTFText($im, $s, $a, $x, $y, $b, $_SERVER[DOCUMENT_ROOT] . "/admin/ui/consolas.ttf", $arr[$i]); //
+			imageTTFText($im, $s, $a, $x, $y, $b, $_SERVER[DOCUMENT_ROOT] . "/lib/core/classes/form_ajax/consolas.ttf", $arr[$i]); //
 			
 		}
 		
@@ -980,8 +1003,13 @@ class cmsForm_ajax {
 		ob_start();
 		
 		list($optionsHTML, $options) = $this->parseOptions($options);
+		if ($this->options[ajax]) {
+			// need 
+			echo "<input type='file' name='" . $this->getName($name) . "' id='" . $this->getId($name) . "'{$optionsHTML}/>";
+		} else {
+			echo "<input type='file' name='" . $this->getName($name) . "' id='" . $this->getId($name) . "'{$optionsHTML}>";
+		}
 		
-		print "<input type='file' name='" . $this->getName($name) . "' id='" . $this->getId($name) . "'{$optionsHTML}>";
 		
 		return ob_get_clean();
 		
@@ -1125,7 +1153,7 @@ class cmsForm_ajax {
 		print "<table class='frame cmsForm_captchaTable'><tr><td>";
 		print $this->text("confirm", "", array("length" => 6, "errors" => array("noSpan" => true), "html" => "autocomplete='off'"));
 		print "</td><td>";
-		print "<img src='/core/classes/form_ajax/ajax_confirm.php?formName={$this->name}&rnd=" . cmsTime() . "' id='" . $this->getID("captcha") . "' class='captcha cmsForm_captcha' title='" . cmsLang_var("cmsForm.captcha.title") . "' width='" . cmsForm_ajax::$captcha[width] . "' height='" . cmsForm_ajax::$captcha[height] . "'>";
+		print "<img src='/lib/core/classes/form_ajax/ajax_confirm.php?formName={$this->name}&rnd=" . cmsTime() . "' id='" . $this->getID("captcha") . "' class='captcha cmsForm_captcha' title='" . cmsLang_var("cmsForm.captcha.title") . "' width='" . cmsForm_ajax::$captcha[width] . "' height='" . cmsForm_ajax::$captcha[height] . "'>";
 		print "</td><td>";
 		print "<label><a href='javascript: cmsForm_ajax.reloadCaptcha(\"{$this->name}\", \"{$this->uid}\")' class='dashed'>" . cmsLang_var("cmsForm.captcha.reload") . "</a></label>";
 		print "</td></tr></table>";
@@ -1134,7 +1162,7 @@ class cmsForm_ajax {
 		
 		print $this->text("confirm", "", array("length" => 6, "errors" => array("noSpan" => true), "html" => "autocomplete='off'"));
 		print " ";
-		print "<img src='/core/classes/form_ajax/ajax_confirm.php?formName={$this->name}&rnd=" . cmsTime() . "' id='" . $this->getID("captcha") . "' class='captcha cmsForm_captcha' title='" . cmsLang_var("cmsForm.captcha.title") . "' width='" . cmsForm_ajax::$captcha[width] . "' height='" . cmsForm_ajax::$captcha[height] . "'>";
+		print "<img src='/lib/core/classes/form_ajax/ajax_confirm.php?formName={$this->name}&rnd=" . cmsTime() . "' id='" . $this->getID("captcha") . "' class='captcha cmsForm_captcha' title='" . cmsLang_var("cmsForm.captcha.title") . "' width='" . cmsForm_ajax::$captcha[width] . "' height='" . cmsForm_ajax::$captcha[height] . "'>";
 		print " ";
 		print "<label><a href='javascript: cmsForm_ajax.reloadCaptcha(\"{$this->name}\", \"{$this->uid}\")' class='dashed'>" . cmsLang_var("cmsForm.captcha.reload") . "</a></label>";
 		print "<script> $('#" . $this->getID("confirm") . "').keyup(function(e){ cmsForm_ajax.cleanCaptcha(e, this); }); </script>";

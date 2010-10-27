@@ -79,7 +79,7 @@ function printpage() {
 			
 		}
 		
-		if ($_SERVER[cmsGZIP][enabled] && strlen($pageContents)>30) 
+		if (!$_SERVER["debug"] && $_SERVER[cmsGZIP][enabled] && strlen($pageContents)>30) 
 			{
 			
 			//$pageContents = "<!-- {$_SERVER[cmsGZIP][algorythm]} -->\n{$pageContents}";

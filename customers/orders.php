@@ -5,9 +5,14 @@ require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
 // serialize form
-if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
-
+if (isset(${'form_'.$processing_type})) {extract(${'form_'.$processing_type});
+print_r($_FILES);}
 ob_start();
+
+// берем из гет используемые переменные? они передаются из скрипта ajax
+$edit = $_GET["edit"];
+$id = $_GET["id"];
+$delete = $_GET["delete"];
 
 if (isset($edit)) 
 {
@@ -24,7 +29,7 @@ if (isset($edit))
 	} 
 	else
 	{
-		if (!isset($accept)) {
+		//if (!isset($accept)) { // эта проверка уже не нужна, так как тут только формирование формы, а обработка в другом месте
 			$sql = "SELECT * FROM orders WHERE id='$edit'";
 			$ord=sql::fetchOne($sql);
 			
@@ -63,6 +68,9 @@ if (isset($edit))
 					"label"			=>'Дата:',
 					"value"		=> date2datepicker($ord[orderdate]),
 					"options"		=> array( "html" => ' datepicker=1 '),
+					"check"	=>	array("type" => CMSFORM_CHECK_NUMERIC),
+					"format" => array("type" =>CMSFORM_FORMAT_CUSTOM, "pregPattern" => "/[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9][0-9][0-9]/"),
+					"obligatory" =>	true,
 				),
 				array(
 					"type"		=>	CMSFORM_TYPE_TEXT,
@@ -70,23 +78,20 @@ if (isset($edit))
 					"label"		=>	"Номер письма:",
 					"value"		=>	$ord["number"],
 					"options"	=>	array( "html" => "size=30", ),
+					"obligatory" =>	true,
 				),
+				array(
+					"type"		=>	CMSFORM_TYPE_FILE,
+					"name"		=>	"order_file",
+					"label"		=>	"Файл письма:",
+					//"value"		=>	"",
+					//"options"	=>	array( "html" => "size=30", ),
+				),
+
 			));
 			$form->show();
-		} 
-		else 
-		{
-			// сохрнение
-			if ($edit) {
-				// редактирование
-				$sql = "UPDATE orders SET customer_id='$customerid', orderdate='".datepicker2date($orderdate)."', number='".addslashes($number)."' WHERE id='$edit'";
-			} else {
-				// добавление
-				$sql = "INSERT INTO orders (customer_id,orderdate,number) VALUES ('$customerid','".datepicker2date($orderdate)."','".addslashes($number)."')";
-			}
-			sql::query($sql);
-			echo "ok";
-		}
+		//} else 
+		// обработка формы в скрипте ./action/... 
 	}
 } 
 elseif (isset($delete)) 
@@ -118,11 +123,11 @@ elseif (isset($delete))
 else
 {
 // вывести таблицу
-	if(isset($all)) $_SESSION[order_id]='';
+	if(isset($_GET["all"])) $_SESSION[order_id]='';
 	if (empty($_SESSION[customer_id])) 
 	{
 		$customer = "Выберите заказчика!!!";
-		$sql="SELECT *,orders.id FROM orders JOIN customers ON customers.id=customer_id ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT *,orders.id FROM orders JOIN customers ON customers.id=customer_id ".(isset($_GET["find"])?"WHERE (number LIKE '%".$_GET["find"]."%' OR orderdate LIKE '%".$_GET["find"]."%' ) ":"").(isset($_GET["order"])?"ORDER BY ".$_GET["order"]." ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
 		$cols[customer]="Заказчик";
 	} 
 	else 
@@ -131,14 +136,14 @@ else
 		$customer = $_SESSION[customer];
 			
 		// sql
-		$sql="SELECT * FROM orders ".(isset($find)?"WHERE (number LIKE '%$find%' OR orderdate LIKE '%$find%' ) ":"").(isset($cusid)?(isset($find)?"AND customer_id='$cusid'":"WHERE customer_id='$cusid'"):"").(isset($order)?"ORDER BY ".$order." ":"ORDER BY orders.orderdate DESC ").((isset($all))?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT * FROM orders ".(isset($_GET["find"])?"WHERE (number LIKE '%".$_GET["find"]."%' OR orderdate LIKE '%".$_GET["find"]."%' ) ":"").(isset($cusid)?(isset($_GET["find"])?"AND customer_id='$cusid'":"WHERE customer_id='$cusid'"):"").(isset($_GET["order"])?"ORDER BY ".$_GET["order"]." ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
 	}
 
 		$cols[id]="ID";
 		$cols[number]="Номер заказа";
 		$cols[orderdate]="Дата заказа";
 
-		$table = new Table($processing_type,$processing_type,$sql,$cols);
+		$table = new SqlTable($processing_type,$processing_type,$sql,$cols);
 		$table->title="Заказчик - $customer ";;
 		$table->addbutton=true;
 		$table->show();
