@@ -613,7 +613,7 @@ class cmsForm_ajax {
 								        },
 								        complete : function (response)
 								        {
-								            cmsForm_ajax.afterSend($('#".$this->uid.",response);
+								            cmsForm_ajax.afterSend($('#{$this->uid}'),response);
 								        }
 								    });
 								});</script>";		

@@ -13,6 +13,15 @@ if (!$form->errors) {
 	$orderdate=$form->request["orderdate"];
 	$number=$form->request["number"];
 	
+	// файл если есть сохраним
+	if (!empty($form->files["order_file"])) {
+		if (@move_uploaded_file($form->files["order_file"]["tmp_name"], $_SERVER["DOCUMENT_ROOT"]."/tmp/".$form->files["order_file"]["name"])) {
+			//$form->alert('перекинул');
+		} else {
+			//$form->alert('не перекинул');
+		}
+	}
+	
 	/*
 	if ($edit) {
 		// редактирование
@@ -26,7 +35,8 @@ if (!$form->errors) {
 	*/
 	
 	// если все нормально закрываем диалог и обновляем
-	$form->alert(print_r($form->request,true).print_r($_FILES,true).print_r($form->files,true));
+	//move_uploaded_file($form->files["order_file"]["tmp_name"], $_SERVER["DOCUMENT_ROOT"]."/tmp");
+	$form->alert(@file_get_contents($form->files["order_file"]["tmp_name"]));
 	$form->processed();
 	//$form->processed("$('#dialog').dialog('close');selectmenu('".$processing_type."','');");
 	

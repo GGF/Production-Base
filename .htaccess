@@ -8,6 +8,7 @@
 	php_value	session.cookie_lifetime	0
 	php_value	session.gc_maxlifetime	86400
 #	php_value	sendmail_from						osmio
+	php_value upload_tmp_dir /home/igor/baza/WWW2/tmp
 	
 	Options +FollowSymlinks -MultiViews
 	RewriteEngine on

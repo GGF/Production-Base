@@ -25,6 +25,7 @@ class cmsAjax {
 			header("CONTENT-TYPE: APPLICATION/JSON; CHARSET={$_SERVER[cmsEncoding]}");
 			
 		}
+			self::$ajax = true;
 		
 	}
 	
