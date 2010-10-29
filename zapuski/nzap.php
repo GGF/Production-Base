@@ -63,7 +63,7 @@ if (isset($edit))
 				$sql="SELECT * FROM masterplate WHERE posid='$posid'";
 				$mp=sql::fetchOne($sql);
 				if (empty($mp)) {
-					echo "<input type=button id=maspl value='Мастерплата' onclick=\"$('#maspl').hide();window.open('nzap.php?print=mp&posid=$posid')\"><br>";
+					echo "<input type=button class='partybutton' id=maspl value='Мастерплата' onclick=\"$('#maspl').remove();window.open('nzap.php?print=mp&posid=$posid')\"><br>";
 				}
 			}
 			$mpp = 1;
@@ -81,7 +81,7 @@ if (isset($edit))
 			if (!empty($rs3)) {
 				echo "<a class='filelink' href='".sharefilelink($rs3[file_link])."'>СЛ-".$rs3[id]."</a>&nbsp;";
 			} else {
-				echo "<input type=button id=sl$i value='$i партия' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&party=$i&posid=$posid".($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
+				echo "<input type=button class='partybutton' id=sl$i value='$i партия' onclick=\"var html=$.ajax({url:'nzap.php',data:'print=sl".(isset($dpp)?"&dpp":"&mpp")."&party=$i&posid=$posid".($i==ceil($nz/$zip)?"&last":"")."',async: false}).responseText;$('#sl$i').replaceWith(html);".($i==ceil($nz/$zip)?"$('#".$trid."').hide();":"")."\">";
 			}
 		}
 	}

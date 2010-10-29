@@ -117,7 +117,7 @@ class Edit {
 		}
 		echo "</table>";
 		//echo '<div >'.$this->form->add("confirm").'</div>';
-		echo '<div style="display:block" >'.$this->form->add("submit").'</div>';
+		echo '<div style="display:none" >'.$this->form->add("submit").'</div>';
 		$this->form->end();
 		$this->form->destroy();
 		echo "<script>\$('select').combobox();</script>";

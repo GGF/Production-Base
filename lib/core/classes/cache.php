@@ -71,7 +71,7 @@ class cmsCache {
 		
 		// Если существует класс PAGE — кладем ему в переменную список, т.к. он будет нужен для полностраничного кеша
 		// TODO — выкинуть отсюда эту связь, ей тут делать нечего по-хорошему
-		if (class_exists('page')) page::$assets[$type] = $list;
+		//if (class_exists('page')) page::$assets[$type] = $list;
 		
 		return self::build($file, $list, $type, $options);
 		
