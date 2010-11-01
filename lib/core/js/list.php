@@ -8,21 +8,21 @@ defined ( "CMS" ) or die ( "Restricted usage: " . basename ( __FILE__ ) );
 if (! isset ( $options ))
 	$options = array ();
 
-$options [contrib] [] = "json";
-$options [contrib] [] = "md5";
-$options [contrib] [] = "swfobject";
+$options ["contrib"] [] = "json";
+$options ["contrib"] [] = "md5";
+$options ["contrib"] [] = "swfobject";
 
-if (! $options [admin])
-	$options [jquery] [] = "png";
-$options [jquery] [] = "maskedinput";
+if (! $options ["admin"])
+	$options ["jquery"] [] = "png";
+$options ["jquery"] [] = "maskedinput";
 
 // определение броузеров и библиотека jquery подключаются первыми, странно зачем вообще нужен определитель броузеров если это делает jquery
 $list = array ("/lib/core/js/browserdetect.js", "/lib/core/contrib/jquery/jquery.js" );
 
 // jQuery and contributions
-foreach ( $options [contrib] as $v )
+foreach ( $options ["contrib"] as $v )
 	$list [] = "/lib/core/contrib/{$v}/{$v}.js";
-foreach ( $options [jquery] as $v )
+foreach ( $options ["jquery"] as $v )
 	$list [] = "/lib/core/contrib/jquery/jquery." . trim ( $v ) . ".js";
 	
 // CMS
@@ -38,9 +38,9 @@ $list [] = "/lib/core/js/pos.js";
 $list [] = "/lib/core/js/print.js";
 $list [] = "/lib/core/js/calendar.js";
 
-$list [] = "/lib/core/contrib/console/console" . ($_SERVER [debug] [report] ? "" : "Gag") . ".js";
+$list [] = "/lib/core/contrib/console/console" . ($_SERVER ["debug"] ["report"] ? "" : "Gag") . ".js";
 
-if ($options [admin]) {
+if ($options ["admin"]) {
 	
 	$list [] = "/lib/core/js/admin.js";
 	
@@ -54,31 +54,31 @@ if ($options [admin]) {
 
 } else {
 	
-	if ($_SERVER [debug] [report])
+	if ($_SERVER ["debug"] ["report"])
 		$list [] = "/lib/core/contrib/tabs/tabs.js";
 
 }
 
 // contrib autoexec это сделано мной, хотя можно было использовать указаные выше, мне так больше понравилось
-foreach ( $_SERVER [contrib] as $mod => $name )
+foreach ( $_SERVER ["contrib"] as $mod => $name )
 	$list [] = "/lib/core/contrib/" . $mod . "/" . $mod . ".js";
 // Modules autoexec
-foreach ( $_SERVER [modules] as $mod => $name )
-	$list [] = "/lib/modules/" . $mod . "/includes/autoexec.js";
-if ($options [admin])
-	foreach ( $_SERVER [modules] as $mod => $name )
-		$list [] = "/lib/modules/" . $mod . "/includes/scripts.js";
+foreach ( $_SERVER ["modules"] as $mod => $name )
+	$list [] = "/lib/modules/{$mod}/includes/{$mod}_autoexec.js";
+if ($options ["admin"])
+	foreach ( $_SERVER ["modules"] as $mod => $name )
+		$list [] = "/lib/modules/{$mod}/includes/{$mod}_scripts.js";
 
 // Exclude
-if (is_array ( $options [exjs] ) && count ( $options [exjs] ))
-	foreach ( $options [exjs] as $f ) 
+if (is_array ( $options ["exjs"] ) && count ( $options ["exjs"] ))
+	foreach ( $options ["exjs"] as $f ) 
 	{
 		if (($key = array_search ( $f, $list )) !== false)
 			unset ( $list [$key] );
 	}
 
 // Misc
-foreach ( $options [js] as $v )
+foreach ( $options ["js"] as $v )
 	$list [] = $v;
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -94,11 +94,11 @@ foreach ( $list as $k => $v )
 
 $return = array ();
 
-if ($_SERVER [debug] [noCache] [js]) {
+if ($_SERVER ["debug"] ["noCache"] ["js"]) {
 	foreach ( $list as $l )
-		$return [] = "<script type='text/javascript' src='{$l}'></script>\n" . $options [pad];
+		$return [] = "<script type='text/javascript' src='{$l}'></script>\n" . $options ["pad"];
 } else {
-	$return [] = "<script type='text/javascript' src='" . cmsCache::buildScript ( $list, "js", $options ) . "'></script>\n" . $options [pad];
+	$return [] = "<script type='text/javascript' src='" . cmsCache::buildScript ( $list, "js", $options ) . "'></script>\n" . $options ["pad"];
 }
 
 return implode ( "", $return );

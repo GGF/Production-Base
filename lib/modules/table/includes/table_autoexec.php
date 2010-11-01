@@ -72,15 +72,17 @@ class SqlTable {
 				echo "<th>".$val;
 			}
 		}
+                // пустое поле см.ниже)
+                //echo "<th width=100%>&nbsp;"; /получилось интересно, но нафиг
 		if ($this->edit) {echo "<th>&nbsp;";}
 		if ($this->del)  {echo "<th>&nbsp;";}
 		echo "<tbody>";
 		if ($buttons) {
-			echo "<tr><td colspan=100 width=100%><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"Последние 20":"Все")."' id=allbutton>";
+			echo "<tr><td colspan=100 class='buttons'><input style='width:".(($this->addbutton && $this->edit)?"50%":"100%")."' type=button onclick=\"updatetable('".$this->tid."','".$this->type."','".($this->all?"":"all").(!empty($this->idstr)?$this->idstr:"").(!empty($this->find)?"&find=".$this->find:"")."')\" value='".($this->all?"Последние 20":"Все")."' id=allbutton>";
 			
 			if ($this->addbutton && $this->edit) echo "<input style='width:50%' type=button onclick=\"editrecord('".$this->type."','add&edit=0&tid=".$this->tid.($this->all?"&all":(!empty($this->find)?"&find=".urlencode($this->find)."":"")).(!empty($this->order)?"&order=".$this->order:"").(!empty($this->idstr)?$this->idstr:"")."')\" value='Добавить' id=addbutton>";
 			
-			echo "<tr><td colspan=100 width=100%><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
+			echo "<tr><td colspan=100 class='search'><input type=text class='find' value='".(!empty($this->find)?$this->find:"Искать...")."' orgvalue='".(!empty($this->find)?$this->find:"Искать...")."' name='find' id='findtext".$this->tid."' ttype='".$this->type."' tid='".$this->tid."' tall='".($this->all?"&all":"")."' idstr='".(!empty($this->idstr)?$this->idstr:"")."'>";
 		}
 	}
 	
@@ -145,11 +147,13 @@ class SqlTable {
 				echo "<td>".$link.(empty($rs["$key"])?"&nbsp;":$rs["$key"]).$linkend;
 				$delstr .= $rs["$key"].' - ';
 			}
+                        // вставим пустое поле 100% ширины
+                        //echo "<td width=100%>&nbsp;"; //получилось интересно, но нафиг
 			if ($this->edit) {
-				echo "<td align=center valign=center><a title='Редактировать' onclick=\"editrecord('".$this->type."','edit=".$rs["id"]."&tid=".$this->tid."')\" id=editlink><img src=/picture/b_edit.png></a>";
+				echo "<td class='edit'><a title='Редактировать' onclick=\"editrecord('".$this->type."','edit=".$rs["id"]."&tid=".$this->tid."')\" id=editlink><img src=/picture/b_edit.png></a>";
 			}
 			if ($this->del) {
-				echo "<td align=center valign=center><a title='Удалить' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($delstr))."')\" id=dellink><img src=/picture/b_drop.png></a>";
+				echo "<td class='del'><a title='Удалить' onclick=\"my_delete('http://".$_SERVER['HTTP_HOST'].$_SERVER["PHP_SELF"]."?".$this->type."&delete=".$rs["id"]."','$trid','".addslashes(htmlspecialchars($delstr))."')\" id=dellink><img src=/picture/b_drop.png></a>";
 			}
 		}
 

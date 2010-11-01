@@ -1,4 +1,6 @@
-
+table {
+    font-size: 1em;
+}
 .find {
 	width: 100%;
 }
@@ -25,15 +27,33 @@
 
 .listtable {
 	width: 100%;
-	border: solid black 1px;
+	/*border: solid black 1px;*/
+        border: none;
+        font-size: 1.5em;
 }
 
 .listtable td {
-	border: solid black 1px;
-}
-
-.listtable td {
+	border: solid lightgray 1px;
 	vertical-align: middle;
+        width: 0px;
+        padding-left: 5px;
+        padding-right: 5px;
+}
+
+.listtable td.search, .listtable td.buttons {
+    padding: 0px;
+}
+
+
+.listtable td.edit,
+.listtable td.del
+{
+    text-align: center;
+    width: 21px;
+}
+
+a div.fullwidth {
+    white-space: nowrap;
 }
 
 .listtable thead {
@@ -44,9 +64,10 @@
 
 .listtable th {
 	font-weight: bold;
+        font-size: 1em;
 	text-align: center;
 	padding: 5px;
-	border: solid black 2px;
+	border: solid gray 2px;
 }
 
 .listtable th a {

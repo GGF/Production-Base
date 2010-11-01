@@ -11,21 +11,21 @@ if (! isset ( $options ))
 $list = array ();
 
 // jQuery and contributions
-foreach ( $options [jquery] as $v )
+foreach ( $options ["jquery"] as $v )
 	$list [] = "/lib/core/contrib/jquery/jquery." . trim ( $v ) . ".css";
-foreach ( $options [contrib] as $v )
+foreach ( $options ["contrib"] as $v )
 	$list [] = "/lib/core/contrib/{$v}/{$v}.css";
 	
 // CMS
 $list [] = "/lib/core/css/style.css";
 $list [] = "/lib/core/css/style_common.css";
-if (! $_SERVER [project] [doctype] || $options [admin])
+if (! $_SERVER ["project"] ["doctype"] || $options ["admin"])
 	$list [] = "/lib/core/css/common.css";
 $list [] = "/lib/core/css/alert.css";
 $list [] = "/lib/core/css/form.css";
-if (! $_SERVER [project] [doctype] || $options [admin])
+if (! $_SERVER ["project"] ["doctype"] || $options ["admin"])
 	$list [] = "/lib/core/css/form_style.css";
-if ($_SERVER [project] [doctype] && ! $options [admin])
+if ($_SERVER ["project"] ["doctype"] && ! $options ["admin"])
 	$list [] = "/lib/core/css/form_standard.css";
 $list [] = "/lib/core/css/node.css";
 $list [] = "/lib/core/css/tables.css";
@@ -35,12 +35,12 @@ $list [] = "/lib/core/css/calendar.css";
 $list [] = "/lib/core/css/rounded.css";
 $list [] = "/lib/core/css/mce.css";
 
-if ($_SERVER [debug] [report])
+if ($_SERVER ["debug"] ["report"])
 	$list [] = "/lib/core/contrib/console/css/console.css";
-if ($_SERVER [debug] [report])
+if ($_SERVER ["debug"] ["report"])
 	$list [] = "/lib/core/contrib/console/css/mysql.css";
 
-if ($options [admin]) {
+if ($options ["admin"]) {
 	
 	$list [] = "/lib/core/css/calendar.css";
 	$list [] = "/lib/core/css/form_admin.css";
@@ -51,32 +51,32 @@ if ($options [admin]) {
 	
 	$list [] = "/lib/core/css/node_map.css";
 	
-	if ($_SERVER [debug] [report])
+	if ($_SERVER ["debug"] ["report"])
 		$list [] = "/lib/core/contrib/tabs/css/tabs.css";
 
 }
 
 // Modules autoexec
-foreach ( $_SERVER [modules] as $mod => $name )
-	$list [] = "/lib/modules/" . $mod . "/includes/style.css";
-if ($options [admin])
-	foreach ( $_SERVER [modules] as $mod => $name )
-		$list [] = "/lib/modules/" . $mod . "/includes/style_admin.css";
+foreach ( $_SERVER ["modules"] as $mod => $name )
+	$list [] = "/lib/modules/{$mod}/includes/{$mod}_style.css";
+if ($options ["admin"])
+	foreach ( $_SERVER ["modules"] as $mod => $name )
+		$list [] = "/lib/modules/{$mod}/includes/{$mod}style_admin.css";
 	
 // Contrib autoexec
-foreach ( $_SERVER [contrib] as $mod => $name )
+foreach ( $_SERVER ["contrib"] as $mod => $name )
 	$list [] = "/lib/core/contrib/" . $mod . "/css/" . $mod . ".css";
 
 
 // Main CSS file
-if (! $options [admin])
-	$list [] = cmsFile_pathRel ( $_SERVER [TEMPLATES] ) . "/default.css";
-if (! $options [admin])
-	$list [] = cmsFile_pathRel ( $_SERVER [TEMPLATES] ) . "/style.css";
+if (! $options ["admin"])
+	$list [] = cmsFile_pathRel ( $_SERVER ["TEMPLATES"] ) . "/default.css";
+if (! $options ["admin"])
+	$list [] = cmsFile_pathRel ( $_SERVER ["TEMPLATES"] ) . "/style.css";
 	
 // Exclude
-if (is_array ( $options [excss] ) && count ( $options [excss] ))
-	foreach ( $options [excss] as $f ) {
+if (is_array ( $options ["excss"] ) && count ( $options ["excss"] ))
+	foreach ( $options ["excss"] as $f ) {
 		
 		if (($key = array_search ( $f, $list )) !== false)
 			unset ( $list [$key] );
@@ -84,7 +84,7 @@ if (is_array ( $options [excss] ) && count ( $options [excss] ))
 	}
 	
 // Misc
-foreach ( $options [css] as $v )
+foreach ( $options ["css"] as $v )
 	$list [] = $v;
 	
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------- //
@@ -101,22 +101,22 @@ foreach ( $list as $k => $v )
 
 $return = array ();
 
-if (! $options [raw])
-	$return [] = "<style type='text/css' media='all'>\n" . $options [pad];
+if (! $options ["raw"])
+	$return [] = "<style type='text/css' media='all'>\n" . $options ["pad"];
 
-if ($_SERVER [debug] [noCache] [css]) {
+if ($_SERVER ["debug"] ["noCache"] ["css"]) {
 	
 	foreach ( $list as $l )
-		$return [] = "	@import url({$l});\n" . $options [pad];
+		$return [] = "	@import url({$l});\n" . $options ["pad"];
 
 } else {
 	
-	$return [] = "	@import url(" . cmsCache::buildScript ( $list, "css", $options ) . ");\n" . $options [pad];
+	$return [] = "	@import url(" . cmsCache::buildScript ( $list, "css", $options ) . ");\n" . $options ["pad"];
 
 }
 
-if (! $options [raw])
-	$return [] = "</style>\n" . $options [pad];
+if (! $options ["raw"])
+	$return [] = "</style>\n" . $options ["pad"];
 
 return implode ( "", $return );
 
