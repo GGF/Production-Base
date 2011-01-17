@@ -43,4 +43,27 @@ function getBlocks($cusid,$print=false)
 	return $res;
 }
 
+function getFileId($filename)
+{
+	$sql="SELECT id FROM filelinks WHERE file_link='{$filename}'";
+	$rs = sql::fetchOne($sql);
+	if (!empty($rs)) {
+		return $rs["id"];
+	} else {
+		$sql="INSERT INTO filelinks (file_link) VALUES ('{$filename}')";
+		sql::query ($sql) or die(sql::error(true));
+		return sql::lastId();
+	}
+}
+
+function getFileNameById($fileid)
+{
+	$sql = "SELECT file_link FROM filelinks WHERE id='{$fileid}'";
+	$rs = sql::fetchOne($sql);
+	if (!empty($rs)) {
+		return $rs["file_link"];
+	} else {
+		return "None";
+	}
+}
 ?>

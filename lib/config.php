@@ -40,14 +40,14 @@
 		"showNotices"		=> true,
 		"checkReverse"	=> false,
 	);
-	//$_SERVER["debug"] = false;
+	$_SERVER["debug"] = false;
 	
 	// ÍÀÑÒĞÎÉÊÀ MYSQL
 	
 	$_SERVER["mysql"] = array(
 		"lang"	=> array(
 			"host"	=> "servermpp.mpp",
-			"base"	=> "zaomppsklads",
+			"base"	=> "zaompp",
 			"name"	=> "root",
 			"pass"	=> "MMnnHs",
 			"log"		=> array(
@@ -59,7 +59,7 @@
 			"noCollation"		=> false,
 			"persistent"	=> true,
 		),
-		"shared"	=> array(
+		/*"shared"	=> array(
 			"host"	=> "servermpp.mpp",
 			"base"	=> "zaompp",
 			"name"	=> "root",
@@ -72,7 +72,7 @@
 			),
 			"noCollation"		=> false,
 			"persistent"	=> true,
-		),
+		),*/
 	);
 	
 	// íàñòğîéêè ôàéëîâîãî ñåğâåğà
@@ -94,24 +94,24 @@
 	// ÌÎÄÓËÈ ÏĞÎÅÊÒÀ
 	
 	$_SERVER["contrib"] = array(
-		"jquery"						=>	array(),
-		"jquery.ui.core"				=>	array(),
-		"jquery-ui-i18n"				=> 	array(),
-		"jquery.ui.widget"				=>	array(),
+		"jquery"                                =>	array(),
+		"jquery.ui.core"			=>	array(),
+		"jquery-ui-i18n"			=> 	array(),
+		"jquery.ui.widget"			=>	array(),
 		"jquery.ui.position" 			=>	array(),
-		"jquery.ui.mouse"	 			=>	array(),
+		"jquery.ui.mouse"	 		=>	array(),
 		"jquery.ui.autocomplete"		=>	array(),
-		"jquery.ui.button"				=>	array(),
+		"jquery.ui.button"			=>	array(),
 		"jquery.ui.combobox"			=>	array(),	
 		"jquery.ui.datepicker"			=>	array(),
 		"jquery.ui.draggable"			=>	array(),
 		"jquery.ui.droppable"			=>	array(),
 		"jquery.ui.resizable"			=>	array(),
-		"jquery.ui.dialog"				=>	array(),
+		"jquery.ui.dialog"			=>	array(),
 		"jquery.contextmenu"			=>	array(),
-		"jquery.cookie"					=>	array(),
-		"jquery.keyboard"				=>	array(),
-		"jquery.wysiwyg"				=>	array(),
+		"jquery.cookie"				=>	array(),
+		"jquery.keyboard"			=>	array(),
+		"jquery.wysiwyg"			=>	array(),
 		"jquery.iframe-post-form"		=>	array(),
 	);
 

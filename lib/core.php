@@ -268,7 +268,8 @@ if (count($_SERVER["contrib"]))
 
 $autoexecMain = array_merge($autoexecMain, glob($_SERVER["CORE"] . "/autoexec/*.php"));
 
-$autoexecStuff[] = $_SERVER["CORE"] . "/autoexec/includes/mysql_shared.php";
+// судя по поиску я ее нигде не использую
+//$autoexecStuff[] = $_SERVER["CORE"] . "/autoexec/includes/mysql_shared.php";
 
 //$autoexecStuff[] = $_SERVER["CORE"] . "/classes/feed.php";
 // После обычного autoexec выполняем функции обратной совместимости

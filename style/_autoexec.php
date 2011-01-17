@@ -71,7 +71,8 @@ function printpage() {
 			
 			foreach (sql::$lang->logOut(		CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
 			$console .= cmsConsole_out("", "mysql");
-			foreach (sql::$shared->logOut(	CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
+			// судя по поиску я шаред базу нигде не использую, а тут еще и неявный вызов
+                        //foreach (sql::$shared->logOut(	CMSSQL_REPORT_ARRAY) as $line) $console .= cmsConsole_out($line[0], "mysql", $line[1]);
 			
 			profiler::add("Завершение", "Вывод логов SQL");
 			

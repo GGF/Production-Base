@@ -96,7 +96,7 @@ if (isset($edit)) {
             echo $i % 5 == 0 ? "<br>" : "";
             $rs3 = sql::fetchOne($sql);
             if (!empty($rs3)) {
-                $fl = sharefilelink($rs3[file_link]);
+                $fl = sharefilelink($rs3["file_link"]);
                 echo "<a class='filelink' href='{$fl}'>СЛ-{$rs3["id"]}</a>&nbsp;";
             } else {
                 echo "<input type=button class='partybutton' 
@@ -127,12 +127,12 @@ if (isset($edit)) {
 
 
     $cols["№"] = "№";
-    $cols[nzid] = "ID";
-    $cols[customer] = "Заказчик";
-    $cols[number] = "Заказ";
-    $cols[plate] = "Плата";
-    $cols[numbers] = "Кол-во";
-    $cols[lastdate] = "Посл. зап";
+    $cols["nzid"] = "ID";
+    $cols["customer"] = "Заказчик";
+    $cols["number"] = "Заказ";
+    $cols["plate"] = "Плата";
+    $cols["numbers"] = "Кол-во";
+    $cols["lastdate"] = "Посл. зап";
 
 
     $table = new SqlTable($processing_type, $processing_type, $sql, $cols);

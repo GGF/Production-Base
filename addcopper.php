@@ -8,7 +8,7 @@ $board=''; // Плата
 $comp=$solder=$drillname=$sizex=$sizey='';
 // соответственно
 // площадь, площадь, имя сверловки, размер, размер 
-require $_SERVER [DOCUMENT_ROOT] . "/lib/engine.php"; // это нужно при добавлении так как не вызывается заголовк html
+require $_SERVER ["DOCUMENT_ROOT"] . "/lib/engine.php"; // это нужно при добавлении так как не вызывается заголовк html
 
 
 if (empty ( $customer ))

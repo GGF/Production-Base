@@ -4,8 +4,6 @@
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
-// serialize form
-if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 
 ob_start();
 
@@ -18,114 +16,100 @@ if (isset($delete))
 }
 elseif (isset($edit)) 
 {
-	if (!isset($accept) ) {
-		$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
-		//echo $sql;
-		$cond = sql::fetchOne($sql);
-			
-		$form = new Edit($processing_type);
-		$form->init();
-		$customer = array();
-		$sql="SELECT id,customer FROM customers ORDER BY customer";
-		$res=sql::fetchAll($sql);
-		foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
-		$plates=array();
-		$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$cond[cusid]' ORDER BY plate";
-		$res=sql::fetchAll($sql);
-		foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
+	$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
+	//echo $sql;
+	$cond = sql::fetchOne($sql);
+		
+	$form = new Edit($processing_type);
+	$form->init();
+	$customer = array();
+	$sql="SELECT id,customer FROM customers ORDER BY customer";
+	$res=sql::fetchAll($sql);
+	foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
+	$plates=array();
+	$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$cond[cusid]' ORDER BY plate";
+	$res=sql::fetchAll($sql);
+	foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
 
-		$fields=array();
-		if (!empty($edit)) 
-		{
-			array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_HIDDEN,
-								"name"		=> "customer_id",
-								"value"		=> $cond["cusid"],
-							));
-			array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_HIDDEN,
-								"name"		=> "plate_id",
-								"value"		=> $cond["plid"],
-							));
-			array_push($fields,array(
-								"type"		=>	CMSFORM_TYPE_TEXT,
-								"name"		=>	"customer",
-								"label"		=>	"Заказчик:",
-								"value"		=>	$cond["customer"],
-								"options"	=>	array( "html" => " readonly ", ),
-							));
-			array_push($fields,array(
-								"type"		=>	CMSFORM_TYPE_TEXT,
-								"name"		=>	"plate",
-								"label"		=>	"Плата:",
-								"value"		=>	$cond["plate"],
-								"options"	=>	array( "html" => " readonly ", ),
-							));
-		} 
-		else
-		{
-			array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_SELECT,
-								"name"		=> "customer_id",
-								"label"		=>	"Заказчик:",
-								"values"	=>	$customers,
-								"value"		=> $cond["cusid"],
-								"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
-							));
-			array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_SELECT,
-								"name"		=> "plate_id",
-								"label"		=>	"Плата:",
-								"values"	=>	$plates,
-								"value"		=> $cond["plid"],
-								"options"	=>	array( "html" => " plates ", ),
-							));
-		}
-		array_push($fields,array(
-								"type"		=>	CMSFORM_TYPE_TEXT,
-								"name"		=>	"pib",
-								"label"		=>	"Плат в блоке",
-								"value"		=>	$cond["pib"],
-								//"options"	=>	array( "html" => "size=10", ),
-							));
-		array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_TEXT,
-								"name"		=> "lays",
-								"label"		=>	"Пластин",
-								"value"		=> $cond["lays"],
-								//"options"	=>	array( "html" => "size=10", ),
-							));
-		array_push($fields,array(
-								"type"		=> CMSFORM_TYPE_SELECT,
-								"name"		=> "side",
-								"label"		=>	"Сторона:",
-								"values"	=>	array(
-														"TOP"	=>	"TOP",
-														"BOT"	=>	"BOT",
-														"TOPBOT"	=>	"TOPBOT",
-													),
-								"value"		=> $cond["side"],
-								//"options"	=>	array( "html" => " side ", ),
-							));
-
-		$form->addFields($fields);
-		$form->show();
-	} 
-	else 
+	$fields=array();
+	if (!empty($edit)) 
 	{
-		// сохранение
-		if (!empty($edit)) {
-			$sql = "UPDATE conductors SET board_id='$plate_id', pib='$pib', side='$side', lays='$lays', user_id='".$_SERVER[userid]."', ts=NOW() WHERE id='$edit'";
-			
-		} else {
-			$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('$plate_id','$pib','$side','$lays','".$_SERVER[userid]."',NOW())";
-		}
-		sql::query($sql);
-		echo "ok";
+		array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_HIDDEN,
+							"name"		=> "customer_id",
+							"value"		=> $cond["cusid"],
+						));
+		array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_HIDDEN,
+							"name"		=> "plate_id",
+							"value"		=> $cond["plid"],
+						));
+		array_push($fields,array(
+							"type"		=>	CMSFORM_TYPE_TEXT,
+							"name"		=>	"customer",
+							"label"		=>	"Заказчик:",
+							"value"		=>	$cond["customer"],
+							"options"	=>	array( "html" => " readonly ", ),
+						));
+		array_push($fields,array(
+							"type"		=>	CMSFORM_TYPE_TEXT,
+							"name"		=>	"plate",
+							"label"		=>	"Плата:",
+							"value"		=>	$cond["plate"],
+							"options"	=>	array( "html" => " readonly ", ),
+						));
+	} 
+	else
+	{
+		array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_SELECT,
+							"name"		=> "customer_id",
+							"label"		=>	"Заказчик:",
+							"values"	=>	$customers,
+							"value"		=> $cond["cusid"],
+							"options"	=>	array( "html" => " onchange=\"var plat=$.ajax({url:'http://".$_SERVER['HTTP_HOST']."/zapuski/zd.php',data:'cusid='+$(this).val()+'&selectplates',async:false}).responseText; $('select[plates]').html(plat);\" ", ),
+						));
+		array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_SELECT,
+							"name"		=> "plate_id",
+							"label"		=>	"Плата:",
+							"values"	=>	$plates,
+							"value"		=> $cond["plid"],
+							"options"	=>	array( "html" => " plates ", ),
+						));
 	}
+	array_push($fields,array(
+							"type"		=>	CMSFORM_TYPE_TEXT,
+							"name"		=>	"pib",
+							"label"		=>	"Плат в блоке",
+							"value"		=>	$cond["pib"],
+							//"options"	=>	array( "html" => "size=10", ),
+						));
+	array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_TEXT,
+							"name"		=> "lays",
+							"label"		=>	"Пластин",
+							"value"		=> $cond["lays"],
+							//"options"	=>	array( "html" => "size=10", ),
+						));
+	array_push($fields,array(
+							"type"		=> CMSFORM_TYPE_SELECT,
+							"name"		=> "side",
+							"label"		=>	"Сторона:",
+							"values"	=>	array(
+													"TOP"	=>	"TOP",
+													"BOT"	=>	"BOT",
+													"TOPBOT"	=>	"TOPBOT",
+												),
+							"value"		=> $cond["side"],
+							//"options"	=>	array( "html" => " side ", ),
+						));
 
+	$form->addFields($fields);
+	$form->show();
 }
-elseif (isset($print)) {
+elseif (isset($print)) 
+{
 	
 }
 else
