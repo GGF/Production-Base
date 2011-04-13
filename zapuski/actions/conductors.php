@@ -16,10 +16,10 @@ if (!$form->errors) {
 	$side = $form->request["side"];
 	$lays = $form->request["lays"];
 	if (!empty($edit)) {
-		$sql = "UPDATE conductors SET board_id='{$plate_id}', pib='{$pib}', side='{$side}', lays='{$lays}', user_id='{$_SERVER["userid"]}', ts=NOW() WHERE id='{$edit}'";
+		$sql = "UPDATE conductors SET board_id='{$board_id}', pib='{$pib}', side='{$side}', lays='{$lays}', user_id='{$_SERVER["userid"]}', ts=NOW() WHERE id='{$edit}'";
 		
 	} else {
-		$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('{$plate_id}','{$pib}','{$side}','{$lays}','{$_SERVER["userid"]}',NOW())";
+		$sql = "INSERT INTO conductors (board_id,pib,side,lays,user_id,ts) VALUES('{$board_id}','{$pib}','{$side}','{$lays}','{$_SERVER["userid"]}',NOW())";
 	}
 	sql::query($sql);
 	$form->processed("$('#dialog').dialog('close');selectmenu('{$processing_type}','');");

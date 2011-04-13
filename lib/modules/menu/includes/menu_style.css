@@ -12,9 +12,12 @@
 	/*float:left;*/ /*margin:5;*/
 	padding-left: 2px;
 	padding-right: 2px;
-	cursor: hand;
+        margin: 0px;
+	cursor: pointer;
 }
-
+.menuitemcp .menuitemsel {
+    margin: 0px;
+}
 
 .menuitemcp A {
 	color: black;
@@ -32,12 +35,17 @@
 	min-height: 64px;
 	overflow: hidden;
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 1.1em;
+        margin: 0px;
 	background-image: URL("/picture/cp.png");
 }
 
 
 .menuitemsel {
 	background-color: rgb(100, 255, 100);
+        margin: 0px;
 }
 
+.menutd {
+    text-align: center;
+}

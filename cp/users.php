@@ -11,66 +11,44 @@ ob_start();
 
 if (isset($edit)) 
 {
-	if (!isset($accept)) {
-		$sql = "SELECT * FROM users WHERE id='".$edit."'";
-		$rs=sql::fetchOne($sql);
-		
-		$form = new Edit($processing_type);
-		$form->init();
-		$form->addFields(array(
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "nik",
-				"label"		=>	"Ник:",
-				"value"		=> $rs["nik"],
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "fullname",
-				"label"		=>	"Полное имя:",
-				"value"		=> $rs["fullname"],
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "position",
-				"label"		=>	"Должность:",
-				"value"		=> $rs["position"],
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "password1",
-				"label"		=>	"Пароль:",
-				"value"		=> $rs["password"],
-			),
-			array(
-				"type"		=> CMSFORM_TYPE_TEXT,
-				"name"		=> "password2",
-				"label"		=>	"Повтор пароля",
-				"value"		=> $rs["password"],
-			),
-		));
-		$form->show();
-	} 
-	else 
-	{
-		// сохрнение
-		if ($password1!=$password2)
-		{
-			echo ("Пароли не совпадают!"); exit;
-		}
-		if (!empty($edit)) 
-		{
-			// редактирование
-			$sql = "UPDATE users SET nik='$nik', fullname='$fullname', position='$position', password='$password1' WHERE id='$edit'";
-		}
-		else 
-		{
-			// добавление
-			$sql = "INSERT INTO users (nik,fullname,position,password) VALUES ('$nik','$fullname','$position','$password1')";
-		}
-		sql::query($sql);
-		echo "ok";
-	}
+	$sql = "SELECT * FROM users WHERE id='".$edit."'";
+	$rs=sql::fetchOne($sql);
+	
+	$form = new Edit($processing_type);
+	$form->init();
+	$form->addFields(array(
+		array(
+			"type"		=> CMSFORM_TYPE_TEXT,
+			"name"		=> "nik",
+			"label"		=>	"Ник:",
+			"value"		=> $rs["nik"],
+		),
+		array(
+			"type"		=> CMSFORM_TYPE_TEXT,
+			"name"		=> "fullname",
+			"label"		=>	"Полное имя:",
+			"value"		=> $rs["fullname"],
+		),
+		array(
+			"type"		=> CMSFORM_TYPE_TEXT,
+			"name"		=> "position",
+			"label"		=>	"Должность:",
+			"value"		=> $rs["position"],
+		),
+		array(
+			"type"		=> CMSFORM_TYPE_TEXT,
+			"name"		=> "password1",
+			"label"		=>	"Пароль:",
+			"value"		=> $rs["password"],
+		),
+		array(
+			"type"		=> CMSFORM_TYPE_TEXT,
+			"name"		=> "password2",
+			"label"		=>	"Повтор пароля",
+			"value"		=> $rs["password"],
+		),
+	));
+	$form->show();
 
 } elseif (isset($delete)) {
 	// удаление
@@ -93,6 +71,7 @@ else
 	
 	$table = new SqlTable($processing_type,$_SERVER[tableaction][$processing_type][next],$sql,$cols);
 	$table->addbutton=true;
+	$table->openfunc = 'openuser';
 	$table->show();
 }
 

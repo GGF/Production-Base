@@ -18,8 +18,18 @@
 	
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	function is_utf($t) { if (@preg_match ('/.+/u', $t)) return 1; }
-	
+        function is_utf($t) 
+        { 
+            if (@preg_match ('/.+/u', $t)) 
+                return true; 
+            else 
+                return false; 
+            
+        }
+
+        function utf8_to_cp1251($t) { return iconv("UTF-8", "CP1251", $t);}
+        function cp1251_to_utf8($t) { return iconv( "CP1251","UTF-8", $t);}
+        
 	function cmsUTF($var, $action = 'ENCODE') {
 		
 		$newVar = array();

@@ -12,18 +12,17 @@ if (!$form->errors) {
 	$edit = $form->request["edit"];
 	$number = $form->request["number"];
 	$ldate = $form->request["ldate"];
-	$plate_id = $form->request["plate_id"];
+	$board_id = $form->request["board_id"];
 	$niz = $form->request["niz"];
 	$ldate=datepicker2date($ldate);
 
 	if (!empty($edit)) {
-		$sql = "UPDATE zadel SET number = '{$number}', ldate='{$ldate}', board_id='{$plate_id}', niz='{$niz}' WHERE id='{$edit}'";
+		$sql = "UPDATE zadel SET number = '{$number}', ldate='{$ldate}', niz='{$niz}' WHERE id='{$edit}'";
 		
 	} else {
-		$sql = "INSERT INTO zadel (board_id,ldate,number,niz) VALUES('{$plate_id}','{$ldate}','{$number}','{$niz}')";
+		$sql = "INSERT INTO zadel (board_id,ldate,number,niz) VALUES('{$board_id}','{$ldate}','{$number}','{$niz}')";
 	}
 	sql::query($sql);
-	sql::error(true);
 	$form->processed("$('#dialog').dialog('close');selectmenu('{$processing_type}','');");
 }
 else 

@@ -1,16 +1,30 @@
 <?
-include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php"; // это нужно при добавлении так как не вызываетс€ заголовк html
+require $_SERVER["DOCUMENT_ROOT"] . "/lib/config.php";
+$_SERVER["debug"] = false;
+require $_SERVER["DOCUMENT_ROOT"] . "/lib/core.php";
 
-// заказчик 
-$sql="SELECT id FROM customers WHERE customer='$customer'";
-$rs = sql::fetchOne($sql);
-if (!empty($rs)) {
-	$customer_id = $rs["id"];
-} else {
-	$sql="INSERT INTO customers (customer) VALUES ('$customer')";
-	sql::query ($sql) or die(sql::error(true));
-	$customer_id = sql::lastId();
+
+// перекодируем полученые данные 
+// (используютс€ функции из multibyte.php, потому 
+// здесь, а не в encoding.php вызываем)
+// TODO: ј нужно ли здесь? «апретил регистрацию глобальных,
+//  а пост и гет тут всЄ равно регистрирую
+foreach ($_GET as $key => $val) {
+    ${$key} = cmsUTF_decode($val); 
+    // она сама и массивы перекодирует и провер€ет на utf
 }
+foreach ($_POST as $key => $val) {
+    ${$key} = cmsUTF_decode($val); 
+    // она сама и массивы перекодирует и провер€ет на utf
+}
+// заказчик по tzid
+$sql = "SELECT orders.customer_id AS id FROM tz JOIN (orders) ON (tz.order_id=orders.id) WHERE tz.id='{$tznumber}'";
+$rs = sql::fetchOne($sql);
+if (empty($rs)) {
+	echo -1;
+	exit;
+}
+$customer_id = $rs[id];
 
 // изменение платы
 $sql="SELECT id FROM boards WHERE customer_id='$customer_id' AND board_name='$board'";

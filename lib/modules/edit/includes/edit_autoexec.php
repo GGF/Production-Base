@@ -96,6 +96,7 @@ class Edit {
 	}
 	
 	public function show() {
+		echo "<div class='editdiv'>";
 		$this->form->init();
 		$this->form->form();
 		echo $this->form->add("tid");
@@ -120,6 +121,7 @@ class Edit {
 		echo '<div style="display:none" >'.$this->form->add("submit").'</div>';
 		$this->form->end();
 		$this->form->destroy();
+		echo "</div>";
 		echo "<script>\$('select').combobox();</script>";
 		foreach($this->unids as $unid) {
 			echo "<script>\$('[fieldid=".$unid."]').keyboard('enter',function(){\$('[fieldid='+\$(this).attr('fieldnext')+']').focus();});</script>";

@@ -14,10 +14,10 @@
 	
 	// КОНФИГУРАЦИЯ СИСТЕМЫ
 	
-	$_SERVER["lang"]									= "ru";
-	$_SERVER["sites"]									= array("ru" => "baza");
-	$_SERVER["plainEditor"]						= false;
-	$_SERVER["delim"]									= " › "; // разделитель в пути
+	$_SERVER["lang"] = "ru";
+	$_SERVER["sites"] = array("ru" => "baza");
+	$_SERVER["plainEditor"]	= false;
+	$_SERVER["delim"] = " › "; // разделитель в пути
 	
 	// КОНФИГУРАЦИЯ ПРОЕКТА
 	
@@ -76,9 +76,12 @@
 	);
 	
 	// настройки файлового сервера
-//	define("SERVERFILECODEPAGE",$_SERVER[HTTP_HOST]=="bazawork1"?"UTF-8":"KOI8R"); // в каком виде файловая система
-	define("NETBIOS_SERVERNAME",$_SERVER["HTTP_HOST"]=="bazawork1"?"server4":"servermpp"); // на каком сервере файлы шарятся
-	define("SHARE_ROOT_DIR","/home/common/"); // коренвой катлог  для share [z] и [t]
+        // на каком сервере файлы шарятся
+	define("NETBIOS_SERVERNAME","servermpp"); 
+        // коренвой катлог  для share [z] и [t]
+	define("SHARE_ROOT_DIR","/home/common/"); 
+        // каталог сохранения файлов относительно DOCUMENT_ROOT
+        define("UPLOAD_FILES_DIR","/files"); 
 
 	
 	// МОДУЛИ ПРОЕКТА

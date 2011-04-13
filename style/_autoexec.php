@@ -45,7 +45,7 @@ if (!empty($subtitle)) {
 	}
 
 	// цитаты баша
-	echo file_get_contents("http://computers.mpp/getbashlocal.php?".$_COOKIE["bash"]);
+	echo file_get_contents("http://baza2/getbashlocal.php?".$_COOKIE["bash"]);
 }
 }
 

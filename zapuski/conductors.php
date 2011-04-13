@@ -16,7 +16,7 @@ if (isset($delete))
 }
 elseif (isset($edit)) 
 {
-	$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,plates) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id) WHERE conductors.id='$edit'";
+	$sql="SELECT *, customers.id AS cusid, conductors.board_id AS plid FROM conductors JOIN (customers,boards) ON (conductors.board_id=boards.id AND boards.customer_id=customers.id) WHERE conductors.id='$edit'";
 	//echo $sql;
 	$cond = sql::fetchOne($sql);
 		
@@ -27,7 +27,7 @@ elseif (isset($edit))
 	$res=sql::fetchAll($sql);
 	foreach($res as $rs) { $customers[$rs[id]] = $rs[customer]; }
 	$plates=array();
-	$sql="SELECT id,plate,customer_id FROM plates WHERE customer_id='$cond[cusid]' ORDER BY plate";
+	$sql="SELECT id,board_name,customer_id FROM boards WHERE customer_id='$cond[cusid]' ORDER BY board_name";
 	$res=sql::fetchAll($sql);
 	foreach($res as $rs) { $plates[$rs[id]] = $rs[plate]; }
 
@@ -71,7 +71,7 @@ elseif (isset($edit))
 						));
 		array_push($fields,array(
 							"type"		=> CMSFORM_TYPE_SELECT,
-							"name"		=> "plate_id",
+							"name"		=> "board_id",
 							"label"		=>	"Плата:",
 							"values"	=>	$plates,
 							"value"		=> $cond["plid"],
@@ -117,13 +117,13 @@ else
 // вывести таблицу
 
 	// sql
-	$sql="SELECT *,conductors.id AS condid,conductors.id FROM conductors JOIN (plates,customers) ON (conductors.board_id=plates.id AND plates.customer_id=customers.id ) WHERE ready='0' ".(isset($find)?"AND (plates.plate LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY conductors.id DESC ").(isset($all)?"":"LIMIT 20");
+	$sql="SELECT *,conductors.id AS condid,conductors.id FROM conductors JOIN (boards,customers) ON (conductors.board_id=boards.id AND boards.customer_id=customers.id ) WHERE ready='0' ".(isset($find)?"AND (boards.board_name LIKE '%$find%')":"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY conductors.id DESC ").(isset($all)?"":"LIMIT 20");
 
 	//echo $sql;
 	
 	$cols[condid]="ID";
 	$cols[customer]="Заказчик";
-	$cols[plate]="Плата";
+	$cols[board_name]="Плата";
 	$cols[side]="Сторона";
 	$cols[lays]="Пластин";
 	$cols[pib]="Плат в блоке";

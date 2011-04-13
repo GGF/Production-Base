@@ -1,6 +1,4 @@
 <?
-// Отображает запущенные платы
-
 include_once $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 REQUIRE $_SERVER["DOCUMENT_ROOT"] . "/lib/core/classes/ajax.php";
 $processing_type=basename (__FILE__,".php");

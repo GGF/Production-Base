@@ -159,13 +159,14 @@
 		$url = "http://{$_SERVER[HTTP_HOST]}/{$url}";
 		
 		if ($save) $_SESSION[redirect] = $_SERVER[REQUEST_URI];
-		
+		/*
 		if (!headers_sent()) {
 			
-			//header("HTTP/1.0 302 FOUND");
+			header("HTTP/1.0 302 FOUND");
 			header("Location: {$url}");
 			
 		} else {
+		*/
 			
 			/*
 			print "<script>";
@@ -189,13 +190,15 @@
 			print "<script>";
 			print "	setTimeout(function() { window.open('{$url}'); }, 500);\n";
 			print "</script>";
-			
-			exit;
 			*/
-			cmsError("Невозможно осуществить переход на «{$url}» — заголовки уже отправлены.");
 			
+			echo "<script>window.location = '{$url}'</script>";
+			exit;
+			
+			//cmsError("Невозможно осуществить переход на «{$url}» — заголовки уже отправлены.");
+			/*
 		}
-		
+		*/
 		exit;
 		
 	}

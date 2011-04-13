@@ -52,9 +52,18 @@ if (isset($edit))
 					$odate = $rs["orderdate"];
 					$cdate = date("m-d-Y");
 					
+
+					
+					$sql = "INSERT INTO tz (order_id,tz_date,user_id) VALUES ('$orderid',NOW(),'{$_SERVER[userid]}')";
+					sql::query($sql);
+
+					$tzid =  sql::lastId();
+
 					do 
 					{
-						$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\".$customer."\\\\".removeOSsimbols($rs["number"])." от ".$rs["orderdate"]." ".$pos_in_order." ".($typetz=="mpp"?"МПП":"ДПП").".xls";
+						$filetype = $typetz=="mpp"?"МПП":($typetz=="dpp"?"ДПП":"ДПП-Блок");
+						$orderstring = removeOSsimbols($rs["number"]);
+						$file_link = "t:\\\\Расчет стоимости плат\\\\ТехЗад\\\\{$customer}\\\\{$tzid}-{$filetype}-{$pos_in_order}-{$orderstring} от {$rs["orderdate"]}.xls";
 						$filename = createdironserver($file_link);
 						$fe = file_exists($filename);
 						if ($fe) $pos_in_order++;
@@ -73,13 +82,11 @@ if (isset($edit))
 						sql::error(true);
 						$file_id = sql::lastId();
 					}
-					
-					$sql = "INSERT INTO tz (order_id,tz_date,user_id,pos_in_order,file_link_id) VALUES ('$orderid',NOW(),'".$_SERVER[userid]."','$pos_in_order','$file_id')";
+					// добавить поля в 
+					$sql="UPDATE tz SET file_link_id='{$file_id}', pos_in_order='{$pos_in_order}' WHERE id='{$tzid}'";
 					sql::query($sql);
 
-					$tzid =  sql::lastId();
-
-					$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":"tzdpp.xls");
+					$excel=file_get_contents($typetz=="mpp"?"tzmpp.xls":($typetz=="dpp"?"tzdpp.xls":"tzdppm.xls"));
 					if ($file = @fopen($filename,"w")) 
 					{
 						fwrite($file,$excel);
@@ -95,7 +102,7 @@ if (isset($edit))
 							fclose($file);
 							echo "<script>updatetable('$tid','tz','');</script>";
 							echo "<div style='margin:10px'>";
-							echo "<a href='".sharefilelink($file_link)."'>TZ-$tzid</a>";
+							echo "<a class=filelink href='".sharefilelink($file_link)."'>TZ-$tzid</a>";
 							echo "</div>";
 						} 
 						else 
@@ -116,6 +123,7 @@ if (isset($edit))
 					echo "<div style='margin:10px'>";
 					echo "<input type=button onclick=\"editrecord('tz','typetz=mpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='МПП'>";
 					echo "<input type=button onclick=\"editrecord('tz','typetz=dpp&orderid=$orderid&tid=$tid&add&edit=0')\" value='ДПП'>";
+					echo "<input type=button onclick=\"editrecord('tz','typetz=dppblock&orderid=$orderid&tid=$tid&add&edit=0')\" value='ДПП(блок)'>";
 					echo "</div>";
 				}
 			}
@@ -127,7 +135,7 @@ if (isset($edit))
 			//echo $sql;
 			$rs=sql::fetchOne($sql);
 			echo "<div style='margin:10px'>";
-			echo "<a href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
+			echo "<a class=filelink href='".sharefilelink($rs[file_link])."'>TZ-$edit</a>";
 			echo "</div>";
 		}
 	}
@@ -159,7 +167,7 @@ else
 	if (!empty($_SESSION[customer_id])) 
 	{
 		if(empty($_SESSION[order_id])){
-			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+			$sql="SELECT *,IF(instr(file_link,'МПП')>0, 'МПП', IF(instr(file_link,'Блок')>0,'ДПП(Блок)','ДПП')) AS type,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) WHERE customer_id='".$_SESSION[customer_id]."'".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 			$ordername="Заказчик - ".$_SESSION[customer]." - Техзадания";
 			$cols[number]="Заказ";
 		}
@@ -167,18 +175,19 @@ else
 		{
 			$orderid=$_SESSION[order_id];
 			$ordername = "Заказчик - ".$_SESSION[customer]." - ТЗ - ".$_SESSION[order]." от ".$_SESSION[orderdate];
-			$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
+			$sql="SELECT *,IF(instr(file_link,'МПП')>0, 'МПП', IF(instr(file_link,'Блок')>0,'ДПП(Блок)','ДПП')) AS type,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%')":"").(isset($orderid)?(isset($find)?"AND order_id='$orderid'":"WHERE order_id='$orderid'"):"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"":"LIMIT 20");
 		}
 	} 
 	else
 	{
 		$ordername='Техзадания';
-		$sql="SELECT *,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT *,IF(instr(file_link,'МПП')>0, 'МПП', IF(instr(file_link,'Блок')>0,'ДПП(Блок)','ДПП')) AS type,tz.id as tzid,tz.id FROM `tz` JOIN (orders, customers, users,filelinks) ON ( tz.order_id = orders.id AND orders.customer_id = customers.id AND tz.user_id = users.id AND filelinks.id=tz.file_link_id) ".(isset($find)?"WHERE (number LIKE '%$find%' OR tz.id LIKE '%$find%')":"").(isset($order)?" ORDER BY ".$order." ":" ORDER BY tz.id DESC ").(isset($all)?"LIMIT 50":"LIMIT 20");
 		$cols[customer]="Заказчик";
 		$cols[number]="Заказ";
 	}
 	
 	$cols[tzid]="ID";
+	$cols[type]="Тип";
 	$cols[tz_date]="Дата";
 	$cols[nik]="Кто заполнил";
 

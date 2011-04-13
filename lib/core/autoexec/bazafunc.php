@@ -43,6 +43,19 @@ function getBlocks($cusid,$print=false)
 	return $res;
 }
 
+function getBoards($cusid,$print=false)
+{
+	$sql = "SELECT * FROM boards WHERE customer_id='$cusid' ORDER BY board_name ";
+	$res = sql::fetchAll($sql);
+	foreach ($res as $rs) {
+		if ($print) 
+			echo "<option value=".$rs["id"].">".$rs["board_name"];
+		else
+			$pl[$rs[id]]=$rs[blockname];
+	}
+	return $res;
+}
+
 function getFileId($filename)
 {
 	$sql="SELECT id FROM filelinks WHERE file_link='{$filename}'";

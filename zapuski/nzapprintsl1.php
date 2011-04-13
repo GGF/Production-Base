@@ -1,10 +1,11 @@
 <?php
 
-/*
- * —обственно запуск незапущенной
- */
+// уже известен $lanch_id
 
-    if (isset($dozap)) {
+// при создании файла часть параметров определ€етс€
+/*
+    if (isset($dozap)) 
+    {
         $sql = "SELECT posintz.tz_id,posintz.plate_id,posintz.board_id,
                        posintz.block_id,posintz.posintz,posintz.id 
                 FROM posintz JOIN lanch ON posintz.id=lanch.pos_in_tz_id 
@@ -15,20 +16,30 @@
         $tzid = $rs[tz_id];
         $plate_id = $rs[plate_id];
         $boardid = $rs[board_id];
+        $board_id = $boardid;
         $blockid = $rs[block_id];
+        $block_id = $blockid;
         $posintz = $rs[posintz];
         $posid = $rs[id];
-        $sql = "SELECT MAX(part)+1 AS party FROM lanch WHERE tz_id='{$tzid}' AND pos_in_tz='{$posintz}' ";
+        $sql = "SELECT MAX(part)+1 AS party 
+                    FROM lanch 
+                    WHERE tz_id='{$tzid}' 
+                    AND pos_in_tz='{$posintz}' ";
         $rs = sql::fetchOne($sql);
         sql::error(true);
         $party = $rs[party];
         $numbp = $dozap;
-        $sql = "SELECT nib FROM blockpos WHERE block_id='{$blockid}' AND board_id='{$boardid}'";
+        $sql = "SELECT nib 
+                    FROM blockpos 
+                    WHERE block_id='{$blockid}' AND board_id='{$boardid}'";
         $rs = sql::fetchOne($sql);
-        $piz = $rs[nib];
-        $numbz = ceil($dozap / $piz);
+        $platonblock = $rs[nib];
+        $numbz = ceil($dozap / $platonblock);
         $comment = "ƒозапуск";
-        $sql = "SELECT customer,blockname FROM blocks JOIN customers ON customers.id=blocks.customer_id WHERE blocks.id='$blockid'";
+        $sql = "SELECT customer,blockname 
+                    FROM blocks 
+                    JOIN customers ON customers.id=blocks.customer_id 
+                    WHERE blocks.id='$blockid'";
         $rs = sql::fetchOne($sql);
         sql::error(true);
         $customer = $rs["customer"];
@@ -40,20 +51,29 @@
             $mpp = 1;
         else
             $dpp=1;
-    } else {
+    } 
+    else 
+    {
         $sql = "SELECT * FROM posintz WHERE id='{$posid}'";
-        $rs = sql::fetchOne($sql);
-        $tzid = $rs[tz_id];
-        $posintz = $rs[posintz];
-        $numbers = $rs[numbers];
-        $plate_id = $rs[plate_id];
-        $block_id = $rs[block_id];
+        $posintzdata = sql::fetchOne($sql);
+        $tzid = $posintzdata[tz_id];
+        $posintz = $posintzdata[posintz];
+        $numbers = $posintzdata[numbers];
+        $plate_id = $posintzdata[plate_id];
+        $block_id = $posintzdata[block_id];
+        $numpl[1]=$posintzdata[numpl1];
+        $numpl[2]=$posintzdata[numpl2];
+        $numpl[3]=$posintzdata[numpl3];
+        $numpl[4]=$posintzdata[numpl4];
+        $numpl[5]=$posintzdata[numpl5];
+        $numpl[6]=$posintzdata[numpl6];
 
 
-        $nz = 0; // максимальное количество заготовок по количеству плат в блоке
-        $nl = 0; // максимальное количество слоев на плате в блоке, хот€ бред
-        $cl = 0; // класс платы, наибольший по позици€м
-        $piz = 0; // число плат на заготовке (сумма по блоку)
+        $zagotovokvsego = 0; // максимальное количество заготовок по количеству плат в блоке
+        $numlayers = 0; // максимальное количество слоев на плате в блоке, хот€ бред
+        $class = 0; // класс платы, наибольший по позици€м
+        $platonblock = 0; // число плат на заготовке (сумма по блоку)
+        $i=0;
         $sql = "SELECT *, boards.sizex AS psizex, boards.sizey AS psizey, 
                         boards.id AS bid 
                 FROM blockpos 
@@ -63,82 +83,71 @@
                     AND boards.id=board_id) 
                 WHERE block_id='{$block_id}'";
         $res = sql::fetchAll($sql);
-        foreach ($res as $rs) {
-            $sql = "SELECT numbers FROM posintz WHERE tz_id='{$tzid}' 
-                                        AND board_id='{$rs["board_id"]}'";
-            $rs2 = sql::fetchOne($sql);
-            $nz = max($nz, ceil($rs2["numbers"] / $rs["nib"]));
-            $nl = max($nl, $rs["layers"]);
-            $cl = max($cl, $rs["class"]);
-            $piz += $rs["nib"];
+        foreach ($res as $rs) 
+        {
+            $i++;
+            $zagotovokvsego = max($zagotovokvsego, ceil($numbers / $rs["nib"]));
+            $zagotovokvsego = 0===$zagotovokvsego ? max($zagotovokvsego, ceil($numpl[$i] / $rs["nib"])) : 0;
+            $numlayers = max($numlayers, $rs["layers"]);
+            $class = max($class, $rs["class"]);
+            $platonblock += $rs["nib"];
             $customer = $rs["customer"];
             $customer_id = $rs["customer_id"];
             $blockname = $rs["blockname"];
         }
 
-        if (isset($mpp)) {
+        if (isset($mpp)) 
+        {
             if ($customer_id == '8') // радар
-                $zip = 1;
+                $zagotinparty = 1;
             else
-                $zip = 5;
+                $zagotinparty = 5;
         }
-        else {
-            $zip = 25;
+        else 
+        {
+            $zagotinparty = 25;
         }
 
-        $numbz = $nz <= $zip ? $nz : (isset($last) ? ($nz - ($party - 1) * $zip) : $zip);
-        $numbp = $nz <= $zip ? $numbers : (isset($last) ? ($numbers - ($party - 1) * $zip * $piz) : $zip * $piz);
-    }
-    $sql = "SELECT * FROM lanch WHERE pos_in_tz_id='{$posid}' AND part='{$party}'";
-    $rs = sql::fetchOne($sql);
-    if (empty($rs)) {
-        $sql = "INSERT INTO lanch 
-                (ldate,board_id,part,numbz,numbp,user_id,pos_in_tz,tz_id,pos_in_tz_id) 
-                VALUES (NOW(),'{$plate_id}','{$party}','{$numbz}','{$numbp}','{$_SERVER["userid"]}','{$posintz}','{$tzid}','{$posid}')";
-        sql::query($sql);
-        $lanch_id = sql::lastId();
-    } else {
-        $rs = sql::fetchOne($res);
-        $lanch_id = $rs["id"];
-        $sql = "UPDATE lanch 
-                SET ldate=NOW(), board_id='{$plate_id}', 
-                    numbz='{$numbz}', numbp='{$numbp}', user_id='{$_SERVER["userid"]}',
-                    tz_id='{$tzid}', pos_in_tz_id='{$posid}' 
-               WHERE id='{$lanch_id}'";
-        sql::query($sql);
-    }
-    $date = date("d-m-Y");
-    // ќпределим идентификатор коментари€
-    $comment_id = 1; //пустой
-    // ќпределим идентификатор файловой ссылки 
-    $l_date = date("Y-m-d");
-    $file_link = "z:\\\\«аказчики\\\\{$customer}\\\\{$blockname}\\\\запуски\\\\—Ћ-{$l_date}-{$lanch_id}.xml";
-    $sql = "SELECT id FROM filelinks WHERE file_link='{$file_link}'";
-    $rs = sql::fetchOne($sql);
-    if (!empty($rs)) {
-        $file_id = $rs["id"];
-    } else {
-        $sql = "INSERT INTO filelinks (file_link) VALUES ('{$file_link}')";
-        sql::query($sql);
-        sql::error(true);
-        $file_id = sql::lastId();
+        $numbz = $zagotovokvsego <= $zagotinparty ? $zagotovokvsego 
+                    : (isset($last) ? ($zagotovokvsego - ($party - 1) * $zagotinparty) : $zagotinparty);
+        $numbp = $zagotovokvsego <= $zagotinparty ? $numbers 
+                    : (isset($last) ? ($numbers - ($party - 1) * $zagotinparty * $platonblock) 
+                        : $zagotinparty * $platonblock);
     }
 
-$sql = "UPDATE lanch SET file_link_id='{$file_id}', comment_id='{$comment_id}' WHERE id='{$lanch_id}'";
-sql::query($sql);
+*/
 
-// обновим таблицу запусков  
-$sql = "DELETE FROM lanched WHERE board_id='{$plate_id}'";
+// из печати файла $tzid,$board_id,$block_id,$tzid,$posintz
+$numbp = $zagotovokvsego <= $zagotinparty ? $numbers 
+                    : (isset($last) ? ($numbers - ($party - 1) * $zagotinparty * $platonblock) 
+                        : $zagotinparty * $platonblock);
+$sql = "UPDATE lanch 
+        SET ldate=NOW(), block_id='{$block_id}', 
+            numbz='{$zag}', numbp='{$numbp}', 
+            user_id='{$_SERVER["userid"]}', part='{$party}',
+            tz_id='{$tzid}', pos_in_tz='{$posintz}' 
+       WHERE id='{$lanch_id}'";
 sql::query($sql);
-$sql = "INSERT INTO lanched (board_id,lastdate) VALUES ('{$plate_id}',NOW())";
-sql::query($sql);
+sql::error(true);
 
-// если все запущены - исключить из запуска
-if (!isset($dozap)) {
-    $sql = "SELECT SUM(numbp) AS snumbp FROM lanch WHERE pos_in_tz_id='{$posid}' GROUP BY pos_in_tz_id";
+
+if (!isset($dozap))
+{
+    // обновим таблицу запусков  
+
+    $sql = "DELETE FROM lanched WHERE block_id='{$block_id}'";
+    sql::query($sql);
+    $sql = "INSERT INTO lanched (block_id,lastdate) VALUES ('{$block_id}',NOW())";
+    sql::query($sql);
+
+    // если все запущены - исключить из запуска
+    $sql = "SELECT SUM(numbz) AS snumbz FROM lanch WHERE pos_in_tz_id='{$posid}'
+            GROUP BY pos_in_tz_id";
     $rs = sql::fetchOne($sql);
-    if ($rs[snumbp] >= $nz) {
-        $sql = "UPDATE posintz SET ldate=NOW(), luser_id='{$_SERVER["userid"]}' WHERE id='{$posid}'";
+    if ($rs[snumbp] >= $zagotovokvsego  || isset($last))
+    {
+        $sql = "UPDATE posintz SET ldate=NOW(), luser_id='{$_SERVER["userid"]}'
+         WHERE id='{$posid}'";
         sql::query($sql);
     }
 }

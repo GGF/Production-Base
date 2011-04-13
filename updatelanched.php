@@ -4,7 +4,7 @@ include_once $_SERVER[DOCUMENT_ROOT]."/lib/engine.php"; // это нужно так как не 
 $sql="TRUNCATE TABLE `lanched`";
 sql::query ($sql) or die(sql::error(true));
 $sql="INSERT INTO lanched
-SELECT board_id, MAX(ldate)
+SELECT block_id, MAX(ldate)
 FROM lanch
 GROUP BY board_id
 ORDER BY `ldate` DESC";

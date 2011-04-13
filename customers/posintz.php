@@ -23,7 +23,7 @@ if (isset($edit)) {
 	if (!empty($_SESSION[tz_id]))
 	{
 		$tzid = $_SESSION[tz_id];
-		$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (plates) ON ( posintz.plate_id = plates.id ) ".(isset($find)?"WHERE (plates.plate LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
+		$sql="SELECT *,posintz.id as posid,posintz.id FROM `posintz` JOIN (blocks) ON ( posintz.block_id = blocks.id ) ".(isset($find)?"WHERE (blocks.blockname LIKE '%$find%')":"").(isset($tzid)?(isset($find)?"AND tz_id='$tzid'":"WHERE tz_id='$tzid'"):"").(!empty($order)?" ORDER BY ".$order." ":" ORDER BY posintz.id DESC ").(isset($all)?"":"LIMIT 20");
 		$title = "Позиции в ТЗ ".$_SESSION[customer]." - ".$_SESSION[order]." от ".$_SESSION[orderdate]." - #".$_SESSION[tz_id]."";
 	} 
 	elseif (true)
@@ -33,7 +33,7 @@ if (isset($edit)) {
 	{
 	}
 	$cols[posid]="ID";
-	$cols[plate]="Плата";
+	$cols[blockname]="Плата";
 	$cols[numbers]="Количество";
 
 	$table = new SqlTable($processing_type,$processing_type,$sql,$cols);

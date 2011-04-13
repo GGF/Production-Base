@@ -4,80 +4,61 @@
 require $_SERVER["DOCUMENT_ROOT"]."/lib/engine.php";
 authorize(); // вызов авторизации
 $processing_type=basename (__FILE__,".php");
-// serialize form
-if (isset(${'form_'.$processing_type})) extract(${'form_'.$processing_type});
 ob_start();
 
 if (isset($edit)) 
 {
-	// todo: d массив должно преобразовать чеквоксы
-	if (!isset($accept)) {
-		$sql = "SELECT * FROM rights WHERE id='".$edit."'";
-		$rs=sql::fetchOne($sql);
-		$uid = !empty($uid)?$uid:$rs["u_id"];
-		
-		$form = new Edit($processing_type);
-		$form->init();
+	/*
+	$sql = "SELECT * FROM rights WHERE id='".$edit."'";
+	$rs=sql::fetchOne($sql);
+	$uid = !empty($uid)?$uid:$rs["u_id"];
+	*/
+	
+	$uid = $edit;
+	
+	$form = new Edit($processing_type);
+	$form->init();
 
-		$sql="SELECT * FROM rtypes";
-		$res=sql::fetchAll($sql);
-		$sql = "SELECT * FROM rrtypes";
-		$res1=sql::fetchAll($sql);
-		foreach($res as $rs) 
-		{
-			$label = sprintf("<span id='rrr' rtype='".$rs["type"]."'>[%-10s]</span>:",$rs["type"]);
-			$name = "r|".$rs["id"]."";//sprintf("[%-10s]:",$rs["type"]);
-			//echo $name."<br>";
-			foreach($res1 as $rs1) 
-			{
-				$sql="SELECT * FROM rights WHERE type_id='".$rs["id"]."' AND u_id='$uid' AND rtype_id='".$rs1["id"]."'";
-				$rs2=sql::fetchOne($sql);
-				//echo $rs1["rtype"]."-<input type=checkbox name=r[".$rs["id"]."][".$rs1["id"]."] ".($rs2["right"]=='1'?"checked":"").">";
-				$value[$rs1["id"]]=($rs2["right"]==1?1:0);
-				$values[$rs1["id"]]='-';
-			}
-			//print_r($value);
-				$form->addFields(array(
-					array(
-						"type"		=>	CMSFORM_TYPE_CHECKBOXES,
-						"name"		=>	$name,
-						"label"		=>	$label,
-						"value"		=>	$value,
-						"values"	=>	$values,
-						"options"	=>	array( "nobr"=>true, "html" => " rtype=".$rs["type"]." " ),
-					),
-				));
-				unset($values);unset($value);
-		}
-		$form->addFields(array(
-			array(
-				"type"		=>	CMSFORM_TYPE_HIDDEN,
-				"name"		=>	"userid",
-				"value"		=>	$uid,
-			),
-		));
-		$form->show();
-		echo "<script>\$('#rrr').live('click',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',true);});</script>";
-		echo "<script>\$('#rrr').live('dblclick',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',false);});</script>";
-	}
-	else 
+	$sql="SELECT * FROM rtypes ORDER BY type";
+	$res=sql::fetchAll($sql);
+	$sql = "SELECT * FROM rrtypes";
+	$res1=sql::fetchAll($sql);
+	foreach($res as $rs) 
 	{
-		// сохрнение
-		$sql="DELETE FROM rights WHERE u_id='$userid'";
-		sql::query($sql);
-		// сложный случай чекбоксов
-		array_walk(${'form_'.$processing_type},'checkbox2array');
-		if (!empty($r)) {
-			foreach ($r as $key=>$val) {
-				foreach($val as $k=>$V) {
-					$sql="INSERT INTO rights (u_id,type_id,rtype_id,rights.right) VALUES ('$userid','$key','$k','1')";
-					sql::query($sql);
-				}
-			}
+		$label = sprintf("<span id='rrr' rtype='".$rs["type"]."'>[%-10s]</span>:",$rs["type"]);
+		$name = "r|".$rs["id"]."";//sprintf("[%-10s]:",$rs["type"]);
+		//echo $name."<br>";
+		foreach($res1 as $rs1) 
+		{
+			$sql="SELECT * FROM rights WHERE type_id='".$rs["id"]."' AND u_id='$uid' AND rtype_id='".$rs1["id"]."'";
+			$rs2=sql::fetchOne($sql);
+			//echo $rs1["rtype"]."-<input type=checkbox name=r[".$rs["id"]."][".$rs1["id"]."] ".($rs2["right"]=='1'?"checked":"").">";
+			$value[$rs1["id"]]=($rs2["right"]==1?1:0);
+			$values[$rs1["id"]]='-';
 		}
-		echo "ok";
+		//print_r($value);
+			$form->addFields(array(
+				array(
+					"type"		=>	CMSFORM_TYPE_CHECKBOXES,
+					"name"		=>	$name,
+					"label"		=>	$label,
+					"value"		=>	$value,
+					"values"	=>	$values,
+					"options"	=>	array( "nobr"=>true, "html" => " rtype=".$rs["type"]." " ),
+				),
+			));
+			unset($values);unset($value);
 	}
-
+	$form->addFields(array(
+		array(
+			"type"		=>	CMSFORM_TYPE_HIDDEN,
+			"name"		=>	"userid",
+			"value"		=>	$uid,
+		),
+	));
+	$form->show();
+	echo "<script>\$('#rrr').live('click',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',true);});</script>";
+	echo "<script>\$('#rrr').live('dblclick',function(){\$(':checkbox[rtype='+\$(this).attr('rtype')+']').attr('checked',false);});</script>";
 } elseif (isset($delete)) {
 	// удаление
 	$sql = "DELETE FROM rights WHERE id='$delete'";

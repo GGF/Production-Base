@@ -17,16 +17,16 @@ if (!$form->errors) {
 	
 	// файл если есть сохраним
 	if (!empty($form->files["order_file"]["size"])) {
-		$filename = $_SERVER["DOCUMENT_ROOT"]."/customers/ordersfile/".$form->files["order_file"]["name"];
+		$filename = $_SERVER["DOCUMENT_ROOT"].UPLOAD_FILES_DIR."/customers/".cmsUTF_encode($form->files["order_file"]["name"]);
 		$i = 0;
 		while (file_exists($filename))
 		{
 			$i++;
-			$filename = $_SERVER["DOCUMENT_ROOT"]."/customers/ordersfile/{$i}_".$form->files["order_file"]["name"];
+			$filename = $_SERVER["DOCUMENT_ROOT"].UPLOAD_FILES_DIR."/customers/{$i}_".cmsUTF_encode($form->files["order_file"]["name"]);
 		}
 		if (@move_uploaded_file($form->files["order_file"]["tmp_name"], $filename)) {
 			//$form->alert('перекинул');
-			$fileid = getFileId($filename);
+			$fileid = getFileId(cmsUTF_decode($filename));
 		} else {
 			$form->alert("Не удалось сохранить файл! Попробуйте еще.");
 			$form->processed();
@@ -37,7 +37,8 @@ if (!$form->errors) {
 	{
 		//$form->alert('Нет файлов');
 		// линк получить
-		$fileid = getFileId($_SERVER["DOCUMENT_ROOT"]."/customers/ordersfile/".$form->request["curfile"]);
+		if ($form->request["curfile"] != 'None')
+			$fileid = getFileId($_SERVER["DOCUMENT_ROOT"]."/customers/ordersfile/".$form->request["curfile"]);
 	}
 	
 	if ($edit) {

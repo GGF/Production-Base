@@ -128,7 +128,7 @@ else
 	if (empty($_SESSION[customer_id])) 
 	{
 		$customer = "Выберите заказчика!!!";
-		$sql="SELECT *,orders.id FROM orders JOIN customers ON customers.id=customer_id ".(isset($_GET["find"])?"WHERE (number LIKE '%{$_GET["find"]}%' OR orderdate LIKE '%{$_GET["find"]}%' ) ":"").(isset($_GET["order"])?"ORDER BY {$_GET["order"]} ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT *,CONCAT(\"<a target=_blank href='http://".$_SERVER["HTTP_HOST"].UPLOAD_FILES_DIR."/customers/\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\"'>\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\"</a>\") AS filename,orders.id FROM orders JOIN customers ON customers.id=customer_id LEFT JOIN filelinks ON orders.filelink=filelinks.id ".(isset($_GET["find"])?"WHERE (number LIKE '%{$_GET["find"]}%' OR orderdate LIKE '%{$_GET["find"]}%' ) ":"").(isset($_GET["order"])?"ORDER BY {$_GET["order"]} ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
 		$cols[customer]="Заказчик";
 	} 
 	else 
@@ -137,7 +137,7 @@ else
 		$customer = $_SESSION[customer];
 			
 		// sql
-		$sql="SELECT *,CONCAT(\"<a target=_blank href=http://{}/customers/orderfiles/\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\">\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\"</a>\") AS filename,orders.id FROM orders LEFT JOIN filelinks ON orders.filelink=filelinks.id ".(isset($_GET["find"])?"WHERE (number LIKE '%{$_GET["find"]}%' OR orderdate LIKE '%{$_GET["find"]}%' ) ":"").(isset($cusid)?(isset($_GET["find"])?"AND customer_id='{$cusid}'":"WHERE customer_id='{$cusid}'"):"").(isset($_GET["order"])?"ORDER BY ".$_GET["order"]." ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
+		$sql="SELECT *,CONCAT(\"<a target=_blank href='http://".$_SERVER["HTTP_HOST"].UPLOAD_FILES_DIR."/customers/\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\"'>\",SUBSTRING_INDEX(filelinks.file_link,'/',-1),\"</a>\") AS filename,orders.id FROM orders LEFT JOIN filelinks ON orders.filelink=filelinks.id ".(isset($_GET["find"])?"WHERE (number LIKE '%{$_GET["find"]}%' OR orderdate LIKE '%{$_GET["find"]}%' ) ":"").(isset($cusid)?(isset($_GET["find"])?"AND customer_id='{$cusid}'":"WHERE customer_id='{$cusid}'"):"").(isset($_GET["order"])?"ORDER BY ".$_GET["order"]." ":"ORDER BY orders.orderdate DESC ").((isset($_GET["all"]))?"LIMIT 50":"LIMIT 20");
 	}
 
 	//echo $sql;
